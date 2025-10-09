@@ -14,58 +14,8 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
         rel="stylesheet">
 
-    <style>
-        /* FONT STYLING */
-        body {
-            font-family: 'Roboto', sans-serif;
-        }
-
-        h1,h2,h3,h4,h5,h6 {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        /* BACKGROUND STYLING */
-        body {
-            background: url('{{ asset('images/gu.jpg') }}') no-repeat center center/cover;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 200px 20px;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-        }
-
-        .hero p {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .navbar-toggler {
-            border: none !important;
-            box-shadow: none !important;
-            transition: transform 0.2s ease, background-color 0.3s ease;
-            border-radius: 6px;
-            /* biar agak lembut di ujungnya */
-        }
-
-        .navbar-toggler:hover {
-            background-color: rgba(0, 0, 0, 0.0);
-            /* efek warna saat hover */
-            transform: scale(1.1);
-            /* sedikit membesar */
-        }
-
-        .navbar-toggler:focus {
-            outline: none !important;
-            box-shadow: none !important;
-        }
-
-        /* Efek hover pada navbar menu*/
-        .nav-link:hover {
-            color: #0d6efd !important;
-            transition: 0.3s ease;
-        }
-    </style>
+    {{-- Landing Page CSS --}}
+    <link rel="stylesheet" href="{{ asset('css/landing_page.css') }}">
 </head>
 
 <body>
