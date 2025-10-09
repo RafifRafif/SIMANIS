@@ -1,64 +1,41 @@
-<nav class="navbar navbar-expand-lg bg-light shadow-sm fixed-top">
-  <div class="container-fluid px-4 d-flex align-items-center justify-content-between">
+  {{-- Navbar Landing Page CSS --}}
+  <link rel="stylesheet" href="{{ asset('css/navbar_landing_page.css') }}">
 
-    <!-- Logo kiri -->
-    <a class="navbar-brand d-flex align-items-center" href="#">
-      <img src="{{ asset('images/polibatam.png') }}" alt="Polibatam" width="40" height="40" class="me-3">
-      <img src="{{ asset('images/simanis.png') }}" alt="SiMANiS" width="125" height="35">
-    </a>
+  <nav class="navbar navbar-expand-lg bg-light shadow-sm fixed-top">
+      <div class="container-fluid px-4 d-flex align-items-center justify-content-between">
 
-    <!-- Toggler (muncul di mobile) -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
-      style="border: none; box-shadow: none; background: transparent;">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+          <!-- Logo kiri -->
+          <a class="navbar-brand d-flex align-items-center" href="#">
+              <img src="{{ asset('images/polibatam.png') }}" alt="Polibatam" width="40" height="40" class="me-3">
+              <img src="{{ asset('images/simanis.png') }}" alt="SiMANiS" width="125" height="35">
+          </a>
 
-    <!-- Menu Tengah -->
-    <div class="collapse navbar-collapse position-absolute start-50 translate-middle-x text-center" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item mx-4">
-          <a class="nav-link fw-medium" href="#" style="color: #000;">Beranda</a>
-        </li>
-        <li class="nav-item mx-4">
-          <a class="nav-link fw-medium" href="#tentang" style="color: #000;">Tentang Kami</a>
-        </li>
-        <li class="nav-item mx-4">
-          <a class="nav-link fw-medium" href="#kontak" style="color: #000;">Kontak</a>
-        </li>
-      </ul>
-    </div>
+          <!-- Toggler (muncul di mobile) -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+              style="border: none; box-shadow: none; background: transparent;">
+              <span class="navbar-toggler-icon"></span>
+          </button>
 
-    <!-- Tombol Masuk Kanan -->
-    <div class="d-flex align-items-center ms-auto">
-      <a class="btn btn-primary px-3 py-1" href="/login">Masuk</a>
-    </div>
-  </div>
-</nav>
-{{-- <nav class="navbar navbar-expand-lg bg-light shadow-sm fixed-top">
-    <div class="container" style="margin-left: 10px">
-        <a class="navbar-brand d-flex align-items-center" href="#">
-            <img src="{{ asset('images/polibatam.png') }}" alt="Polibatam" width="40" height="40" class="me-3">
-            <img src="{{ asset('images/simanis.png') }}" alt="SiMANiS" width="125" height="35">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            style="border: none; box-shadow: none;">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <!-- Menu tengah -->
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item mx-4"><a class="nav-link" href="#" style="color: #000;">Beranda</a></li>
-                <li class="nav-item mx-4"><a class="nav-link" href="#tentang" style="color: #000;">Tentang Kami</a></li>
-                <li class="nav-item mx-4"><a class="nav-link" href="#kontak" style="color: #000;">Kontak</a></li>
-            </ul>
-        
-            <!-- Tombol Masuk -->
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="btn btn-primary" href="/login">Masuk</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav> --}}
+          <!-- Menu Tengah -->
+          <div class="collapse navbar-collapse position-absolute start-50 translate-middle-x text-center"
+              id="navbarNav">
+              <ul class="navbar-nav">
+                  <li class="nav-item mx-4">
+                      <a class="nav-link fw-medium" href="#" style="color: #000;">Beranda</a>
+                  </li>
+                  <li class="nav-item mx-4">
+                      <a class="nav-link fw-medium" href="#tentang" style="color: #000;">Tentang Kami</a>
+                  </li>
+                  <li class="nav-item mx-4">
+                      <a class="nav-link fw-medium" href="#kontak" style="color: #000;">Kontak</a>
+                  </li>
+              </ul>
+          </div>
+
+          <!-- Tombol Masuk Kanan -->
+          <div class="d-flex align-items-center ms-auto">
+              <a class="btn btn-primary px-3 py-1" href="/login">Masuk</a>
+          </div>
+      </div>
+  </nav>
