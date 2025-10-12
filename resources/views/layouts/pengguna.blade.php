@@ -38,7 +38,7 @@
     @include('components.navbar_pengguna')
     @include('components.sidebar_pengguna')
 
-    <div class="content p-4" style="margin-left: 230px; padding-top: 100px;">
+    <div class="content p-4">
         @yield('content')
     </div>
 </body>

@@ -16,8 +16,8 @@
             <select class="form-select w-auto">
                 <option selected>Kategori</option>
                 <option value="1">P4M</option>
-                <option value="1">Kepala Unit</option>
-                <option value="2">Manajemen</option>
+                <option value="2">Kepala Unit</option>
+                <option value="3">Manajemen</option>
             </select>
             <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal" data-bs-target="#tambahDataModal"><i class="fa-solid fa-plus"></i>Tambah</button>
         </div>
@@ -41,7 +41,7 @@
                         <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
                         <td>P4M</td>
                         <td>
-                            <button class="btn btn-sm btn-warning text-white edit-button" data-bs-toggle="modal" data-bs-target="#editDataModal">
+                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#editDataModal">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                             <button class="btn btn-danger btn-sm">
@@ -55,7 +55,7 @@
                         <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
                         <td>P4M</td>
                         <td>
-                            <button class="btn btn-sm btn-warning text-white edit-button" data-bs-toggle="modal" data-bs-target="#editDataModal">
+                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#editDataModal">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                             <button class="btn btn-danger btn-sm">
@@ -69,7 +69,7 @@
                         <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
                         <td>P4M</td>
                         <td>
-                            <button class="btn btn-sm btn-warning text-white edit-button" data-bs-toggle="modal" data-bs-target="#editDataModal">
+                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#editDataModal">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                             <button class="btn btn-danger btn-sm">
@@ -83,7 +83,7 @@
                         <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
                         <td>P4M</td>
                         <td>
-                            <button class="btn btn-sm btn-warning text-white edit-button" data-bs-toggle="modal" data-bs-target="#editDataModal">
+                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#editDataModal">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                             <button class="btn btn-danger btn-sm">
@@ -97,7 +97,7 @@
                         <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
                         <td>P4M</td>
                         <td>
-                            <button class="btn btn-sm btn-warning text-white edit-button" data-bs-toggle="modal" data-bs-target="#editDataModal">
+                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#editDataModal">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                             <button class="btn btn-danger btn-sm">
@@ -111,7 +111,7 @@
                         <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
                         <td>P4M</td>
                         <td>
-                            <button class="btn btn-sm btn-warning text-white edit-button" data-bs-toggle="modal" data-bs-target="#editDataModal">
+                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#editDataModal">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                             <button class="btn btn-danger btn-sm">
@@ -124,7 +124,7 @@
 
             <!-- Modal Tambah Data -->
             <div class="modal fade" id="tambahDataModal" tabindex="-1" aria-labelledby="tambahDataLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="tambahDataLabel">Tambah Data Pengguna</h5>
@@ -140,9 +140,14 @@
                                     <label for="nama" class="form-label">Nama</label>
                                     <input type="text" class="form-control" id="nama" name="nama" required>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-4">
                                     <label for="role" class="form-label">Role</label>
-                                    <input type="text" class="form-control" id="role" name="role" required>
+                                    <select class="form-select" id="role" name="role" required>
+                                        <option value="" selected disabled>Pilih Role</option>
+                                        <option value="P4M">P4M</option>
+                                        <option value="Kepala Unit">Kepala Unit</option>
+                                        <option value="Manajemen">Manajemen</option>
+                                    </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100"></i>Simpan</button>
                             </form>
@@ -153,7 +158,7 @@
 
             <!-- Modal Edit Data -->
             <div class="modal fade" id="editDataModal" tabindex="-1" aria-labelledby="editDataLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="editDataLabel">Edit Data Pengguna</h5>
@@ -169,9 +174,14 @@
                                     <label for="edit-nama" class="form-label">Nama</label>
                                     <input type="text" class="form-control" id="edit-nama" name="nama" required>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-4">
                                     <label for="edit-role" class="form-label">Role</label>
-                                    <input type="text" class="form-control" id="edit-role" name="role" required>
+                                    <select class="form-select" id="edit-role" name="role" required>
+                                        <option value="" disabled selected>Pilih Role</option>
+                                        <option value="P4M">P4M</option>
+                                        <option value="Kepala Unit">Kepala Unit</option>
+                                        <option value="Manajemen">Manajemen</option>
+                                    </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100">Perbarui</button>
                             </form>
