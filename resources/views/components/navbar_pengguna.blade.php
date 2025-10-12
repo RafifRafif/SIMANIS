@@ -14,7 +14,7 @@
         <div class="dropdown position-absolute end-0 me-2">
             <button class="btn btn-link text-dark" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
             aria-expanded="false">
-                <i class="fa-solid fa-ellipsis-vertical fs-4"></i>
+                <i class="fa-solid fa-ellipsis-vertical fs-6"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                 <li class="dropdown-header fw-bold text-muted">EVALIATA</li>

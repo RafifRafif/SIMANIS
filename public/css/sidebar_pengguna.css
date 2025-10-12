@@ -18,6 +18,7 @@
     }
 
     .sidebar a {
+        font-family: 'Roboto', sans-serif;
         color: #FFFFFF;
         display: flex;
         align-items: center;          /* sejajarkan ikon dan teks di tengah */

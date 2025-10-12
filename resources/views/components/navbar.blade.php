@@ -30,12 +30,16 @@
                   <li class="nav-item mx-4">
                       <a class="nav-link fw-medium" href="#kontak" style="color: #000;">Kontak</a>
                   </li>
+                  <!-- Tombol Masuk pindah ke sini -->
+                  <li class="nav-item mx-4 d-lg-none">
+                      <a class="btn btn-primary px-3 py-1 w-100" href="/login">Masuk</a>
+                  </li>
               </ul>
           </div>
 
           <!-- Tombol Masuk Kanan -->
-          <div class="d-flex align-items-center ms-auto">
-              <a class="btn btn-primary px-3 py-1" href="/login">Masuk</a>
+          <div class="d-none d-lg-flex align-items-center ms-auto">
+              <a class="btn btn-primary " href="/login">Masuk</a>
           </div>
       </div>
   </nav>
