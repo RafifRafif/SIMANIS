@@ -23,17 +23,23 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
+            padding-top: 56px;
+        }
+        .content {
+            margin-left: 230px;
+            padding-top: 100px;
+            min-height: calc(100vh - 56px);
+            overflow-y: auto;
         }
     </style>
+    
 </head>
-
 <body>
-    @include('components.navbar_app')
-    @include('components.sidebar_app')
+    @include('components.navbar_pengguna')
+    @include('components.sidebar_pengguna')
 
-    <main>
+    <div class="content p-4" style="margin-left: 230px; padding-top: 100px;">
         @yield('content')
-    </main>
+    </div>
 </body>
-
 </html>
