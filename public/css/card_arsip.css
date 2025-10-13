@@ -1,0 +1,58 @@
+.custom-card {
+    width: 30rem;
+    border: none;
+    border-radius: 28px;
+    padding: 40px;
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+    font-size: 5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    margin-top: -10px;
+    opacity: 0.55; /* agak pudar */
+    max-width: 10rem; /* batas lebar area angka */
+    overflow-x: auto; /* aktifkan scroll horizontal */
+    white-space: nowrap; /* angka tetap satu baris */
+    scrollbar-width: thin; /* scrollbar kecil untuk tampilan rapi */
+    transition: opacity 0.3s ease;
+}
+
+.card-text {
+    font-size: 1.1rem;
+    font: bold;
+    opacity: 0.55;
+    margin: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-text-section {
+    margin-left: 28px;
+}
+
+.card-icon {
+    font-size: 140px;
+    opacity: 0.55;
+    transition: opacity 0.3s ease;
+}
+
+/* Efek hover supaya ikon, judul, teks lebih jelas */
+.custom-card:hover .card-icon,
+.custom-card:hover .card-title,
+.custom-card:hover .card-text {
+    opacity: 0.9;
+}

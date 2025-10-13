@@ -24,70 +24,69 @@
             <option value="2">Kepala Unit</option>
             <option value="3">Manajemen</option>
         </select>
-        <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal" data-bs-target="#tambahDataModal"><i
-                class="fa-solid fa-plus"></i>Tambah</button>
+        <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal" data-bs-target="#tambahDataModal"><i class="fa-solid fa-plus"></i>Tambah</button>
     </div>
 
     <!-- Tabel -->
     <div class="table-responsive">
-            <table class="table table-hover align-middle table-bordered">
-                <thead class="table-light">
-                    <tr>
-                        <th>No</th>
-                        <th>NIK</th>
-                        <th>Nama</th>
-                        <th>Role</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>106042</td>
-                        <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
-                        <td>P4M</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                data-bs-target="#editDataModal">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button class="btn btn-danger btn-sm">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>106042</td>
-                        <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
-                        <td>P4M</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                data-bs-target="#editDataModal">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button class="btn btn-danger btn-sm">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>106042</td>
-                        <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
-                        <td>P4M</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                data-bs-target="#editDataModal">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button class="btn btn-danger btn-sm">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <table class="table table-hover align-middle table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>No</th>
+                    <th>NIK</th>
+                    <th>Nama</th>
+                    <th>Role</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>106042</td>
+                    <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
+                    <td>P4M</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
+                            data-bs-target="#editDataModal">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>106042</td>
+                    <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
+                    <td>P4M</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
+                            data-bs-target="#editDataModal">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>106042</td>
+                    <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
+                    <td>P4M</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
+                            data-bs-target="#editDataModal">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

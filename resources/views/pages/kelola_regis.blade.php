@@ -3,6 +3,8 @@
 @section('title', 'Kelola Form Regis')
 
 @section('content')
+    {{-- Kelola Regis CSS --}}
+    <link rel="stylesheet" href="{{ asset('css/kelola_regis.css') }}">
     <h3 class="mt-3 mb-4">Kelola Form Regis</h3>
 
     <div class="card shadow-sm border-0 p-3">
