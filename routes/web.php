@@ -16,3 +16,6 @@ Route::get('/beranda', function () {
 
 use App\Http\Controllers\KelolaPenggunaController;
 Route::get('/kelola_pengguna', [KelolaPenggunaController::class, 'index'])->name('kelola_pengguna');
+
+use App\Http\Controllers\KelolaRegisController;
+Route::get('/kelola_regis', [KelolaRegisController::class, 'index'])->name('kelola_regis');
