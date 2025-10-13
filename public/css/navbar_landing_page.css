@@ -30,7 +30,7 @@
     padding: 3px 15px;
     font-size: 14px;
     border-radius: 6px;
-    box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3);
+    box-shadow: 0 4px 8px rgba(3, 3, 3, 0.3);
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
