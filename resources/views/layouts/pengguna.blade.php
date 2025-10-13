@@ -41,5 +41,8 @@
     <div class="content p-4">
         @yield('content')
     </div>
+
+    @stack('modals')
+
 </body>
 </html>

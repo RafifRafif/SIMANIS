@@ -11,7 +11,7 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::get('/beranda', function () {
-    return view('pages.beranda');
+    return view('pages.beranda_pengguna');
 });
 
 use App\Http\Controllers\KelolaPenggunaController;
