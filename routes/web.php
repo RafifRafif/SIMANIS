@@ -22,3 +22,6 @@ Route::get('/kelola_regis', [KelolaRegisController::class, 'index'])->name('kelo
 
 use App\Http\Controllers\CardArsipRisikoController;
 Route::get('/card_arsip_risiko', [CardArsipRisikoController::class, 'index'])->name('card_arsip_risiko');
+
+use App\Http\Controllers\RegistrasiController;
+Route::get('/registrasi', [RegistrasiController::class, 'index'])->name('registrasi');
