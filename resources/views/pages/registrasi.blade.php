@@ -1,3 +1,4 @@
+rapih kan code tolong 
 @extends('layouts.registrasi')
 
 @section('title', 'Registrasi')
@@ -5,6 +6,8 @@
 @push('modals')
     @include('components.kelolaregistrasi.modal-tambah-data')
     @include('components.kelolaregistrasi.modal-edit-data')
+    @include('components.kelolamitigasi.tambah-mitigasi')
+    @include('components.kelolamitigasi.edit-mitigasi')
 @endpush
 
 @section('content')
@@ -73,6 +76,59 @@
                             </button>
                         </td>
                     </tr>
+<!-- TABEL MITIGASI-->
+                    <tr class="collapse bg-light" id="mitigasi1">
+                        <td colspan="17">
+                            <div class="p-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h6 class="fw-bold mb-0">Mitigasi</h6>
+                                    <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal" data-bs-target="#tambahDataMitigasiModal"><i
+                                        class="fa-solid fa-plus"></i>Tambah Mitigasi</button>
+                                </div>
+
+                                <table class="table table-sm table-bordered">
+                                    <thead class="table-secondary text-center">
+                                        <tr>
+                                            <th rowspan="2">Triwulan</th>
+                                            <th rowspan="2">Isu/Risiko</th>
+                                            <th colspan="2">Tindak Lanjut</th>
+                                            <th colspan="2">Evaluasi</th>
+                                            <th rowspan="2">Status Pelaksanaan Rencana Aksi</th>
+                                            <th rowspan="2">Hasil Penerapan Manajemen Risiko</th>
+                                            <th rowspan="2">Aksi</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Rencana Aksi</th>
+                                            <th>Tanggal Pelaksanaan Rencana Aksi</th>
+                                            <th>Hasil Tindak Lanjut</th>
+                                            <th>Tanggal Evaluasi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>I</td>
+                                            <td>Kurangnya jumlah komputer untuk perkuliahan</td>
+                                            <td>Pengadaan atau sewa</td>
+                                            <td>2025-03-10</td>
+                                            <td>Sewa laptop</td>
+                                            <td>2025-03-10</td>
+                                            <td>Closed</td>
+                                            <td>Kebutuhan komputer perkuliahan terpenuhi</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
+                                                    data-bs-target="#editDatamitigasiModal">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </button>
+                                                <button class="btn btn-danger btn-sm">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+    
+
+                    
                     
                     
                     {{-- JavaScript untuk ubah tanda + jadi - --}}
@@ -88,7 +144,7 @@
 
 
                     
-                    
+                // --   
                   {{-- INI Contoh  
                   <tr>
                         <td>3</td>
@@ -104,7 +160,7 @@
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </td>
-                    </tr>
+                    </tr> --//
                     --}}
                 </tbody>
             </table>
@@ -158,5 +214,7 @@
             });
         });
         </script>
+
+        
         
 @endsection
