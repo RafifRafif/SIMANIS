@@ -2,8 +2,22 @@
 
 @section('title', 'Kelola Form Regis')
 
+@push('modals')
+    @include('components.kelolaformregis.modal-tambah-formregis-unitkerja')
+    @include('components.kelolaformregis.modal-tambah-formregis-prosesaktivitas')
+    @include('components.kelolaformregis.modal-tambah-formregis-kategoririsiko')
+    @include('components.kelolaformregis.modal-tambah-formregis-jenisrisiko')
+    @include('components.kelolaformregis.modal-tambah-formregis-iku')
+    @include('components.kelolaformregis.modal-edit-formregis-unitkerja')
+    @include('components.kelolaformregis.modal-edit-formregis-prosesaktivitas')
+    @include('components.kelolaformregis.modal-edit-formregis-kategoririsiko')
+    @include('components.kelolaformregis.modal-edit-formregis-jenisrisiko')
+    @include('components.kelolaformregis.modal-edit-formregis-iku')
+@endpush
+
 @section('content')
     {{-- Kelola Regis CSS --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/kelola_regis.css') }}">
     <h3 class="mt-3 mb-4">Kelola Form Regis</h3>
 
@@ -23,8 +37,8 @@
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold mb-0">Unit Kerja</h6>
                             <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal"
-                                data-bs-target="#tambahDataModal">
-                                <i class="fa-solid fa-plus me-1"></i>Tambah
+                                data-bs-target="#tambahDataModalUnit">
+                                <i class="fa-solid fa-plus me-1" ></i>Tambah
                             </button>
                         </div>
                         <div class="table-responsive">
@@ -42,7 +56,7 @@
                                         <td>JUR EL</td>
                                         <td>
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModal">
+                                                data-bs-target="#editDataModalUnit"> 
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <button class="btn btn-danger btn-sm">
@@ -55,7 +69,7 @@
                                         <td>JUR IF</td>
                                         <td>
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModal">
+                                                data-bs-target="#editDataModalUnit">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <button class="btn btn-danger btn-sm">
@@ -81,7 +95,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold mb-0">Proses/Aktifitas</h6>
                             <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal"
-                                data-bs-target="#tambahDataModal">
+                                data-bs-target="#tambahDataModalProsesAktivitas">
                                 <i class="fa-solid fa-plus me-1"></i>Tambah
                             </button>
                         </div>
@@ -100,7 +114,7 @@
                                         <td>Pengelolaan SDM Jurusan </td>
                                         <td>
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModal">
+                                                data-bs-target="#editDataModalProsesAktivitas">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <button class="btn btn-danger btn-sm">
@@ -113,7 +127,7 @@
                                         <td>Sarana dan Prasarana</td>
                                         <td>
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModal">
+                                                data-bs-target="#editDataModalProsesAktivitas">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <button class="btn btn-danger btn-sm">
@@ -139,7 +153,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold mb-0">Kategori Risiko</h6>
                             <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal"
-                                data-bs-target="#tambahDataModal">
+                                data-bs-target="#tambahDataModalKategori">
                                 <i class="fa-solid fa-plus me-1"></i>Tambah
                             </button>
                         </div>
@@ -158,7 +172,7 @@
                                         <td>Risiko Strategis </td>
                                         <td>
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModal">
+                                                data-bs-target="#editDataModalKategori">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <button class="btn btn-danger btn-sm">
@@ -171,7 +185,7 @@
                                         <td>Risiko Reputasi</td>
                                         <td>
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModal">
+                                                data-bs-target="#editDataModalKategori">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <button class="btn btn-danger btn-sm">
@@ -197,7 +211,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold mb-0">Jenis Risiko</h6>
                             <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal"
-                                data-bs-target="#tambahDataModal">
+                                data-bs-target="#tambahDataModalJenis">
                                 <i class="fa-solid fa-plus me-1"></i>Tambah
                             </button>
                         </div>
@@ -216,7 +230,7 @@
                                         <td>Risiko Integritas </td>
                                         <td>
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModal">
+                                                data-bs-target="#editDataModalJenis">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <button class="btn btn-danger btn-sm">
@@ -229,7 +243,7 @@
                                         <td>Risiko Operasional</td>
                                         <td>
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModal">
+                                                data-bs-target="#editDataModalJenis">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <button class="btn btn-danger btn-sm">
@@ -255,7 +269,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold mb-0">IKU Terkait</h6>
                             <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal"
-                                data-bs-target="#tambahDataModal">
+                                data-bs-target="#tambahDataModalIKU">
                                 <i class="fa-solid fa-plus me-1"></i>Tambah
                             </button>
                         </div>
@@ -274,7 +288,7 @@
                                         <td>IKU 1 </td>
                                         <td>
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModal">
+                                                data-bs-target="#editDataModalIKU">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <button class="btn btn-danger btn-sm">
@@ -287,7 +301,7 @@
                                         <td>IKU 2</td>
                                         <td>
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModal">
+                                                data-bs-target="#editDataModalIKU">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <button class="btn btn-danger btn-sm">

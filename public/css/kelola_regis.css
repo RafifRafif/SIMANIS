@@ -25,22 +25,7 @@
             background-color: #1E376C;
             transform: scale(1.03);
         }
-
-        .btn-primary {
-            background-color: #3663EB !important;
-            border: none !important;
-            color: #fff !important; /* 💪 pakai !important biar pasti putih */
-            font-size: 0.875rem !important; /* kecilin ukuran teks */
-            font-weight: 600;
-            padding: 6px 12px;
-            border-radius: 6px;
-            transition: all 0.2s ease-in-out;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3 !important;
-            color: #fff !important;
-        }
+        
 
         table {
             border-radius: 0px;
@@ -51,9 +36,7 @@
             background-color: #D9D9D9;
         }
 
-        .fw-bold {
-            color: #333;
-        }
+        
 
         /* Transisi buka tutup */
         .collapse {
