@@ -42,8 +42,8 @@
                             </button>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-bordered align-middle text-center w-100">
-                                <thead class="table-light">
+                            <table class="table table-bordered w-100">
+                                <thead class="table-secondary text-center">
                                     <tr>
                                         <th>No</th>
                                         <th>Unit Kerja</th>
@@ -52,9 +52,9 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>1</td>
+                                        <td class="centered">1</td>
                                         <td>JUR EL</td>
-                                        <td>
+                                        <td class="centered">
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                                                 data-bs-target="#editDataModalUnit"> 
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -65,9 +65,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>2</td>
+                                        <td class="centered">2</td>
                                         <td>JUR IF</td>
-                                        <td>
+                                        <td class="centered">
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                                                 data-bs-target="#editDataModalUnit">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -100,8 +100,8 @@
                             </button>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-bordered align-middle text-center w-100">
-                                <thead class="table-light">
+                            <table class="table table-bordered  w-100">
+                                <thead class="table-secondary text-center">
                                     <tr>
                                         <th>No</th>
                                         <th>Proses/Aktifitas</th>
@@ -110,9 +110,9 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>1</td>
+                                        <td class="centered">1</td>
                                         <td>Pengelolaan SDM Jurusan </td>
-                                        <td>
+                                        <td class="centered">
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                                                 data-bs-target="#editDataModalProsesAktivitas">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -123,9 +123,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>2</td>
+                                        <td class="centered">2</td>
                                         <td>Sarana dan Prasarana</td>
-                                        <td>
+                                        <td class="centered">
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                                                 data-bs-target="#editDataModalProsesAktivitas">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -158,8 +158,8 @@
                             </button>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-bordered align-middle text-center w-100">
-                                <thead class="table-light">
+                            <table class="table table-bordered  w-100">
+                                <thead class="table-secondary text-center">
                                     <tr>
                                         <th>No</th>
                                         <th>Kategori Risiko</th>
@@ -168,9 +168,9 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>1</td>
+                                        <td class="centered">1</td>
                                         <td>Risiko Strategis </td>
-                                        <td>
+                                        <td class="centered">
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                                                 data-bs-target="#editDataModalKategori">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -181,9 +181,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>2</td>
+                                        <td class="centered">2</td>
                                         <td>Risiko Reputasi</td>
-                                        <td>
+                                        <td class="centered">
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                                                 data-bs-target="#editDataModalKategori">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -216,8 +216,8 @@
                             </button>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-bordered align-middle text-center w-100">
-                                <thead class="table-light">
+                            <table class="table table-bordered  w-100">
+                                <thead class="table-secondary text-center">
                                     <tr>
                                         <th>No</th>
                                         <th>Jenis Risiko</th>
@@ -226,9 +226,9 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>1</td>
+                                        <td class="centered">1</td>
                                         <td>Risiko Integritas </td>
-                                        <td>
+                                        <td class="centered">
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                                                 data-bs-target="#editDataModalJenis">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -239,9 +239,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>2</td>
+                                        <td class="centered">2</td>
                                         <td>Risiko Operasional</td>
-                                        <td>
+                                        <td class="centered">
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                                                 data-bs-target="#editDataModalJenis">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -274,8 +274,8 @@
                             </button>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-bordered align-middle text-center w-100">
-                                <thead class="table-light">
+                            <table class="table table-bordered  w-100">
+                                <thead class="table-secondary text-center">
                                     <tr>
                                         <th>No</th>
                                         <th>IKU Terkait</th>
@@ -284,9 +284,9 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>1</td>
+                                        <td class="centered">1</td>
                                         <td>IKU 1 </td>
-                                        <td>
+                                        <td class="centered">
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                                                 data-bs-target="#editDataModalIKU">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -297,9 +297,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>2</td>
+                                        <td class="centered">2</td>
                                         <td>IKU 2</td>
-                                        <td>
+                                        <td class="centered">
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                                                 data-bs-target="#editDataModalIKU">
                                                 <i class="fa-solid fa-pen-to-square"></i>

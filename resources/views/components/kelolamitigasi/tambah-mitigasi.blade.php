@@ -11,7 +11,7 @@
                     <div class="mb-3">
                         <div class="mb-3">
                             <select class="form-select" id="triwulan" name="triwulan" required>
-                              <option value="" selected disabled>triwulan</option>
+                              <option value="" selected disabled>Triwulan</option>
                               <option value="1">1</option>
                               <option value="2">2</option>
                               <option value="3">3</option>

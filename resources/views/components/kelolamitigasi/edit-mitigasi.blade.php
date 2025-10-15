@@ -51,7 +51,7 @@
                     
 
  
-                    <button type="submit" class="btn btn-primary w-100"></i>Perbarui</button>
+                    <button type="submit" class="btn btn-primary w-100"></i>Simpan</button>
                 </form>
             </div>
         </div>

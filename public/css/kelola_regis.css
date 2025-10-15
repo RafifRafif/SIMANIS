@@ -42,3 +42,10 @@
         .collapse {
             transition: all 0.4s ease;
         }
+
+        table.table td.centered,
+        table.table th.centered {
+            text-align: center;
+            vertical-align: middle;
+        }
+            

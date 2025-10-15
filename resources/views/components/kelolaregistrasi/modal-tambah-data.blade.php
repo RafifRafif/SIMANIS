@@ -20,18 +20,18 @@
                     </div>
                    
                     <div class="mb-4">
-                        <label for="proses" class="form-label">proses</label>
+                        <label for="proses" class="form-label">Proses/Aktivitas</label>
                         <select class="form-select" id="proses" name="proses" required>
-                            <option value="" selected disabled>Pilih proses</option>
+                            <option value="" selected disabled>Pilih Proses/Aktivitas</option>
                             <option value="P4M">Pelaksanaan Pembelajaran</option>
                             <option value="Kepala Unit">Pemasukan Barang</option>
                         </select>
                     </div>
 
                     <div class="mb-4">
-                        <label for="kategori" class="form-label">kategori Risiko</label>
+                        <label for="kategori" class="form-label">Kategori Risiko</label>
                         <select class="form-select" id="kategori" name="kategori" required>
-                            <option value="" selected disabled>Pilih kategori</option>
+                            <option value="" selected disabled>Pilih Kategori</option>
                             <option value="strategis"> Strategis</option>
                             <option value="reputasi">Reputasi</option>
                             <option value="Kecurangan">Kecurangan</option>
@@ -53,14 +53,14 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="isuresiko" class="form-label">Isu/resiko</label>
+                        <label for="isuresiko" class="form-label">Isu/Risiko</label>
                         <input type="text" class="form-control" id="isuresiko" name="isuresiko" required>
                     </div>
 
                     <div class="mb-4">
                         <label for="jenisisu" class="form-label">Jenis Isu</label>
                         <select class="form-select" id="jenisisu" name="jenisisu" required>
-                            <option value="" selected disabled>Pilih jenis</option>
+                            <option value="" selected disabled>Pilih Jenis</option>
                             <option value="internal">Internal</option>
                             <option value="eksternal">Eksternal</option>
                         </select>
@@ -77,7 +77,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="iku" class="form-label">IKU terkait</label>
+                        <label for="iku" class="form-label">IKU Terkait</label>
                         <select class="form-select" id="iku" name="iku" required>
                             <option value="" selected disabled>Pilih IKU</option>
                             <option value="iku1">IKU-1</option>
@@ -92,12 +92,12 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="pihak" class="form-label">Pihak terkait</label>
+                        <label for="pihak" class="form-label">Pihak Terkait</label>
                         <input type="text" class="form-control" id="pihak" name="pihak" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="kontrol" class="form-label">kontrol/pencegahan</label>
+                        <label for="kontrol" class="form-label">Kontrol/Pencegahan</label>
                         <input type="text" class="form-control" id="kontrol" name="kontrol" required>
                     </div>
 

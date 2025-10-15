@@ -11,6 +11,7 @@
 
 @section('content')
     <!-- Konten -->
+    <link rel="stylesheet" href="{{ asset('css/registrasi.css') }}">
     <h3 class="mt-3 mb-4">Registrasi Dan Mitigasi</h3>
 
     <!-- Pencarian dan Dropdown -->
@@ -26,7 +27,7 @@
             <!-- Tabel -->
             <div class="table-responsive">
                 <table class="table table-hover align-middle table-bordered">
-                    <thead class="table-light">
+                    <thead class="table-secondary text-center">
                         <tr>
                             <th>#</th>
                             <th>Unit Kerja</th>
@@ -63,16 +64,16 @@
                             <td>Kepatuhan</td>
                             <td>IT</td>
                             <td>Kurangnya jumlah komputer untuk perkuliahan</td>
-                            <td>Internal</td>
+                            <td class="centered">Internal</td>
                             <td>Penambahan Mahasiswa</td>
                             <td>Kesulitan menjalankan PBM</td>
-                            <td>IKU-4</td>
+                            <td class="centered">IKU-4</td>
                             <td>Dosen, Mahasiswa, Prodi</td>
                             <td>Mahasiswa menggunakan laptop pribadi</td>
-                            <td>2</td>
-                            <td>A</td>
-                            <td>H</td>
-                            <td>Belum Terverifikasi</td>
+                            <td class="centered">2</td>
+                            <td class="centered">A</td>
+                            <td class="centered">H</td>
+                            <td class="centered">Belum Terverifikasi</td>
                             <td class="text-center align-middle">
                                 <div class="d-flex justify-content-center gap-2">
                                     <button class="btn btn-sm btn-primary edit-button"
@@ -119,13 +120,13 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>I</td>
+                                                <td class="centered">1-2025</td>
                                                 <td>Kurangnya jumlah komputer untuk perkuliahan</td>
                                                 <td>Pengadaan atau sewa</td>
-                                                <td>2025-03-10</td>
+                                                <td class="centered">2025-03-10</td>
                                                 <td>Sewa laptop</td>
-                                                <td>2025-03-10</td>
-                                                <td>Closed</td>
+                                                <td class="centered">2025-03-10</td>
+                                                <td class="centered">Closed</td>
                                                 <td>Kebutuhan komputer perkuliahan terpenuhi</td>
                                                 <td class="text-center align-middle">
                                                     <div class="d-flex justify-content-center gap-2">

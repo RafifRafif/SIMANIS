@@ -29,9 +29,9 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="edit-kategori" class="form-label">kategori Risiko</label>
+                        <label for="edit-kategori" class="form-label">Kategori Risiko</label>
                         <select class="form-select" id="edit-kategori" name="kategori" required>
-                            <option value="" selected disabled>Pilih kategori</option>
+                            <option value="" selected disabled>Pilih Kategori</option>
                             <option value="strategis"> Strategis</option>
                             <option value="reputasi">Reputasi</option>
                             <option value="Kecurangan">Kecurangan</option>
@@ -47,20 +47,20 @@
                             <option value="" selected disabled>Pilih Jenis Risiko</option>
                             <option value="integritas"> Integritas</option>
                             <option value="operasional">Operasional</option>
-                            <option value="kebijakan">Kebijakan/prosedur</option>
+                            <option value="kebijakan">Kebijakan/Prosedur</option>
                             <option value="it">IT</option>
                         </select>
                     </div>
 
                     <div class="mb-3">
-                        <label for="edit-isuresiko" class="form-label">Isu/resiko</label>
+                        <label for="edit-isuresiko" class="form-label">Isu/Risiko</label>
                         <input type="text" class="form-control" id="edit-isuresiko" name="isuresiko" required>
                     </div>
 
                     <div class="mb-4">
-                        <label for="edit-jenisisu" class="form-label">jenis Isu</label>
+                        <label for="edit-jenisisu" class="form-label">Jenis Isu</label>
                         <select class="form-select" id="edit-jenisisu" name="jenisisu" required>
-                            <option value="" selected disabled>Pilih jenis</option>
+                            <option value="" selected disabled>Pilih Jenis</option>
                             <option value="internal">Internal</option>
                             <option value="eksternal">Eksternal</option>
                         </select>
@@ -92,12 +92,12 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="edit-pihak" class="form-label">Pihak terkait</label>
+                        <label for="edit-pihak" class="form-label">Pihak Terkait</label>
                         <input type="text" class="form-control" id="edit-pihak" name="pihak" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="edit-kontrol" class="form-label">Kontrol/pencegahan</label>
+                        <label for="edit-kontrol" class="form-label">Kontrol/Pencegahan</label>
                         <input type="text" class="form-control" id="edit-kontrol" name="kontrol" required>
                     </div>
 
@@ -127,7 +127,7 @@
                         </div>
                       </div>
 
-                    <button type="submit" class="btn btn-primary w-100">Perbarui</button>
+                    <button type="submit" class="btn btn-primary w-100">Simpan</button>
                 </form>
             </div>
         </div>
