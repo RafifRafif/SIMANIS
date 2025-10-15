@@ -29,13 +29,13 @@
                     <div class="mb-3">
                         <label for="rencanaaksi" class="form-label">Tindak Lanjut</label>
                         <input type="text" class="form-control mb-2" id="rencanaaksi" name="rencanaaksi" placeholder="Rencana Aksi" required>
-                        <input type="text" class="form-control" id="tanggalpelaksanaan" name="tanggalpelaksanaan" placeholder="Tanggal Pelaksanaan" required>
+                        <input type="date" class="form-control" id="tanggalpelaksanaan" name="tanggalpelaksanaan" placeholder="Tanggal Pelaksanaan" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="evaluasi" class="form-label">Evaluasi</label>
                         <input type="text" class="form-control mb-2" id="hasiltibndaklanjut" name="hasiltindaklanjut" placeholder="Hasil Tindak Lanjut" required>
-                        <input type="text" class="form-control" id="tanggalevaluasi" name="tanggalevaluasi" placeholder="Tanggal Evaluasi" required>
+                        <input type="date" class="form-control" id="tanggalevaluasi" name="tanggalevaluasi" placeholder="Tanggal Evaluasi" required>
                     </div>
 
                     <div class="mb-3">

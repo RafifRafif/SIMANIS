@@ -8,9 +8,15 @@
             </div>
             <div class="modal-body">
                 <form action="#" method="POST">
-                    <div class="mb-3">
+                    <div class="mb-4">
                         <label for="unitkerja" class="form-label">Unit Kerja</label>
-                        <input type="text" class="form-control" id="unitkerja" name="unitkerja" required>
+                        <select class="form-select" id="unitkerja" name="unitkerja" required>
+                            <option value="" selected disabled>Pilih Unit Kerja</option>
+                            <option value="el">JUR EL</option>
+                            <option value="if">JUR IF</option>
+                            <option value="mb">JUR MB</option>
+                            <option value="ms">JUR MS</option>
+                        </select>
                     </div>
                    
                     <div class="mb-4">
@@ -36,8 +42,8 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="jenis_risiko" class="form-label">Jenis Risiko</label>
-                        <select class="form-select" id="jenis_risiko" name="jenis_risiko" required>
+                        <label for="jenis" class="form-label">Jenis Risiko</label>
+                        <select class="form-select" id="jenis" name="jenis" required>
                             <option value="" selected disabled>Pilih Jenis Risiko</option>
                             <option value="integritas"> Integritas</option>
                             <option value="operasional">Operasional</option>
@@ -52,8 +58,8 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="jenis" class="form-label">Jenis Isu</label>
-                        <select class="form-select" id="jenis" name="jenis" required>
+                        <label for="jenisisu" class="form-label">Jenis Isu</label>
+                        <select class="form-select" id="jenisisu" name="jenisisu" required>
                             <option value="" selected disabled>Pilih jenis</option>
                             <option value="internal">Internal</option>
                             <option value="eksternal">Eksternal</option>
