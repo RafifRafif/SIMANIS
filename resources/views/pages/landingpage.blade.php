@@ -32,14 +32,27 @@
             </p>
         </div>
     </section>
+    
 
     <!-- Section Kontak -->
-    <section id="kontak" class="py-5 position-relative" style="background-color:white;border-radius: 80px 80px 0 0; margin: 0;">
-        <div class="curved-line">
+    <!-- Wrapper umum -->
+    <div class="wrapper-kontak" style="position:relative; margin:0;">
+
+        <!-- Card Oren (belakang) -->
+        <section id="card-oren" style="background-color:#F2682A; border-radius:85px 85px 0 0; margin:0; height:300px;">
+        </section>
+
+        <!-- Card Biru (nimpah tapi lebih rendah) -->
+        <section id="card-biru" style="background-color:#57C9E8; border-radius:78px 78px 0 0; margin:0; height:300px;">
+        </section>
+
+        <!-- Card Putih (paling depan tapi lebih rendah) -->
+        <section id="kontak" style="background-color:white; border-radius:69px 69px 0 0; margin:0; height:300px;
+                       display:flex; align-items:center;">
             <div class="container">
                 <div class="row align-items-center">
-                    <!-- Logo dan Info Proyek -->
-                    <div class="col-md-4 text-center text-md-start mb-4 mb-md-0" style="margin-left: -70px;">
+                    <!-- Logo -->
+                    <div class="col-md-4 offset-md-1" style="margin-left: -70px;">
                         <img src="{{ asset('images/simanis.png') }}" alt="SIMANIS Logo" class="img-fluid mb-2"
                             style="max-width: 400px;">
                         <p class="text-muted mb-0" style="font-size: 14px;">Proyek PBL Teknik Informatika Polibatam</p>
@@ -47,14 +60,13 @@
 
                     <!-- Google Maps -->
                     <div class="col-md-4 offset-md-1 mb-4 mb-md-0 text-center">
-                        <a href="https://www.google.com/maps/place/Politeknik+Negeri+Batam/@1.1187411,104.0339443,17z"
-                            target="_blank">
+                        <a href="https://www.google.com/maps?q=1.118978,104.048392&z=17" target="_blank">
                             <div class="ratio ratio-1x1 overflow-hidden map-container"
                                 style="max-width: 230px; margin: 0 auto; cursor: pointer;">
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.0741587013763!2d104.03394437496653!3d1.118741099159516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d9897b92bdb4a1%3A0x730f177d2e23f1a7!2sPoliteknik%20Negeri%20Batam!5e0!3m2!1sid!2sid!4v1696500000000!5m2!1sid!2sid"
-                                    width="100%" height="100%" style="border:0; pointer-events:none;" allowfullscreen=""
-                                    loading="lazy">
+                                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3989.0741!2d104.048392!3d1.118978!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMS4xMTg5NzgsMTA0LjA0ODM5Mg!5e0!3m2!1sid!2sid!4v1697XXXXX!5m2!1sid!2sid"
+                                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade">
                                 </iframe>
                             </div>
                         </a>
@@ -62,19 +74,18 @@
 
                     <!-- Kontak -->
                     <div class="col-md-4 offset-md-1" style="margin-left: -60px;">
-                        <div class="mb-3 d-flex align-items-center shadow-sm p-2 rounded"
-                            style="background-color: #D9D9D9;">
+                        <div class="mb-3 contact-box shadow-sm">
                             <i class="fa-solid fa-phone fs-5 me-3"></i>
                             <span>+62 778 4698 4698 ext. 1036</span>
                         </div>
 
-                        <div class="mb-3 d-flex align-items-center shadow-sm p-2 rounded"
-                            style="background-color: #D9D9D9;">
+                        <div class="mb-3 contact-box shadow-sm">
                             <i class="fa-solid fa-envelope fs-5 me-3"></i>
                             <span>p4m@polibatam.ac.id</span>
                         </div>
 
-                        <div class="d-flex align-items-start shadow-sm p-2 rounded" style="background-color: #D9D9D9;">
+                        <div class="align-items-start rounded mb-3 contact-box shadow-sm"
+                            style="background-color: #D9D9D9;">
                             <i class="fa-solid fa-location-dot fs-5 me-3 mt-1"></i>
                             <span>
                                 Lantai 3 Gedung Utama, Jalan Ahmad Yani, Tlk. Tering<br>
@@ -85,7 +96,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
+
+
 
 @endsection
