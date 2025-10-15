@@ -7,7 +7,7 @@
 
   <p class="px-3 text-uppercase small mt-3 mb-2">Manajemen Data</p>
   <a href="registrasi"><i class="fa-solid fa-pen-to-square"></i> Registrasi dan Mitigasi Risiko</a>
-  <a href="card_arsip_risiko"><i class="fa-solid fa-box-archive"></i> Arsip Risiko</a>
+  <a href="arsip_risiko"><i class="fa-solid fa-box-archive"></i> Arsip Risiko</a>
 
   <p class="px-3 text-uppercase small mt-3 mb-2">Halaman Kelola</p>
   <a href="kelola_beranda"><i class="fa-solid fa-gear"></i> Kelola Beranda</a>
