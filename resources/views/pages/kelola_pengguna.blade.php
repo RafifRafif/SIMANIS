@@ -29,8 +29,8 @@
 
     <!-- Tabel -->
     <div class="table-responsive">
-        <table class="table table-hover align-middle table-bordered">
-            <thead class="table-light">
+        <table class="table table-bordered align-middle">
+            <thead class="table-secondary text-center">
                 <tr>
                     <th>No</th>
                     <th>NIK</th>
@@ -41,11 +41,11 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>1</td>
-                    <td>106042</td>
+                    <td class="text-center">1</td>
+                    <td class="text-center">106042</td>
                     <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
-                    <td>P4M</td>
-                    <td>
+                    <td class="text-center">Manajemen</td>
+                    <td class="text-center">
                         <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                             data-bs-target="#editDataModal">
                             <i class="fa-solid fa-pen-to-square"></i>
@@ -56,11 +56,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>2</td>
-                    <td>106042</td>
+                    <td class="text-center">2</td>
+                    <td class="text-center">106042</td>
                     <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
-                    <td>P4M</td>
-                    <td>
+                    <td class="text-center">P4M</td>
+                    <td class="text-center">
                         <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                             data-bs-target="#editDataModal">
                             <i class="fa-solid fa-pen-to-square"></i>
@@ -71,11 +71,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>3</td>
-                    <td>106042</td>
+                    <td class="text-center">3</td>
+                    <td class="text-center">106042</td>
                     <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
-                    <td>P4M</td>
-                    <td>
+                    <td class="text-center">P4M</td>
+                    <td class="text-center">
                         <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                             data-bs-target="#editDataModal">
                             <i class="fa-solid fa-pen-to-square"></i>
