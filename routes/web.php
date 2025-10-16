@@ -10,9 +10,8 @@ Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
-Route::get('/beranda', function () {
-    return view('pages.beranda_pengguna');
-});
+use App\Http\Controllers\BerandaController;
+Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
 
 use App\Http\Controllers\KelolaPenggunaController;
 Route::get('/kelola_pengguna', [KelolaPenggunaController::class, 'index'])->name('kelola_pengguna');

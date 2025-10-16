@@ -1,5 +1,5 @@
-<!-- Modal Hapus Konten -->
-<div class="modal fade" id="hapusDataModal" tabindex="-1" aria-labelledby="hapusDataLabel" aria-hidden="true">
+<!-- Modal Hapus Data Mitigasi -->
+<div class="modal fade" id="hapusDataMitigasiModal" tabindex="-1" aria-labelledby="hapusDataMitigasiLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center border-0 shadow-sm rounded-4">
       <div class="modal-body py-4">

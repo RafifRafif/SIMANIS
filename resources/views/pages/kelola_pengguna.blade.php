@@ -5,6 +5,7 @@
 @push('modals')
     @include('components.kelolapengguna.modal-tambah-data')
     @include('components.kelolapengguna.modal-edit-data')
+    @include('components.kelolapengguna.modal-hapus-data')
 @endpush
 
 @section('content')
@@ -24,7 +25,8 @@
             <option value="2">Kepala Unit</option>
             <option value="3">Manajemen</option>
         </select>
-        <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal" data-bs-target="#tambahDataModal"><i class="fa-solid fa-plus"></i>Tambah</button>
+        <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal" data-bs-target="#tambahDataModal"><i
+                class="fa-solid fa-plus"></i>Tambah</button>
     </div>
 
     <!-- Tabel -->
@@ -50,7 +52,8 @@
                             data-bs-target="#editDataModal">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </button>
-                        <button class="btn btn-danger btn-sm">
+                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#hapusDataModal">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </td>
@@ -65,7 +68,8 @@
                             data-bs-target="#editDataModal">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </button>
-                        <button class="btn btn-danger btn-sm">
+                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#hapusDataModal">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </td>
@@ -80,7 +84,8 @@
                             data-bs-target="#editDataModal">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </button>
-                        <button class="btn btn-danger btn-sm">
+                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#hapusDataModal">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </td>

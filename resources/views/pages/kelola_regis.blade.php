@@ -13,6 +13,11 @@
     @include('components.kelolaformregis.modal-edit-formregis-kategoririsiko')
     @include('components.kelolaformregis.modal-edit-formregis-jenisrisiko')
     @include('components.kelolaformregis.modal-edit-formregis-iku')
+    @include('components.kelolaformregis.modal-hapus-formregis-iku')
+    @include('components.kelolaformregis.modal-hapus-formregis-jenisrisiko')
+    @include('components.kelolaformregis.modal-hapus-formregis-kategoririsiko')
+    @include('components.kelolaformregis.modal-hapus-formregis-prosesaktivitas')
+    @include('components.kelolaformregis.modal-hapus-formregis-unitkerja')
 @endpush
 
 @section('content')
@@ -38,7 +43,7 @@
                             <h6 class="fw-bold mb-0">Unit Kerja</h6>
                             <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal"
                                 data-bs-target="#tambahDataModalUnit">
-                                <i class="fa-solid fa-plus me-1" ></i>Tambah
+                                <i class="fa-solid fa-plus me-1"></i>Tambah
                             </button>
                         </div>
                         <div class="table-responsive">
@@ -56,10 +61,11 @@
                                         <td>JUR EL</td>
                                         <td class="centered">
                                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModalUnit"> 
+                                                data-bs-target="#editDataModalUnit">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm">
+                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                                data-bs-target="#hapusUnitKerjaModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -72,7 +78,8 @@
                                                 data-bs-target="#editDataModalUnit">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm">
+                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                                data-bs-target="#hapusUnitKerjaModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -117,7 +124,8 @@
                                                 data-bs-target="#editDataModalProsesAktivitas">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm">
+                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                                data-bs-target="#hapusJenisRisikoModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -130,7 +138,8 @@
                                                 data-bs-target="#editDataModalProsesAktivitas">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm">
+                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                                data-bs-target="#hapusJenisRisikoModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -175,7 +184,8 @@
                                                 data-bs-target="#editDataModalKategori">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm">
+                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                                data-bs-target="#hapusKategoriRisikoModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -188,7 +198,8 @@
                                                 data-bs-target="#editDataModalKategori">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm">
+                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                                data-bs-target="#hapusKategoriRisikoModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -233,7 +244,8 @@
                                                 data-bs-target="#editDataModalJenis">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm">
+                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                                data-bs-target="#hapusJenisRisikoModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -246,7 +258,8 @@
                                                 data-bs-target="#editDataModalJenis">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm">
+                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                                data-bs-target="#hapusJenisRisikoModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -291,7 +304,8 @@
                                                 data-bs-target="#editDataModalIKU">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm">
+                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                                data-bs-target="#hapusIkuModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -304,7 +318,8 @@
                                                 data-bs-target="#editDataModalIKU">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm">
+                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                                data-bs-target="#hapusIkuModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -320,10 +335,12 @@
 
     {{-- Script ganti tanda + / - --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.toggle-btn').forEach(button => {
                 const collapseEl = document.querySelector(button.dataset.bsTarget);
-                const bsCollapse = new bootstrap.Collapse(collapseEl, { toggle: false }); // biar bisa manual
+                const bsCollapse = new bootstrap.Collapse(collapseEl, {
+                    toggle: false
+                }); // biar bisa manual
 
                 button.addEventListener('click', () => {
                     bsCollapse.toggle(); // toggle manual

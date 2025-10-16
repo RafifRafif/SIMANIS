@@ -5,6 +5,7 @@
 @push('modals')
     @include('components.kelolaregistrasi.modal-tambah-data')
     @include('components.kelolaregistrasi.modal-edit-data')
+    @include('components.kelolaregistrasi.modal-hapus-data')
     @include('components.kelolamitigasi.tambah-mitigasi')
     @include('components.kelolamitigasi.edit-mitigasi')
 @endpush
@@ -51,11 +52,8 @@
                     <tbody>
                         <tr>
                             <td class="text-center">
-                                <button class="btn btn-sm btn-outline-primary toggle-collapse"
-                                    type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#mitigasi1"
-                                    aria-expanded="false"
+                                <button class="btn btn-sm btn-outline-primary toggle-collapse" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#mitigasi1" aria-expanded="false"
                                     aria-controls="mitigasi1">+
                                 </button>
                             </td>
@@ -76,12 +74,12 @@
                             <td class="centered">Belum Terverifikasi</td>
                             <td class="text-center align-middle">
                                 <div class="d-flex justify-content-center gap-2">
-                                    <button class="btn btn-sm btn-primary edit-button"
-                                        data-bs-toggle="modal"
+                                    <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                                         data-bs-target="#editDataModal">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-danger">
+                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#hapusDataMitigasiModal">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </div>
@@ -131,11 +129,11 @@
                                                 <td class="text-center align-middle">
                                                     <div class="d-flex justify-content-center gap-2">
                                                         <button class="btn btn-sm btn-primary edit-button"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#editDataMitigasiModal">
+                                                            data-bs-toggle="modal" data-bs-target="#editDataMitigasiModal">
                                                             <i class="fa-solid fa-pen-to-square"></i>
                                                         </button>
-                                                        <button class="btn btn-sm btn-danger">
+                                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                                            data-bs-target="#hapusDataMitigasiModal">
                                                             <i class="fa-solid fa-trash"></i>
                                                         </button>
                                                     </div>
@@ -154,14 +152,16 @@
     </div> <!-- /card -->
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // --- Bagian tombol + / − ---
             document.querySelectorAll('.toggle-collapse').forEach(button => {
                 const targetSelector = button.getAttribute('data-bs-target');
                 const target = document.querySelector(targetSelector);
 
                 // Pastikan collapse dikenali oleh Bootstrap
-                const collapseInstance = new bootstrap.Collapse(target, { toggle: false });
+                const collapseInstance = new bootstrap.Collapse(target, {
+                    toggle: false
+                });
 
                 // Saat terbuka → ubah ke "−"
                 target.addEventListener('shown.bs.collapse', () => {

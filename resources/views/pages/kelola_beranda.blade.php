@@ -19,7 +19,7 @@
 
     <div class="container-fluid">
 
-        <h4 class="fw-semibold mb-4">Kelola Beranda</h4>
+        <h3 class="mt-3 mb-4">Kelola Beranda</h3>
 
         <!-- Heatmap Risiko -->
         <div class="card shadow-sm mb-4">
@@ -57,12 +57,12 @@
                     <div>
                         <p class="mb-1 d-flex align-items-center">
                             <span
-                                style="display:inline-block; width:18px; height:18px; background-color:#A3E635; border-radius:50%; margin-right:6px;"></span>
+                                style="display:inline-block; width:18px; height:18px; background-color:#A6D96A; border-radius:50%; margin-right:6px;"></span>
                             L (Low)
                         </p>
                         <p class="mb-1 d-flex align-items-center">
                             <span
-                                style="display:inline-block; width:18px; height:18px; background-color:#FACC15; border-radius:50%; margin-right:6px;"></span>
+                                style="display:inline-block; width:18px; height:18px; background-color:#FCE08B; border-radius:50%; margin-right:6px;"></span>
                             M (Medium)
                         </p>
                         <p class="mb-1 d-flex align-items-center">
@@ -72,7 +72,7 @@
                         </p>
                         <p class="mb-0 d-flex align-items-center">
                             <span
-                                style="display:inline-block; width:18px; height:18px; background-color:#DC2626; border-radius:50%; margin-right:6px;"></span>
+                                style="display:inline-block; width:18px; height:18px; background-color:#D73026; border-radius:50%; margin-right:6px;"></span>
                             E (Extreme)
                         </p>
                     </div>
@@ -84,19 +84,19 @@
                     style="width: 90px; z-index:1000;">
                     <div class="d-flex flex-wrap justify-content-center gap-2">
                         <div class="color-option rounded-circle" data-color="L"
-                            style="width:25px; height:25px; background-color:#A3E635; cursor:pointer;"></div>
+                            style="width:25px; height:25px; background-color:#A6D96A; cursor:pointer;"></div>
                         <div class="color-option rounded-circle" data-color="M"
-                            style="width:25px; height:25px; background-color:#FACC15; cursor:pointer;"></div>
+                            style="width:25px; height:25px; background-color:#FCE08B; cursor:pointer;"></div>
                         <div class="color-option rounded-circle" data-color="H"
                             style="width:25px; height:25px; background-color:#F46D43; cursor:pointer;"></div>
                         <div class="color-option rounded-circle" data-color="E"
-                            style="width:25px; height:25px; background-color:#DC2626; cursor:pointer;"></div>
+                            style="width:25px; height:25px; background-color:#D73026; cursor:pointer;"></div>
                     </div>
                 </div>
 
                 <div class="mt-3 text-end">
-                    <button class="btn btn-secondary">Batal</button>
-                    <button class="btn btn-primary">Simpan</button>
+                    <button class="btn btn-secondary fw-medium ms-auto">Batal</button>
+                    <button class="btn btn-primary fw-medium ms-auto">Simpan</button>
                 </div>
             </div>
         </div>
@@ -106,7 +106,7 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="fw-semibold mb-0">Konten Beranda</h5>
-                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambahDataModal">
+                    <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal" data-bs-target="#tambahDataModal">
                         <i class="fa-solid fa-plus"></i> Tambah
                     </button>
                 </div>
@@ -162,10 +162,10 @@
             let activeCell = null;
 
             const colors = {
-                "L": "#A3E635",
-                "M": "#FACC15",
+                "L": "#A6D96A",
+                "M": "#FCE08B",
                 "H": "#F46D43",
-                "E": "#DC2626"
+                "E": "#D73026"
             };
 
             // Klik sel → tampilkan popup tepat di dekat sel

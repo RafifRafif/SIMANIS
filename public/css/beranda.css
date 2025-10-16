@@ -1,0 +1,130 @@
+/* Layout grid utama */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .card {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+
+        .card h5 {
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        /* === Heatmap === */
+        .heatmap-table {
+            width: 100%;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        .heatmap-table td {
+            width: 45px;
+            height: 45px;
+            border: 1px solid #ddd;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .heatmap-table th {
+            text-align: center;
+            font-weight: 600;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+        }
+
+        /* Warna kategori */
+        .L {
+            background-color: #4CAF50;
+        }
+
+        /* Hijau */
+        .M {
+            background-color: #FFC107;
+        }
+
+        /* Kuning */
+        .H {
+            background-color: #FF7043;
+        }
+
+        /* Oranye */
+        .E {
+            background-color: #E53935;
+        }
+
+        /* Merah tua */
+
+        /* === Chart Probabilitas === */
+        .bar-container {
+            margin-bottom: 10px;
+        }
+
+        .bar-label {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .bar {
+            height: 25px;
+            border-radius: 6px;
+            text-align: right;
+            color: white;
+            font-size: 14px;
+            line-height: 25px;
+            padding-right: 8px;
+        }
+
+        .bar.low {
+            background-color: #4CAF50;
+            width: 74%;
+        }
+
+        .bar.medium {
+            background-color: #FFC107;
+            width: 81%;
+            color: #000;
+        }
+
+        .bar.high {
+            background-color: #FF7043;
+            width: 32%;
+        }
+
+        .bar.extreme {
+            background-color: #E53935;
+            width: 15%;
+        }
+
+        /* === Card Ilustrasi === */
+        .card-illustration {
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .card-illustration:hover {
+            transform: scale(1.02);
+        }
+
+        .card-illustration img {
+            width: 70%;
+            max-height: 160px;
+            object-fit: contain;
+            margin-bottom: 12px;
+        }
+
+        .card-illustration a {
+            text-decoration: none;
+            color: #006AFF;
+            font-weight: 500;
+        }
+
+        .card-illustration a:hover {
+            text-decoration: underline;
+        }

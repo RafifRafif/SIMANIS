@@ -1,4 +1,4 @@
-<!-- Modal Hapus Konten -->
+<!-- Modal Hapus Data Unit Kerja -->
 <div class="modal fade" id="hapusDataModal" tabindex="-1" aria-labelledby="hapusDataLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center border-0 shadow-sm rounded-4">
@@ -8,7 +8,7 @@
         </div>
         <h6 class="fw-semibold mb-3">Apakah anda yakin ingin menghapus data ini?</h6>
         <div class="d-flex justify-content-center gap-3">
-          <button type="button" class="btn btn-light border px-4" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-light border fw-medium px-4" data-bs-dismiss="modal">Batal</button>
           <button type="button" class="btn btn-danger px-4">Hapus</button>
         </div>
       </div>

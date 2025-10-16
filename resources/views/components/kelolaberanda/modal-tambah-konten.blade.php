@@ -33,7 +33,7 @@
                     </div>
 
                     <!-- Tombol Simpan -->
-                    <button type="submit" class="btn w-100 text-white fw-semibold" style="background-color:#007BFF;">
+                    <button type="submit" class="btn w-100 text-white fw-medium" style="background-color:#007BFF;">
                         Simpan
                     </button>
                 </form>
