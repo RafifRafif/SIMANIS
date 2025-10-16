@@ -4,7 +4,7 @@
 
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/registrasi.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/arsip_open.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/arsip_open_closed.css') }}">
 
     <!-- Konten -->
     <h3 class="mt-3 mb-4">Status Closed</h3>

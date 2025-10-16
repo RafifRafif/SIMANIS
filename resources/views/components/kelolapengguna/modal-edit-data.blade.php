@@ -25,7 +25,7 @@
                             <option value="Manajemen">Manajemen</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Perbarui</button>
+                    <button type="submit" class="btn btn-primary w-100">Simpan</button>
                 </form>
             </div>
         </div>

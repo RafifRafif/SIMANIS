@@ -3,7 +3,7 @@
 
 <div class="sidebar" id="sidebar">
   <p class="px-3 text-uppercase small mb-2">Menu Utama</p>
-  <a href="beranda_pengguna"><i class="fa-solid fa-house"></i> Beranda</a>
+  <a href="beranda"><i class="fa-solid fa-house"></i> Beranda</a>
 
   <p class="px-3 text-uppercase small mt-3 mb-2">Manajemen Data</p>
   <a href="registrasi"><i class="fa-solid fa-pen-to-square"></i> Registrasi dan Mitigasi Risiko</a>
