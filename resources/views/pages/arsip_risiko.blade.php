@@ -3,7 +3,7 @@
 @section('title', 'Arsip Risiko')
 
 @section('content')
-    {{-- Card Arsip CSS --}}
+    {{-- Arsip Risiko CSS --}}
     <link rel="stylesheet" href="{{ asset('css/arsip_risiko.css') }}">
     <!-- Konten -->
     <h3 class="mt-3 mb-4">Arsip Risiko</h3>
@@ -13,7 +13,7 @@
             'number' => 42,
             'text' => 'Total Status Open',
             'icon' => 'fa-solid fa-file',
-            'link' => '#'
+            'link' => 'arsip_open'
         ])
 
         @include('components.arsip_risiko', [

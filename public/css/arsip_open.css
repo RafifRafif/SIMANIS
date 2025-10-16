@@ -1,0 +1,13 @@
+/* Dropdown tidak melebar walaupun teksnya panjang */
+.dropdown-fixed {
+    width: 180px !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+}
+
+/* Biar tulisan di dalam dropdown rapi */
+.dropdown-fixed option {
+    white-space: normal; /* isi dropdown tetap bisa dibaca penuh waktu dibuka */
+}

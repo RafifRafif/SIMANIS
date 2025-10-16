@@ -28,3 +28,6 @@ Route::get('/arsip_risiko', [ArsipRisikoController::class, 'index'])->name('arsi
 
 use App\Http\Controllers\RegistrasiController;
 Route::get('/registrasi', [RegistrasiController::class, 'index'])->name('registrasi');
+
+use App\Http\Controllers\ArsipOpenController;
+Route::get('/arsip_open', [ArsipOpenController::class, 'index'])->name('arsip_open');
