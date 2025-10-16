@@ -21,7 +21,7 @@
             'number' => 26,
             'text' => 'Total Status Closed',
             'icon' => 'fa-solid fa-file',
-            'link' => '#'
+            'link' => 'arsip_closed'
         ])
     </div>
 @endsection

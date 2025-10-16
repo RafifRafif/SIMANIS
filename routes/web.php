@@ -31,3 +31,6 @@ Route::get('/registrasi', [RegistrasiController::class, 'index'])->name('registr
 
 use App\Http\Controllers\ArsipOpenController;
 Route::get('/arsip_open', [ArsipOpenController::class, 'index'])->name('arsip_open');
+
+use App\Http\Controllers\ArsipClosedController;
+Route::get('/arsip_closed', [ArsipClosedController::class, 'index'])->name('arsip_closed');
