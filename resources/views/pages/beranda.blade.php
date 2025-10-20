@@ -43,12 +43,12 @@
                     <div class="ms-3">
                         <p class="mb-1 d-flex align-items-center">
                             <span
-                                style="display:inline-block; width:18px; height:18px; background-color:#A3E635; border-radius:50%; margin-right:6px;"></span>
+                                style="display:inline-block; width:18px; height:18px; background-color:#A6D96A; border-radius:50%; margin-right:6px;"></span>
                             L (Low)
                         </p>
                         <p class="mb-1 d-flex align-items-center">
                             <span
-                                style="display:inline-block; width:18px; height:18px; background-color:#FACC15; border-radius:50%; margin-right:6px;"></span>
+                                style="display:inline-block; width:18px; height:18px; background-color:#FCE08B; border-radius:50%; margin-right:6px;"></span>
                             M (Medium)
                         </p>
                         <p class="mb-1 d-flex align-items-center">
@@ -58,7 +58,7 @@
                         </p>
                         <p class="mb-0 d-flex align-items-center">
                             <span
-                                style="display:inline-block; width:18px; height:18px; background-color:#DC2626; border-radius:50%; margin-right:6px;"></span>
+                                style="display:inline-block; width:18px; height:18px; background-color:#D73026; border-radius:50%; margin-right:6px;"></span>
                             E (Extreme)
                         </p>
                     </div>

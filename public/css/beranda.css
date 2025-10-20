@@ -39,26 +39,6 @@
             border: 1px solid #ddd;
         }
 
-        /* Warna kategori */
-        .L {
-            background-color: #4CAF50;
-        }
-
-        /* Hijau */
-        .M {
-            background-color: #FFC107;
-        }
-
-        /* Kuning */
-        .H {
-            background-color: #FF7043;
-        }
-
-        /* Oranye */
-        .E {
-            background-color: #E53935;
-        }
-
         /* Merah tua */
 
         /* === Chart Probabilitas === */
@@ -82,24 +62,27 @@
         }
 
         .bar.low {
-            background-color: #4CAF50;
+            background-color: #A6D96A;
             width: 74%;
+            color: #000;
         }
 
         .bar.medium {
-            background-color: #FFC107;
+            background-color: #FCE08B;
             width: 81%;
             color: #000;
         }
 
         .bar.high {
-            background-color: #FF7043;
+            background-color: #F46D43;
             width: 32%;
+            color: #000;
         }
 
         .bar.extreme {
-            background-color: #E53935;
+            background-color: #D73026;
             width: 15%;
+            color: #000;
         }
 
         /* === Card Ilustrasi === */

@@ -16,7 +16,6 @@
     <div class="d-flex mb-4 gap-2">
         <div class="input-group w-25">
             <input type="text" class="form-control" placeholder="Cari...">
-            <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
 
         <select class="form-select w-auto">
