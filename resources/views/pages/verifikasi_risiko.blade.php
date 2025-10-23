@@ -34,6 +34,7 @@
                             <th>Frekuensi</th>
                             <th>Probabilitas</th>
                             <th>Status Registrasi</th>
+                            <th>Aksi Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,6 +53,7 @@
                             <td class="centered">2</td>
                             <td class="centered">A</td>
                             <td class="centered">H</td>
+                            <td class="centered">Belum Terverifikasi</td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#editStatusModal">
                                     <i class="fa-solid fa-pen-to-square"></i>
