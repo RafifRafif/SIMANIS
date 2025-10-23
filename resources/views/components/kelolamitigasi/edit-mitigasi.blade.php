@@ -48,9 +48,11 @@
                           </div>
                         <input type="text" class="form-control" id="hasilpenerapan" name="hasilpenerapan" placeholder="Hasil Penerapan Manajemen Risiko " required>
                     </div>
-                    
-
- 
+                    <div class="mb-3">
+                        <label for="dokumenpendukung" class="form-label">Dokumen Pendukung</label>
+                        <input type="url" class="form-control" id="dokumenpendukung" name="dokumenpendukung"
+                            placeholder="Tambah Dokumen Pendukung" required>
+                    </div>
                     <button type="submit" class="btn btn-primary w-100"></i>Simpan</button>
                 </form>
             </div>

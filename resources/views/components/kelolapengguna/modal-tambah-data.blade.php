@@ -17,12 +17,20 @@
                         <input type="text" class="form-control" id="nama" name="nama" required>
                     </div>
                     <div class="mb-4">
-                        <label for="role" class="form-label">Role</label>
-                        <select class="form-select" id="role" name="role" required>
-                            <option value="" selected disabled>Pilih Role</option>
+                        <label for="role1" class="form-label">Role 1</label>
+                        <select class="form-select" id="role1" name="role1" required>
+                            <option value="" selected disabled>Pilih Role 1</option>
                             <option value="P4M">P4M</option>
                             <option value="Kepala Unit">Kepala Unit</option>
                             <option value="Manajemen">Manajemen</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="role2" class="form-label">Role 2</label>
+                        <select class="form-select" id="role2" name="role2" required>
+                            <option value="" selected disabled>Pilih Role 2</option>
+                            <option value="auditors">Auditors</option>
+                            <option value="-">-</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary w-100"></i>Simpan</button>

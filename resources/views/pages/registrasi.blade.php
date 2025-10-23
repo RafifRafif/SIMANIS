@@ -8,6 +8,7 @@
     @include('components.kelolaregistrasi.modal-hapus-data')
     @include('components.kelolamitigasi.tambah-mitigasi')
     @include('components.kelolamitigasi.edit-mitigasi')
+    @include('components.kelolapenilaian.modal-tambah-penilaian')
 @endpush
 
 @section('content')
@@ -71,7 +72,7 @@
                             <td class="centered">2</td>
                             <td class="centered">A</td>
                             <td class="centered">H</td>
-                            <td class="centered">Belum Terverifikasi</td>
+                            <td class="centered">Terverifikasi</td>
                             <td class="text-center align-middle">
                                 <div class="d-flex justify-content-center gap-1">
                                     <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
@@ -107,6 +108,7 @@
                                                 <th colspan="2">Evaluasi</th>
                                                 <th rowspan="2">Status Pelaksanaan Rencana Aksi</th>
                                                 <th rowspan="2">Hasil Penerapan Manajemen Risiko</th>
+                                                <th rowspan="2">Dokumen Pendukung</th>
                                                 <th rowspan="2">Aksi</th>
                                             </tr>
                                             <tr>
@@ -128,6 +130,12 @@
                                                 <td>Kebutuhan komputer perkuliahan terpenuhi</td>
                                                 <td class="text-center align-middle">
                                                     <div class="d-flex justify-content-center gap-2">
+                                                        <button class="btn btn-sm btn-secondary">
+                                                            <i class="fa-solid fa-eye"></i>
+                                                        </button>
+                                                    </div>
+                                                <td class="text-center align-middle">
+                                                    <div class="d-flex justify-content-center gap-2">
                                                         <button class="btn btn-sm btn-primary edit-button"
                                                             data-bs-toggle="modal" data-bs-target="#editDataMitigasiModal">
                                                             <i class="fa-solid fa-pen-to-square"></i>
@@ -141,18 +149,58 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <!-- TABEL PENILAIAN AUDITOR -->
+                                    <div class="mt-4">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
+                                                data-bs-target="#tambahPenilaianAuditorModal">
+                                                <i class="fa-solid fa-plus"></i> Tambah Penilaian
+                                            </button>
+                                        </div>
+
+                                        <table class="table table-sm table-bordered mb-0"">
+                                            <thead class="table-secondary text-center">
+                                                <tr>
+                                                    <th rowspan="2">Triwulan</th>
+                                                    <th rowspan="2">Penilaian</th>
+                                                    <th>Uraian</th>
+                                                    <th rowspan="2">Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="centered">1-2025</td>
+                                                    <td class="centered">Tercapai</td>
+                                                    <td>Unit kerja telah melakukan sewa laptop tambahan sesuai rekomendasi
+                                                        auditor.</td>
+                                                    <td class="text-center align-middle">
+                                                        <div class="d-flex justify-content-center gap-2">
+                                                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                                                data-bs-target="#editPenilaianAuditorModal">
+                                                                <i class="fa-solid fa-pen-to-square"></i>
+                                                            </button>
+                                                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                                                data-bs-target="#hapusPenilaianAuditorModal">
+                                                                <i class="fa-solid fa-trash"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
-
                     </tbody>
                 </table>
+
             </div>
-        </div> <!-- /card-body -->
-    </div> <!-- /card -->
+        </div> 
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // --- Bagian tombol + / − ---
             document.querySelectorAll('.toggle-collapse').forEach(button => {
                 const targetSelector = button.getAttribute('data-bs-target');
@@ -177,7 +225,7 @@
             // --- Bagian tombol Edit ---
             const editButtons = document.querySelectorAll('.edit-button');
             editButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     // Ambil semua data dari atribut data-*
                     const nik = this.getAttribute('data-nik');
                     const nama = this.getAttribute('data-nama');

@@ -23,6 +23,7 @@
             <option value="1">P4M</option>
             <option value="2">Kepala Unit</option>
             <option value="3">Manajemen</option>
+            <option value="3">Auditors</option>
         </select>
         <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal" data-bs-target="#tambahDataModal"><i
                 class="fa-solid fa-plus"></i>Tambah</button>
@@ -36,7 +37,8 @@
                     <th>No</th>
                     <th>NIK</th>
                     <th>Nama</th>
-                    <th>Role</th>
+                    <th>Role 1</th>
+                    <th>Role 2</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -46,6 +48,7 @@
                     <td class="text-center">106042</td>
                     <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
                     <td class="text-center">Manajemen</td>
+                    <td class="text-center">Auditors</td>
                     <td class="text-center">
                         <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                             data-bs-target="#editDataModal">
@@ -62,6 +65,7 @@
                     <td class="text-center">106042</td>
                     <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
                     <td class="text-center">P4M</td>
+                    <td class="text-center">Auditors</td>
                     <td class="text-center">
                         <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                             data-bs-target="#editDataModal">
@@ -78,6 +82,7 @@
                     <td class="text-center">106042</td>
                     <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
                     <td class="text-center">P4M</td>
+                    <td class="text-center">-</td>
                     <td class="text-center">
                         <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                             data-bs-target="#editDataModal">
