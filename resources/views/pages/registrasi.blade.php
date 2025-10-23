@@ -73,7 +73,7 @@
                             <td class="centered">H</td>
                             <td class="centered">Belum Terverifikasi</td>
                             <td class="text-center align-middle">
-                                <div class="d-flex justify-content-center gap-2">
+                                <div class="d-flex justify-content-center gap-1">
                                     <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                                         data-bs-target="#editDataModal">
                                         <i class="fa-solid fa-pen-to-square"></i>

@@ -130,7 +130,7 @@
                                 <td>manualbook.pdf</td>
                                 <td>
                                     <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                        data-bs-target="#editDataModal"><i class="fa-solid fa-pen"></i></button>
+                                        data-bs-target="#editDataModal"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
                                         data-bs-target="#hapusDataModal"><i class="fa-solid fa-trash"></i></button>
                                 </td>
@@ -142,7 +142,7 @@
                                 <td>definisirisko.pdf</td>
                                 <td>
                                     <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                        data-bs-target="#editDataModal"><i class="fa-solid fa-pen"></i></button>
+                                        data-bs-target="#editDataModal"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
                                         data-bs-target="#hapusDataModal"><i class="fa-solid fa-trash"></i></button>
                                 </td>

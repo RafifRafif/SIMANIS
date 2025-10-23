@@ -36,7 +36,7 @@
             <option value="kebijakan">Kebijakan dan Prosedur </option>
         </select>
 
-        <button id="btnSearch" class="btn btn-primary btn-sm btn-search ms-3" style="height: 35px; padding: 0 25px;">
+        <button id="btnSearch" class="btn btn-primary btn-sm btn-search ms-2" style="height: 35px; padding: 0 15px;">
             <i class="fa-solid fa-magnifying-glass"></i>
         </button>
     </div>
