@@ -33,3 +33,6 @@ Route::get('/arsip_open', [ArsipOpenController::class, 'index'])->name('arsip_op
 
 use App\Http\Controllers\ArsipClosedController;
 Route::get('/arsip_closed', [ArsipClosedController::class, 'index'])->name('arsip_closed');
+
+use App\Http\Controllers\VerifikasiRisikoController;
+Route::get('/verifikasi_risiko', [VerifikasiRisikoController::class, 'index'])->name('verifikasi_risiko');
