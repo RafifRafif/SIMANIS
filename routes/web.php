@@ -18,6 +18,7 @@ Route::get('/kelola_pengguna', [KelolaPenggunaController::class, 'index'])->name
 
 use App\Http\Controllers\KelolaRegisController;
 Route::get('/kelola_regis', [KelolaRegisController::class, 'index'])->name('kelola_regis');
+Route::post('/kelola_regis/import', [KelolaRegisController::class, 'import'])->name('formregis.import');
 
 use App\Http\Controllers\KelolaBerandaController;
 Route::get('/kelola_beranda', [KelolaBerandaController::class, 'index'])->name('kelola_Beranda');

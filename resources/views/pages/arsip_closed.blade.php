@@ -11,7 +11,7 @@
 
     <div class="d-flex flex-wrap align-items-center gap-2">
         <label class="me-3">Urutkan berdasarkan</label>
-        
+
         <!-- Dropdown Unit Kerja -->
         <select id="unitkerja" class="form-select w-auto dropdown-fixed">
             <option value="">Unit Kerja</option>
@@ -20,20 +20,13 @@
             <option value="jur_mb">Jur MB</option>
         </select>
 
-        <!-- Dropdown Kategori Risiko -->
-        <select id="kategori" class="form-select w-auto dropdown-fixed">
-            <option value="">Kategori Risiko</option>
-            <option value="strategis">Strategis/Kebijakannnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</option>
-            <option value="reputasi">Reputasi</option>
-            <option value="kecurangan">Kecurangan </option>
-        </select>
-
-        <!-- Dropdown Jenis Risiko  -->
-        <select id="jenis" class="form-select w-auto dropdown-fixed">
-            <option value="">Jenis Risiko</option>
-            <option value="integritas">Integritas</option>
-            <option value="operasional">Operasional</option>
-            <option value="kebijakan">Kebijakan dan Prosedur </option>
+        <!-- Dropdown Tahun -->
+        <select id="tahun" class="form-select w-auto dropdown-fixed">
+            <option value="">Tahun</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
         </select>
 
         <button id="btnSearch" class="btn btn-primary btn-sm btn-search ms-2" style="height: 35px; padding: 0 15px;">
@@ -72,11 +65,8 @@
                     <tbody>
                         <tr class="data-row">
                             <td class="text-center">
-                                <button class="btn btn-sm btn-outline-primary toggle-collapse"
-                                    type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#mitigasi1"
-                                    aria-expanded="false"
+                                <button class="btn btn-sm btn-outline-primary toggle-collapse" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#mitigasi1" aria-expanded="false"
                                     aria-controls="mitigasi1">+
                                 </button>
                             </td>
@@ -182,7 +172,9 @@
             const target = document.querySelector(targetSelector);
 
             // Pastikan collapse dikenali oleh Bootstrap
-            const collapseInstance = new bootstrap.Collapse(target, { toggle: false });
+            const collapseInstance = new bootstrap.Collapse(target, {
+                toggle: false
+            });
 
             // Saat terbuka → ubah ke "−"
             target.addEventListener('shown.bs.collapse', () => {

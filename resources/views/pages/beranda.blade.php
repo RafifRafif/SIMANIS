@@ -68,7 +68,15 @@
 
             <!-- Card 2: Status Probabilitas Risiko -->
             <div class="card p-3">
-                <h5>Status Probabilitas Risiko</h5>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="mb-0">Status Probabilitas Risiko</h5>
+                    <select class="form-select form-select-sm" style="width: auto;">
+                        <option selected>2025</option>
+                        <option>2024</option>
+                        <option>2023</option>
+                        <option>2022</option>
+                    </select>
+                </div>
                 <div class="bar-container">
                     <div class="bar-label">Low</div>
                     <div class="bar low">74%</div>

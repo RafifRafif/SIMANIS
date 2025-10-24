@@ -3,6 +3,7 @@
 @section('title', 'Kelola Form Regis')
 
 @push('modals')
+    @include('components.kelolaformregis.modal-import-formregis')
     @include('components.kelolaformregis.modal-tambah-formregis-unitkerja')
     @include('components.kelolaformregis.modal-tambah-formregis-prosesaktivitas')
     @include('components.kelolaformregis.modal-tambah-formregis-kategoririsiko')
@@ -24,7 +25,14 @@
     {{-- Kelola Regis CSS --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/kelola_regis.css') }}">
-    <h3 class="mt-3 mb-4">Kelola Form Regis</h3>
+
+    {{-- Header Judul + Tombol Import --}}
+    <div class="d-flex justify-content-between align-items-center mt-3 mb-4">
+        <h3 class="mb-0">Kelola Form Regis</h3>
+        <button class="btn btn-success fw-bold" data-bs-toggle="modal" data-bs-target="#importDataModal">
+            <i class="fa-solid fa-file-import me-1"></i> Import
+        </button>
+    </div>
 
     <div class="card shadow-sm border-0 p-3">
 
