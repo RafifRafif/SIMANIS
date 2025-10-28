@@ -21,21 +21,60 @@
                         <thead>
                             <tr>
                                 <th class="bg-light"></th>
-                                @for ($col = 1; $col <= 5; $col++)
-                                    <th class="bg-light">{{ $col }}</th>
-                                @endfor
+                                <th class="bg-light" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="1. Tidak Signifikan (dampaknya hanya di area tersebut)">1</th>
+                                <th class="bg-light" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="2. Kecil (dampaknya sampai satu bagian/departemen)">2</th>
+                                <th class="bg-light" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="3. Sedang (dampaknya sampai satu institusi)">3</th>
+                                <th class="bg-light" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="4. Besar (akibatnya sampai ke Customer)">4</th>
+                                <th class="bg-light" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="5. Bencana (dampaknya sampai ke pemerintah dan atau Customer)">5</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (['A', 'B', 'C', 'D', 'E'] as $row)
-                                <tr>
-                                    <th class="bg-light">{{ $row }}</th>
-                                    @for ($col = 1; $col <= 5; $col++)
-                                        <td data-row="{{ $row }}" data-col="{{ $col }}"
-                                            class="heatmap-cell" style="width:45px;height:45px;cursor:pointer;"></td>
-                                    @endfor
-                                </tr>
-                            @endforeach
+                            <tr>
+                                <th class="bg-light" data-bs-toggle="tooltip" data-bs-placement="right"
+                                    title="A. Hampir Pasti (beberapa kali tiap peristiwa/ tiap hari terjadi)">A</th>
+                                @for ($col = 1; $col <= 5; $col++)
+                                    <td data-row="A" data-col="{{ $col }}" class="heatmap-cell"
+                                        style="width:45px;height:45px;cursor:pointer;"></td>
+                                @endfor
+                            </tr>
+                            <tr>
+                                <th class="bg-light" data-bs-toggle="tooltip" data-bs-placement="right"
+                                    title="B. Mungkin Sekali (>1 kali tiap bulan)">B</th>
+                                @for ($col = 1; $col <= 5; $col++)
+                                    <td data-row="B" data-col="{{ $col }}" class="heatmap-cell"
+                                        style="width:45px;height:45px;cursor:pointer;"></td>
+                                @endfor
+                            </tr>
+                            <tr>
+                                <th class="bg-light" data-bs-toggle="tooltip" data-bs-placement="right"
+                                    title="C. Mungkin (Dalam Setahun ada 1–5 kali)">C</th>
+                                @for ($col = 1; $col <= 5; $col++)
+                                    <td data-row="C" data-col="{{ $col }}" class="heatmap-cell"
+                                        style="width:45px;height:45px;cursor:pointer;"></td>
+                                @endfor
+                            </tr>
+                            <tr>
+                                <th class="bg-light" data-bs-toggle="tooltip" data-bs-placement="right"
+                                    title="D. Jarang (dalam setahun hanya 1 kali)">D</th>
+                                @for ($col = 1; $col <= 5; $col++)
+                                    <td data-row="D" data-col="{{ $col }}" class="heatmap-cell"
+                                        style="width:45px;height:45px;cursor:pointer;"></td>
+                                @endfor
+                            </tr>
+                            <tr>
+                                <th class="bg-light" data-bs-toggle="tooltip" data-bs-placement="right"
+                                    title="E. Sangat Jarang (hampir tidak pernah terjadi, dalam 5 tahun hanya 1 kali)">E
+                                </th>
+                                @for ($col = 1; $col <= 5; $col++)
+                                    <td data-row="E" data-col="{{ $col }}" class="heatmap-cell"
+                                        style="width:45px;height:45px;cursor:pointer;"></td>
+                                @endfor
+                            </tr>
                         </tbody>
                     </table>
 
@@ -63,10 +102,7 @@
                         </p>
                     </div>
                 </div>
-            </div>
-
-
-            <!-- Card 2: Status Probabilitas Risiko -->
+            </div> <!-- Card 2: Status Probabilitas Risiko -->
             <div class="card p-3">
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <h5 class="mb-0">Status Probabilitas Risiko</h5>

@@ -18,13 +18,9 @@
             <input type="text" class="form-control" placeholder="Cari...">
         </div>
 
-        <select class="form-select w-auto">
-            <option selected>Kategori</option>
-            <option value="1">P4M</option>
-            <option value="2">Kepala Unit</option>
-            <option value="3">Manajemen</option>
-            <option value="3">Auditors</option>
-        </select>
+       <button id="btnSearch" class="btn btn-primary btn-sm btn-search ms-2" style="height: 35px; padding: 0 15px;">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
         <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal" data-bs-target="#tambahDataModal"><i
                 class="fa-solid fa-plus"></i>Tambah</button>
     </div>
@@ -37,8 +33,8 @@
                     <th>No</th>
                     <th>NIK</th>
                     <th>Nama</th>
-                    <th>Role 1</th>
-                    <th>Role 2</th>
+                    <th>Role</th>
+                    <th>Unit Kerja</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -46,9 +42,9 @@
                 <tr>
                     <td class="text-center">1</td>
                     <td class="text-center">106042</td>
-                    <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
-                    <td class="text-center">Manajemen</td>
-                    <td class="text-center">Auditors</td>
+                    <td>User 1</td>
+                    <td class="text-center">P4M</td>
+                    <td class="text-center">P4M</td>
                     <td class="text-center">
                         <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                             data-bs-target="#editDataModal">
@@ -63,9 +59,9 @@
                 <tr>
                     <td class="text-center">2</td>
                     <td class="text-center">106042</td>
-                    <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
-                    <td class="text-center">P4M</td>
-                    <td class="text-center">Auditors</td>
+                    <td>User 2</td>
+                    <td class="text-center">JUR IF</td>
+                    <td class="text-center">Kepala Unit</td>
                     <td class="text-center">
                         <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                             data-bs-target="#editDataModal">
@@ -80,9 +76,43 @@
                 <tr>
                     <td class="text-center">3</td>
                     <td class="text-center">106042</td>
-                    <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
-                    <td class="text-center">P4M</td>
+                    <td>User 3</td>
                     <td class="text-center">-</td>
+                    <td class="text-center">Auditor</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
+                            data-bs-target="#editDataModal">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#hapusDataModal">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">4</td>
+                    <td class="text-center">106042</td>
+                    <td>User 4</td>
+                    <td class="text-center">AKADEMIK</td>
+                    <td class="text-center">Auditor</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
+                            data-bs-target="#editDataModal">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#hapusDataModal">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">5</td>
+                    <td class="text-center">106042</td>
+                    <td>User 5</td>
+                    <td class="text-center">Manajemen</td>
+                    <td class="text-center">Manajemen</td>
                     <td class="text-center">
                         <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
                             data-bs-target="#editDataModal">

@@ -16,21 +16,28 @@
                         <label for="edit-nama" class="form-label">Nama</label>
                         <input type="text" class="form-control" id="edit-nama" name="nama" required>
                     </div>
-                    <div class="mb-4">
-                        <label for="role1" class="form-label">Role 1</label>
+                    <div class="mb-3">
+                        <label for="role1" class="form-label">Unit Kerja</label>
                         <select class="form-select" id="role1" name="role1" required>
-                            <option value="" selected disabled>Pilih Role 1</option>
+                            <option value="" selected disabled>Pilih Unit Kerja</option>
                             <option value="P4M">P4M</option>
-                            <option value="Kepala Unit">Kepala Unit</option>
+                            <option value="JUR IF">JUR IF</option>
                             <option value="Manajemen">Manajemen</option>
+                            <option value="PRODI RKS">PRODI RKS</option>
+                            <option value="KAPOKJA">KAPOKJA</option>
                         </select>
+                        <p style="font-size: 0.9rem; color: red; margin-top: 5px;">
+                            *Jika Anda mengisi Unit Kerja, pengguna ini juga akan menjadi Kepala Unit.
+                        </p>
                     </div>
                     <div class="mb-4">
-                        <label for="role2" class="form-label">Role 2</label>
+                        <label for="role2" class="form-label">Role</label>
                         <select class="form-select" id="role2" name="role2" required>
-                            <option value="" selected disabled>Pilih Role 2</option>
+                            <option value="" selected disabled>Pilih Role</option>
+                            <option value="p4m">P4M</option>
+                            <option value="kepala unit">Kepala Unit</option>
+                            <option value="manajemen">Manajemen</option>
                             <option value="auditors">Auditors</option>
-                            <option value="-">-</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Simpan</button>

@@ -30,7 +30,7 @@
     <div class="d-flex justify-content-between align-items-center mt-3 mb-4">
         <h3 class="mb-0">Kelola Form Regis</h3>
         <button class="btn btn-success fw-bold" data-bs-toggle="modal" data-bs-target="#importDataModal">
-            <i class="fa-solid fa-file-import me-1"></i> Import
+            <i class="fa-solid fa-upload"></i> Impor
         </button>
     </div>
 
