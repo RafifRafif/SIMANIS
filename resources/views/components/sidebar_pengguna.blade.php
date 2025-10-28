@@ -16,5 +16,5 @@
   <a href="kelola_pengguna"><i class="fa-solid fa-users"></i> Kelola Pengguna</a>
 
   <p class="px-3 text-uppercase small mt-3 mb-2">Menu Auditor</p>
-  <a href="#"><i class="fa-solid fa-list-check"></i> Penilaian Auditor</a>
+  <a href="penilaian"><i class="fa-solid fa-list-check"></i> Penilaian Auditor</a>
 </div>

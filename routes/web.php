@@ -37,3 +37,6 @@ Route::get('/arsip_closed', [ArsipClosedController::class, 'index'])->name('arsi
 
 use App\Http\Controllers\VerifikasiRisikoController;
 Route::get('/verifikasi_risiko', [VerifikasiRisikoController::class, 'index'])->name('verifikasi_risiko');
+
+use App\Http\Controllers\PenilaianController;
+Route::get('/penilaian', [PenilaianController::class, 'index'])->name('penilaian');
