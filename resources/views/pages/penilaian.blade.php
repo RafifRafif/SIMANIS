@@ -4,6 +4,8 @@
 
 @push('modals')
     @include('components.kelolapenilaian.modal-tambah-penilaian')
+    @include('components.kelolapenilaian.modal-edit-penilaian')
+    @include('components.kelolapenilaian.modal-hapus-penilaian')
 
 
 @endpush
