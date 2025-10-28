@@ -34,7 +34,7 @@
                             <th>Frekuensi</th>
                             <th>Probabilitas</th>
                             <th>Status Registrasi</th>
-                            <th>Aksi Status</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>

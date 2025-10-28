@@ -15,7 +15,7 @@
             <div class="modal-body">
                 <form action="#" method="POST">
                     @csrf
-                    <div class="d-flex justify-content-between mb-4">
+                    <div class="d-flex justify-content-between mt-2 mb-4">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="status" id="status1" value="Belum Terverifikasi">
                             <label class="form-check-label" for="status1">Belum Terverifikasi</label>

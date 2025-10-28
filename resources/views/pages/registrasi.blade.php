@@ -150,52 +150,11 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <!-- TABEL PENILAIAN AUDITOR -->
-                                    <div class="mt-4">
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
-                                                data-bs-target="#tambahPenilaianAuditorModal">
-                                                <i class="fa-solid fa-plus"></i> Tambah Penilaian
-                                            </button>
-                                        </div>
-
-                                        <table class="table table-sm table-bordered mb-0"">
-                                            <thead class="table-secondary text-center">
-                                                <tr>
-                                                    <th rowspan="2">Triwulan</th>
-                                                    <th rowspan="2">Penilaian</th>
-                                                    <th>Uraian</th>
-                                                    <th rowspan="2">Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="centered">1-2025</td>
-                                                    <td class="centered">Tercapai</td>
-                                                    <td>Unit kerja telah melakukan sewa laptop tambahan sesuai rekomendasi
-                                                        auditor.</td>
-                                                    <td class="text-center align-middle">
-                                                        <div class="d-flex justify-content-center gap-2">
-                                                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                                                data-bs-target="#editPenilaianAuditorModal">
-                                                                <i class="fa-solid fa-pen-to-square"></i>
-                                                            </button>
-                                                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                                                data-bs-target="#hapusPenilaianAuditorModal">
-                                                                <i class="fa-solid fa-trash"></i>
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-
             </div>
         </div> 
     </div>
