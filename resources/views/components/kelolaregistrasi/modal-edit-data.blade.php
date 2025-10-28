@@ -53,8 +53,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="edit-isuresiko" class="form-label">Isu/Risiko</label>
-                        <input type="text" class="form-control" id="edit-isuresiko" name="isuresiko" required>
+                        <label for="edit-isurisiko" class="form-label">Isu/Risiko</label>
+                        <input type="text" class="form-control" id="edit-isurisiko" name="isurisiko" required>
                     </div>
 
                     <div class="mb-4">
@@ -105,7 +105,8 @@
                         <!-- edit-keparahan -->
                         <div class="d-flex align-items-center">
                           <label for="edit-keparahan" class="me-2 fw-medium">Keparahan</label>
-                          <select id="edit-keparahan" name="keparahan" class="form-select form-select-sm w-auto">
+                          <select id="edit-keparahan" name="keparahan" class="form-select form-select-sm"
+                            style="min-width: 70px; padding-right: 24px;">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -115,9 +116,10 @@
                         </div>
                       
                         <!-- edit-frekuensi -->
-                        <div class="d-flex align-items-center gap-4">
+                        <div class="d-flex align-items-center">
                           <label for="edit-frekuensi" class="me-2 fw-medium">Frekuensi</label>
-                          <select id="edit-frekuensi" name="frekuensi" class="form-select form-select-sm w-auto">
+                          <select id="edit-frekuensi" name="frekuensi" class="form-select form-select-sm"
+                            style="min-width: 70px; padding-right: 24px;">
                             <option value="A">A</option>
                             <option value="B">B</option>
                             <option value="C">C</option>

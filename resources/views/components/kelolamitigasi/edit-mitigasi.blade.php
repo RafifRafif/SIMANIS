@@ -22,8 +22,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="isuresiko" class="form-label">Isu/resiko</label>
-                        <input type="text" class="form-control" id="isuresiko" name="isuresiko" required>
+                        <label for="isurisiko" class="form-label">Isu/risiko</label>
+                        <input type="text" class="form-control" id="isurisiko" name="isurisiko" required>
                     </div>
                     
                     <div class="mb-3">

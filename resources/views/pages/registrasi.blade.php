@@ -14,7 +14,8 @@
 @section('content')
     <!-- Konten -->
     <link rel="stylesheet" href="{{ asset('css/registrasi.css') }}">
-    <h3 class="mt-3 mb-4">Registrasi Dan Mitigasi</h3>
+    <h3 class="mt-3 mb-3">Registrasi Dan Mitigasi</h3>
+    <h6 class="fw-bold mb-3">Unit Kerja: <span style="color: #1E376C;">Prodi IF</span></h6>
 
     <!-- Pencarian dan Dropdown -->
     <div class="d-flex mb-4 gap-2">
@@ -234,7 +235,7 @@
                     const proses = this.getAttribute('data-proses');
                     const kategori = this.getAttribute('data-kategori');
                     const jenis_risiko = this.getAttribute('data-jenis');
-                    const isuresiko = this.getAttribute('data-isuresiko');
+                    const isurisiko = this.getAttribute('data-isurisiko');
                     const jenis = this.getAttribute('data-jenisisu');
                     const akar = this.getAttribute('data-akar');
                     const dampak = this.getAttribute('data-dampak');
@@ -252,7 +253,7 @@
                     document.getElementById('edit-proses').value = proses || '';
                     document.getElementById('edit-kategori').value = kategori || '';
                     document.getElementById('edit-jenis').value = jenis || '';
-                    document.getElementById('edit-isuresiko').value = isuresiko || '';
+                    document.getElementById('edit-isurisiko').value = isurisiko || '';
                     document.getElementById('edit-jenisisu').value = jenisisu || '';
                     document.getElementById('edit-akar').value = akar || '';
                     document.getElementById('edit-dampak').value = dampak || '';
