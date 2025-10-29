@@ -13,7 +13,7 @@
                     <p class="small text-muted mb-3">
                         Pastikan file Excel Anda sesuai dengan format yang disediakan.
                         <br>
-                        <a href="{{ asset('template/template_formregis.xlsx') }}" download class="text-decoration-none">
+                        <a href="{{ asset('template/unitkerja.xlsx') }}" download class="text-decoration-none">
                             <i class="fa-solid fa-file-excel me-1 text-success"></i>
                             Unduh Template Excel
                         </a>

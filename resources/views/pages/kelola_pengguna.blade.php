@@ -33,8 +33,8 @@
                     <th>No</th>
                     <th>NIK</th>
                     <th>Nama</th>
-                    <th>Role</th>
                     <th>Unit Kerja</th>
+                    <th>Role</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -42,7 +42,7 @@
                 <tr>
                     <td class="text-center">1</td>
                     <td class="text-center">106042</td>
-                    <td>User 1</td>
+                    <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
                     <td class="text-center">P4M</td>
                     <td class="text-center">P4M</td>
                     <td class="text-center">
@@ -59,7 +59,7 @@
                 <tr>
                     <td class="text-center">2</td>
                     <td class="text-center">106042</td>
-                    <td>User 2</td>
+                    <td>Rafif Ruhul Haqq</td>
                     <td class="text-center">JUR IF</td>
                     <td class="text-center">Kepala Unit</td>
                     <td class="text-center">
@@ -76,7 +76,7 @@
                 <tr>
                     <td class="text-center">3</td>
                     <td class="text-center">106042</td>
-                    <td>User 3</td>
+                    <td>Suci Engjelia Putri</td>
                     <td class="text-center">-</td>
                     <td class="text-center">Auditor</td>
                     <td class="text-center">
@@ -93,7 +93,7 @@
                 <tr>
                     <td class="text-center">4</td>
                     <td class="text-center">106042</td>
-                    <td>User 4</td>
+                    <td>Aulya Anantha</td>
                     <td class="text-center">AKADEMIK</td>
                     <td class="text-center">Auditor</td>
                     <td class="text-center">
@@ -110,7 +110,7 @@
                 <tr>
                     <td class="text-center">5</td>
                     <td class="text-center">106042</td>
-                    <td>User 5</td>
+                    <td>Anisa Frity Amelia</td>
                     <td class="text-center">Manajemen</td>
                     <td class="text-center">Manajemen</td>
                     <td class="text-center">

@@ -30,7 +30,7 @@
     <div class="d-flex justify-content-between align-items-center mt-3 mb-4">
         <h3 class="mb-0">Kelola Form Regis</h3>
         <button class="btn btn-success fw-bold" data-bs-toggle="modal" data-bs-target="#importDataModal">
-            <i class="fa-solid fa-upload"></i> Impor
+            <i class="fa-solid fa-upload"></i> Import
         </button>
     </div>
 
@@ -49,10 +49,19 @@
                     <div class="card card-body">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold mb-0">Unit Kerja</h6>
-                            <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal"
-                                data-bs-target="#tambahDataModalUnit">
-                                <i class="fa-solid fa-plus me-1"></i>Tambah
-                            </button>
+                            <div class="d-flex ms-auto gap-2">
+                                <!-- Tombol Import -->
+                                <button class="btn btn-success fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#importDataModal">
+                                    <i class="fa-solid fa-upload"></i> Import
+                                </button>
+
+                                <!-- Tombol Tambah -->
+                                <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#tambahDataModalUnit">
+                                    <i class="fa-solid fa-plus me-1"></i>Tambah
+                                </button>
+                            </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordered w-100">
@@ -109,10 +118,19 @@
                     <div class="card card-body">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold mb-0">Proses/Aktifitas</h6>
-                            <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal"
-                                data-bs-target="#tambahDataModalProsesAktivitas">
-                                <i class="fa-solid fa-plus me-1"></i>Tambah
-                            </button>
+                            <div class="d-flex ms-auto gap-2">
+                                <!-- Tombol Import -->
+                                <button class="btn btn-success fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#importDataModal">
+                                    <i class="fa-solid fa-upload"></i> Import
+                                </button>
+
+                                <!-- Tombol Tambah -->
+                                <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#tambahDataModalUnit">
+                                    <i class="fa-solid fa-plus me-1"></i>Tambah
+                                </button>
+                            </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordered  w-100">
@@ -169,10 +187,19 @@
                     <div class="card card-body">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold mb-0">Kategori Risiko</h6>
-                            <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal"
-                                data-bs-target="#tambahDataModalKategori">
-                                <i class="fa-solid fa-plus me-1"></i>Tambah
-                            </button>
+                            <div class="d-flex ms-auto gap-2">
+                                <!-- Tombol Import -->
+                                <button class="btn btn-success fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#importDataModal">
+                                    <i class="fa-solid fa-upload"></i> Import
+                                </button>
+
+                                <!-- Tombol Tambah -->
+                                <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#tambahDataModalUnit">
+                                    <i class="fa-solid fa-plus me-1"></i>Tambah
+                                </button>
+                            </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordered  w-100">
@@ -229,10 +256,19 @@
                     <div class="card card-body">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold mb-0">Jenis Risiko</h6>
-                            <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal"
-                                data-bs-target="#tambahDataModalJenis">
-                                <i class="fa-solid fa-plus me-1"></i>Tambah
-                            </button>
+                            <div class="d-flex ms-auto gap-2">
+                                <!-- Tombol Import -->
+                                <button class="btn btn-success fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#importDataModal">
+                                    <i class="fa-solid fa-upload"></i> Import
+                                </button>
+
+                                <!-- Tombol Tambah -->
+                                <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#tambahDataModalUnit">
+                                    <i class="fa-solid fa-plus me-1"></i>Tambah
+                                </button>
+                            </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordered  w-100">
@@ -289,10 +325,19 @@
                     <div class="card card-body">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold mb-0">IKU Terkait</h6>
-                            <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal"
-                                data-bs-target="#tambahDataModalIKU">
-                                <i class="fa-solid fa-plus me-1"></i>Tambah
-                            </button>
+                           <div class="d-flex ms-auto gap-2">
+                                <!-- Tombol Import -->
+                                <button class="btn btn-success fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#importDataModal">
+                                    <i class="fa-solid fa-upload"></i> Import
+                                </button>
+
+                                <!-- Tombol Tambah -->
+                                <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#tambahDataModalUnit">
+                                    <i class="fa-solid fa-plus me-1"></i>Tambah
+                                </button>
+                            </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordered  w-100">
