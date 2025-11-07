@@ -7,7 +7,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST">
+                <form action="{{ route('kelola_pengguna.store') }}" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label for="nik" class="form-label">NIK</label>
                         <input type="text" class="form-control" id="nik" name="nik" required>
@@ -18,13 +19,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="role1" class="form-label">Unit Kerja</label>
-                        <select class="form-select" id="role1" name="role1" required>
+                        <select class="form-select" id="role1" name="role1">
                             <option value="" selected disabled>Pilih Unit Kerja</option>
-                            <option value="P4M">P4M</option>
-                            <option value="JUR IF">JUR IF</option>
-                            <option value="Manajemen">Manajemen</option>
-                            <option value="PRODI RKS">PRODI RKS</option>
-                            <option value="KAPOKJA">KAPOKJA</option>
+                            @foreach ($unitKerjas as $unit)
+                                <option value="{{ $unit->id }}">{{ $unit->nama_unit }}</option>
+                            @endforeach
                         </select>
                         <p style="font-size: 0.9rem; color: red; margin-top: 5px;">
                             *Jika Anda mengisi Unit Kerja, pengguna ini juga akan menjadi Kepala Unit.
@@ -35,12 +34,12 @@
                         <select class="form-select" id="role2" name="role2" required>
                             <option value="" selected disabled>Pilih Role</option>
                             <option value="p4m">P4M</option>
-                            <option value="kepala unit">Kepala Unit</option>
+                            <option value="kepala_unit">Kepala Unit</option>
                             <option value="manajemen">Manajemen</option>
-                            <option value="auditors">Auditors</option>
+                            <option value="auditor">Auditor</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100"></i>Simpan</button>
+                    <button type="submit" class="btn btn-primary w-100">Simpan</button>
                 </form>
             </div>
         </div>

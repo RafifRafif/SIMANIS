@@ -73,35 +73,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="centered">1</td>
-                                        <td>JUR EL</td>
-                                        <td class="centered">
-                                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModalUnit">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
-                                                data-bs-target="#hapusUnitKerjaModal">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="centered">2</td>
-                                        <td>JUR IF</td>
-                                        <td class="centered">
-                                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModalUnit">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
-                                                data-bs-target="#hapusUnitKerjaModal">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    @foreach($unitKerjas as $index => $unit)
+                                        <tr>
+                                            <td class="centered">{{ $index + 1 }}</td>
+                                            <td>{{ $unit->nama_unit }}</td>
+                                            <td class="centered">
+                                                <!-- Tombol Edit -->
+                                                <button class="btn btn-sm btn-primary edit-unit-button" data-bs-toggle="modal"
+                                                    data-bs-target="#editDataModalUnit" data-id="{{ $unit->id }}"
+                                                    data-nama="{{ $unit->nama_unit }}">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </button>
+
+                                                <!-- Tombol Hapus -->
+                                                <button class="btn btn-sm btn-danger delete-unit-button" data-bs-toggle="modal"
+                                                    data-bs-target="#hapusUnitKerjaModal" data-id="{{ $unit->id }}">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
+
+
                             </table>
                         </div>
                     </div>
@@ -150,7 +144,7 @@
                                                 data-bs-target="#editDataModalProsesAktivitas">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#hapusJenisRisikoModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
@@ -164,7 +158,7 @@
                                                 data-bs-target="#editDataModalProsesAktivitas">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#hapusJenisRisikoModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
@@ -219,7 +213,7 @@
                                                 data-bs-target="#editDataModalKategori">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#hapusKategoriRisikoModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
@@ -233,7 +227,7 @@
                                                 data-bs-target="#editDataModalKategori">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#hapusKategoriRisikoModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
@@ -288,7 +282,7 @@
                                                 data-bs-target="#editDataModalJenis">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#hapusJenisRisikoModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
@@ -302,7 +296,7 @@
                                                 data-bs-target="#editDataModalJenis">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#hapusJenisRisikoModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
@@ -325,7 +319,7 @@
                     <div class="card card-body">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold mb-0">IKU Terkait</h6>
-                           <div class="d-flex ms-auto gap-2">
+                            <div class="d-flex ms-auto gap-2">
                                 <!-- Tombol Import -->
                                 <button class="btn btn-success fw-bold" data-bs-toggle="modal"
                                     data-bs-target="#importDataModal">
@@ -357,7 +351,7 @@
                                                 data-bs-target="#editDataModalIKU">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#hapusIkuModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
@@ -371,7 +365,7 @@
                                                 data-bs-target="#editDataModalIKU">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#hapusIkuModal">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
@@ -388,7 +382,7 @@
 
     {{-- Script ganti tanda + / - --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.toggle-btn').forEach(button => {
                 const collapseEl = document.querySelector(button.dataset.bsTarget);
                 const bsCollapse = new bootstrap.Collapse(collapseEl, {

@@ -7,11 +7,30 @@
           <i class="fa-solid fa-circle-exclamation fa-3x text-secondary"></i>
         </div>
         <h6 class="fw-semibold mb-3">Apakah anda yakin ingin menghapus data ini?</h6>
-        <div class="d-flex justify-content-center gap-3">
-          <button type="button" class="btn btn-light border fw-medium px-4" data-bs-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-danger px-4">Hapus</button>
-        </div>
+
+        <form id="deleteUnitForm" method="POST">
+          @csrf
+          @method('DELETE')
+          <div class="d-flex justify-content-center gap-3">
+            <button type="button" class="btn btn-light border fw-medium px-4" data-bs-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-danger px-4">Hapus</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const deleteButtons = document.querySelectorAll('.delete-unit-button');
+  const deleteForm = document.getElementById('deleteUnitForm');
+
+  deleteButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      const id = this.getAttribute('data-id');
+      deleteForm.action = `/unitkerja/delete/${id}`;
+    });
+  });
+});
+</script>

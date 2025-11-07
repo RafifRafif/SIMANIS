@@ -19,8 +19,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'username',
         'password',
+        'role',
+        'unit_kerja_id'
     ];
 
     /**
@@ -34,15 +36,10 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Relasi ke tabel unit_kerjas
      */
-    protected function casts(): array
+    public function unitKerja()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->belongsTo(UnitKerja::class);
     }
 }

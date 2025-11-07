@@ -18,7 +18,7 @@
             <input type="text" class="form-control" placeholder="Cari...">
         </div>
 
-       <button id="btnSearch" class="btn btn-primary btn-sm btn-search ms-2" style="height: 35px; padding: 0 15px;">
+        <button id="btnSearch" class="btn btn-primary btn-sm btn-search ms-2" style="height: 35px; padding: 0 15px;">
             <i class="fa-solid fa-magnifying-glass"></i>
         </button>
         <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal" data-bs-target="#tambahDataModal"><i
@@ -39,108 +39,32 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">106042</td>
-                    <td>Evaliata Br. Sembiring, S.Kom., M.Cs.</td>
-                    <td class="text-center">P4M</td>
-                    <td class="text-center">P4M</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                            data-bs-target="#editDataModal">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#hapusDataModal">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">2</td>
-                    <td class="text-center">106042</td>
-                    <td>Rafif Ruhul Haqq</td>
-                    <td class="text-center">JUR IF</td>
-                    <td class="text-center">Kepala Unit</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                            data-bs-target="#editDataModal">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#hapusDataModal">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">3</td>
-                    <td class="text-center">106042</td>
-                    <td>Suci Engjelia Putri</td>
-                    <td class="text-center">-</td>
-                    <td class="text-center">Auditor</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                            data-bs-target="#editDataModal">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#hapusDataModal">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">4</td>
-                    <td class="text-center">106042</td>
-                    <td>Aulya Anantha</td>
-                    <td class="text-center">AKADEMIK</td>
-                    <td class="text-center">Auditor</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                            data-bs-target="#editDataModal">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#hapusDataModal">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">5</td>
-                    <td class="text-center">106042</td>
-                    <td>Anisa Frity Amelia</td>
-                    <td class="text-center">Manajemen</td>
-                    <td class="text-center">Manajemen</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                            data-bs-target="#editDataModal">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#hapusDataModal">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
+                @foreach ($users as $index => $user)
+                    <tr>
+                        <td class="text-center">{{ $index + 1 }}</td>
+                        <td class="text-center">{{ $user->username }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td class="text-center">{{ $user->unitKerja->nama_unit ?? '-' }}</td>
+                        <td class="text-center">{{ strtoupper($user->role) }}</td>
+                        <td class="text-center">
+                            <!-- Tombol Edit -->
+                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
+                                data-bs-target="#editDataModal" data-id="{{ $user->id }}" data-nik="{{ $user->username }}"
+                                data-nama="{{ $user->name }}" data-unit="{{ $user->unit_kerja_id }}"
+                                data-role="{{ $user->role }}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+
+                            <!-- Tombol Hapus -->
+                            <button class="btn btn-sm btn-danger delete-button" data-bs-toggle="modal"
+                                data-bs-target="#hapusDataModal" data-id="{{ $user->id }}">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const editButtons = document.querySelectorAll('.edit-button');
-            editButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const nik = this.getAttribute('data-nik');
-                    const nama = this.getAttribute('data-nama');
-                    const role = this.getAttribute('data-role');
-
-                    document.getElementById('edit-nik').value = nik;
-                    document.getElementById('edit-nama').value = nama;
-                    document.getElementById('edit-role').value = role;
-                })
-            })
-        })
-    </script>
+    
 @endsection

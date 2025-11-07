@@ -7,13 +7,15 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST">
+                <form action="{{ route('unitkerja.store') }}" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label for="unitkerja" class="form-label">Unit Kerja</label>
                         <input type="text" class="form-control" id="unitkerja" name="unitkerja" required>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100"></i>Simpan</button>
+                    <button type="submit" class="btn btn-primary w-100">Simpan</button>
                 </form>
+
             </div>
         </div>
     </div>
