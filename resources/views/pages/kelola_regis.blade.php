@@ -94,24 +94,22 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-
-
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {{-- PROSES/AKTIFITAS --}}
+            {{-- PROSES/AKTIVITAS --}}
             <div>
                 <button class="btn btn-secondary toggle-btn text-start" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#prosesAktifitas" aria-expanded="false">
-                    Proses/Aktifitas +
+                    data-bs-target="#prosesAktivitas" aria-expanded="false">
+                    Proses/Aktivitas +
                 </button>
-                <div class="collapse mt-2" id="prosesAktifitas">
+                <div class="collapse mt-2" id="prosesAktivitas">
                     <div class="card card-body">
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <h6 class="fw-bold mb-0">Proses/Aktifitas</h6>
+                            <h6 class="fw-bold mb-0">Proses/Aktivitas</h6>
                             <div class="d-flex ms-auto gap-2">
                                 <!-- Tombol Import -->
                                 <button class="btn btn-success fw-bold" data-bs-toggle="modal"
@@ -121,7 +119,7 @@
 
                                 <!-- Tombol Tambah -->
                                 <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
-                                    data-bs-target="#tambahDataModalUnit">
+                                    data-bs-target="#tambahDataModalProsesAktivitas">
                                     <i class="fa-solid fa-plus me-1"></i>Tambah
                                 </button>
                             </div>
@@ -131,39 +129,32 @@
                                 <thead class="table-secondary text-center">
                                     <tr>
                                         <th>No</th>
-                                        <th>Proses/Aktifitas</th>
+                                        <th>Proses/Aktivitas</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="centered">1</td>
-                                        <td>Pengelolaan SDM Jurusan </td>
-                                        <td class="centered">
-                                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModalProsesAktivitas">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#hapusJenisRisikoModal">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="centered">2</td>
-                                        <td>Sarana dan Prasarana</td>
-                                        <td class="centered">
-                                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModalProsesAktivitas">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#hapusJenisRisikoModal">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    <tbody>
+                                        @foreach($prosesAktivitas as $index => $proses)
+                                            <tr>
+                                                <td class="centered">{{ $index + 1 }}</td>
+                                                <td>{{ $proses->nama_proses }}</td>
+                                                <td class="centered">
+                                                    <!-- Tombol Edit -->
+                                                    <button class="btn btn-sm btn-primary edit-proses-button" data-bs-toggle="modal"
+                                                        data-bs-target="#editDataModalProsesAktivitas" data-id="{{ $proses->id }}"
+                                                        data-nama="{{ $proses->nama_proses }}">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                    </button>
+                                                    <!-- Tombol Hapus -->
+                                                    <button class="btn btn-danger btn-sm delete-proses-button" data-bs-toggle="modal"
+                                                        data-bs-target="#hapusProsesAktivitasModal" data-id="{{ $proses->id }}">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
                                 </tbody>
                             </table>
                         </div>
@@ -190,7 +181,7 @@
 
                                 <!-- Tombol Tambah -->
                                 <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
-                                    data-bs-target="#tambahDataModalUnit">
+                                    data-bs-target="#tambahDataModalKategori">
                                     <i class="fa-solid fa-plus me-1"></i>Tambah
                                 </button>
                             </div>
@@ -205,34 +196,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="centered">1</td>
-                                        <td>Risiko Strategis </td>
-                                        <td class="centered">
-                                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModalKategori">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#hapusKategoriRisikoModal">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="centered">2</td>
-                                        <td>Risiko Reputasi</td>
-                                        <td class="centered">
-                                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModalKategori">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#hapusKategoriRisikoModal">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    @foreach($kategoriRisiko as $index => $kategori)
+                                        <tr>
+                                            <td class="centered">{{ $index + 1 }}</td>
+                                            <td>{{ $kategori->nama_kategori }}</td>
+                                            <td class="centered">
+                                                <!-- Tombol Edit -->
+                                                <button class="btn btn-sm btn-primary edit-kategori-button" data-bs-toggle="modal"
+                                                    data-bs-target="#editDataModalKategori" data-id="{{ $kategori->id }}"
+                                                    data-nama="{{ $kategori->nama_kategori }}">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </button>
+                                                <!-- Tombol Hapus -->
+                                                <button class="btn btn-danger btn-sm delete-kategori-button" data-bs-toggle="modal"
+                                                    data-bs-target="#hapusKategoriRisikoModal" data-id="{{ $kategori->id }}">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -259,7 +241,7 @@
 
                                 <!-- Tombol Tambah -->
                                 <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
-                                    data-bs-target="#tambahDataModalUnit">
+                                    data-bs-target="#tambahDataModalJenis">
                                     <i class="fa-solid fa-plus me-1"></i>Tambah
                                 </button>
                             </div>
@@ -274,34 +256,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="centered">1</td>
-                                        <td>Risiko Integritas </td>
-                                        <td class="centered">
-                                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModalJenis">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#hapusJenisRisikoModal">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="centered">2</td>
-                                        <td>Risiko Operasional</td>
-                                        <td class="centered">
-                                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModalJenis">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#hapusJenisRisikoModal">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    @foreach($jenisRisiko as $index => $jenis)
+                                        <tr>
+                                            <td class="centered">{{ $index + 1 }}</td>
+                                            <td>{{ $jenis->nama_jenis }}</td>
+                                            <td class="centered">
+                                                <!-- Tombol Edit -->
+                                                <button class="btn btn-sm btn-primary edit-jenis-button" data-bs-toggle="modal"
+                                                    data-bs-target="#editDataModalJenis" data-id="{{ $jenis->id }}"
+                                                    data-nama="{{ $jenis->nama_jenis }}">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </button>
+                                                <!-- Tombol Hapus -->
+                                                <button class="btn btn-danger btn-sm delete-jenis-button" data-bs-toggle="modal"
+                                                    data-bs-target="#hapusJenisRisikoModal" data-id="{{ $jenis->id }}">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -328,7 +301,7 @@
 
                                 <!-- Tombol Tambah -->
                                 <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
-                                    data-bs-target="#tambahDataModalUnit">
+                                    data-bs-target="#tambahDataModalIKU">
                                     <i class="fa-solid fa-plus me-1"></i>Tambah
                                 </button>
                             </div>
@@ -343,34 +316,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="centered">1</td>
-                                        <td>IKU 1 </td>
-                                        <td class="centered">
-                                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModalIKU">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#hapusIkuModal">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="centered">2</td>
-                                        <td>IKU 2</td>
-                                        <td class="centered">
-                                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                data-bs-target="#editDataModalIKU">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#hapusIkuModal">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    @foreach($ikuTerkait as $index => $iku)
+                                        <tr>
+                                            <td class="centered">{{ $index + 1 }}</td>
+                                            <td>{{ $iku->nama_iku }}</td>
+                                            <td class="centered">
+                                                <!-- Tombol Edit -->
+                                                <button class="btn btn-sm btn-primary edit-iku-button" data-bs-toggle="modal"
+                                                    data-bs-target="#editDataModalIKU" data-id="{{ $iku->id }}"
+                                                    data-nama="{{ $iku->nama_iku }}">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </button>
+                                                <!-- Tombol Hapus -->
+                                                <button class="btn btn-danger btn-sm delete-iku-button" data-bs-toggle="modal"
+                                                    data-bs-target="#hapusIkuModal"data-id="{{ $iku->id }}">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

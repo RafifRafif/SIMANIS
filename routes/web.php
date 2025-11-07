@@ -47,6 +47,26 @@ Route::post('/unitkerja/store', [KelolaRegisController::class, 'store'])->name('
 Route::post('/unitkerja/update/{id}', [KelolaRegisController::class, 'update'])->name('unitkerja.update');
 Route::delete('/unitkerja/delete/{id}', [KelolaRegisController::class, 'destroy'])->name('unitkerja.destroy');
 
+// CRUD Proses/Aktivitas
+Route::post('/proses/store', [KelolaRegisController::class, 'storeProses'])->name('proses.store');
+Route::post('/proses/update/{id}', [KelolaRegisController::class, 'updateProses'])->name('proses.update');
+Route::delete('/proses/delete/{id}', [KelolaRegisController::class, 'destroyProses'])->name('proses.destroy');
+
+// CRUD Kategori Risiko
+Route::post('/kategori/store', [KelolaRegisController::class, 'storeKategori'])->name('kategori.store');
+Route::post('/kategori/update/{id}', [KelolaRegisController::class, 'updateKategori'])->name('kategori.update');
+Route::delete('/kategori/delete/{id}', [KelolaRegisController::class, 'destroyKategori'])->name('kategori.destroy');
+
+// CRUD Jenis Risiko
+Route::post('/jenis/store', [KelolaRegisController::class, 'storeJenis'])->name('jenis.store');
+Route::post('/jenis/update/{id}', [KelolaRegisController::class, 'updateJenis'])->name('jenis.update');
+Route::delete('/jenis/delete/{id}', [KelolaRegisController::class, 'destroyJenis'])->name('jenis.destroy');
+
+// CRUD IKU Terkait
+Route::post('/iku/store', [KelolaRegisController::class, 'storeIku'])->name('iku.store');
+Route::post('/iku/update/{id}', [KelolaRegisController::class, 'updateIku'])->name('iku.update');
+Route::delete('/iku/delete/{id}', [KelolaRegisController::class, 'destroyIku'])->name('iku.destroy');
+
 use App\Http\Controllers\KelolaBerandaController;
 Route::get('/kelola_beranda', [KelolaBerandaController::class, 'index'])->name('kelola_Beranda');
 

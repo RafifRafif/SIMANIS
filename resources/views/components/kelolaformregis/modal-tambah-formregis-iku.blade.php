@@ -3,11 +3,12 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="tambahDataModalIKU">Tambah IKU Terkait</h5>
+                <h5 class="modal-title" id="tambahDataLabelIKU">Tambah IKU Terkait</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST">
+                <form action="{{ route('iku.store') }}" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label for="iku" class="form-label">IKU Terkait</label>
                         <input type="text" class="form-control" id="iku" name="iku" required>
