@@ -24,10 +24,13 @@
                         <label for="edit-unit" class="form-label">Unit Kerja</label>
                         <select class="form-select" id="edit-unit" name="role1">
                             <option value="">Pilih Unit Kerja</option>
-                            @foreach ($unitKerjas as $unit)
+                            @foreach ($unitKerja as $unit)
                                 <option value="{{ $unit->id }}">{{ $unit->nama_unit }}</option>
                             @endforeach
                         </select>
+                        <p style="font-size: 0.9rem; color: red; margin-top: 5px;">
+                            *Kosongkan kolom Unit Kerja jika pengguna hanya memiliki peran sebagai Auditor.
+                        </p>
                     </div>
 
                     <div class="mb-4">

@@ -12,8 +12,8 @@ class KelolaPenggunaController extends Controller
     public function index()
     {
         $users = User::with('unitKerja')->get(); // ambil relasi unit kerja
-        $unitKerjas = UnitKerja::all(); // untuk dropdown
-        return view('pages.kelola_pengguna', compact('users', 'unitKerjas'));
+        $unitKerja = UnitKerja::all(); // untuk dropdown
+        return view('pages.kelola_pengguna', compact('users', 'unitKerja'));
     }
 
     public function store(Request $request)
@@ -22,14 +22,51 @@ class KelolaPenggunaController extends Controller
             'nik' => 'required|unique:users,username',
             'nama' => 'required',
             'role2' => 'required',
-            'role1' => 'nullable'
+            'role1' => 'nullable|exists:unit_kerja,id'
         ]);
+
+        $unitId = $request->role1;
+        $unitName = null;
+        if ($unitId) {
+            $unit = UnitKerja::find($unitId);
+            $unitName = $unit ? strtolower($unit->nama_unit) : null;
+        }
+
+        $role = $request->role2;
+
+        // Tambahan validasi khusus:
+        if ($role === 'kepala_unit' && !$unitId) {
+            return back()->withInput()->withErrors([
+                'role1' => 'Kepala Unit wajib memiliki Unit Kerja.'
+            ]);
+        }
+
+
+        // Mapping rules (sama seperti frontend)
+        $valid = false;
+        if (!$unitId) {
+            // no unit -> only auditor
+            $valid = ($role === 'auditor');
+        } elseif (strpos($unitName, 'p4m') !== false) {
+            $valid = ($role === 'p4m');
+        } elseif (strpos($unitName, 'manajemen') !== false) {
+            $valid = ($role === 'manajemen');
+        } else {
+            // any other unit -> kepala_unit or auditor
+            $valid = in_array($role, ['kepala_unit', 'auditor']);
+        }
+
+        if (!$valid) {
+            return back()->withInput()->withErrors(['role2' => 'Kombinasi Unit Kerja dan Role tidak valid.']);
+        }
+
+
 
         User::create([
             'username' => $request->nik,
             'name' => $request->nama,
             'role' => $request->role2,
-            'unit_kerja_id' => $request->role1, // kalau nanti unit_kerja_id pakai id, bukan nama
+            'unit_kerja_id' => $unitId,
             'password' => Hash::make('123456') // default password
         ]);
 

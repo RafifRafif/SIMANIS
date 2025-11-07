@@ -45,7 +45,9 @@
                         <td class="text-center">{{ $user->username }}</td>
                         <td>{{ $user->name }}</td>
                         <td class="text-center">{{ $user->unitKerja->nama_unit ?? '-' }}</td>
-                        <td class="text-center">{{ strtoupper($user->role) }}</td>
+                        <td class="text-center">
+                            {{ $user->role === 'p4m' ? 'P4M' : ucwords(str_replace('_', ' ', $user->role)) }}
+                        </td>
                         <td class="text-center">
                             <!-- Tombol Edit -->
                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
@@ -66,5 +68,5 @@
             </tbody>
         </table>
     </div>
-    
+
 @endsection
