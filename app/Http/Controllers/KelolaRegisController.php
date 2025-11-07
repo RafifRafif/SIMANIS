@@ -15,12 +15,12 @@ class KelolaRegisController extends Controller
 {
      public function index()
     {
-        $unitKerjas = UnitKerja::all();
+        $unitKerja = UnitKerja::all();
         $prosesAktivitas = ProsesAktivitas::all();
         $kategoriRisiko = KategoriRisiko::all();
         $jenisRisiko = JenisRisiko::all();
         $ikuTerkait = IkuTerkait::all();
-        return view('pages.kelola_regis', compact('unitKerjas', 'prosesAktivitas', 'kategoriRisiko', 'jenisRisiko', 'ikuTerkait'));
+        return view('pages.kelola_regis', compact('unitKerja', 'prosesAktivitas', 'kategoriRisiko', 'jenisRisiko', 'ikuTerkait'));
     }
 
     public function store(Request $request)

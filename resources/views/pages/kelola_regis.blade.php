@@ -73,7 +73,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($unitKerjas as $index => $unit)
+                                    @foreach($unitKerja as $index => $unit)
                                         <tr>
                                             <td class="centered">{{ $index + 1 }}</td>
                                             <td>{{ $unit->nama_unit }}</td>
