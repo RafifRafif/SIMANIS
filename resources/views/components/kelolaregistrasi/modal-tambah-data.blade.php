@@ -107,6 +107,7 @@
 
                     <div class="d-flex align-items-center gap-4 mt-3 mb-3">
                         <!-- Keparahan -->
+                        
                         <div class="d-flex align-items-center">
                             <label for="keparahan" class="me-2 fw-medium">Keparahan</label>
                             <select id="keparahan" name="keparahan" class="form-select form-select-sm"

@@ -98,17 +98,16 @@
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
                         
-                                        <form action="{{ route('registrasi.destroy', $item->id_registrasi) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-sm btn-danger" type="submit"
-                                                onclick="return confirm('Hapus data ini?')">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
+                                        <button class="btn btn-sm btn-danger delete-registrasi-button" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#hapusRegistrasiModal"
+                                        data-id="{{ $item->id_registrasi }}">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+
+                                
+                                    </td>
+                                </tr>
                         
                             <!-- Collapse Mitigasi -->
                             <tr class="collapse bg-light" id="mitigasi{{ $item->id_registrasi }}">
@@ -162,68 +161,56 @@
             document.querySelectorAll('.toggle-collapse').forEach(button => {
                 const targetSelector = button.getAttribute('data-bs-target');
                 const target = document.querySelector(targetSelector);
-
-                // Pastikan collapse dikenali oleh Bootstrap
+    
                 const collapseInstance = new bootstrap.Collapse(target, {
                     toggle: false
                 });
-
-                // Saat terbuka → ubah ke "−"
+    
                 target.addEventListener('shown.bs.collapse', () => {
                     button.textContent = '−';
                 });
-
-                // Saat tertutup → ubah ke "+"
+    
                 target.addEventListener('hidden.bs.collapse', () => {
                     button.textContent = '+';
                 });
             });
-
+    
             // --- Bagian tombol Edit ---
             const editButtons = document.querySelectorAll('.edit-button');
             editButtons.forEach(button => {
                 button.addEventListener('click', function () {
-                    // Ambil semua data dari atribut data-*
-                    const nik = this.getAttribute('data-nik');
-                    const nama = this.getAttribute('data-nama');
-                    const role = this.getAttribute('data-role');
-                    const unitkerja = this.getAttribute('data-unitkerja');
-                    const proses = this.getAttribute('data-proses');
-                    const kategori = this.getAttribute('data-kategori');
-                    const jenis_risiko = this.getAttribute('data-jenis');
-                    const isurisiko = this.getAttribute('data-isurisiko');
-                    const jenis = this.getAttribute('data-jenisisu');
-                    const akar = this.getAttribute('data-akar');
-                    const dampak = this.getAttribute('data-dampak');
-                    const iku = this.getAttribute('data-iku');
-                    const pihak = this.getAttribute('data-pihak');
-                    const kontrol = this.getAttribute('data-kontrol');
-                    const keparahan = this.getAttribute('data-keparahan');
-                    const frekuensi = this.getAttribute('data-frekuensi');
-
-                    // Masukkan ke field di modal edit
-                    document.getElementById('edit-nik').value = nik || '';
-                    document.getElementById('edit-nama').value = nama || '';
-                    document.getElementById('edit-role').value = role || '';
-                    document.getElementById('edit-unitkerja').value = unitkerja || '';
-                    document.getElementById('edit-proses').value = proses || '';
-                    document.getElementById('edit-kategori').value = kategori || '';
-                    document.getElementById('edit-jenis').value = jenis || '';
-                    document.getElementById('edit-isurisiko').value = isurisiko || '';
-                    document.getElementById('edit-jenisisu').value = jenisisu || '';
-                    document.getElementById('edit-akar').value = akar || '';
-                    document.getElementById('edit-dampak').value = dampak || '';
-                    document.getElementById('edit-iku').value = iku || '';
-                    document.getElementById('edit-pihak').value = pihak || '';
-                    document.getElementById('edit-kontrol').value = kontrol || '';
-                    document.getElementById('edit-keparahan').value = keparahan || '';
-                    document.getElementById('edit-frekuensi').value = frekuensi || '';
-
+                    const id = this.getAttribute('data-id');
+    
+                    // Arahkan form ke route update
+                    const form = document.getElementById('editForm');
+                    form.action = `/registrasi/${id}`;
+                    document.getElementById('edit-method').value = 'PUT';
+                    document.getElementById('edit-id').value = id;
+    
+                    // Isi semua field dari atribut data-*
+                    document.getElementById('edit-unitkerja').value = this.getAttribute('data-unitkerja') || '';
+                    document.getElementById('edit-proses').value = this.getAttribute('data-proses') || '';
+                    document.getElementById('edit-kategori').value = this.getAttribute('data-kategori') || '';
+                    document.getElementById('edit-jenis').value = this.getAttribute('data-jenis') || '';
+                    document.getElementById('edit-isurisiko').value = this.getAttribute('data-isuresiko') || '';
+                    document.getElementById('edit-jenisisu').value = this.getAttribute('data-jenisisu') || '';
+                    document.getElementById('edit-akar').value = this.getAttribute('data-akar') || '';
+                    document.getElementById('edit-dampak').value = this.getAttribute('data-dampak') || '';
+                    document.getElementById('edit-iku').value = this.getAttribute('data-iku') || '';
+                    document.getElementById('edit-pihak').value = this.getAttribute('data-pihak') || '';
+                    document.getElementById('edit-kontrol').value = this.getAttribute('data-kontrol') || '';
+                    document.getElementById('edit-keparahan').value = this.getAttribute('data-keparahan') || '';
+                    document.getElementById('edit-frekuensi').value = this.getAttribute('data-frekuensi') || '';
+    
                     // Buka modal edit
                     const modal = new bootstrap.Modal(document.getElementById('editDataModal'));
                     modal.show();
                 });
             });
         });
+        
+
+        
     </script>
+    
 @endsection

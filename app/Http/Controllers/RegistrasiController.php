@@ -51,10 +51,10 @@ class RegistrasiController extends Controller
 
          // Matriks probabilitas
     $matrix = [
-        'A' => [1 => 'M', 2 => 'H', 3 => 'E', 4 => 'E', 5 => 'E'],
-        'B' => [1 => 'L', 2 => 'M', 3 => 'M', 4 => 'H', 5 => 'E'],
-        'C' => [1 => 'L', 2 => 'L', 3 => 'M', 4 => 'H', 5 => 'H'],
-        'D' => [1 => 'L', 2 => 'L', 3 => 'M', 4 => 'M', 5 => 'H'],
+        'A' => [1 => 'M', 2 => 'H', 3 => 'H', 4 => 'E', 5 => 'E'],
+        'B' => [1 => 'L', 2 => 'M', 3 => 'H', 4 => 'E', 5 => 'E'],
+        'C' => [1 => 'L', 2 => 'M', 3 => 'M', 4 => 'H', 5 => 'E'],
+        'D' => [1 => 'L', 2 => 'L', 3 => 'M', 4 => 'H', 5 => 'H'],
         'E' => [1 => 'L', 2 => 'L', 3 => 'L', 4 => 'M', 5 => 'H'],
     ];
 
@@ -78,11 +78,41 @@ class RegistrasiController extends Controller
     public function update(Request $request, $id)
     {
         $registrasi = Registrasi::findOrFail($id);
-
-        $registrasi->update($request->all());
-
+    
+        $validated = $request->validate([
+            'unit_kerja_id' => 'required',
+            'proses_aktivitas_id' => 'required',
+            'kategori_risiko_id' => 'required',
+            'jenis_risiko_id' => 'required',
+            'iku_terkait_id' => 'required',
+            'isu_resiko' => 'required',
+            'jenis_isu' => 'required',
+            'akar_permasalahan' => 'required',
+            'dampak' => 'required',
+            'pihak_terkait' => 'required',
+            'kontrol_pencegahan' => 'required',
+            'keparahan' => 'required',
+            'frekuensi' => 'required',
+        ]);
+    
+        // hitung ulang probabilitas (biar sama kayak di store)
+        $matrix = [
+            'A' => [1 => 'M', 2 => 'H', 3 => 'H', 4 => 'E', 5 => 'E'],
+            'B' => [1 => 'L', 2 => 'M', 3 => 'H', 4 => 'E', 5 => 'E'],
+            'C' => [1 => 'L', 2 => 'M', 3 => 'M', 4 => 'H', 5 => 'E'],
+            'D' => [1 => 'L', 2 => 'L', 3 => 'M', 4 => 'H', 5 => 'H'],
+            'E' => [1 => 'L', 2 => 'L', 3 => 'L', 4 => 'M', 5 => 'H'],
+        ];
+    
+        $keparahan = (int) $request->keparahan;
+        $frekuensi = $request->frekuensi;
+        $validated['probabilitas'] = $matrix[$frekuensi][$keparahan] ?? 'L';
+    
+        $registrasi->update($validated);
+    
         return redirect()->route('registrasi.index')->with('success', 'Data registrasi berhasil diperbarui!');
     }
+    
 
     // 🔹 Menghapus data
     public function destroy($id)
