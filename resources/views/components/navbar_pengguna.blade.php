@@ -22,7 +22,7 @@
                 <i class="fa-solid fa-ellipsis-vertical fs-6"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                <li class="dropdown-header fw-bold text-muted">EVALIATA</li>
+                <li class="dropdown-header fw-bold text-muted">{{ Auth::user()->name }}</li>
                 <li>
                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ubahSandiModal">
                         <i class="fa-solid fa-key"></i> Ubah Sandi

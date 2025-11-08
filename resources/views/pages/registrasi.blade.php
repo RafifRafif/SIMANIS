@@ -15,7 +15,7 @@
     <!-- Konten -->
     <link rel="stylesheet" href="{{ asset('css/registrasi.css') }}">
     <h3 class="mt-3 mb-3">Registrasi Dan Mitigasi</h3>
-    <h6 class="fw-bold mb-3">Unit Kerja: <span style="color: #1E376C;">Prodi IF</span></h6>
+    <h6 class="fw-bold mb-3">Unit Kerja: <span style="color: #1E376C;">{{ Auth::user()->unitKerja->nama_unit ?? '-' }}</span></h6>
 
     <!-- Pencarian dan Dropdown -->
     <div class="d-flex mb-4 gap-2">

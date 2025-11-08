@@ -20,12 +20,14 @@
                         <input type="text" class="form-control" id="edit-nama" name="nama" required>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3"> 
                         <label for="edit-unit" class="form-label">Unit Kerja</label>
                         <select class="form-select" id="edit-unit" name="role1">
-                            <option value="">Pilih Unit Kerja</option>
+                            <option value="" selected disabled>Pilih Unit Kerja</option>
                             @foreach ($unitKerja as $unit)
-                                <option value="{{ $unit->id }}">{{ $unit->nama_unit }}</option>
+                                <option value="{{ $unit->id }}"
+                                    data-key="{{ strtolower($unit->kode ?? $unit->nama_unit) }}">{{ $unit->nama_unit }}
+                                </option>
                             @endforeach
                         </select>
                         <p style="font-size: 0.9rem; color: red; margin-top: 5px;">
@@ -36,6 +38,7 @@
                     <div class="mb-4">
                         <label for="edit-role" class="form-label">Role</label>
                         <select class="form-select" id="edit-role" name="role2" required>
+                            <option value="" selected disabled>Pilih Role</option>
                             <option value="p4m">P4M</option>
                             <option value="kepala_unit">Kepala Unit</option>
                             <option value="manajemen">Manajemen</option>
@@ -56,6 +59,28 @@
 document.addEventListener('DOMContentLoaded', function () {
     const editButtons = document.querySelectorAll('.edit-button');
     const editForm = document.getElementById('editForm');
+    const unitSelect = document.getElementById('edit-unit');
+    const roleSelect = document.getElementById('edit-role');
+
+    // Fungsi helper untuk aktif/nonaktif role sesuai unit
+    function setRoleOptions(allowedValues) {
+        Array.from(roleSelect.options).forEach(opt => {
+            if (!opt.value) return;
+            opt.disabled = !allowedValues.includes(opt.value);
+        });
+        if (roleSelect.selectedOptions.length > 0 && roleSelect.selectedOptions[0].disabled) {
+            roleSelect.value = '';
+        }
+    }
+
+    // Mapping unit ke role
+    function allowedRolesForUnit(unitName) {
+        if (!unitName) return ['auditor'];
+        const name = unitName.toLowerCase();
+        if (name.includes('p4m')) return ['p4m'];
+        if (name.includes('manajemen')) return ['manajemen'];
+        return ['kepala_unit', 'auditor'];
+    }
 
     editButtons.forEach(button => {
         button.addEventListener('click', function () {
@@ -71,7 +96,17 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('edit-nama').value = nama;
             document.getElementById('edit-unit').value = unit ?? '';
             document.getElementById('edit-role').value = role ?? '';
+
+            // Jalankan logika role sesuai unit terpilih
+            const selectedText = unitSelect.options[unitSelect.selectedIndex]?.text || '';
+            setRoleOptions(allowedRolesForUnit(selectedText));
         });
+    });
+
+    // Update role saat unit diubah di modal edit
+    unitSelect.addEventListener('change', function () {
+        const selectedText = this.options[this.selectedIndex]?.text || '';
+        setRoleOptions(allowedRolesForUnit(selectedText));
     });
 });
 </script>
