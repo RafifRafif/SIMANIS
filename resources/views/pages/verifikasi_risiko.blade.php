@@ -38,31 +38,56 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @forelse ($registrasi as $item)
                         <tr>
-                            <td>Prodi IF</td>
-                            <td>Pelaksanaan Pembelajaran</td>
-                            <td>Kepatuhan</td>
-                            <td>IT</td>
-                            <td>Kurangnya jumlah komputer untuk perkuliahan</td>
-                            <td class="centered">Internal</td>
-                            <td>Penambahan Mahasiswa</td>
-                            <td>Kesulitan menjalankan PBM</td>
-                            <td class="centered">IKU-4</td>
-                            <td>Dosen, Mahasiswa, Prodi</td>
-                            <td>Mahasiswa menggunakan laptop pribadi</td>
-                            <td class="centered">2</td>
-                            <td class="centered">A</td>
-                            <td class="centered">H</td>
-                            <td class="centered">Belum Terverifikasi</td>
+                            <td>{{ $item->unitKerja->nama_unit ?? '-' }}</td>
+                            <td>{{ $item->prosesAktivitas->nama_proses ?? '-' }}</td>
+                            <td>{{ $item->kategoriRisiko->nama_kategori ?? '-' }}</td>
+                            <td>{{ $item->jenisRisiko->nama_jenis ?? '-' }}</td>
+                            <td>{{ $item->isu_resiko }}</td>
+                            <td>{{ $item->jenis_isu }}</td>
+                            <td>{{ $item->akar_permasalahan }}</td>
+                            <td>{{ $item->dampak }}</td>
+                            <td>{{ $item->ikuTerkait->nama_iku ?? '-' }}</td>
+                            <td>{{ $item->pihak_terkait }}</td>
+                            <td>{{ $item->kontrol_pencegahan }}</td>
+                            <td>{{ $item->keparahan }}</td>
+                            <td>{{ $item->frekuensi }}</td>
+                            <td>{{ $item->probabilitas }}</td>
+                            <td>{{ $item->status_registrasi }}</td>
                             <td class="text-center">
-                                <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#editStatusModal">
+                                <button class="btn btn-primary btn-sm edit-status-button" data-bs-toggle="modal"
+                                    data-bs-target="#editStatusModal" data-id="{{ $item->id_registrasi }}"
+                                    data-status="{{ $item->status_registrasi }}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
                             </td>
                         </tr>
+                        @empty
+                            <tr>
+                                <td colspan="16" class="text-center text-muted">Tidak ada risiko yang perlu diverifikasi.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
         </div> <!-- /card-body -->
     </div> <!-- /card -->
+
+    {{-- alert bawaan browser --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            @if(session('success'))
+                setTimeout(function() {
+                    alert("{{ session('success') }}");
+                }, 300);
+            @endif
+
+            @if(session('error'))
+                setTimeout(function() {
+                    alert("{{ session('error') }}");
+                }, 300);
+            @endif
+        });
+    </script>
 @endsection
