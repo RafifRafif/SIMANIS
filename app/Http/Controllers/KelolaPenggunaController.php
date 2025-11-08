@@ -9,12 +9,26 @@ use Illuminate\Support\Facades\Hash;
 
 class KelolaPenggunaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::with('unitKerja')->get(); // ambil relasi unit kerja
-        $unitKerja = UnitKerja::all(); // untuk dropdown
+        $search = $request->input('search');
+
+        $users = User::with('unitKerja')
+            ->when($search, function ($query, $search) {
+                $query->where('username', 'like', "%{$search}%")
+                    ->orWhere('name', 'like', "%{$search}%")
+                    ->orWhereHas('unitKerja', function ($q) use ($search) {
+                        $q->where('nama_unit', 'like', "%{$search}%");
+                    })
+                    ->orWhere('role', 'like', "%{$search}%");
+            })
+            ->get();
+
+        $unitKerja = UnitKerja::all();
+
         return view('pages.kelola_pengguna', compact('users', 'unitKerja'));
     }
+
 
     public function store(Request $request)
     {

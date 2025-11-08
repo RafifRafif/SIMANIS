@@ -76,4 +76,22 @@ class KelolaBerandaController extends Controller
         return redirect()->back()->with('success', 'Konten berhasil diperbarui!');
     }
 
+    public function destroy($id)
+    {
+        $konten = KontenBeranda::findOrFail($id);
+
+        // Hapus file gambar dan dokumen dari folder public kalau ada
+        if ($konten->gambar && file_exists(public_path($konten->gambar))) {
+            unlink(public_path($konten->gambar));
+        }
+
+        if ($konten->file && file_exists(public_path($konten->file))) {
+            unlink(public_path($konten->file));
+        }
+
+        $konten->delete();
+
+        return redirect()->back()->with('success', 'Konten berhasil dihapus.');
+    }
+
 }

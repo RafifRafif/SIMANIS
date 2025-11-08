@@ -145,20 +145,16 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <button 
-                                            class="btn btn-sm btn-primary btnEdit"
-                                            data-id="{{ $item->id }}"
-                                            data-judul="{{ $item->judul }}"
-                                            data-file="{{ $item->file }}"
+                                        <button class="btn btn-sm btn-primary btnEdit" data-id="{{ $item->id }}"
+                                            data-judul="{{ $item->judul }}" data-file="{{ $item->file }}"
                                             data-file-nama="{{ basename($item->file) }}"
-                                            data-gambar="{{ asset('storage/' . $item->gambar) }}"
-                                            data-bs-toggle="modal"
+                                            data-gambar="{{ asset('storage/' . $item->gambar) }}" data-bs-toggle="modal"
                                             data-bs-target="#editDataModal">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
 
-                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#hapusDataModal">
+                                        <button class="btn btn-sm btn-danger btnHapus" data-id="{{ $item->id }}"
+                                            data-bs-toggle="modal" data-bs-target="#hapusDataModal">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </td>

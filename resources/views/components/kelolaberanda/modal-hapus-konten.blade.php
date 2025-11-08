@@ -7,11 +7,31 @@
           <i class="fa-solid fa-circle-exclamation fa-3x text-secondary"></i>
         </div>
         <h6 class="fw-semibold mb-3">Apakah anda yakin ingin menghapus data ini?</h6>
-        <div class="d-flex justify-content-center gap-3">
-          <button type="button" class="btn btn-light border px-4" data-bs-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-danger px-4">Hapus</button>
-        </div>
+
+        <form id="hapusForm" method="POST">
+          @csrf
+          @method('DELETE')
+          <div class="d-flex justify-content-center gap-3">
+            <button type="button" class="btn btn-light border px-4" data-bs-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-danger px-4">Hapus</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const hapusButtons = document.querySelectorAll('.btnHapus');
+    const hapusForm = document.getElementById('hapusForm');
+
+    hapusButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const id = this.dataset.id;
+        hapusForm.action = `/kelola-beranda/${id}`; // route delete nanti
+      });
+    });
+  });
+  
+</script>

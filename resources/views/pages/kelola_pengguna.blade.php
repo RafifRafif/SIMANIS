@@ -14,13 +14,13 @@
 
     <!-- Pencarian dan Dropdown -->
     <div class="d-flex mb-4 gap-2">
-        <div class="input-group w-25">
-            <input type="text" class="form-control" placeholder="Cari...">
-        </div>
+        <form action="{{ route('kelola_pengguna') }}" method="GET" class="d-flex w-25">
+            <input type="text" name="search" class="form-control" placeholder="Cari..." value="{{ request('search') }}">
+            <button type="submit" class="btn btn-primary btn-sm ms-2" style="height: 35px; padding: 0 15px;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
 
-        <button id="btnSearch" class="btn btn-primary btn-sm btn-search ms-2" style="height: 35px; padding: 0 15px;">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
         <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal" data-bs-target="#tambahDataModal"><i
                 class="fa-solid fa-plus"></i>Tambah</button>
     </div>
@@ -71,19 +71,19 @@
 
     {{-- alert bawaan browser --}}
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             @if(session('success'))
-                setTimeout(function() {
+                setTimeout(function () {
                     alert("{{ session('success') }}");
                 }, 300);
             @endif
 
             @if(session('error'))
-                setTimeout(function() {
+                setTimeout(function () {
                     alert("{{ session('error') }}");
                 }, 300);
             @endif
-        });
+            });
     </script>
 
 @endsection
