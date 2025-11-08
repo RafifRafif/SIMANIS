@@ -208,9 +208,23 @@
                 });
             });
         });
-        
+    </script>
 
-        
+    {{-- alert bawaan browser --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            @if(session('success'))
+                setTimeout(function() {
+                    alert("{{ session('success') }}");
+                }, 300);
+            @endif
+
+            @if(session('error'))
+                setTimeout(function() {
+                    alert("{{ session('error') }}");
+                }, 300);
+            @endif
+        });
     </script>
     
 @endsection
