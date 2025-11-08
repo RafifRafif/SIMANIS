@@ -15,7 +15,9 @@
     <!-- Konten -->
     <link rel="stylesheet" href="{{ asset('css/registrasi.css') }}">
     <h3 class="mt-3 mb-3">Registrasi Dan Mitigasi</h3>
-    <h6 class="fw-bold mb-3">Unit Kerja: <span style="color: #1E376C;">{{ Auth::user()->unitKerja->nama_unit ?? '-' }}</span></h6>
+    <h6 class="fw-bold mb-3">
+        Unit Kerja: <span style="color: #1E376C;">{{ Auth::user()->unitKerja->nama_unit ?? '-' }}</span>
+    </h6>
 
     <!-- Pencarian dan Dropdown -->
     <div class="d-flex mb-4 gap-2">
@@ -97,62 +99,114 @@
                                             data-bs-toggle="modal" data-bs-target="#editDataModal">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
-                        
-                                        <button class="btn btn-sm btn-danger delete-registrasi-button" 
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#hapusRegistrasiModal"
-                                        data-id="{{ $item->id_registrasi }}">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
 
-                                
-                                    </td>
-                                </tr>
-                        
+                                        <button class="btn btn-sm btn-danger delete-registrasi-button" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#hapusRegistrasiModal"
+                                            data-id="{{ $item->id_registrasi }}">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
                             <!-- Collapse Mitigasi -->
                             <tr class="collapse bg-light" id="mitigasi{{ $item->id_registrasi }}">
                                 <td colspan="17">
                                     <div class="p-3">
                                         <div class="d-flex justify-content-between align-items-center mb-2">
                                             <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
-                                                data-bs-target="#tambahDataMitigasiModal">
+                                                data-bs-target="#tambahDataMitigasiModal"
+                                                data-regid="{{ $item->id_registrasi }}">
                                                 <i class="fa-solid fa-plus"></i> Tambah Mitigasi
                                             </button>
                                         </div>
-                        
-                                        <!-- nanti bagian mitigasi dinamis di sini -->
+
+                                        <!-- bagian mitigasi -->
                                         <table class="table table-sm table-bordered">
                                             <thead class="table-secondary text-center">
                                                 <tr>
-                                                    <th>Triwulan</th>
-                                                    <th>Isu/Risiko</th>
+                                                    <th rowspan="2">Triwulan</th>
+                                                    <th rowspan="2">Isu/Risiko</th>
+                                                    <th colspan="2">Tindak Lanjut</th>
+                                                    <th colspan="2">Evaluasi</th>
+                                                    <th rowspan="2">Status Pelaksanaan Rencana Aksi</th>
+                                                    <th rowspan="2">Hasil Penerapan Manajemen Risiko</th>
+                                                    <th rowspan="2">Dokumen Pendukung</th>
+                                                    <th rowspan="2">Aksi</th>
+                                                </tr>
+                                                <tr>
                                                     <th>Rencana Aksi</th>
-                                                    <th>Tanggal Pelaksanaan</th>
+                                                    <th>Tanggal Pelaksanaan Rencana Aksi</th>
                                                     <th>Hasil Tindak Lanjut</th>
                                                     <th>Tanggal Evaluasi</th>
-                                                    <th>Status</th>
-                                                    <th>Hasil Manajemen Risiko</th>
-                                                    <th>Dokumen Pendukung</th>
-                                                    <th>Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr><td colspan="10" class="text-center">Belum ada mitigasi</td></tr>
+                                                @if($item->mitigasis && $item->mitigasis->count())
+                                                    @foreach($item->mitigasis as $m)
+                                                        <tr>
+                                                            <td>{{ $m->triwulan }} / {{ $m->tahun }}</td>
+                                                            <td>{{ $m->isurisiko }}</td>
+                                                            <td>{{ $m->rencana_aksi }}</td>
+                                                            <td>{{ $m->tanggal_pelaksanaan ?? '-' }}</td>
+                                                            <td>{{ $m->hasil_tindak_lanjut ?? '-' }}</td>
+                                                            <td>{{ $m->tanggal_evaluasi ?? '-' }}</td>
+                                                            <td>{{ ucfirst($m->status) }}</td>
+                                                            <td>{{ $m->hasil_manajemen_risiko ?? '-' }}</td>
+                                                            <td class="text-center align-middle">
+                                                                @if($m->dokumen_pendukung)
+                                                                    <a href="{{ $m->dokumen_pendukung }}" target="_blank" 
+                                                                       class="btn btn-sm btn-secondary">
+                                                                        <i class="fa-solid fa-eye"></i>
+                                                                    </a>
+                                                                @else
+                                                                    -
+                                                                @endif
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <div class="d-flex justify-content-center gap-2">
+                                                                    <button class="btn btn-sm btn-primary edit-mitigasi"
+                                                                        data-id="{{ $m->id }}"
+                                                                        data-triwulan="{{ $m->triwulan }}"
+                                                                        data-tahun="{{ $m->tahun }}"
+                                                                        data-isurisiko="{{ $m->isurisiko }}"
+                                                                        data-rencana="{{ $m->rencana_aksi }}"
+                                                                        data-tanggal="{{ $m->tanggal_pelaksanaan }}"
+                                                                        data-hasil="{{ $m->hasil_tindak_lanjut }}"
+                                                                        data-evaluasi="{{ $m->tanggal_evaluasi }}"
+                                                                        data-status="{{ $m->status }}"
+                                                                        data-manajemen="{{ $m->hasil_manajemen_risiko }}"
+                                                                        data-dok="{{ $m->dokumen_pendukung }}"
+                                                                        data-bs-toggle="modal" data-bs-target="#editDataMitigasiModal">
+                                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                                    </button>
+
+                                                                    <button class="btn btn-sm btn-danger delete-mitigasi-button"
+                                                                        data-id="{{ $m->id }}"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#hapusMitigasiModal">
+                                                                        <i class="fa-solid fa-trash"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td colspan="10" class="text-center">Belum ada mitigasi</td>
+                                                    </tr>
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
                                 </td>
                             </tr>
                         @endforeach
-                        </tbody>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
-        </div> 
+        </div>
     </div>
 
     <script>
@@ -161,33 +215,30 @@
             document.querySelectorAll('.toggle-collapse').forEach(button => {
                 const targetSelector = button.getAttribute('data-bs-target');
                 const target = document.querySelector(targetSelector);
-    
+
                 const collapseInstance = new bootstrap.Collapse(target, {
                     toggle: false
                 });
-    
+
                 target.addEventListener('shown.bs.collapse', () => {
                     button.textContent = '−';
                 });
-    
+
                 target.addEventListener('hidden.bs.collapse', () => {
                     button.textContent = '+';
                 });
             });
-    
+
             // --- Bagian tombol Edit ---
             const editButtons = document.querySelectorAll('.edit-button');
             editButtons.forEach(button => {
                 button.addEventListener('click', function () {
                     const id = this.getAttribute('data-id');
-    
-                    // Arahkan form ke route update
                     const form = document.getElementById('editForm');
                     form.action = `/registrasi/${id}`;
                     document.getElementById('edit-method').value = 'PUT';
                     document.getElementById('edit-id').value = id;
-    
-                    // Isi semua field dari atribut data-*
+
                     document.getElementById('edit-unitkerja').value = this.getAttribute('data-unitkerja') || '';
                     document.getElementById('edit-proses').value = this.getAttribute('data-proses') || '';
                     document.getElementById('edit-kategori').value = this.getAttribute('data-kategori') || '';
@@ -201,10 +252,18 @@
                     document.getElementById('edit-kontrol').value = this.getAttribute('data-kontrol') || '';
                     document.getElementById('edit-keparahan').value = this.getAttribute('data-keparahan') || '';
                     document.getElementById('edit-frekuensi').value = this.getAttribute('data-frekuensi') || '';
-    
-                    // Buka modal edit
+
                     const modal = new bootstrap.Modal(document.getElementById('editDataModal'));
                     modal.show();
+                });
+            });
+
+            // --- Tombol tambah mitigasi ---
+            const tambahButtons = document.querySelectorAll('button[data-bs-target="#tambahDataMitigasiModal"]');
+            tambahButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const regId = this.getAttribute('data-regid');
+                    document.getElementById('registrasi_id_tambah').value = regId;
                 });
             });
         });
@@ -226,5 +285,5 @@
             @endif
         });
     </script>
-    
+
 @endsection

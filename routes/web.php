@@ -75,7 +75,6 @@ Route::post('/kelola_beranda/save-colors', [KelolaBerandaController::class, 'sav
 Route::post('/kelola_beranda/store', [KelolaBerandaController::class, 'storeKonten'])
     ->name('kelola_beranda.store');
 Route::put('/kelola-beranda/{id}', [KelolaBerandaController::class, 'update'])->name('kelola-beranda.update');
-Route::delete('/kelola-beranda/{id}', [KelolaBerandaController::class, 'destroy'])->name('kelola-beranda.destroy');
 
 use App\Http\Controllers\ArsipRisikoController;
 Route::get('/arsip_risiko', [ArsipRisikoController::class, 'index'])->name('arsip_risiko');
@@ -84,6 +83,13 @@ Route::get('/registrasi', [RegistrasiController::class, 'index'])->name('registr
 Route::post('/registrasi', [RegistrasiController::class, 'store'])->name('registrasi.store');
 Route::put('/registrasi/{id}', [RegistrasiController::class, 'update'])->name('registrasi.update');
 Route::delete('/registrasi/{id}', [RegistrasiController::class, 'destroy'])->name('registrasi.destroy');
+
+use App\Http\Controllers\MitigasiController;
+
+Route::get('/mitigasi', [MitigasiController::class, 'index'])->name('mitigasi.index');
+Route::post('/mitigasi', [MitigasiController::class, 'store'])->name('mitigasi.store');
+Route::put('/mitigasi/{id}', [MitigasiController::class, 'update'])->name('mitigasi.update');
+Route::delete('/mitigasi/{id}', [MitigasiController::class, 'destroy'])->name('mitigasi.destroy');
 
 use App\Http\Controllers\ArsipOpenController;
 Route::get('/arsip_open', [ArsipOpenController::class, 'index'])->name('arsip_open');

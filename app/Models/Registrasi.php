@@ -58,4 +58,10 @@ class Registrasi extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function mitigasis()
+{
+    return $this->hasMany(Mitigasi::class, 'registrasi_id', 'id_registrasi');
+}
+
+
 }
