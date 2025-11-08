@@ -70,7 +70,7 @@ class KelolaPenggunaController extends Controller
             'password' => Hash::make('123456') // default password
         ]);
 
-        return back()->with('success', 'Pengguna baru berhasil ditambahkan!');
+        return redirect()->route('kelola_pengguna')->with('success', 'Pengguna baru berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
@@ -91,7 +91,7 @@ class KelolaPenggunaController extends Controller
             'unit_kerja_id' => $request->role1
         ]);
 
-        return back()->with('success', 'Data pengguna berhasil diperbarui!');
+        return redirect()->route('kelola_pengguna')->with('success', 'Data pengguna berhasil diperbarui!');
     }
 
     public function destroy($id)
@@ -99,6 +99,6 @@ class KelolaPenggunaController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return back()->with('success', 'Data pengguna berhasil dihapus!');
+        return redirect()->route('kelola_pengguna')->with('success', 'Data pengguna berhasil dihapus!');
     }
 }
