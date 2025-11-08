@@ -52,103 +52,100 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-outline-primary toggle-collapse" type="button"
-                                    data-bs-toggle="collapse" data-bs-target="#mitigasi1" aria-expanded="false"
-                                    aria-controls="mitigasi1">+
-                                </button>
-                            </td>
-                            <td>Prodi IF</td>
-                            <td>Pelaksanaan Pembelajaran</td>
-                            <td>Kepatuhan</td>
-                            <td>IT</td>
-                            <td>Kurangnya jumlah komputer untuk perkuliahan</td>
-                            <td class="centered">Internal</td>
-                            <td>Penambahan Mahasiswa</td>
-                            <td>Kesulitan menjalankan PBM</td>
-                            <td class="centered">IKU-4</td>
-                            <td>Dosen, Mahasiswa, Prodi</td>
-                            <td>Mahasiswa menggunakan laptop pribadi</td>
-                            <td class="centered">2</td>
-                            <td class="centered">A</td>
-                            <td class="centered">H</td>
-                            <td class="centered">Terverifikasi</td>
-                            <td class="text-center align-middle">
-                                <div class="d-flex justify-content-center gap-1">
-                                    <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                        data-bs-target="#editDataModal">
-                                        <i class="fa-solid fa-pen-to-square"></i>
+                        @foreach ($registrasi as $item)
+                            <tr>
+                                <td class="text-center">
+                                    <button class="btn btn-sm btn-outline-primary toggle-collapse" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#mitigasi{{ $item->id_registrasi }}"
+                                        aria-expanded="false" aria-controls="mitigasi{{ $item->id_registrasi }}">
+                                        +
                                     </button>
-                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#hapusDataMitigasiModal">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- TABEL MITIGASI -->
-                        <tr class="collapse bg-light" id="mitigasi1">
-                            <td colspan="17">
-                                <div class="p-3">
-                                    <!-- Header Mitigasi -->
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
-                                            data-bs-target="#tambahDataMitigasiModal">
-                                            <i class="fa-solid fa-plus"></i> Tambah Mitigasi
+                                </td>
+                                <td>{{ $item->unitKerja->nama_unit ?? '-' }}</td>
+                                <td>{{ $item->prosesAktivitas->nama_proses ?? '-' }}</td>
+                                <td>{{ $item->kategoriRisiko->nama_kategori ?? '-' }}</td>
+                                <td>{{ $item->jenisRisiko->nama_jenis ?? '-' }}</td>
+                                <td>{{ $item->isu_resiko }}</td>
+                                <td>{{ $item->jenis_isu }}</td>
+                                <td>{{ $item->akar_permasalahan }}</td>
+                                <td>{{ $item->dampak }}</td>
+                                <td>{{ $item->ikuTerkait->nama_iku ?? '-' }}</td>
+                                <td>{{ $item->pihak_terkait }}</td>
+                                <td>{{ $item->kontrol_pencegahan }}</td>
+                                <td>{{ $item->keparahan }}</td>
+                                <td>{{ $item->frekuensi }}</td>
+                                <td>{{ $item->probabilitas }}</td>
+                                <td>{{ $item->status_registrasi }}</td>
+                                <td class="text-center align-middle">
+                                    <div class="d-flex justify-content-center gap-1">
+                                        <button class="btn btn-sm btn-primary edit-button"
+                                            data-id="{{ $item->id_registrasi }}"
+                                            data-unitkerja="{{ $item->unit_kerja_id }}"
+                                            data-proses="{{ $item->proses_aktivitas_id }}"
+                                            data-kategori="{{ $item->kategori_risiko_id }}"
+                                            data-jenis="{{ $item->jenis_risiko_id }}"
+                                            data-isuresiko="{{ $item->isu_resiko }}"
+                                            data-jenisisu="{{ $item->jenis_isu }}"
+                                            data-akar="{{ $item->akar_permasalahan }}"
+                                            data-dampak="{{ $item->dampak }}"
+                                            data-iku="{{ $item->iku_terkait_id }}"
+                                            data-pihak="{{ $item->pihak_terkait }}"
+                                            data-kontrol="{{ $item->kontrol_pencegahan }}"
+                                            data-keparahan="{{ $item->keparahan }}"
+                                            data-frekuensi="{{ $item->frekuensi }}"
+                                            data-probabilitas="{{ $item->probabilitas }}"
+                                            data-bs-toggle="modal" data-bs-target="#editDataModal">
+                                            <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
+                        
+                                        <form action="{{ route('registrasi.destroy', $item->id_registrasi) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger" type="submit"
+                                                onclick="return confirm('Hapus data ini?')">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </div>
-
-                                    <table class="table table-sm table-bordered">
-                                        <thead class="table-secondary text-center">
-                                            <tr>
-                                                <th rowspan="2">Triwulan</th>
-                                                <th rowspan="2">Isu/Risiko</th>
-                                                <th colspan="2">Tindak Lanjut</th>
-                                                <th colspan="2">Evaluasi</th>
-                                                <th rowspan="2">Status Pelaksanaan Rencana Aksi</th>
-                                                <th rowspan="2">Hasil Penerapan Manajemen Risiko</th>
-                                                <th rowspan="2">Dokumen Pendukung</th>
-                                                <th rowspan="2">Aksi</th>
-                                            </tr>
-                                            <tr>
-                                                <th>Rencana Aksi</th>
-                                                <th>Tanggal Pelaksanaan Rencana Aksi</th>
-                                                <th>Hasil Tindak Lanjut</th>
-                                                <th>Tanggal Evaluasi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="centered">1-2025</td>
-                                                <td>Kurangnya jumlah komputer untuk perkuliahan</td>
-                                                <td>Pengadaan atau sewa</td>
-                                                <td class="centered">2025-03-10</td>
-                                                <td>Sewa laptop</td>
-                                                <td class="centered">2025-03-10</td>
-                                                <td class="centered">Closed</td>
-                                                <td>Kebutuhan komputer perkuliahan terpenuhi</td>
-                                                <td class="text-center align-middle">
-                                                    <div class="d-flex justify-content-center gap-2">
-                                                        <button class="btn btn-sm btn-secondary">
-                                                            <i class="fa-solid fa-eye"></i>
-                                                        </button>
-                                                    </div>
-                                                <td class="text-center align-middle">
-                                                    <div class="d-flex justify-content-center gap-2">
-                                                        <button class="btn btn-sm btn-primary edit-button"
-                                                            data-bs-toggle="modal" data-bs-target="#editDataMitigasiModal">
-                                                            <i class="fa-solid fa-pen-to-square"></i>
-                                                        </button>
-                                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                                            data-bs-target="#hapusDataMitigasiModal">
-                                                            <i class="fa-solid fa-trash"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                </td>
+                            </tr>
+                        
+                            <!-- Collapse Mitigasi -->
+                            <tr class="collapse bg-light" id="mitigasi{{ $item->id_registrasi }}">
+                                <td colspan="17">
+                                    <div class="p-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
+                                                data-bs-target="#tambahDataMitigasiModal">
+                                                <i class="fa-solid fa-plus"></i> Tambah Mitigasi
+                                            </button>
+                                        </div>
+                        
+                                        <!-- nanti bagian mitigasi dinamis di sini -->
+                                        <table class="table table-sm table-bordered">
+                                            <thead class="table-secondary text-center">
+                                                <tr>
+                                                    <th>Triwulan</th>
+                                                    <th>Isu/Risiko</th>
+                                                    <th>Rencana Aksi</th>
+                                                    <th>Tanggal Pelaksanaan</th>
+                                                    <th>Hasil Tindak Lanjut</th>
+                                                    <th>Tanggal Evaluasi</th>
+                                                    <th>Status</th>
+                                                    <th>Hasil Manajemen Risiko</th>
+                                                    <th>Dokumen Pendukung</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td colspan="10" class="text-center">Belum ada mitigasi</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
                                     </table>
                                 </div>
                             </td>

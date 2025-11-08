@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RegistrasiController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -73,8 +74,10 @@ Route::get('/kelola_beranda', [KelolaBerandaController::class, 'index'])->name('
 use App\Http\Controllers\ArsipRisikoController;
 Route::get('/arsip_risiko', [ArsipRisikoController::class, 'index'])->name('arsip_risiko');
 
-use App\Http\Controllers\RegistrasiController;
-Route::get('/registrasi', [RegistrasiController::class, 'index'])->name('registrasi');
+Route::get('/registrasi', [RegistrasiController::class, 'index'])->name('registrasi.index');
+Route::post('/registrasi', [RegistrasiController::class, 'store'])->name('registrasi.store');
+Route::put('/registrasi/{id}', [RegistrasiController::class, 'update'])->name('registrasi.update');
+Route::delete('/registrasi/{id}', [RegistrasiController::class, 'destroy'])->name('registrasi.destroy');
 
 use App\Http\Controllers\ArsipOpenController;
 Route::get('/arsip_open', [ArsipOpenController::class, 'index'])->name('arsip_open');
