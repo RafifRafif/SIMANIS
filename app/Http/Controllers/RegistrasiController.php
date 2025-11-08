@@ -2,29 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IkuTerkait;
 use Illuminate\Http\Request;
 use App\Models\Registrasi;
 use App\Models\UnitKerja;
 use App\Models\ProsesAktivitas;
 use App\Models\KategoriRisiko;
 use App\Models\JenisRisiko;
-
 use App\Models\Iku;
-
 use Illuminate\Support\Facades\Auth;
 
 class RegistrasiController extends Controller
 {
     // Menampilkan semua data registrasi
     public function index()
-
     {
         $userId = auth()->id(); // ambil id user yang sedang login
 
         $registrasi = Registrasi::with(['unitKerja', 'prosesAktivitas', 'kategoriRisiko', 'jenisRisiko', 'ikuterkait'])
             ->where('user_id', $userId) // ✅ filter berdasarkan user
             ->get();
-
 
         // Ambil data dropdown untuk form tambah/edit
         $unitKerja = UnitKerja::all();
@@ -39,8 +36,6 @@ class RegistrasiController extends Controller
     // Menyimpan data baru
     public function store(Request $request)
     {
-
-
         $validated = $request->validate([
             'unit_kerja_id' => 'required',
             'proses_aktivitas_id' => 'required',
@@ -57,9 +52,7 @@ class RegistrasiController extends Controller
             'frekuensi' => 'required',
         ]);
 
-
         // Matriks probabilitas
-
         $matrix = [
             'A' => [1 => 'M', 2 => 'H', 3 => 'H', 4 => 'E', 5 => 'E'],
             'B' => [1 => 'L', 2 => 'M', 3 => 'H', 4 => 'E', 5 => 'E'],
@@ -71,13 +64,11 @@ class RegistrasiController extends Controller
         $keparahan = (int) $request->keparahan;
         $frekuensi = $request->frekuensi;
 
-
         $validated['probabilitas'] = $matrix[$frekuensi][$keparahan] ?? 'L';
 
         // Tambahkan default value untuk status_registrasi
         $validated['status_registrasi'] = 'Belum Terverifikasi';
         $validated['user_id'] = Auth::id();
-
 
         Registrasi::create($validated);
 
@@ -85,11 +76,7 @@ class RegistrasiController extends Controller
             ->with('success', 'Data registrasi berhasil ditambahkan!');
     }
 
-
-
-
-    // 🔹 Mengupdate data registrasi
-
+    // Mengupdate data registrasi
     public function update(Request $request, $id)
     {
         $registrasi = Registrasi::findOrFail($id);
@@ -127,8 +114,7 @@ class RegistrasiController extends Controller
 
         return redirect()->route('registrasi.index')->with('success', 'Data registrasi berhasil diperbarui!');
     }
-
-
+    
     // Menghapus data
     public function destroy($id)
     {
