@@ -96,11 +96,13 @@
         }
 
         .card-illustration img {
-            width: 70%;
-            max-height: 160px;
-            object-fit: contain;
+            width: 100%;
+            height: 200px; /* kamu bisa ubah sesuai tinggi card kamu */
+            object-fit: cover; /* biar gambar penuh tapi tetap proporsional */
+            border-radius: 8px; /* biar pojoknya halus */
             margin-bottom: 12px;
         }
+
 
         .card-illustration a {
             text-decoration: none;

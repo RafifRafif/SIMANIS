@@ -3,11 +3,72 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\HeatmapColor;
+use App\Models\KontenBeranda;
 
 class KelolaBerandaController extends Controller
 {
     public function index()
     {
-        return view('pages.kelola_beranda');
+        $konten = KontenBeranda::all();
+        $colors = HeatmapColor::all();
+        return view('pages.kelola_beranda', compact('konten', 'colors'));
     }
+
+    public function saveColors(Request $request)
+    {
+        foreach ($request->colors as $cell) {
+            HeatmapColor::updateOrCreate(
+                ['row' => $cell['row'], 'col' => $cell['col']],
+                ['color_level' => $cell['color']]
+            );
+        }
+
+        return response()->json(['success' => true]);
+    }
+
+    public function storeKonten(Request $request)
+    {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'file' => 'nullable|file|max:5120',
+        ]);
+
+        $data = ['judul' => $request->judul];
+
+        if ($request->hasFile('gambar')) {
+            $data['gambar'] = $request->file('gambar')->store('konten/gambar', 'public');
+        }
+
+        if ($request->hasFile('file')) {
+            $data['file'] = $request->file('file')->store('konten/file', 'public');
+        }
+
+        KontenBeranda::create($data);
+
+        return redirect()->back()->with('success', 'Konten berhasil ditambahkan.');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $konten = KontenBeranda::findOrFail($id);
+
+        $konten->judul = $request->judul;
+
+        if ($request->hasFile('gambar')) {
+            $gambarPath = $request->file('gambar')->store('konten/gambar', 'public');
+            $konten->gambar = $gambarPath;
+        }
+
+        if ($request->hasFile('file')) {
+            $filePath = $request->file('file')->store('konten/file', 'public');
+            $konten->file = $filePath;
+        }
+
+        $konten->save();
+
+        return redirect()->back()->with('success', 'Konten berhasil diperbarui!');
+    }
+
 }

@@ -43,8 +43,8 @@
                                 <tr>
                                     <th class="bg-light">{{ $row }}</th>
                                     @for ($col = 1; $col <= 5; $col++)
-                                        <td data-row="{{ $row }}" data-col="{{ $col }}"
-                                            class="heatmap-cell" style="width:45px;height:45px;cursor:pointer;">
+                                        <td data-row="{{ $row }}" data-col="{{ $col }}" class="heatmap-cell"
+                                            style="width:45px;height:45px;cursor:pointer;">
                                         </td>
                                     @endfor
                                 </tr>
@@ -106,7 +106,8 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="fw-semibold mb-0">Konten Beranda</h5>
-                    <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal" data-bs-target="#tambahDataModal">
+                    <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal"
+                        data-bs-target="#tambahDataModal">
                         <i class="fa-solid fa-plus"></i> Tambah
                     </button>
                 </div>
@@ -123,31 +124,52 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><img src="{{ asset('images/gu.jpg') }}" alt="gambar1" width="60"></td>
-                                <td class="text-start">Manual Book Registrasi dan Mitigasi Risiko</td>
-                                <td>manualbook.pdf</td>
-                                <td>
-                                    <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                        data-bs-target="#editDataModal"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#hapusDataModal"><i class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><img src="{{ asset('images/gu.jpg') }}" alt="gambar2" width="60"></td>
-                                <td class="text-start">Definisi & Pemetaan Risiko</td>
-                                <td>definisirisko.pdf</td>
-                                <td>
-                                    <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                        data-bs-target="#editDataModal"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#hapusDataModal"><i class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
+                            @forelse ($konten as $index => $item)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>
+                                        @if ($item->gambar)
+                                            <img src="{{ asset('storage/' . $item->gambar) }}" alt="gambar" width="60">
+                                        @else
+                                            <span class="text-muted">Tidak ada gambar</span>
+                                        @endif
+                                    </td>
+                                    <td class="text-start">{{ $item->judul }}</td>
+                                    <td>
+                                        @if ($item->file)
+                                            <a href="{{ asset('storage/' . $item->file) }}" target="_blank">
+                                                {{ basename($item->file) }}
+                                            </a>
+                                        @else
+                                            <span class="text-muted">-</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <button 
+                                            class="btn btn-sm btn-primary btnEdit"
+                                            data-id="{{ $item->id }}"
+                                            data-judul="{{ $item->judul }}"
+                                            data-file="{{ $item->file }}"
+                                            data-file-nama="{{ basename($item->file) }}"
+                                            data-gambar="{{ asset('storage/' . $item->gambar) }}"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editDataModal">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
+
+                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#hapusDataModal">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted">Belum ada konten ditambahkan.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
+
                     </table>
                 </div>
             </div>
@@ -156,7 +178,7 @@
 
     <!-- Script Interaktif -->
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const cells = document.querySelectorAll(".heatmap-cell");
             const popup = document.getElementById("colorPickerPopup");
             let activeCell = null;
@@ -167,6 +189,16 @@
                 "H": "#F46D43",
                 "E": "#D73026"
             };
+
+            const savedColors = @json($colors);
+            savedColors.forEach(item => {
+                const cell = document.querySelector(`[data-row="${item.row}"][data-col="${item.col}"]`);
+                if (cell) {
+                    cell.style.backgroundColor = colors[item.color_level];
+                    cell.textContent = item.color_level;
+                }
+            });
+
 
             // Klik sel → tampilkan popup tepat di dekat sel
             cells.forEach(cell => {
@@ -205,6 +237,38 @@
                     popup.classList.add("d-none");
                 }
             });
+
+            // Tombol Simpan
+            document.querySelector(".btn.btn-primary.fw-medium.ms-auto").addEventListener("click", () => {
+                const allCells = document.querySelectorAll(".heatmap-cell");
+                const data = [];
+
+                allCells.forEach(cell => {
+                    const bg = cell.textContent.trim();
+                    if (bg) {
+                        data.push({
+                            row: cell.dataset.row,
+                            col: cell.dataset.col,
+                            color: bg
+                        });
+                    }
+                });
+
+                fetch("{{ route('kelola_beranda.save_colors') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({ colors: data })
+                }).then(res => res.json())
+                    .then(res => {
+                        if (res.success) {
+                            alert("Warna matriks berhasil disimpan!");
+                        }
+                    });
+            });
+
         });
     </script>
 @endsection

@@ -70,6 +70,11 @@ Route::delete('/iku/delete/{id}', [KelolaRegisController::class, 'destroyIku'])-
 
 use App\Http\Controllers\KelolaBerandaController;
 Route::get('/kelola_beranda', [KelolaBerandaController::class, 'index'])->name('kelola_beranda');
+Route::post('/kelola_beranda/save-colors', [KelolaBerandaController::class, 'saveColors'])
+    ->name('kelola_beranda.save_colors');
+Route::post('/kelola_beranda/store', [KelolaBerandaController::class, 'storeKonten'])
+    ->name('kelola_beranda.store');
+Route::put('/kelola-beranda/{id}', [KelolaBerandaController::class, 'update'])->name('kelola-beranda.update');
 
 use App\Http\Controllers\ArsipRisikoController;
 Route::get('/arsip_risiko', [ArsipRisikoController::class, 'index'])->name('arsip_risiko');

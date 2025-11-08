@@ -131,30 +131,51 @@
                 </div>
             </div>
 
-            <!-- Card Manual Book -->
-            <div class="card card-illustration p-3 d-flex flex-column align-items-center justify-content-center">
-                <img src="{{ asset('images/manualbook.png') }}" alt="Manual Book">
-                <a href="#">Manual Book Registrasi & Mitigasi Risiko</a>
-            </div>
-
-            <!-- Card Definisi Risiko -->
-            <div class="card card-illustration p-3 d-flex flex-column align-items-center justify-content-center">
-                <img src="{{ asset('images/definisirisiko.png') }}" alt="Definisi Risiko">
-                <a href="#">Definisi & Pemetaan Risiko</a>
-            </div>
-
-            <!-- Card IKU -->
-            <div class="card card-illustration p-3 d-flex flex-column align-items-center justify-content-center">
-                <img src="{{ asset('images/IKU.png') }}" alt="Indikator Kinerja Utama">
-                <a href="#">Indikator Kinerja Utama (IKU)</a>
-            </div>
-
-            <!-- Card Matriks -->
-            <div class="card card-illustration p-3 d-flex flex-column align-items-center justify-content-center">
-                <img src="{{ asset('images/matriks.png') }}" alt="Matriks Probabilitas Dampak Isu & Risiko">
-                <a href="#">Matriks Probabilitas Dampak Isu & Risiko</a>
-            </div>
+            @forelse ($konten as $item)
+                <div class="card card-illustration p-3 d-flex flex-column align-items-center justify-content-center">
+                    <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}" width="100">
+                    @if ($item->file)
+                        <a href="{{ asset('storage/' . $item->file) }}" target="_blank">{{ $item->judul }}</a>
+                    @else
+                        <p class="text-center mt-2">{{ $item->judul }}</p>
+                    @endif
+                </div>
+            @empty
+                <div class="text-center text-muted mt-3">
+                    <p>Belum ada konten yang ditambahkan.</p>
+                </div>
+            @endforelse
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const colorMap = {
+                "L": "#A6D96A",
+                "M": "#FCE08B",
+                "H": "#F46D43",
+                "E": "#D73026"
+            };
+
+            // Data warna dari database yang dikirim controller
+            const savedColors = @json($colors);
+
+            // Kalau data kosong, hentikan
+            if (!savedColors || !Array.isArray(savedColors)) return;
+
+            // Iterasi setiap warna yang disimpan
+            savedColors.forEach(item => {
+                const row = item.row;
+                const col = item.col;
+                const level = item.color_level; // pastikan nama kolom di DB kamu 'color_level'
+
+                const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+                if (cell) {
+                    const hex = colorMap[level] ?? level; // kalau bukan L/M/H/E, anggap hex
+                    cell.style.backgroundColor = hex;
+                    cell.textContent = level;
+                }
+            });
+        });
+    </script>
 @endsection

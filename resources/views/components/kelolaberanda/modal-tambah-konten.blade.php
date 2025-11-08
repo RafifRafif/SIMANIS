@@ -8,7 +8,7 @@
             </div>
 
             <div class="modal-body">
-                <form action="#" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('kelola_beranda.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <!-- Judul -->
                     <div class="mb-3">
