@@ -10,13 +10,18 @@ use App\Models\ProsesAktivitas;
 use App\Models\KategoriRisiko;
 use App\Models\JenisRisiko;
 use App\Models\Iku;
+use Illuminate\Support\Facades\Auth;
 
 class RegistrasiController extends Controller
 {
     // 🔹 Menampilkan semua data registrasi
     public function index()
     {
-        $registrasi = Registrasi::with(['unitKerja', 'prosesAktivitas', 'kategoriRisiko', 'jenisRisiko', 'ikuterkait'])->get();
+        $userId = auth()->id(); // ambil id user yang sedang login
+
+        $registrasi = Registrasi::with(['unitKerja', 'prosesAktivitas', 'kategoriRisiko', 'jenisRisiko', 'ikuterkait'])
+            ->where('user_id', $userId) // ✅ filter berdasarkan user
+            ->get();
 
         // Ambil data dropdown untuk form tambah/edit
         $unitKerja = UnitKerja::all();
@@ -31,8 +36,8 @@ class RegistrasiController extends Controller
     // 🔹 Menyimpan data baru
     public function store(Request $request)
     {
-        
-        
+
+
         $validated = $request->validate([
             'unit_kerja_id' => 'required',
             'proses_aktivitas_id' => 'required',
@@ -49,36 +54,37 @@ class RegistrasiController extends Controller
             'frekuensi' => 'required',
         ]);
 
-         // Matriks probabilitas
-    $matrix = [
-        'A' => [1 => 'M', 2 => 'H', 3 => 'H', 4 => 'E', 5 => 'E'],
-        'B' => [1 => 'L', 2 => 'M', 3 => 'H', 4 => 'E', 5 => 'E'],
-        'C' => [1 => 'L', 2 => 'M', 3 => 'M', 4 => 'H', 5 => 'E'],
-        'D' => [1 => 'L', 2 => 'L', 3 => 'M', 4 => 'H', 5 => 'H'],
-        'E' => [1 => 'L', 2 => 'L', 3 => 'L', 4 => 'M', 5 => 'H'],
-    ];
+        // Matriks probabilitas
+        $matrix = [
+            'A' => [1 => 'M', 2 => 'H', 3 => 'H', 4 => 'E', 5 => 'E'],
+            'B' => [1 => 'L', 2 => 'M', 3 => 'H', 4 => 'E', 5 => 'E'],
+            'C' => [1 => 'L', 2 => 'M', 3 => 'M', 4 => 'H', 5 => 'E'],
+            'D' => [1 => 'L', 2 => 'L', 3 => 'M', 4 => 'H', 5 => 'H'],
+            'E' => [1 => 'L', 2 => 'L', 3 => 'L', 4 => 'M', 5 => 'H'],
+        ];
 
-    $keparahan = (int) $request->keparahan;
-    $frekuensi = $request->frekuensi;
+        $keparahan = (int) $request->keparahan;
+        $frekuensi = $request->frekuensi;
 
-    $validated['probabilitas'] = $matrix[$frekuensi][$keparahan] ?? 'L';
-    
+        $validated['probabilitas'] = $matrix[$frekuensi][$keparahan] ?? 'L';
+
         // Tambahkan default value untuk status_registrasi
         $validated['status_registrasi'] = 'Belum Terverifikasi';
-    
+        $validated['user_id'] = Auth::id();
+
         Registrasi::create($validated);
-    
+
         return redirect()->route('registrasi.index')
             ->with('success', 'Data registrasi berhasil ditambahkan!');
     }
-    
+
 
 
     // 🔹 Mengupdate data registrasi
     public function update(Request $request, $id)
     {
         $registrasi = Registrasi::findOrFail($id);
-    
+
         $validated = $request->validate([
             'unit_kerja_id' => 'required',
             'proses_aktivitas_id' => 'required',
@@ -94,7 +100,7 @@ class RegistrasiController extends Controller
             'keparahan' => 'required',
             'frekuensi' => 'required',
         ]);
-    
+
         // hitung ulang probabilitas (biar sama kayak di store)
         $matrix = [
             'A' => [1 => 'M', 2 => 'H', 3 => 'H', 4 => 'E', 5 => 'E'],
@@ -103,16 +109,16 @@ class RegistrasiController extends Controller
             'D' => [1 => 'L', 2 => 'L', 3 => 'M', 4 => 'H', 5 => 'H'],
             'E' => [1 => 'L', 2 => 'L', 3 => 'L', 4 => 'M', 5 => 'H'],
         ];
-    
+
         $keparahan = (int) $request->keparahan;
         $frekuensi = $request->frekuensi;
         $validated['probabilitas'] = $matrix[$frekuensi][$keparahan] ?? 'L';
-    
+
         $registrasi->update($validated);
-    
+
         return redirect()->route('registrasi.index')->with('success', 'Data registrasi berhasil diperbarui!');
     }
-    
+
 
     // 🔹 Menghapus data
     public function destroy($id)

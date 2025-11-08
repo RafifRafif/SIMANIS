@@ -27,12 +27,35 @@ class Registrasi extends Model
         'frekuensi',
         'probabilitas',
         'status_registrasi',
+        'user_id',
+
     ];
 
     // Relasi ke tabel lain
-    public function unitKerja() { return $this->belongsTo(UnitKerja::class, 'unit_kerja_id'); }
-    public function prosesAktivitas() { return $this->belongsTo(ProsesAktivitas::class, 'proses_aktivitas_id'); }
-    public function kategoriRisiko() { return $this->belongsTo(KategoriRisiko::class, 'kategori_risiko_id'); }
-    public function jenisRisiko() { return $this->belongsTo(JenisRisiko::class, 'jenis_risiko_id'); }
-    public function ikuTerkait() { return $this->belongsTo(IkuTerkait::class, 'iku_terkait_id'); }
+    public function unitKerja()
+    {
+        return $this->belongsTo(UnitKerja::class, 'unit_kerja_id');
+    }
+    public function prosesAktivitas()
+    {
+        return $this->belongsTo(ProsesAktivitas::class, 'proses_aktivitas_id');
+    }
+    public function kategoriRisiko()
+    {
+        return $this->belongsTo(KategoriRisiko::class, 'kategori_risiko_id');
+    }
+    public function jenisRisiko()
+    {
+        return $this->belongsTo(JenisRisiko::class, 'jenis_risiko_id');
+    }
+    public function ikuTerkait()
+    {
+        return $this->belongsTo(IkuTerkait::class, 'iku_terkait_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }
