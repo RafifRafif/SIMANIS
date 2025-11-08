@@ -115,27 +115,39 @@
                 </div>
                 <div class="bar-container">
                     <div class="bar-label">Low</div>
-                    <div class="bar low">74%</div>
+                    <div class="bar low" style="width: {{ $probabilitasData['low'] }}%;">
+                        {{ $probabilitasData['low'] }}%
+                    </div>
                 </div>
+
                 <div class="bar-container">
                     <div class="bar-label">Medium</div>
-                    <div class="bar medium">81%</div>
+                    <div class="bar medium" style="width: {{ $probabilitasData['medium'] }}%;">
+                        {{ $probabilitasData['medium'] }}%
+                    </div>
                 </div>
+
                 <div class="bar-container">
                     <div class="bar-label">High</div>
-                    <div class="bar high">32%</div>
+                    <div class="bar high" style="width: {{ $probabilitasData['high'] }}%;">
+                        {{ $probabilitasData['high'] }}%
+                    </div>
                 </div>
+
                 <div class="bar-container">
                     <div class="bar-label">Extreme</div>
-                    <div class="bar extreme">15%</div>
+                    <div class="bar extreme" style="width: {{ $probabilitasData['extreme'] }}%;">
+                        {{ $probabilitasData['extreme'] }}%
+                    </div>
                 </div>
+
             </div>
 
             @forelse ($konten as $item)
                 <div class="card card-illustration p-3 d-flex flex-column align-items-center justify-content-center">
                     <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}" width="100">
                     @if ($item->file)
-                        <a href="{{ asset('storage/' . $item->file) }}" target="_blank">{{ $item->judul }}</a>
+                        <a href="{{ asset($item->file) }}" target="_blank">{{ $item->judul }}</a>
                     @else
                         <p class="text-center mt-2">{{ $item->judul }}</p>
                     @endif

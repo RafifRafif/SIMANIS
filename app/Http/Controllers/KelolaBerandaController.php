@@ -42,7 +42,10 @@ class KelolaBerandaController extends Controller
         }
 
         if ($request->hasFile('file')) {
-            $data['file'] = $request->file('file')->store('konten/file', 'public');
+            $file = $request->file('file');
+            $namaFile = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('konten/file'), $namaFile);
+            $data['file'] = 'konten/file/' . $namaFile;
         }
 
         KontenBeranda::create($data);
@@ -62,8 +65,10 @@ class KelolaBerandaController extends Controller
         }
 
         if ($request->hasFile('file')) {
-            $filePath = $request->file('file')->store('konten/file', 'public');
-            $konten->file = $filePath;
+            $file = $request->file('file');
+            $namaFile = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('konten/file'), $namaFile);
+            $konten->file = 'konten/file/' . $namaFile;
         }
 
         $konten->save();
