@@ -7,98 +7,102 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST">
+                <form action="{{ route('registrasi.store') }}" method="POST">
+                    @csrf
+
+                    <!-- Unit Kerja -->
                     <div class="mb-4">
-                        <label for="unitkerja" class="form-label">Unit Kerja</label>
-                        <select class="form-select" id="unitkerja" name="unitkerja" required>
+                        <label class="form-label">Unit Kerja</label>
+                        <select name="unit_kerja_id" class="form-select" required>
                             <option value="" selected disabled>Pilih Unit Kerja</option>
-                            <option value="el">JUR EL</option>
-                            <option value="if">JUR IF</option>
-                            <option value="mb">JUR MB</option>
-                            <option value="ms">JUR MS</option>
+                            @foreach ($unitKerja as $u)
+                                <option value="{{ $u->id }}">{{ $u->nama_unit }}</option>
+                            @endforeach
                         </select>
                     </div>
 
+                    <!-- Proses -->
                     <div class="mb-4">
-                        <label for="proses" class="form-label">Proses/Aktivitas</label>
-                        <select class="form-select" id="proses" name="proses" required>
-                            <option value="" selected disabled>Pilih Proses/Aktivitas</option>
-                            <option value="P4M">Pelaksanaan Pembelajaran</option>
-                            <option value="Kepala Unit">Pemasukan Barang</option>
+                        <label class="form-label">Proses</label>
+                        <select name="proses_aktivitas_id" class="form-select" required>
+                            <option value="" selected disabled>Pilih Proses</option>
+                            @foreach ($proses as $p)
+                                <option value="{{ $p->id }}">{{ $p->nama_proses }}</option>
+                            @endforeach
                         </select>
                     </div>
 
+                    <!-- Kategori Risiko -->
                     <div class="mb-4">
-                        <label for="kategori" class="form-label">Kategori Risiko</label>
-                        <select class="form-select" id="kategori" name="kategori" required>
+                        <label class="form-label">Kategori Risiko</label>
+                        <select name="kategori_risiko_id" class="form-select" required>
                             <option value="" selected disabled>Pilih Kategori</option>
-                            <option value="strategis"> Strategis</option>
-                            <option value="reputasi">Reputasi</option>
-                            <option value="Kecurangan">Kecurangan</option>
-                            <option value="keuangan">Keuangan</option>
-                            <option value="hukum">Hukum</option>
-                            <option value="kepatuhan">Kepatuhan</option>
+                            @foreach ($kategori as $k)
+                                <option value="{{ $k->id }}">{{ $k->nama_kategori }}</option>
+                            @endforeach
                         </select>
                     </div>
 
+                    <!-- Jenis Risiko -->
                     <div class="mb-4">
-                        <label for="jenis" class="form-label">Jenis Risiko</label>
-                        <select class="form-select" id="jenis" name="jenis" required>
+                        <label class="form-label">Jenis Risiko</label>
+                        <select name="jenis_risiko_id" class="form-select" required>
                             <option value="" selected disabled>Pilih Jenis Risiko</option>
-                            <option value="integritas"> Integritas</option>
-                            <option value="operasional">Operasional</option>
-                            <option value="kebijakan">Kebijakan/prosedur</option>
-                            <option value="it">IT</option>
+                            @foreach ($jenis as $j)
+                                <option value="{{ $j->id }}">{{ $j->nama_jenis }}</option>
+                            @endforeach
                         </select>
                     </div>
 
+                    <!-- Isu Risiko -->
                     <div class="mb-3">
-                        <label for="isurisiko" class="form-label">Isu/Risiko</label>
-                        <input type="text" class="form-control" id="isurisiko" name="isurisiko" required>
+                        <label class="form-label">Isu / Risiko</label>
+                        <input type="text" name="isu_resiko" class="form-control" required>
                     </div>
 
-                    <div class="mb-4">
-                        <label for="jenisisu" class="form-label">Jenis Isu</label>
-                        <select class="form-select" id="jenisisu" name="jenisisu" required>
-                            <option value="" selected disabled>Pilih Jenis</option>
-                            <option value="internal">Internal</option>
-                            <option value="eksternal">Eksternal</option>
+                    <!-- Jenis Isu -->
+                    <div class="mb-3">
+                        <label class="form-label">Jenis Isu</label>
+                        <select name="jenis_isu" class="form-select" required>
+                            <option value="" selected disabled>Pilih Jenis Isu</option>
+                            <option value="Internal">Internal</option>
+                            <option value="Eksternal">Eksternal</option>
                         </select>
                     </div>
 
+                    <!-- Akar Permasalahan -->
                     <div class="mb-3">
-                        <label for="akar" class="form-label">Akar Permasalahan</label>
-                        <input type="text" class="form-control" id="akar" name="akar" required>
+                        <label class="form-label">Akar Permasalahan</label>
+                        <input type="text" name="akar_permasalahan" class="form-control" required>
                     </div>
 
+                    <!-- Dampak -->
                     <div class="mb-3">
-                        <label for="dampak" class="form-label">Dampak</label>
-                        <input type="text" class="form-control" id="dampak" name="dampak" required>
+                        <label class="form-label">Dampak</label>
+                        <input type="text" name="dampak" class="form-control" required>
                     </div>
 
-                    <div class="mb-4">
-                        <label for="iku" class="form-label">IKU Terkait</label>
-                        <select class="form-select" id="iku" name="iku" required>
+                    <!-- IKU -->
+                    <div class="mb-3">
+                        <label class="form-label">IKU terkait</label>
+                        <select name="iku_terkait_id" class="form-select" required>
                             <option value="" selected disabled>Pilih IKU</option>
-                            <option value="iku1">IKU-1</option>
-                            <option value="iku2">IKU-2</option>
-                            <option value="iku3">IKU-3</option>
-                            <option value="iku4">IKU-4</option>
-                            <option value="iku5">IKU-5</option>
-                            <option value="iku6">IKU-6</option>
-                            <option value="iku7">IKU-7</option>
-                            <option value="iku8">IKU-8</option>
+                            @foreach ($iku as $i)
+                                <option value="{{ $i->id }}">{{ $i->nama_iku }} - {{ $i->deskripsi }}</option>
+                            @endforeach
                         </select>
                     </div>
 
+                    <!-- Pihak Terkait -->
                     <div class="mb-3">
-                        <label for="pihak" class="form-label">Pihak Terkait</label>
-                        <input type="text" class="form-control" id="pihak" name="pihak" required>
+                        <label class="form-label">Pihak Terkait</label>
+                        <input type="text" name="pihak_terkait" class="form-control" required>
                     </div>
 
+                    <!-- Kontrol Pencegahan -->
                     <div class="mb-3">
-                        <label for="kontrol" class="form-label">Kontrol/Pencegahan</label>
-                        <input type="text" class="form-control" id="kontrol" name="kontrol" required>
+                        <label class="form-label">Kontrol Pencegahan</label>
+                        <input type="text" name="kontrol_pencegahan" class="form-control" required>
                     </div>
 
                     <div class="d-flex align-items-center gap-4 mt-3 mb-3">
