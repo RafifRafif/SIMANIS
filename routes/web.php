@@ -75,6 +75,7 @@ Route::post('/kelola_beranda/save-colors', [KelolaBerandaController::class, 'sav
 Route::post('/kelola_beranda/store', [KelolaBerandaController::class, 'storeKonten'])
     ->name('kelola_beranda.store');
 Route::put('/kelola-beranda/{id}', [KelolaBerandaController::class, 'update'])->name('kelola-beranda.update');
+Route::delete('/kelola-beranda/{id}', [KelolaBerandaController::class, 'destroy'])->name('kelola-beranda.destroy');
 
 use App\Http\Controllers\ArsipRisikoController;
 Route::get('/arsip_risiko', [ArsipRisikoController::class, 'index'])->name('arsip_risiko');
