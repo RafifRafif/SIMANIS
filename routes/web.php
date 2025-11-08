@@ -69,7 +69,7 @@ Route::post('/iku/update/{id}', [KelolaRegisController::class, 'updateIku'])->na
 Route::delete('/iku/delete/{id}', [KelolaRegisController::class, 'destroyIku'])->name('iku.destroy');
 
 use App\Http\Controllers\KelolaBerandaController;
-Route::get('/kelola_beranda', [KelolaBerandaController::class, 'index'])->name('kelola_Beranda');
+Route::get('/kelola_beranda', [KelolaBerandaController::class, 'index'])->name('kelola_beranda');
 
 use App\Http\Controllers\ArsipRisikoController;
 Route::get('/arsip_risiko', [ArsipRisikoController::class, 'index'])->name('arsip_risiko');
