@@ -302,20 +302,25 @@
                 document.getElementById('edit_dokumenpendukung').value = this.getAttribute('data-dok');
             });
         });
+    </script>
 
-        
-
-        // --- Alert Bawaan Browser ---
+    {{-- alert bawaan browser --}}
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
-            @if(session('success'))
+            @php
+                $success = session()->pull('success');
+                $error = session()->pull('error');
+            @endphp
+
+            @if($success)
                 setTimeout(function() {
-                    alert("{{ session('success') }}");
+                    alert("{{ $success }}");
                 }, 300);
             @endif
 
-            @if(session('error'))
+            @if($error)
                 setTimeout(function() {
-                    alert("{{ session('error') }}");
+                    alert("{{ $error }}");
                 }, 300);
             @endif
         });

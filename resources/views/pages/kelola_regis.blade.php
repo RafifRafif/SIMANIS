@@ -134,27 +134,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tbody>
-                                        @foreach($prosesAktivitas as $index => $proses)
-                                            <tr>
-                                                <td class="centered">{{ $index + 1 }}</td>
-                                                <td>{{ $proses->nama_proses }}</td>
-                                                <td class="centered">
-                                                    <!-- Tombol Edit -->
-                                                    <button class="btn btn-sm btn-primary edit-proses-button" data-bs-toggle="modal"
-                                                        data-bs-target="#editDataModalProsesAktivitas" data-id="{{ $proses->id }}"
-                                                        data-nama="{{ $proses->nama_proses }}">
-                                                        <i class="fa-solid fa-pen-to-square"></i>
-                                                    </button>
-                                                    <!-- Tombol Hapus -->
-                                                    <button class="btn btn-danger btn-sm delete-proses-button" data-bs-toggle="modal"
-                                                        data-bs-target="#hapusProsesAktivitasModal" data-id="{{ $proses->id }}">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
+                                    @foreach($prosesAktivitas as $index => $proses)
+                                        <tr>
+                                            <td class="centered">{{ $index + 1 }}</td>
+                                            <td>{{ $proses->nama_proses }}</td>
+                                            <td class="centered">
+                                                <!-- Tombol Edit -->
+                                                <button class="btn btn-sm btn-primary edit-proses-button" data-bs-toggle="modal"
+                                                    data-bs-target="#editDataModalProsesAktivitas" data-id="{{ $proses->id }}"
+                                                    data-nama="{{ $proses->nama_proses }}">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </button>
+                                                <!-- Tombol Hapus -->
+                                                <button class="btn btn-danger btn-sm delete-proses-button" data-bs-toggle="modal"
+                                                    data-bs-target="#hapusProsesAktivitasModal" data-id="{{ $proses->id }}">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach   
                                 </tbody>
                             </table>
                         </div>
@@ -368,20 +366,23 @@
         });
     </script>
 
-    </script>
-
     {{-- alert bawaan browser --}}
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            @if(session('success'))
+            @php
+                $success = session()->pull('success');
+                $error = session()->pull('error');
+            @endphp
+
+            @if($success)
                 setTimeout(function() {
-                    alert("{{ session('success') }}");
+                    alert("{{ $success }}");
                 }, 300);
             @endif
 
-            @if(session('error'))
+            @if($error)
                 setTimeout(function() {
-                    alert("{{ session('error') }}");
+                    alert("{{ $error }}");
                 }, 300);
             @endif
         });
