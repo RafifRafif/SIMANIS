@@ -10,15 +10,15 @@
     <div class="d-flex justify-content-evenly align-items-stretch flex-wrap">
         @include('components.arsip_risiko', [
             'color' => '#57C9E8',
-            'number' => 42,
-            'text' => 'Total Status Open',
+            'number' => $openedCount ?? 0,
+            'text' => 'Total Status Opened',
             'icon' => 'fa-solid fa-file',
             'link' => 'arsip_open'
         ])
 
         @include('components.arsip_risiko', [
             'color' => '#F2682A',
-            'number' => 26,
+            'number' => $closedCount ?? 0,
             'text' => 'Total Status Closed',
             'icon' => 'fa-solid fa-file',
             'link' => 'arsip_closed'
