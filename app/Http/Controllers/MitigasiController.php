@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Mitigasi;
+use App\Models\Registrasi; // tambahkan di atas
 
 class MitigasiController extends Controller
 {
@@ -22,6 +23,14 @@ class MitigasiController extends Controller
             'hasil_manajemen_risiko' => 'nullable|string',
             'dokumen_pendukung' => 'nullable|url',
         ]);
+
+        // 🔒 Validasi status registrasi
+        $registrasi = Registrasi::findOrFail($request->registrasi_id);
+
+        if ($registrasi->status_registrasi !== 'Terverifikasi') {
+            return back()->with('error', 'Registrasi belum diverifikasi. Tidak dapat menambah mitigasi.');
+        }
+        
 
         Mitigasi::create($data);
 

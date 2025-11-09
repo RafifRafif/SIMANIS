@@ -8,6 +8,7 @@
     @include('components.kelolaregistrasi.modal-hapus-data')
     @include('components.kelolamitigasi.tambah-mitigasi')
     @include('components.kelolamitigasi.edit-mitigasi')
+    @include('components.kelolamitigasi.hapus-mitigasi')
     @include('components.kelolapenilaian.modal-tambah-penilaian')
 @endpush
 
@@ -117,11 +118,19 @@
                                 <td colspan="17">
                                     <div class="p-3">
                                         <div class="d-flex justify-content-between align-items-center mb-2">
+                                            @if ($item->status_registrasi === 'Terverifikasi')
                                             <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
                                                 data-bs-target="#tambahDataMitigasiModal"
                                                 data-regid="{{ $item->id_registrasi }}">
                                                 <i class="fa-solid fa-plus"></i> Tambah Mitigasi
                                             </button>
+                                        @else
+                                            <button class="btn btn-secondary fw-bold" disabled>
+                                                <i class="fa-solid fa-lock"></i> Registrasi Belum Terverifikasi
+                                            </button>
+                                        @endif
+                                        
+                                        
                                         </div>
 
                                         <!-- Bagian mitigasi -->
@@ -196,9 +205,9 @@
                                                         </tr>
                                                     @endforeach
                                                 @else
-                                                    <tr>
-                                                        <td colspan="10" class="text-center">Belum ada mitigasi</td>
-                                                    </tr>
+                                                <tr>
+                                                    <td colspan="16" class="text-center text-muted">Belum Ada Mitigasi.</td>
+                                                </tr>
                                                 @endif
                                             </tbody>
                                         </table>
