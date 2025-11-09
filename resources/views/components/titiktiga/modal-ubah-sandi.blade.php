@@ -8,31 +8,33 @@
       </div>
 
       <div class="modal-body">
-        <form>
-          <!-- Sandi Saat Ini -->
+        <form action="{{ route('ubah.sandi') }}" method="POST">
+          @csrf
+
           <div class="mb-3 position-relative">
             <label for="sandiSaatIni" class="form-label fw-medium">Sandi Saat Ini</label>
-            <input type="password" class="form-control pe-5" id="sandiSaatIni" placeholder="Isi sandi sebelumnya">
+            <input type="password" class="form-control pe-5" id="sandiSaatIni" name="current_password"
+              placeholder="Isi sandi sebelumnya">
             <i class="fa-regular fa-eye toggle-eye" onclick="togglePassword('sandiSaatIni', this)"></i>
           </div>
 
-          <!-- Sandi Baru -->
           <div class="mb-3 position-relative">
             <label for="sandiBaru" class="form-label fw-medium">Sandi Baru</label>
-            <input type="password" class="form-control pe-5" id="sandiBaru" placeholder="Isi sandi terbaru">
+            <input type="password" class="form-control pe-5" id="sandiBaru" name="new_password"
+              placeholder="Isi sandi terbaru">
             <i class="fa-regular fa-eye toggle-eye" onclick="togglePassword('sandiBaru', this)"></i>
           </div>
 
-          <!-- Konfirmasi Sandi Baru -->
           <div class="mb-4 position-relative">
             <label for="konfirmasiSandi" class="form-label fw-medium">Konfirmasi Sandi Baru</label>
-            <input type="password" class="form-control pe-5" id="konfirmasiSandi" placeholder="Isi sandi yang telah diperbarui">
+            <input type="password" class="form-control pe-5" id="konfirmasiSandi" name="new_password_confirmation"
+              placeholder="Isi ulang sandi baru">
             <i class="fa-regular fa-eye toggle-eye" onclick="togglePassword('konfirmasiSandi', this)"></i>
           </div>
 
-          <!-- Tombol Simpan -->
           <div class="text-center">
-            <button type="submit" class="btn btn-primary px-4 py-2 rounded-3 w-100 fw-medium" style="background-color: #006AFF;">
+            <button type="submit" class="btn btn-primary px-4 py-2 rounded-3 w-100 fw-medium"
+              style="background-color: #006AFF;">
               Simpan
             </button>
           </div>
@@ -42,27 +44,37 @@
   </div>
 </div>
 
+@if (session('success'))
+  <script>alert("{{ session('success') }}");</script>
+@endif
+
+@if (session('error'))
+  <script>alert("{{ session('error') }}");</script>
+@endif
+
+
 <!-- Script Toggle Password -->
 <script>
-function togglePassword(id, icon) {
-  const input = document.getElementById(id);
-  if (input.type === "password") {
-    input.type = "text";
-    icon.classList.remove('fa-eye-slash');
-    icon.classList.add('fa-eye-eye');
-  } else {
-    input.type = "password";
-    icon.classList.remove('fa-eye-eye');
-    icon.classList.add('fa-eye-slash');
+  function togglePassword(id, icon) {
+    const input = document.getElementById(id);
+    if (input.type === "password") {
+      input.type = "text";
+      icon.classList.remove('fa-eye-slash');
+      icon.classList.add('fa-eye-eye');
+    } else {
+      input.type = "password";
+      icon.classList.remove('fa-eye-eye');
+      icon.classList.add('fa-eye-slash');
+    }
   }
-}
 </script>
 
 <!-- CSS -->
 <style>
   .form-control {
     border-radius: 12px !important;
-    padding-right: 40px !important; /* ruang untuk ikon mata */
+    padding-right: 40px !important;
+    /* ruang untuk ikon mata */
   }
 
   .toggle-eye {

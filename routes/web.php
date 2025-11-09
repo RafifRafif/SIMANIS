@@ -16,6 +16,7 @@ use App\Http\Controllers\AuthController;
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/ubah-sandi', [AuthController::class, 'changePassword'])->name('ubah.sandi');
 
 use App\Http\Controllers\BerandaController;
 /* Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda'); */

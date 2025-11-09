@@ -14,7 +14,7 @@
       <!-- Tombol Aksi -->
       <div class="d-flex justify-content-center gap-2">
         <button type="button" class="btn btn-light border fw-semibold px-4" data-bs-dismiss="modal">Batal</button>
-        {{-- <form action="{{ route('logout') }}" method="POST"> --}}
+        <form action="{{ route('logout') }}" method="POST">
           @csrf
           <button type="submit" class="btn btn-danger fw-semibold px-4">Keluar</button>
         </form>
