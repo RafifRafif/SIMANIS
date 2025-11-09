@@ -63,32 +63,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="data-row">
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-outline-primary toggle-collapse" type="button"
-                                    data-bs-toggle="collapse" data-bs-target="#mitigasi1" aria-expanded="false"
-                                    aria-controls="mitigasi1">+
-                                </button>
-                            </td>
-                            <td>Jur IF</td>
-                            <td>Pelaksanaan Pembelajaran</td>
-                            <td>Kepatuhan</td>
-                            <td>integritas</td>
-                            <td>Kurangnya jumlah komputer untuk perkuliahan</td>
-                            <td class="centered">Internal</td>
-                            <td>Penambahan Mahasiswa</td>
-                            <td>Kesulitan menjalankan PBM</td>
-                            <td class="centered">IKU-4</td>
-                            <td>Dosen, Mahasiswa, Prodi</td>
-                            <td>Mahasiswa menggunakan laptop pribadi</td>
-                            <td class="centered">2</td>
-                            <td class="centered">A</td>
-                            <td class="centered">H</td>
-                            <td class="centered">Terverifikasi</td>
-                        </tr>
+                        @forelse ($registrasi as $item)
+                            {{-- Baris utama (registrasi) --}}
+                            <tr>
+                                <td class="text-center">
+                                    <button class="btn btn-sm btn-outline-primary toggle-collapse" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#mitigasi{{ $item->id_registrasi }}"
+                                        aria-expanded="false" aria-controls="mitigasi{{ $item->id_registrasi }}">
+                                        +
+                                    </button>
+                                </td>
+                                <td>{{ $item->unitKerja->nama_unit ?? '-' }}</td>
+                                <td>{{ $item->prosesAktivitas->nama_proses ?? '-' }}</td>
+                                <td>{{ $item->kategoriRisiko->nama_kategori ?? '-' }}</td>
+                                <td>{{ $item->jenisRisiko->nama_jenis ?? '-' }}</td>
+                                <td>{{ $item->isu_resiko }}</td>
+                                <td>{{ $item->jenis_isu }}</td>
+                                <td>{{ $item->akar_permasalahan }}</td>
+                                <td>{{ $item->dampak }}</td>
+                                <td>{{ $item->ikuTerkait->nama_iku ?? '-' }}</td>
+                                <td>{{ $item->pihak_terkait }}</td>
+                                <td>{{ $item->kontrol_pencegahan }}</td>
+                                <td>{{ $item->keparahan }}</td>
+                                <td>{{ $item->frekuensi }}</td>
+                                <td>{{ $item->probabilitas }}</td>
+                                <td>{{ $item->status_registrasi }}</td>
+                            </tr>
 
                         <!-- TABEL MITIGASI -->
-                        <tr class="collapse-row collapse bg-light" id="mitigasi1">
+                        <tr class="collapse-row collapse bg-light" id="mitigasi{{ $item->id_registrasi }}">
                             <td colspan="17">
                                 <div class="p-3">
                                     <!-- Header Mitigasi -->
@@ -101,6 +104,7 @@
                                                 <th colspan="2">Evaluasi</th>
                                                 <th rowspan="2">Status Pelaksanaan Rencana Aksi</th>
                                                 <th rowspan="2">Hasil Penerapan Manajemen Risiko</th>
+                                                <th rowspan="2">Dokumen Pendukung</th>
                                             </tr>
                                             <tr>
                                                 <th>Rencana Aksi</th>
@@ -110,21 +114,43 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="centered">1-2025</td>
-                                                <td>Kurangnya jumlah komputer untuk perkuliahan</td>
-                                                <td>Pengadaan atau sewa</td>
-                                                <td class="centered">2025-03-10</td>
-                                                <td>Sewa laptop</td>
-                                                <td class="centered">2025-03-10</td>
-                                                <td class="centered">Closed</td>
-                                                <td>Kebutuhan komputer perkuliahan terpenuhi</td>
-                                            </tr>
+                                            @if($item->mitigasis && $item->mitigasis->count())
+                                                @foreach($item->mitigasis as $m)
+                                                    <tr>
+                                                        <td>{{ $m->triwulan }} / {{ $m->tahun }}</td>
+                                                        <td>{{ $m->isurisiko }}</td>
+                                                        <td>{{ $m->rencana_aksi }}</td>
+                                                        <td>{{ $m->tanggal_pelaksanaan ?? '-' }}</td>
+                                                        <td>{{ $m->hasil_tindak_lanjut ?? '-' }}</td>
+                                                        <td>{{ $m->tanggal_evaluasi ?? '-' }}</td>
+                                                        <td>{{ ucfirst($m->status) }}</td>
+                                                        <td>{{ $m->hasil_manajemen_risiko ?? '-' }}</td>
+                                                        <td class="text-center align-middle">
+                                                            @if($m->dokumen_pendukung)
+                                                                <a href="{{ $m->dokumen_pendukung }}" target="_blank" class="btn btn-sm btn-secondary">
+                                                                    <i class="fa-solid fa-eye"></i>
+                                                                </a>
+                                                            @else
+                                                                -
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @else
+                                                <tr>
+                                                    <td colspan="9" class="text-center text-muted">Belum ada mitigasi</td>
+                                                </tr>
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
                             </td>
                         </tr>
+                        @empty
+                            <tr>
+                                <td colspan="17" class="text-center text-muted">Tidak ada registrasi ditemukan.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -171,17 +197,14 @@
             const targetSelector = button.getAttribute('data-bs-target');
             const target = document.querySelector(targetSelector);
 
-            // Pastikan collapse dikenali oleh Bootstrap
             const collapseInstance = new bootstrap.Collapse(target, {
                 toggle: false
             });
 
-            // Saat terbuka → ubah ke "−"
             target.addEventListener('shown.bs.collapse', () => {
                 button.textContent = '−';
             });
 
-            // Saat tertutup → ubah ke "+"
             target.addEventListener('hidden.bs.collapse', () => {
                 button.textContent = '+';
             });
