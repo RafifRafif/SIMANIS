@@ -1,4 +1,4 @@
-<!-- Modal Tambah Data -->
+<!-- Modal Edit Mitigasi -->
 <div class="modal fade" id="editDataMitigasiModal" tabindex="-1" aria-labelledby="editDataMitigasiLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -7,53 +7,73 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST">
+                <form id="editMitigasiForm" method="POST">
+                    @csrf
+                    @method('PUT')
+
+                    <input type="hidden" id="edit_id">
+
                     <div class="mb-3">
-                        <div class="mb-3">
-                            <select class="form-select" id="triwulan" name="triwulan" required>
-                              <option value="" selected disabled>triwulan</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                            </select>
-                          </div>
-                        <input type="text" class="form-control" id="tahun" name="tahun" placeholder="Tahun " required>
+                        <label for="edit_triwulan" class="form-label">Triwulan</label>
+                        <select class="form-select" id="edit_triwulan" name="triwulan" required>
+                            <option value="" disabled>Pilih Triwulan</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">
-                        <label for="isurisiko" class="form-label">Isu/risiko</label>
-                        <input type="text" class="form-control" id="isurisiko" name="isurisiko" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="rencanaaksi" class="form-label">Tindak Lanjut</label>
-                        <input type="text" class="form-control mb-2" id="rencanaaksi" name="rencanaaksi" placeholder="Rencana Aksi" required>
-                        <input type="date" class="form-control" id="tanggalpelaksanaan" name="tanggalpelaksanaan" placeholder="Tanggal Pelaksanaan" required>
+                        <label for="edit_tahun" class="form-label">Tahun</label>
+                        <input type="text" class="form-control" id="edit_tahun" name="tahun" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="evaluasi" class="form-label">Evaluasi</label>
-                        <input type="text" class="form-control mb-2" id="hasiltibndaklanjut" name="hasiltindaklanjut" placeholder="Hasil Tindak Lanjut" required>
-                        <input type="date" class="form-control" id="tanggalevaluasi" name="tanggalevaluasi" placeholder="Tanggal Evaluasi" required>
+                        <label for="edit_isurisiko" class="form-label">Isu/Risiko</label>
+                        <input type="text" class="form-control" id="edit_isurisiko" name="isurisiko">
                     </div>
 
                     <div class="mb-3">
-                        <div class="mb-3">
-                            <select class="form-select" id="statuspelaksanaan" name="statuspelaksanaan" required>
-                              <option value="" selected disabled>Status Pelaksanaan</option>
-                              <option value="opened">Opened</option>
-                              <option value="closed">Closed</option>
-                            </select>
-                          </div>
-                        <input type="text" class="form-control" id="hasilpenerapan" name="hasilpenerapan" placeholder="Hasil Penerapan Manajemen Risiko " required>
+                        <label for="edit_rencanaaksi" class="form-label">Rencana Aksi</label>
+                        <input type="text" class="form-control" id="edit_rencanaaksi" name="rencana_aksi" required>
                     </div>
+
                     <div class="mb-3">
-                        <label for="dokumenpendukung" class="form-label">Dokumen Pendukung</label>
-                        <input type="url" class="form-control" id="dokumenpendukung" name="dokumenpendukung"
-                            placeholder="Tambah Dokumen Pendukung" required>
+                        <label for="edit_tanggalpelaksanaan" class="form-label">Tanggal Pelaksanaan</label>
+                        <input type="date" class="form-control" id="edit_tanggalpelaksanaan" name="tanggal_pelaksanaan">
                     </div>
-                    <button type="submit" class="btn btn-primary w-100"></i>Simpan</button>
+
+                    <div class="mb-3">
+                        <label for="edit_hasiltindaklanjut" class="form-label">Hasil Tindak Lanjut</label>
+                        <input type="text" class="form-control" id="edit_hasiltindaklanjut" name="hasil_tindak_lanjut">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="edit_tanggalevaluasi" class="form-label">Tanggal Evaluasi</label>
+                        <input type="date" class="form-control" id="edit_tanggalevaluasi" name="tanggal_evaluasi">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="edit_statuspelaksanaan" class="form-label">Status Pelaksanaan</label>
+                        <select class="form-select" id="edit_statuspelaksanaan" name="status" required>
+                            <option value="" disabled>Pilih Status</option>
+                            <option value="opened">Opened</option>
+                            <option value="closed">Closed</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="edit_hasilpenerapan" class="form-label">Hasil Penerapan Manajemen Risiko</label>
+                        <input type="text" class="form-control" id="edit_hasilpenerapan" name="hasil_manajemen_risiko">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="edit_dokumenpendukung" class="form-label">Dokumen Pendukung</label>
+                        <input type="url" class="form-control" id="edit_dokumenpendukung" name="dokumen_pendukung">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Simpan</button>
                 </form>
             </div>
         </div>

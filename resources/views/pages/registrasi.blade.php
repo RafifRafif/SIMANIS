@@ -22,7 +22,7 @@
     <!-- Pencarian dan Dropdown -->
     <div class="d-flex mb-4 gap-2">
         <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal" data-bs-target="#tambahDataModal">
-            <i class="fa-solid fa-plus"></i>Tambah
+            <i class="fa-solid fa-plus"></i> Tambah
         </button>
     </div>
 
@@ -80,6 +80,7 @@
                                 <td>{{ $item->status_registrasi }}</td>
                                 <td class="text-center align-middle">
                                     <div class="d-flex justify-content-center gap-1">
+                                        <!-- Tombol Edit -->
                                         <button class="btn btn-sm btn-primary edit-button"
                                             data-id="{{ $item->id_registrasi }}"
                                             data-unitkerja="{{ $item->unit_kerja_id }}"
@@ -100,6 +101,7 @@
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
 
+                                        <!-- Tombol Hapus -->
                                         <button class="btn btn-sm btn-danger delete-registrasi-button" 
                                             data-bs-toggle="modal" 
                                             data-bs-target="#hapusRegistrasiModal"
@@ -122,7 +124,7 @@
                                             </button>
                                         </div>
 
-                                        <!-- bagian mitigasi -->
+                                        <!-- Bagian mitigasi -->
                                         <table class="table table-sm table-bordered">
                                             <thead class="table-secondary text-center">
                                                 <tr>
@@ -167,7 +169,7 @@
                                                             <td class="text-center">
                                                                 <div class="d-flex justify-content-center gap-2">
                                                                     <button class="btn btn-sm btn-primary edit-mitigasi"
-                                                                        data-id="{{ $m->id }}"
+                                                                        data-id="{{ $m->id_mitigasi }}"
                                                                         data-triwulan="{{ $m->triwulan }}"
                                                                         data-tahun="{{ $m->tahun }}"
                                                                         data-isurisiko="{{ $m->isurisiko }}"
@@ -183,11 +185,12 @@
                                                                     </button>
 
                                                                     <button class="btn btn-sm btn-danger delete-mitigasi-button"
-                                                                        data-id="{{ $m->id }}"
                                                                         data-bs-toggle="modal"
-                                                                        data-bs-target="#hapusMitigasiModal">
+                                                                        data-bs-target="#hapusMitigasiModal"
+                                                                        data-id="{{ $m->id_mitigasi }}">
                                                                         <i class="fa-solid fa-trash"></i>
                                                                     </button>
+                                                                    
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -209,6 +212,7 @@
         </div>
     </div>
 
+    {{-- Script --}}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // --- Bagian tombol + / − ---
@@ -229,7 +233,7 @@
                 });
             });
 
-            // --- Bagian tombol Edit ---
+            // --- Bagian tombol Edit Registrasi ---
             const editButtons = document.querySelectorAll('.edit-button');
             editButtons.forEach(button => {
                 button.addEventListener('click', function () {
@@ -267,10 +271,32 @@
                 });
             });
         });
-    </script>
 
-    {{-- alert bawaan browser --}}
-    <script>
+        // --- Edit Modal Mitigasi ---
+        document.querySelectorAll('.edit-mitigasi').forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const form = document.getElementById('editMitigasiForm');
+                form.action = '/mitigasi/' + id;
+
+                // Isi form dengan data dari tombol
+                document.getElementById('edit_id').value = id;
+                document.getElementById('edit_triwulan').value = this.getAttribute('data-triwulan');
+                document.getElementById('edit_tahun').value = this.getAttribute('data-tahun');
+                document.getElementById('edit_isurisiko').value = this.getAttribute('data-isurisiko');
+                document.getElementById('edit_rencanaaksi').value = this.getAttribute('data-rencana');
+                document.getElementById('edit_tanggalpelaksanaan').value = this.getAttribute('data-tanggal');
+                document.getElementById('edit_hasiltindaklanjut').value = this.getAttribute('data-hasil');
+                document.getElementById('edit_tanggalevaluasi').value = this.getAttribute('data-evaluasi');
+                document.getElementById('edit_statuspelaksanaan').value = this.getAttribute('data-status');
+                document.getElementById('edit_hasilpenerapan').value = this.getAttribute('data-manajemen');
+                document.getElementById('edit_dokumenpendukung').value = this.getAttribute('data-dok');
+            });
+        });
+
+        
+
+        // --- Alert Bawaan Browser ---
         document.addEventListener("DOMContentLoaded", function() {
             @if(session('success'))
                 setTimeout(function() {
@@ -285,5 +311,4 @@
             @endif
         });
     </script>
-
 @endsection
