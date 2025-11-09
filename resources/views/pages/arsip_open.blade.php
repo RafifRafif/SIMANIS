@@ -15,9 +15,9 @@
         <!-- Dropdown Unit Kerja -->
         <select id="unitkerja" class="form-select w-auto dropdown-fixed">
             <option value="">Unit Kerja</option>
-            <option value="jur_el">Jur EL</option>
-            <option value="jur_if">Jur IF</option>
-            <option value="jur_mb">Jur MB</option>
+            @foreach($unitKerja as $unit)
+                <option value="{{ $unit->id }}">{{ $unit->nama_unit }}</option>
+            @endforeach
         </select>
 
         <!-- Dropdown Tahun -->

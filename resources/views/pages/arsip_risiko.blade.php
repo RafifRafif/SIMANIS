@@ -11,7 +11,7 @@
         @include('components.arsip_risiko', [
             'color' => '#57C9E8',
             'number' => $openedCount ?? 0,
-            'text' => 'Total Status Opened',
+            'text' => 'Total Status Open',
             'icon' => 'fa-solid fa-file',
             'link' => 'arsip_open'
         ])
