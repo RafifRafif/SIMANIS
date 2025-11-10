@@ -267,4 +267,26 @@
 
         });
     </script>
+
+    {{-- alert bawaan browser --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            @php
+                $success = session()->pull('success');
+                $error = session()->pull('error');
+            @endphp
+
+            @if ($success)
+                setTimeout(function() {
+                    alert("{{ $success }}");
+                }, 300);
+            @endif
+
+            @if ($error)
+                setTimeout(function() {
+                    alert("{{ $error }}");
+                }, 300);
+            @endif
+        });
+    </script>
 @endsection
