@@ -13,7 +13,7 @@ use App\Models\IkuTerkait;
 
 class KelolaRegisController extends Controller
 {
-     public function index()
+    public function index()
     {
         $unitKerja = UnitKerja::all();
         $prosesAktivitas = ProsesAktivitas::all();
@@ -133,19 +133,64 @@ class KelolaRegisController extends Controller
         return redirect()->route('kelola_regis')->with('success', 'IKU Terkait berhasil dihapus!');
     }
 
-    public function import(Request $request)
+    // Import Unit Kerja
+    public function importUnitKerja(Request $request)
     {
-        // Validasi file yang diupload
-        $request->validate([
-            'file' => 'required|mimes:xlsx,csv'
-        ]);
-
+        $request->validate(['file' => 'required|mimes:xlsx,csv']);
         try {
-            Excel::import(new FormRegisImport, $request->file('file'));
-
-            return redirect()->route('kelola_regis')->with('success', 'Data berhasil diimport!');
+            Excel::import(new \App\Imports\UnitKerjaImport, $request->file('file'));
+            return redirect()->route('kelola_regis')->with('success', 'Data Unit Kerja berhasil diimport!');
         } catch (\Exception $e) {
-            return redirect()->route('kelola_regis')->with('error', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+            return redirect()->route('kelola_regis')->with('error', 'Gagal mengimpor Unit Kerja: ' . $e->getMessage());
         }
     }
+
+    // Import Proses/Aktivitas
+    public function importProses(Request $request)
+    {
+        $request->validate(['file' => 'required|mimes:xlsx,csv']);
+        try {
+            Excel::import(new \App\Imports\ProsesAktivitasImport, $request->file('file'));
+            return redirect()->route('kelola_regis')->with('success', 'Data Proses/Aktivitas berhasil diimport!');
+        } catch (\Exception $e) {
+            return redirect()->route('kelola_regis')->with('error', 'Gagal mengimpor Proses/Aktivitas: ' . $e->getMessage());
+        }
+    }
+
+    // Import Kategori Risiko
+    public function importKategori(Request $request)
+    {
+        $request->validate(['file' => 'required|mimes:xlsx,csv']);
+        try {
+            Excel::import(new \App\Imports\KategoriRisikoImport, $request->file('file'));
+            return redirect()->route('kelola_regis')->with('success', 'Data Kategori Risiko berhasil diimport!');
+        } catch (\Exception $e) {
+            return redirect()->route('kelola_regis')->with('error', 'Gagal mengimpor Kategori Risiko: ' . $e->getMessage());
+        }
+    }
+
+    // Import Jenis Risiko
+    public function importJenis(Request $request)
+    {
+        $request->validate(['file' => 'required|mimes:xlsx,csv']);
+        try {
+            Excel::import(new \App\Imports\JenisRisikoImport, $request->file('file'));
+            return redirect()->route('kelola_regis')->with('success', 'Data Jenis Risiko berhasil diimport!');
+        } catch (\Exception $e) {
+            return redirect()->route('kelola_regis')->with('error', 'Gagal mengimpor Jenis Risiko: ' . $e->getMessage());
+        }
+    }
+
+    // Import IKU Terkait
+    public function importIku(Request $request)
+    {
+        $request->validate(['file' => 'required|mimes:xlsx,csv']);
+        try {
+            Excel::import(new \App\Imports\IkuTerkaitImport, $request->file('file'));
+            return redirect()->route('kelola_regis')->with('success', 'Data IKU Terkait berhasil diimport!');
+        } catch (\Exception $e) {
+            return redirect()->route('kelola_regis')->with('error', 'Gagal mengimpor IKU Terkait: ' . $e->getMessage());
+        }
+    }
+
 }

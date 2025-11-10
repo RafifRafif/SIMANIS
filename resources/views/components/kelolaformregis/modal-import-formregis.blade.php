@@ -7,13 +7,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
             </div>
 
-            <form action="{{ route('formregis.import') }}" method="POST" enctype="multipart/form-data">
+            <form id="importForm" action="" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <p class="small text-muted mb-3">
                         Pastikan file Excel Anda sesuai dengan format yang disediakan.
                         <br>
-                        <a href="{{ asset('template/unitkerja.xlsx') }}" download class="text-decoration-none">
+                        <a id="templateLink" href="#" download class="text-decoration-none">
                             <i class="fa-solid fa-file-excel me-1 text-success"></i>
                             Unduh Template Excel
                         </a>
@@ -21,8 +21,8 @@
 
                     <div class="mb-3">
                         <label for="file_import" class="form-label fw-semibold">Pilih File Excel</label>
-                        <input type="file" name="file" id="file_import"
-                            class="form-control" accept=".xls,.xlsx" required>
+                        <input type="file" name="file" id="file_import" class="form-control" accept=".xls,.xlsx"
+                            required>
                         <small class="text-muted d-block mt-1">
                             Format yang diterima: .xls atau .xlsx
                         </small>
@@ -41,3 +41,14 @@
         </div>
     </div>
 </div>
+
+<script>
+document.querySelectorAll('.btn-import').forEach(btn => {
+    btn.addEventListener('click', function () {
+        const route = this.getAttribute('data-route');
+        const template = this.getAttribute('data-template');
+        document.querySelector('#importDataModal form').setAttribute('action', route);
+        document.querySelector('#templateLink').setAttribute('href', template);
+    });
+});
+</script>

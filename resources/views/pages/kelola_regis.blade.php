@@ -51,11 +51,11 @@
                             <h6 class="fw-bold mb-0">Unit Kerja</h6>
                             <div class="d-flex ms-auto gap-2">
                                 <!-- Tombol Import -->
-                                <button class="btn btn-success fw-bold" data-bs-toggle="modal"
-                                    data-bs-target="#importDataModal">
+                                <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
+                                    data-bs-target="#importDataModal" data-template="{{ asset('template/unitkerja.xlsx') }}"
+                                    data-route="{{ route('formregis.import.unitkerja') }}">
                                     <i class="fa-solid fa-upload"></i> Import
                                 </button>
-
                                 <!-- Tombol Tambah -->
                                 <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
                                     data-bs-target="#tambahDataModalUnit">
@@ -73,21 +73,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($unitKerja as $index => $unit)
+                                    @foreach ($unitKerja as $index => $unit)
                                         <tr>
                                             <td class="centered">{{ $index + 1 }}</td>
                                             <td>{{ $unit->nama_unit }}</td>
                                             <td class="centered">
                                                 <!-- Tombol Edit -->
-                                                <button class="btn btn-sm btn-primary edit-unit-button" data-bs-toggle="modal"
-                                                    data-bs-target="#editDataModalUnit" data-id="{{ $unit->id }}"
-                                                    data-nama="{{ $unit->nama_unit }}">
+                                                <button class="btn btn-sm btn-primary edit-unit-button"
+                                                    data-bs-toggle="modal" data-bs-target="#editDataModalUnit"
+                                                    data-id="{{ $unit->id }}" data-nama="{{ $unit->nama_unit }}">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
 
                                                 <!-- Tombol Hapus -->
-                                                <button class="btn btn-sm btn-danger delete-unit-button" data-bs-toggle="modal"
-                                                    data-bs-target="#hapusUnitKerjaModal" data-id="{{ $unit->id }}">
+                                                <button class="btn btn-sm btn-danger delete-unit-button"
+                                                    data-bs-toggle="modal" data-bs-target="#hapusUnitKerjaModal"
+                                                    data-id="{{ $unit->id }}">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             </td>
@@ -112,11 +113,12 @@
                             <h6 class="fw-bold mb-0">Proses/Aktivitas</h6>
                             <div class="d-flex ms-auto gap-2">
                                 <!-- Tombol Import -->
-                                <button class="btn btn-success fw-bold" data-bs-toggle="modal"
-                                    data-bs-target="#importDataModal">
+                                <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
+                                    data-bs-target="#importDataModal"
+                                    data-template="{{ asset('template/proses_aktivitas.xlsx') }}"
+                                    data-route="{{ route('formregis.import.proses') }}">
                                     <i class="fa-solid fa-upload"></i> Import
                                 </button>
-
                                 <!-- Tombol Tambah -->
                                 <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
                                     data-bs-target="#tambahDataModalProsesAktivitas">
@@ -134,25 +136,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($prosesAktivitas as $index => $proses)
+                                    @foreach ($prosesAktivitas as $index => $proses)
                                         <tr>
                                             <td class="centered">{{ $index + 1 }}</td>
                                             <td>{{ $proses->nama_proses }}</td>
                                             <td class="centered">
                                                 <!-- Tombol Edit -->
-                                                <button class="btn btn-sm btn-primary edit-proses-button" data-bs-toggle="modal"
-                                                    data-bs-target="#editDataModalProsesAktivitas" data-id="{{ $proses->id }}"
-                                                    data-nama="{{ $proses->nama_proses }}">
+                                                <button class="btn btn-sm btn-primary edit-proses-button"
+                                                    data-bs-toggle="modal" data-bs-target="#editDataModalProsesAktivitas"
+                                                    data-id="{{ $proses->id }}" data-nama="{{ $proses->nama_proses }}">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
                                                 <!-- Tombol Hapus -->
-                                                <button class="btn btn-danger btn-sm delete-proses-button" data-bs-toggle="modal"
-                                                    data-bs-target="#hapusProsesAktivitasModal" data-id="{{ $proses->id }}">
+                                                <button class="btn btn-danger btn-sm delete-proses-button"
+                                                    data-bs-toggle="modal" data-bs-target="#hapusProsesAktivitasModal"
+                                                    data-id="{{ $proses->id }}">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             </td>
                                         </tr>
-                                    @endforeach   
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -172,8 +175,10 @@
                             <h6 class="fw-bold mb-0">Kategori Risiko</h6>
                             <div class="d-flex ms-auto gap-2">
                                 <!-- Tombol Import -->
-                                <button class="btn btn-success fw-bold" data-bs-toggle="modal"
-                                    data-bs-target="#importDataModal">
+                                <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
+                                    data-bs-target="#importDataModal"
+                                    data-template="{{ asset('template/kategori_risiko.xlsx') }}"
+                                    data-route="{{ route('formregis.import.kategori') }}">
                                     <i class="fa-solid fa-upload"></i> Import
                                 </button>
 
@@ -194,20 +199,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($kategoriRisiko as $index => $kategori)
+                                    @foreach ($kategoriRisiko as $index => $kategori)
                                         <tr>
                                             <td class="centered">{{ $index + 1 }}</td>
                                             <td>{{ $kategori->nama_kategori }}</td>
                                             <td class="centered">
                                                 <!-- Tombol Edit -->
-                                                <button class="btn btn-sm btn-primary edit-kategori-button" data-bs-toggle="modal"
-                                                    data-bs-target="#editDataModalKategori" data-id="{{ $kategori->id }}"
+                                                <button class="btn btn-sm btn-primary edit-kategori-button"
+                                                    data-bs-toggle="modal" data-bs-target="#editDataModalKategori"
+                                                    data-id="{{ $kategori->id }}"
                                                     data-nama="{{ $kategori->nama_kategori }}">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
                                                 <!-- Tombol Hapus -->
-                                                <button class="btn btn-danger btn-sm delete-kategori-button" data-bs-toggle="modal"
-                                                    data-bs-target="#hapusKategoriRisikoModal" data-id="{{ $kategori->id }}">
+                                                <button class="btn btn-danger btn-sm delete-kategori-button"
+                                                    data-bs-toggle="modal" data-bs-target="#hapusKategoriRisikoModal"
+                                                    data-id="{{ $kategori->id }}">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             </td>
@@ -232,8 +239,10 @@
                             <h6 class="fw-bold mb-0">Jenis Risiko</h6>
                             <div class="d-flex ms-auto gap-2">
                                 <!-- Tombol Import -->
-                                <button class="btn btn-success fw-bold" data-bs-toggle="modal"
-                                    data-bs-target="#importDataModal">
+                                <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
+                                    data-bs-target="#importDataModal"
+                                    data-template="{{ asset('template/jenis_risiko.xlsx') }}"
+                                    data-route="{{ route('formregis.import.kategori') }}">
                                     <i class="fa-solid fa-upload"></i> Import
                                 </button>
 
@@ -254,20 +263,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($jenisRisiko as $index => $jenis)
+                                    @foreach ($jenisRisiko as $index => $jenis)
                                         <tr>
                                             <td class="centered">{{ $index + 1 }}</td>
                                             <td>{{ $jenis->nama_jenis }}</td>
                                             <td class="centered">
                                                 <!-- Tombol Edit -->
-                                                <button class="btn btn-sm btn-primary edit-jenis-button" data-bs-toggle="modal"
-                                                    data-bs-target="#editDataModalJenis" data-id="{{ $jenis->id }}"
-                                                    data-nama="{{ $jenis->nama_jenis }}">
+                                                <button class="btn btn-sm btn-primary edit-jenis-button"
+                                                    data-bs-toggle="modal" data-bs-target="#editDataModalJenis"
+                                                    data-id="{{ $jenis->id }}" data-nama="{{ $jenis->nama_jenis }}">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
                                                 <!-- Tombol Hapus -->
-                                                <button class="btn btn-danger btn-sm delete-jenis-button" data-bs-toggle="modal"
-                                                    data-bs-target="#hapusJenisRisikoModal" data-id="{{ $jenis->id }}">
+                                                <button class="btn btn-danger btn-sm delete-jenis-button"
+                                                    data-bs-toggle="modal" data-bs-target="#hapusJenisRisikoModal"
+                                                    data-id="{{ $jenis->id }}">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             </td>
@@ -292,8 +302,9 @@
                             <h6 class="fw-bold mb-0">IKU Terkait</h6>
                             <div class="d-flex ms-auto gap-2">
                                 <!-- Tombol Import -->
-                                <button class="btn btn-success fw-bold" data-bs-toggle="modal"
-                                    data-bs-target="#importDataModal">
+                                <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
+                                    data-bs-target="#importDataModal" data-template="{{ asset('template/iku.xlsx') }}"
+                                    data-route="{{ route('formregis.import.kategori') }}">
                                     <i class="fa-solid fa-upload"></i> Import
                                 </button>
 
@@ -314,19 +325,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($ikuTerkait as $index => $iku)
+                                    @foreach ($ikuTerkait as $index => $iku)
                                         <tr>
                                             <td class="centered">{{ $index + 1 }}</td>
                                             <td>{{ $iku->nama_iku }}</td>
                                             <td class="centered">
                                                 <!-- Tombol Edit -->
-                                                <button class="btn btn-sm btn-primary edit-iku-button" data-bs-toggle="modal"
-                                                    data-bs-target="#editDataModalIKU" data-id="{{ $iku->id }}"
-                                                    data-nama="{{ $iku->nama_iku }}">
+                                                <button class="btn btn-sm btn-primary edit-iku-button"
+                                                    data-bs-toggle="modal" data-bs-target="#editDataModalIKU"
+                                                    data-id="{{ $iku->id }}" data-nama="{{ $iku->nama_iku }}">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
                                                 <!-- Tombol Hapus -->
-                                                <button class="btn btn-danger btn-sm delete-iku-button" data-bs-toggle="modal"
+                                                <button class="btn btn-danger btn-sm delete-iku-button"
+                                                    data-bs-toggle="modal"
                                                     data-bs-target="#hapusIkuModal"data-id="{{ $iku->id }}">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
@@ -344,7 +356,7 @@
 
     {{-- Script ganti tanda + / - --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.toggle-btn').forEach(button => {
                 const collapseEl = document.querySelector(button.dataset.bsTarget);
                 const bsCollapse = new bootstrap.Collapse(collapseEl, {
@@ -374,18 +386,38 @@
                 $error = session()->pull('error');
             @endphp
 
-            @if($success)
+            @if ($success)
                 setTimeout(function() {
                     alert("{{ $success }}");
                 }, 300);
             @endif
 
-            @if($error)
+            @if ($error)
                 setTimeout(function() {
                     alert("{{ $error }}");
                 }, 300);
             @endif
         });
     </script>
+
+    {{-- Script Untuk Import --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const importButtons = document.querySelectorAll('.btn-import');
+            const form = document.getElementById('importForm');
+            const templateLink = document.getElementById('templateLink');
+
+            importButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const route = this.getAttribute('data-route');
+                    const template = this.getAttribute('data-template');
+
+                    form.setAttribute('action', route);
+                    templateLink.setAttribute('href', template);
+                });
+            });
+        });
+    </script>
+
 
 @endsection

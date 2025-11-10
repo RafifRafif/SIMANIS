@@ -42,8 +42,11 @@ Route::post('/kelola_regis/import', [KelolaRegisController::class, 'import'])->n
 use App\Http\Controllers\KelolaRegisController;
 
 Route::get('/kelola_regis', [KelolaRegisController::class, 'index'])->name('kelola_regis');
-Route::post('/kelola_regis/import', [KelolaRegisController::class, 'import'])->name('formregis.import');
-
+Route::post('/kelola_regis/import/unitkerja', [KelolaRegisController::class, 'importUnitKerja'])->name('formregis.import.unitkerja');
+Route::post('/kelola_regis/import/proses', [KelolaRegisController::class, 'importProses'])->name('formregis.import.proses');
+Route::post('/kelola_regis/import/kategori', [KelolaRegisController::class, 'importKategori'])->name('formregis.import.kategori');
+Route::post('/kelola_regis/import/jenis', [KelolaRegisController::class, 'importJenis'])->name('formregis.import.jenis');
+Route::post('/kelola_regis/import/iku', [KelolaRegisController::class, 'importIku'])->name('formregis.import.iku');
 // CRUD Unit Kerja
 Route::post('/unitkerja/store', [KelolaRegisController::class, 'store'])->name('unitkerja.store');
 Route::post('/unitkerja/update/{id}', [KelolaRegisController::class, 'update'])->name('unitkerja.update');
