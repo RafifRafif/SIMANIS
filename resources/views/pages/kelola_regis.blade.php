@@ -242,7 +242,7 @@
                                 <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
                                     data-bs-target="#importDataModal"
                                     data-template="{{ asset('template/jenis_risiko.xlsx') }}"
-                                    data-route="{{ route('formregis.import.kategori') }}">
+                                    data-route="{{ route('formregis.import.jenis') }}">
                                     <i class="fa-solid fa-upload"></i> Import
                                 </button>
 
@@ -304,7 +304,7 @@
                                 <!-- Tombol Import -->
                                 <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
                                     data-bs-target="#importDataModal" data-template="{{ asset('template/iku.xlsx') }}"
-                                    data-route="{{ route('formregis.import.kategori') }}">
+                                    data-route="{{ route('formregis.import.iku') }}">
                                     <i class="fa-solid fa-upload"></i> Import
                                 </button>
 
