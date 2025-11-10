@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('proses_aktivitas', function (Blueprint $table) {
             $table->id();
-            $table->string("nama_proses");
+            $table->string("nama_proses")->unique();
             $table->timestamps();
         });
     }

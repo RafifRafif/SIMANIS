@@ -26,7 +26,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/kelola_regis.css') }}">
 
-    {{-- Header Judul + Tombol Import --}}
+   {{-- Header Judul + Tombol Import --}}
     <div class="d-flex justify-content-between align-items-center mt-3 mb-4">
         <h3 class="mb-0">Kelola Form Regis</h3>
     </div>
@@ -307,7 +307,7 @@
 
                                 <!-- Tombol Tambah -->
                                 <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
-                                    data-bs-target="#tambahDataModalIKU">
+                                    data-bs-target="#tambahDataModalIku">
                                     <i class="fa-solid fa-plus me-1"></i>Tambah
                                 </button>
                             </div>
@@ -329,7 +329,7 @@
                                             <td class="centered">
                                                 <!-- Tombol Edit -->
                                                 <button class="btn btn-sm btn-primary edit-iku-button"
-                                                    data-bs-toggle="modal" data-bs-target="#editDataModalIKU"
+                                                    data-bs-toggle="modal" data-bs-target="#editDataModalIku"
                                                     data-id="{{ $iku->id }}" data-nama="{{ $iku->nama_iku }}">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('iku_terkait', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_iku');
+            $table->string('nama_iku')->unique();
             $table->timestamps();
         });
     }

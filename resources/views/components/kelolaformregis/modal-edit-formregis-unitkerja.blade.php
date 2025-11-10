@@ -7,15 +7,25 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <form id="editUnitForm" method="POST">
+      <form id="editUnitForm" method="POST"
+            action="{{ old('edit_id') ? route('unitkerja.update', old('edit_id')) : '' }}">
         @csrf
+        <input type="hidden" name="modal" value="editUnit">
         <div class="modal-body">
           <div class="mb-3">
             <label for="edit-unitkerja" class="form-label">Unit Kerja</label>
-            <input type="text" class="form-control" id="edit-unitkerja" name="unitkerja" required>
+            <input type="text"
+                   class="form-control @error('unitkerja') is-invalid @enderror"
+                   id="edit-unitkerja"
+                   name="unitkerja"
+                   value="{{ old('unitkerja') }}"
+                   required>
+
+            @error('unitkerja')
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
           </div>
-        </div>
-        <div class="modal-footer">
+
           <button type="submit" class="btn btn-primary w-100">Simpan</button>
         </div>
       </form>
@@ -23,20 +33,26 @@
   </div>
 </div>
 
+{{-- Buka otomatis modal edit kalau error --}}
+@if ($errors->any() && old('modal') === 'editUnit')
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const editModal = new bootstrap.Modal(document.getElementById('editDataModalUnit'));
+      editModal.show();
+    });
+  </script>
+@endif
+
+{{-- Script untuk Isi data modal edit --}}
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  const editButtons = document.querySelectorAll('.edit-unit-button');
-  const editForm = document.getElementById('editUnitForm');
-
-  editButtons.forEach(button => {
-    button.addEventListener('click', function () {
-      const id = this.getAttribute('data-id');
-      const nama = this.getAttribute('data-nama');
-
-      // ubah action form dan isi input
-      editForm.action = `/unitkerja/update/${id}`;
-      document.getElementById('edit-unitkerja').value = nama;
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.edit-unit-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const id = this.dataset.id;
+        const nama = this.dataset.nama;
+        document.getElementById('edit-unitkerja').value = nama;
+        document.getElementById('editUnitForm').action = `/unitkerja/update/${id}`;
+      });
     });
   });
-});
 </script>

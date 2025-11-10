@@ -25,18 +25,38 @@ class KelolaRegisController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate(['unitkerja' => 'required']);
+        $request->merge(['modal' => 'tambahUnit']);
+        $request->validate([
+            'unitkerja' => 'required|unique:unit_kerja,nama_unit',
+        ], [
+            'unitkerja.required' => 'Nama Unit Kerja wajib diisi!',
+            'unitkerja.unique' => 'Unit Kerja sudah ada!',
+        ]);
+
         UnitKerja::create(['nama_unit' => $request->unitkerja]);
         return redirect()->route('kelola_regis')->with('success', 'Unit Kerja berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate(['unitkerja' => 'required']);
+        $request->merge([
+            'modal' => 'editUnit',
+            'edit_id' => $id,
+        ]);
+
+        $validated = $request->validate([
+            'unitkerja' => 'required|unique:unit_kerja,nama_unit,' . $id,
+        ], [
+            'unitkerja.required' => 'Unit Kerja wajib diisi!',
+            'unitkerja.unique' => 'Unit Kerja sudah ada!',
+        ]);
+
         $unit = UnitKerja::findOrFail($id);
-        $unit->update(['nama_unit' => $request->unitkerja]);
+        $unit->update(['nama_unit' => $validated['unitkerja']]);
+
         return redirect()->route('kelola_regis')->with('success', 'Unit Kerja berhasil diubah!');
     }
+
 
     public function destroy($id)
     {
@@ -47,18 +67,40 @@ class KelolaRegisController extends Controller
 
     public function storeProses(Request $request)
     {
-        $request->validate(['proses' => 'required']);
+        $request->merge(['modal' => 'tambahProses']);
+        $request->validate([
+            'proses' => 'required|unique:proses_aktivitas,nama_proses',
+        ], [
+            'proses.required' => 'Proses/Aktivitas wajib diisi!',
+            'proses.unique' => 'Proses/Aktivitas sudah ada!',
+        ]);
+
         ProsesAktivitas::create(['nama_proses' => $request->proses]);
         return redirect()->route('kelola_regis')->with('success', 'Proses/Aktivitas berhasil ditambahkan!');
     }
 
     public function updateProses(Request $request, $id)
     {
-        $request->validate(['proses' => 'required']);
+        // pastikan kita menyimpan penanda modal + id yang sedang diedit
+        $request->merge([
+            'modal' => 'editProses',
+            'edit_id' => $id,
+        ]);
+
+        $validated = $request->validate([
+            'proses' => 'required|unique:proses_aktivitas,nama_proses,' . $id,
+        ], [
+            'proses.required' => 'Proses/Aktivitas wajib diisi!',
+            'proses.unique' => 'Proses/Aktivitas sudah ada!',
+        ]);
+
         $proses = ProsesAktivitas::findOrFail($id);
-        $proses->update(['nama_proses' => $request->proses]);
+        $proses->update(['nama_proses' => $validated['proses']]);
+
         return redirect()->route('kelola_regis')->with('success', 'Proses/Aktivitas berhasil diubah!');
     }
+
+
 
     public function destroyProses($id)
     {
@@ -69,19 +111,37 @@ class KelolaRegisController extends Controller
 
     public function storeKategori(Request $request)
     {
-        $request->validate(['kategori' => 'required']);
+        $request->merge(['modal' => 'tambahKategori']);
+        $request->validate([
+            'kategori' => 'required|unique:kategori_risiko,nama_kategori',
+        ], [
+            'kategori.required' => 'Nama Kategori Risiko wajib diisi!',
+            'kategori.unique' => 'Kategori Risiko sudah ada!',
+        ]);
+
         KategoriRisiko::create(['nama_kategori' => $request->kategori]);
         return redirect()->route('kelola_regis')->with('success', 'Kategori Risiko berhasil ditambahkan!');
     }
 
     public function updateKategori(Request $request, $id)
     {
-        $request->validate(['kategori' => 'required']);
+        $request->merge([
+            'modal' => 'editKategori',
+            'edit_id' => $id,
+        ]);
+
+        $validated = $request->validate([
+            'kategori' => 'required|unique:kategori_risiko,nama_kategori,' . $id,
+        ], [
+            'kategori.required' => 'Nama Kategori Risiko wajib diisi!',
+            'kategori.unique' => 'Kategori Risiko sudah ada!',
+        ]);
+
         $kategori = KategoriRisiko::findOrFail($id);
-        $kategori->update(['nama_kategori' => $request->kategori]);
+        $kategori->update(['nama_kategori' => $validated['kategori']]);
+
         return redirect()->route('kelola_regis')->with('success', 'Kategori Risiko berhasil diubah!');
     }
-
     public function destroyKategori($id)
     {
         $kategori = KategoriRisiko::findOrFail($id);
@@ -91,16 +151,35 @@ class KelolaRegisController extends Controller
 
     public function storeJenis(Request $request)
     {
-        $request->validate(['jenis' => 'required']);
+        $request->merge(['modal' => 'tambahJenis']);
+        $request->validate([
+            'jenis' => 'required|unique:jenis_risiko,nama_jenis',
+        ], [
+            'jenis.required' => 'Nama Jenis Risiko wajib diisi!',
+            'jenis.unique' => 'Jenis Risiko sudah ada!',
+        ]);
+
         JenisRisiko::create(['nama_jenis' => $request->jenis]);
         return redirect()->route('kelola_regis')->with('success', 'Jenis Risiko berhasil ditambahkan!');
     }
 
     public function updateJenis(Request $request, $id)
     {
-        $request->validate(['jenis' => 'required']);
+        $request->merge([
+            'modal' => 'editJenis',
+            'edit_id' => $id,
+        ]);
+
+        $validated = $request->validate([
+            'jenis' => 'required|unique:jenis_risiko,nama_jenis,' . $id,
+        ], [
+            'jenis.required' => 'Nama Jenis Risiko wajib diisi!',
+            'jenis.unique' => 'Jenis Risiko sudah ada!',
+        ]);
+
         $jenis = JenisRisiko::findOrFail($id);
-        $jenis->update(['nama_jenis' => $request->jenis]);
+        $jenis->update(['nama_jenis' => $validated['jenis']]);
+
         return redirect()->route('kelola_regis')->with('success', 'Jenis Risiko berhasil diubah!');
     }
 
@@ -113,16 +192,35 @@ class KelolaRegisController extends Controller
 
     public function storeIku(Request $request)
     {
-        $request->validate(['iku' => 'required']);
+        $request->merge(['modal' => 'tambahIku']);
+        $request->validate([
+            'iku' => 'required|unique:iku_terkait,nama_iku',
+        ], [
+            'iku.required' => 'Nama IKU wajib diisi!',
+            'iku.unique' => 'IKU Terkait sudah ada!',
+        ]);
+
         IkuTerkait::create(['nama_iku' => $request->iku]);
         return redirect()->route('kelola_regis')->with('success', 'IKU Terkait berhasil ditambahkan!');
     }
 
     public function updateIku(Request $request, $id)
     {
-        $request->validate(['iku' => 'required']);
+        $request->merge([
+            'modal' => 'editIku',
+            'edit_id' => $id,
+        ]);
+
+        $validated = $request->validate([
+            'iku' => 'required|unique:iku_terkait,nama_iku,' . $id,
+        ], [
+            'iku.required' => 'Nama IKU wajib diisi!',
+            'iku.unique' => 'IKU Terkait sudah ada!',
+        ]);
+
         $iku = IkuTerkait::findOrFail($id);
-        $iku->update(['nama_iku' => $request->iku]);
+        $iku->update(['nama_iku' => $validated['iku']]);
+
         return redirect()->route('kelola_regis')->with('success', 'IKU Terkait berhasil diubah!');
     }
 

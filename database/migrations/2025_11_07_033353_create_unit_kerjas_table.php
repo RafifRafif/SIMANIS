@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('unit_kerjas', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_unit');
+            $table->string('nama_unit')->unique();
             $table->timestamps();
         });
     }
