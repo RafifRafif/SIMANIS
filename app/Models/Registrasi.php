@@ -14,6 +14,7 @@ class Registrasi extends Model
     protected $fillable = [
         'unit_kerja_id',
         'proses_aktivitas_id',
+        'proses_manual', 
         'kategori_risiko_id',
         'jenis_risiko_id',
         'iku_terkait_id',
@@ -62,6 +63,11 @@ class Registrasi extends Model
 {
     return $this->hasMany(Mitigasi::class, 'registrasi_id', 'id_registrasi');
 }
+public function getProsesDisplayAttribute()
+{
+    return $this->prosesAktivitas->nama_proses ?? $this->proses_manual;
+}
+
 
 
 }

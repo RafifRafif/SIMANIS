@@ -65,7 +65,7 @@
                                     </button>
                                 </td>
                                 <td>{{ $item->unitKerja->nama_unit ?? '-' }}</td>
-                                <td>{{ $item->prosesAktivitas->nama_proses ?? '-' }}</td>
+                                <td>{{ $item->proses_aktivitas_id ? $item->prosesAktivitas->nama_proses : $item->proses_manual }}</td>
                                 <td>{{ $item->kategoriRisiko->nama_kategori ?? '-' }}</td>
                                 <td>{{ $item->jenisRisiko->nama_jenis ?? '-' }}</td>
                                 <td>{{ $item->isu_resiko }}</td>
@@ -85,7 +85,8 @@
                                         <button class="btn btn-sm btn-primary edit-button"
                                             data-id="{{ $item->id_registrasi }}"
                                             data-unitkerja="{{ $item->unit_kerja_id }}"
-                                            data-proses="{{ $item->proses_aktivitas_id }}"
+                                            data-prosesid="{{ $item->proses_aktivitas_id }}"
+                                            data-prosesmanual="{{ $item->proses_manual }}"
                                             data-kategori="{{ $item->kategori_risiko_id }}"
                                             data-jenis="{{ $item->jenis_risiko_id }}"
                                             data-isuresiko="{{ $item->isu_resiko }}"
@@ -177,7 +178,7 @@
                                                             </td>
                                                             <td class="text-center">
                                                                 <div class="d-flex justify-content-center gap-2">
-                                                                    <button class="btn btn-sm btn-primary edit-mitigasi"
+                                                                    <button class="btn btn-sm btn-primary edit-mitigasi {{ $m->status === 'closed' ? 'disabled' : '' }}"
                                                                         data-id="{{ $m->id_mitigasi }}"
                                                                         data-triwulan="{{ $m->triwulan }}"
                                                                         data-tahun="{{ $m->tahun }}"
@@ -189,9 +190,10 @@
                                                                         data-status="{{ $m->status }}"
                                                                         data-manajemen="{{ $m->hasil_manajemen_risiko }}"
                                                                         data-dok="{{ $m->dokumen_pendukung }}"
-                                                                        data-bs-toggle="modal" data-bs-target="#editDataMitigasiModal">
+                                                                        {{ $m->status === 'closed' ? 'disabled title="Mitigasi sudah closed"' : 'data-bs-toggle=modal data-bs-target=#editDataMitigasiModal' }}>
                                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                                     </button>
+                                                                    
 
                                                                     <button class="btn btn-sm btn-danger delete-mitigasi-button"
                                                                         data-bs-toggle="modal"
@@ -284,6 +286,10 @@
         // --- Edit Modal Mitigasi ---
         document.querySelectorAll('.edit-mitigasi').forEach(button => {
             button.addEventListener('click', function () {
+                if (this.classList.contains('disabled')) {
+            return; // gak buka modal kalau status closed
+        }
+        
                 const id = this.getAttribute('data-id');
                 const form = document.getElementById('editMitigasiForm');
                 form.action = '/mitigasi/' + id;
@@ -325,4 +331,55 @@
             @endif
         });
     </script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    
+        function toggleManualInput(dropdown, manualInput) {
+            if (dropdown.value === "manual") {
+                manualInput.style.display = "block";
+                manualInput.name = "proses";
+                dropdown.removeAttribute("name");
+            } else {
+                manualInput.style.display = "none";
+                manualInput.value = "";
+                manualInput.removeAttribute("name");
+                dropdown.setAttribute("name", "proses");
+            }
+        }
+    
+        // =============== ADD FORM ===============
+        const addDropdown = document.getElementById("proses_aktivitas");
+        const addManual = document.getElementById("proses_manual_input");
+    
+        if (addDropdown) {
+            addDropdown.addEventListener("change", function () {
+                toggleManualInput(addDropdown, addManual);
+            });
+        }
+    
+        // =============== EDIT FORM ===============
+        const editDropdown = document.getElementById("edit-proses");
+        const editManual = document.getElementById("edit-proses-manual");
+    
+        if (editDropdown) {
+            // Saat modal kebuka → cek apakah nilai yang digunakan itu manual
+            let isManual = editDropdown.dataset.manual === "true"; 
+            if (isManual) {
+                editDropdown.value = "manual"; 
+            }
+            toggleManualInput(editDropdown, editManual);
+    
+            editDropdown.addEventListener("change", function () {
+                toggleManualInput(editDropdown, editManual);
+            });
+        }
+    
+    });
+    </script>
+    
+
+    
+    
 @endsection

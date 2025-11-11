@@ -38,7 +38,7 @@ class RegistrasiController extends Controller
     {
         $validated = $request->validate([
             'unit_kerja_id' => 'required',
-            'proses_aktivitas_id' => 'required',
+            'proses' => 'required|string|max:255', // gabungkan dropdown/manual
             'kategori_risiko_id' => 'required',
             'jenis_risiko_id' => 'required',
             'iku_terkait_id' => 'required',
@@ -51,6 +51,26 @@ class RegistrasiController extends Controller
             'keparahan' => 'required',
             'frekuensi' => 'required',
         ]);
+
+         // Handle proses dropdown/manual
+       $prosesInput = $request->proses;
+
+// Jika input mengandung angka + nama (otomatis dari datalist)
+if (preg_match('/^(\d+)\s*-\s*(.+)$/', $prosesInput, $match)) {
+    $validated['proses_aktivitas_id'] = (int) $match[1];
+    $validated['proses_manual'] = null;
+} 
+// Jika input angka murni → tetap FK
+else if (is_numeric($prosesInput)) {
+    $validated['proses_aktivitas_id'] = (int) $prosesInput;
+    $validated['proses_manual'] = null;
+} 
+// Selain itu → treat as manual
+else {
+    $validated['proses_aktivitas_id'] = null;
+    $validated['proses_manual'] = $prosesInput;
+}
+
 
         // Matriks probabilitas
         $matrix = [
@@ -83,7 +103,7 @@ class RegistrasiController extends Controller
 
         $validated = $request->validate([
             'unit_kerja_id' => 'required',
-            'proses_aktivitas_id' => 'required',
+            'proses' => 'required|max:255',
             'kategori_risiko_id' => 'required',
             'jenis_risiko_id' => 'required',
             'iku_terkait_id' => 'required',
@@ -96,6 +116,25 @@ class RegistrasiController extends Controller
             'keparahan' => 'required',
             'frekuensi' => 'required',
         ]);
+
+       // Handle proses dropdown/manual
+       $prosesInput = $request->proses;
+
+// Jika input mengandung angka + nama (otomatis dari datalist)
+if (preg_match('/^(\d+)\s*-\s*(.+)$/', $prosesInput, $match)) {
+    $validated['proses_aktivitas_id'] = (int) $match[1];
+    $validated['proses_manual'] = null;
+} 
+// Jika input angka murni → tetap FK
+else if (is_numeric($prosesInput)) {
+    $validated['proses_aktivitas_id'] = (int) $prosesInput;
+    $validated['proses_manual'] = null;
+} 
+// Selain itu → treat as manual
+else {
+    $validated['proses_aktivitas_id'] = null;
+    $validated['proses_manual'] = $prosesInput;
+}
 
         // hitung ulang probabilitas (biar sama kayak di store)
         $matrix = [

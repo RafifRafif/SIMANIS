@@ -21,16 +21,25 @@
                         </select>
                     </div>
 
-                    <!-- Proses -->
+                    <!-- Proses/Aktivitas (Dropdown + Manual Input) -->
                     <div class="mb-4">
-                        <label class="form-label">Proses</label>
-                        <select name="proses_aktivitas_id" class="form-select" required>
-                            <option value="" selected disabled>Pilih Proses</option>
+                        <label class="form-label">Proses/Aktivitas</label>
+                        <select id="proses_aktivitas" name="proses" class="form-select" required>
+                            <option value="" disabled selected>-- Pilih Proses/Aktivitas --</option>
+                            <option value="manual">Tambah Proses/Aktivitas Manual</option>
                             @foreach ($proses as $p)
                                 <option value="{{ $p->id }}">{{ $p->nama_proses }}</option>
                             @endforeach
                         </select>
+
+                    <!-- Input manual (hidden by default) -->
+                    <input type="text" id="proses_manual_input" 
+                    name="proses_manual_text"
+                    class="form-control mt-2"
+                    placeholder="Masukkan Proses/Aktivitas"
+                    style="display:none;">
                     </div>
+
 
                     <!-- Kategori Risiko -->
                     <div class="mb-4">
