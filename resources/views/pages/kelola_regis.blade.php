@@ -26,7 +26,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/kelola_regis.css') }}">
 
-   {{-- Header Judul + Tombol Import --}}
+    {{-- Header Judul + Tombol Import --}}
     <div class="d-flex justify-content-between align-items-center mt-3 mb-4">
         <h3 class="mb-0">Kelola Form Regis</h3>
     </div>
@@ -375,7 +375,8 @@
         });
     </script>
 
-    {{-- alert bawaan browser --}}
+    {{-- Script untuk alert CRUD--}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             @php
@@ -384,18 +385,27 @@
             @endphp
 
             @if ($success)
-                setTimeout(function() {
-                    alert("{{ $success }}");
-                }, 300);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ $success }}',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                });
             @endif
 
             @if ($error)
-                setTimeout(function() {
-                    alert("{{ $error }}");
-                }, 300);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: '{{ $error }}',
+                    showConfirmButton: true,
+                });
             @endif
         });
     </script>
+
 
     {{-- Script Untuk Import --}}
     <script>
