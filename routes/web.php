@@ -108,3 +108,6 @@ Route::put('/verifikasi-risiko/{id}', [VerifikasiRisikoController::class, 'updat
 
 use App\Http\Controllers\PenilaianController;
 Route::get('/penilaian', [PenilaianController::class, 'index'])->name('penilaian');
+Route::post('/penilaian/store', [PenilaianController::class, 'store'])->name('penilaian.store');
+Route::put('/penilaian/update', [PenilaianController::class, 'update'])->name('penilaian.update');
+Route::delete('/penilaian/{id}', [PenilaianController::class, 'destroy'])->name('penilaian.destroy');

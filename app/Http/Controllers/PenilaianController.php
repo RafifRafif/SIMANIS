@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Registrasi;
 use App\Models\UnitKerja;
 use App\Models\Mitigasi;
+use App\Models\Penilaian;
 
 class PenilaianController extends Controller
 {
@@ -27,7 +28,7 @@ class PenilaianController extends Controller
             'kategoriRisiko',
             'jenisRisiko',
             'ikuTerkait',
-            'mitigasis'
+            'mitigasis.penilaian'
         ]);
 
         // Filter berdasarkan Unit Kerja (kalau dipilih)
@@ -47,6 +48,52 @@ class PenilaianController extends Controller
 
         // Kirim ke view
         return view('pages.penilaian', compact('registrasis', 'unitKerja', 'tahunList'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'mitigasi_id' => 'required|exists:mitigasi,id_mitigasi',
+            'penilaian' => 'required|in:terlampaui,tercapai,tidaktercapai',
+            'uraian' => 'nullable|string'
+        ]);
+
+        $mitigasi = Mitigasi::findOrFail($request->mitigasi_id);
+        $triwulanTahun = $mitigasi->triwulan . '-' . $mitigasi->tahun;
+
+        Penilaian::create([
+            'mitigasi_id' => $mitigasi->id_mitigasi,
+            'triwulan_tahun' => $triwulanTahun,
+            'penilaian' => $request->penilaian,
+            'uraian' => $request->uraian
+        ]);
+
+        return redirect()->back()->with('success', 'Penilaian auditor berhasil ditambahkan!');
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'id_penilaian' => 'required|exists:penilaian,id_penilaian',
+            'penilaian' => 'required|in:terlampaui,tercapai,tidaktercapai',
+            'uraian' => 'nullable|string'
+        ]);
+
+        $penilaian = Penilaian::findOrFail($request->id_penilaian);
+        $penilaian->update([
+            'penilaian' => $request->penilaian,
+            'uraian' => $request->uraian
+        ]);
+
+        return redirect()->back()->with('success', 'Penilaian auditor berhasil diperbarui!');
+    }
+
+    public function destroy($id)
+    {
+        $penilaian = Penilaian::findOrFail($id);
+        $penilaian->delete();
+
+        return redirect()->back()->with('success', 'Penilaian auditor berhasil dihapus!');
     }
 
 }

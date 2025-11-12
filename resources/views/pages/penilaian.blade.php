@@ -154,11 +154,21 @@
                                         {{-- Bagian Penilaian Auditor --}}
                                         <div class="mt-4">
                                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
-                                                    data-bs-target="#tambahPenilaianAuditorModal">
-                                                    <i class="fa-solid fa-plus"></i> Tambah Penilaian
-                                                </button>
+                                                @if ($r->mitigasis->count() > 0)
+                                                    {{-- Kalau sudah ada mitigasi, tombol aktif --}}
+                                                    <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
+                                                        data-bs-target="#tambahPenilaianAuditorModal"
+                                                        data-mitigasi-id="{{ $m->id_mitigasi }}">
+                                                        <i class="fa-solid fa-plus"></i> Tambah Penilaian
+                                                    </button>
+                                                @else
+                                                    {{-- Kalau belum ada mitigasi, tombol nonaktif --}}
+                                                    <button class="btn btn-secondary fw-bold" disabled>
+                                                        <i class="fa-solid fa-lock"></i> Belum Ada Mitigasi
+                                                    </button>
+                                                @endif
                                             </div>
+
 
                                             <table class="table table-sm table-bordered mb-0">
                                                 <thead class="table-secondary text-center">
@@ -170,12 +180,52 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {{-- nanti diisi dinamis juga kalau tabel penilaian sudah ada --}}
-                                                    <tr>
-                                                        <td colspan="4" class="text-center text-muted">
-                                                            Belum ada penilaian auditor
-                                                        </td>
-                                                    </tr>
+                                                    @php
+                                                        $penilaian = $m->penilaian ?? collect();
+                                                    @endphp
+
+                                                    @forelse ($penilaian as $p)
+                                                        <tr>
+                                                            <td class="centered">{{ $p->triwulan_tahun }}</td>
+                                                            <td class="centered">
+                                                                @php
+                                                                    // Mapping untuk ubah value database ke format tampilan
+                                                                    $label = [
+                                                                        'tercapai' => 'Tercapai',
+                                                                        'terlampaui' => 'Terlampaui',
+                                                                        'tidaktercapai' => 'Tidak Tercapai',
+                                                                    ][$p->penilaian] ?? ucfirst($p->penilaian);
+                                                                @endphp
+                                                                {{ $label }}
+                                                            </td>
+                                                            <td>{{ $p->uraian ?? '-' }}</td>
+                                                            <td class="text-center">
+                                                                <button class="btn btn-sm btn-primary edit-button"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#editPenilaianAuditorModal"
+                                                                    data-id="{{ $p->id_penilaian }}"
+                                                                    data-mitigasi-id="{{ $p->mitigasi_id }}"
+                                                                    data-triwulan="{{ $p->triwulan_tahun }}"
+                                                                    data-penilaian="{{ $p->penilaian }}"
+                                                                    data-uraian="{{ $p->uraian }}">
+                                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                                </button>
+
+                                                                <button class="btn btn-sm btn-danger delete-registrasi-button"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#hapusPenilaianAuditorModal"
+                                                                    data-id="{{ $p->id_penilaian }}">
+                                                                    <i class="fa-solid fa-trash"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="4" class="text-center text-muted">
+                                                                Belum ada penilaian auditor
+                                                            </td>
+                                                        </tr>
+                                                    @endforelse
                                                 </tbody>
                                             </table>
                                         </div>
@@ -260,4 +310,5 @@
             });
         });
     </script>
+
 @endsection
