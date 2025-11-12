@@ -3,11 +3,50 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Registrasi;
+use App\Models\UnitKerja;
+use App\Models\Mitigasi;
 
 class PenilaianController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('pages.penilaian');
+        // Ambil semua unit kerja
+        $unitKerja = UnitKerja::all();
+
+        // Ambil semua tahun unik dari mitigasi
+        $tahunList = \App\Models\Mitigasi::select('tahun')
+            ->distinct()
+            ->orderBy('tahun', 'desc')
+            ->pluck('tahun');
+
+        // Query dasar
+        $query = \App\Models\Registrasi::with([
+            'unitKerja',
+            'prosesAktivitas',
+            'kategoriRisiko',
+            'jenisRisiko',
+            'ikuTerkait',
+            'mitigasis'
+        ]);
+
+        // Filter berdasarkan Unit Kerja (kalau dipilih)
+        if ($request->filled('unit_kerja_id')) {
+            $query->where('unit_kerja_id', $request->unit_kerja_id);
+        }
+
+        // Filter berdasarkan Tahun (kalau dipilih)
+        if ($request->filled('tahun')) {
+            $query->whereHas('mitigasis', function ($q) use ($request) {
+                $q->where('tahun', $request->tahun);
+            });
+        }
+
+        // Ambil hasil
+        $registrasis = $query->get();
+
+        // Kirim ke view
+        return view('pages.penilaian', compact('registrasis', 'unitKerja', 'tahunList'));
     }
+
 }

@@ -13,35 +13,39 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/registrasi.css') }}">
     <link rel="stylesheet" href="{{ asset('css/arsip_open_closed.css') }}">
-     <!-- Konten -->
-     <h3 class="mt-3 mb-4">Penilaian Auditor</h3>
+    <!-- Konten -->
+    <h3 class="mt-3 mb-4">Penilaian Auditor</h3>
 
-     <div class="d-flex flex-wrap align-items-center gap-2">
-         <label class="me-3">Urutkan berdasarkan</label>
- 
-         <!-- Dropdown Unit Kerja -->
-         <select id="unitkerja" class="form-select w-auto dropdown-fixed">
-             <option value="">Unit Kerja</option>
-             <option value="jur_el">Jur EL</option>
-             <option value="jur_if">Jur IF</option>
-             <option value="jur_mb">Jur MB</option>
-         </select>
- 
-         <!-- Dropdown Tahun -->
-         <select id="tahun" class="form-select w-auto dropdown-fixed">
-             <option value="">Tahun</option>
-             <option value="2025">2025</option>
-             <option value="2024">2024</option>
-             <option value="2023">2023</option>
-             <option value="2022">2022</option>
-         </select>
- 
-         <button id="btnSearch" class="btn btn-primary btn-sm btn-search ms-2" style="height: 35px; padding: 0 15px;">
-             <i class="fa-solid fa-magnifying-glass"></i>
-         </button>
-     </div>
- 
-     <div id="hasilFilter" class="mt-4"></div>
+    <div class="d-flex flex-wrap align-items-center gap-2">
+        <label class="me-3">Urutkan berdasarkan</label>
+
+        <!-- Dropdown Unit Kerja dan Tahun -->
+        <form action="{{ route('penilaian') }}" method="GET" class="d-flex align-items-center gap-2">
+            <select name="unit_kerja_id" id="unitkerja" class="form-select w-auto dropdown-fixed">
+                <option value="">Pilih Unit Kerja</option>
+                @foreach ($unitKerja as $uk)
+                    <option value="{{ $uk->id }}" {{ request('unit_kerja_id') == $uk->id ? 'selected' : '' }}>
+                        {{ $uk->nama_unit }}
+                    </option>
+                @endforeach
+            </select>
+
+            <select name="tahun" id="tahun" class="form-select w-auto dropdown-fixed">
+                <option value="">Pilih Tahun</option>
+                @foreach ($tahunList as $tahun)
+                    <option value="{{ $tahun }}" {{ request('tahun') == $tahun ? 'selected' : '' }}>
+                        {{ $tahun }}
+                    </option>
+                @endforeach
+            </select>
+
+            <button id="btnSearch" class="btn btn-primary btn-sm btn-search ms-2" style="height: 35px; padding: 0 15px;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+    </div>
+
+    <div id="hasilFilter" class="mt-4"></div>
 
     <!-- Card Wrapper -->
     <div class="card shadow-sm border-1">
@@ -70,122 +74,120 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-outline-primary toggle-collapse" type="button"
-                                    data-bs-toggle="collapse" data-bs-target="#mitigasi1" aria-expanded="false"
-                                    aria-controls="mitigasi1">+
-                                </button>
-                            </td>
-                            <td>Prodi IF</td>
-                            <td>Pelaksanaan Pembelajaran</td>
-                            <td>Kepatuhan</td>
-                            <td>IT</td>
-                            <td>Kurangnya jumlah komputer untuk perkuliahan</td>
-                            <td class="centered">Internal</td>
-                            <td>Penambahan Mahasiswa</td>
-                            <td>Kesulitan menjalankan PBM</td>
-                            <td class="centered">IKU-4</td>
-                            <td>Dosen, Mahasiswa, Prodi</td>
-                            <td>Mahasiswa menggunakan laptop pribadi</td>
-                            <td class="centered">2</td>
-                            <td class="centered">A</td>
-                            <td class="centered">H</td>
-                            <td class="centered">Terverifikasi</td>
-                            
-                        </tr>
+                        @foreach ($registrasis as $index => $r)
+                            <tr>
+                                <td class="text-center">
+                                    <button class="btn btn-sm btn-outline-primary toggle-collapse" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#mitigasi{{ $r->id_registrasi }}"
+                                        aria-expanded="false" aria-controls="mitigasi{{ $r->id_registrasi }}">+
+                                    </button>
+                                </td>
+                                <td>{{ $r->unitKerja->nama_unit ?? '-' }}</td>
+                                <td>{{ $r->prosesDisplay }}</td>
+                                <td>{{ $r->kategoriRisiko->nama_kategori ?? '-' }}</td>
+                                <td>{{ $r->jenisRisiko->nama_jenis ?? '-' }}</td>
+                                <td>{{ $r->isu_resiko }}</td>
+                                <td>{{ $r->jenis_isu }}</td>
+                                <td>{{ $r->akar_permasalahan }}</td>
+                                <td>{{ $r->dampak }}</td>
+                                <td>{{ $r->ikuTerkait->nama_iku ?? '-' }}</td>
+                                <td>{{ $r->pihak_terkait }}</td>
+                                <td>{{ $r->kontrol_pencegahan }}</td>
+                                <td class="centered">{{ $r->keparahan }}</td>
+                                <td class="centered">{{ $r->frekuensi }}</td>
+                                <td class="centered">{{ $r->probabilitas }}</td>
+                                <td class="centered">{{ $r->status_registrasi }}</td>
+                            </tr>
 
-                        <!-- TABEL MITIGASI -->
-                        <tr class="collapse bg-light" id="mitigasi1">
-                            <td colspan="17">
-                                <div class="p-3">
-                                    <!-- Header Mitigasi -->
-
-                                    <table class="table table-sm table-bordered">
-                                        <thead class="table-secondary text-center">
-                                            <tr>
-                                                <th rowspan="2">Triwulan</th>
-                                                <th rowspan="2">Isu/Risiko</th>
-                                                <th colspan="2">Tindak Lanjut</th>
-                                                <th colspan="2">Evaluasi</th>
-                                                <th rowspan="2">Status Pelaksanaan Rencana Aksi</th>
-                                                <th rowspan="2">Hasil Penerapan Manajemen Risiko</th>
-                                                <th rowspan="2">Dokumen Pendukung</th>
-                                            </tr>
-                                            <tr>
-                                                <th>Rencana Aksi</th>
-                                                <th>Tanggal Pelaksanaan Rencana Aksi</th>
-                                                <th>Hasil Tindak Lanjut</th>
-                                                <th>Tanggal Evaluasi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="centered">1-2025</td>
-                                                <td>Kurangnya jumlah komputer untuk perkuliahan</td>
-                                                <td>Pengadaan atau sewa</td>
-                                                <td class="centered">2025-03-10</td>
-                                                <td>Sewa laptop</td>
-                                                <td class="centered">2025-03-10</td>
-                                                <td class="centered">Closed</td>
-                                                <td>Kebutuhan komputer perkuliahan terpenuhi</td>
-                                                <td class="text-center align-middle">
-                                                    <div class="d-flex justify-content-center gap-2">
-                                                        <button class="btn btn-sm btn-secondary">
-                                                            <i class="fa-solid fa-eye"></i>
-                                                        </button>
-                                                    </div>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <!-- TABEL PENILAIAN AUDITOR -->
-                                    <div class="mt-4">
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
-                                                data-bs-target="#tambahPenilaianAuditorModal">
-                                                <i class="fa-solid fa-plus"></i> Tambah Penilaian
-                                            </button>
-                                        </div>
-
-                                        <table class="table table-sm table-bordered mb-0"">
+                            {{-- Bagian Mitigasi --}}
+                            <tr class="collapse bg-light" id="mitigasi{{ $r->id_registrasi }}">
+                                <td colspan="17">
+                                    <div class="p-3">
+                                        <table class="table table-sm table-bordered">
                                             <thead class="table-secondary text-center">
                                                 <tr>
                                                     <th rowspan="2">Triwulan</th>
-                                                    <th rowspan="2">Penilaian</th>
-                                                    <th>Uraian</th>
-                                                    <th rowspan="2">Aksi</th>
+                                                    <th rowspan="2">Isu/Risiko</th>
+                                                    <th colspan="2">Tindak Lanjut</th>
+                                                    <th colspan="2">Evaluasi</th>
+                                                    <th rowspan="2">Status Pelaksanaan</th>
+                                                    <th rowspan="2">Hasil Penerapan</th>
+                                                    <th rowspan="2">Dokumen Pendukung</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Rencana Aksi</th>
+                                                    <th>Tanggal Pelaksanaan</th>
+                                                    <th>Hasil Tindak Lanjut</th>
+                                                    <th>Tanggal Evaluasi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="centered">1-2025</td>
-                                                    <td class="centered">Tercapai</td>
-                                                    <td>Unit kerja telah melakukan sewa laptop tambahan sesuai rekomendasi
-                                                        auditor.</td>
-                                                    <td class="text-center align-middle">
-                                                        <div class="d-flex justify-content-center gap-2">
-                                                            <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                                            data-bs-target="#editPenilaianAuditorModal">
-                                                            <i class="fa-solid fa-pen-to-square"></i>
-                                                        </button>
-                                                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                                                data-bs-target="#hapusPenilaianAuditorModal">
-                                                                <i class="fa-solid fa-trash"></i>
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                @forelse ($r->mitigasis as $m)
+                                                    <tr>
+                                                        <td class="centered">{{ $m->triwulan }}-{{ $m->tahun }}</td>
+                                                        <td>{{ $m->isurisiko }}</td>
+                                                        <td>{{ $m->rencana_aksi }}</td>
+                                                        <td class="centered">{{ $m->tanggal_pelaksanaan }}</td>
+                                                        <td>{{ $m->hasil_tindak_lanjut }}</td>
+                                                        <td class="centered">{{ $m->tanggal_evaluasi }}</td>
+                                                        <td class="centered">{{ $m->status }}</td>
+                                                        <td>{{ $m->hasil_manajemen_risiko }}</td>
+                                                        <td class="text-center align-middle">
+                                                            @if ($m->dokumen_pendukung)
+                                                                <a href="{{ asset('storage/' . $m->dokumen_pendukung) }}"
+                                                                    target="_blank" class="btn btn-sm btn-secondary">
+                                                                    <i class="fa-solid fa-eye"></i>
+                                                                </a>
+                                                            @else
+                                                                <span>-</span>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="9" class="text-center text-muted">Belum ada data mitigasi</td>
+                                                    </tr>
+                                                @endforelse
                                             </tbody>
                                         </table>
+
+                                        {{-- Bagian Penilaian Auditor --}}
+                                        <div class="mt-4">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
+                                                    data-bs-target="#tambahPenilaianAuditorModal">
+                                                    <i class="fa-solid fa-plus"></i> Tambah Penilaian
+                                                </button>
+                                            </div>
+
+                                            <table class="table table-sm table-bordered mb-0">
+                                                <thead class="table-secondary text-center">
+                                                    <tr>
+                                                        <th>Triwulan</th>
+                                                        <th>Penilaian</th>
+                                                        <th>Uraian</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{-- nanti diisi dinamis juga kalau tabel penilaian sudah ada --}}
+                                                    <tr>
+                                                        <td colspan="4" class="text-center text-muted">
+                                                            Belum ada penilaian auditor
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
 
             </div>
-        </div> 
+        </div>
     </div>
 
     <script>

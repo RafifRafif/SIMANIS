@@ -12,26 +12,32 @@
     <div class="d-flex flex-wrap align-items-center gap-2">
         <label class="me-3">Urutkan berdasarkan</label>
 
-        <!-- Dropdown Unit Kerja -->
-        <select id="unitkerja" class="form-select w-auto dropdown-fixed">
-            <option value="">Unit Kerja</option>
-            @foreach($unitKerja as $unit)
-                <option value="{{ $unit->id }}">{{ $unit->nama_unit }}</option>
-            @endforeach
-        </select>
+        <form action="{{ route('arsip_open') }}" method="GET" class="d-flex align-items-center gap-2">
+            <!-- Dropdown Unit Kerja -->
+            <select name="unit_kerja_id" id="unitkerja" class="form-select w-auto dropdown-fixed">
+                <option value="">Unit Kerja</option>
+                @foreach($unitKerja as $unit)
+                    <option value="{{ $unit->id }}" {{ request('unit_kerja_id') == $unit->id ? 'selected' : '' }}>
+                        {{ $unit->nama_unit }}
+                    </option>
+                @endforeach
+            </select>
 
-        <!-- Dropdown Tahun -->
-        <select id="tahun" class="form-select w-auto dropdown-fixed">
-            <option value="">Tahun</option>
-            <option value="2025">2025</option>
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-        </select>
+            <!-- Dropdown Tahun -->
+            <select name="tahun" id="tahun" class="form-select w-auto dropdown-fixed">
+                <option value="">Tahun</option>
+                @foreach($tahunList as $tahun)
+                    <option value="{{ $tahun }}" {{ request('tahun') == $tahun ? 'selected' : '' }}>
+                        {{ $tahun }}
+                    </option>
+                @endforeach
+            </select>
 
-        <button id="btnSearch" class="btn btn-primary btn-sm btn-search ms-2" style="height: 35px; padding: 0 15px;">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
+            <button type="submit" id="btnSearch" class="btn btn-primary btn-sm btn-search ms-2"
+                style="height: 35px; padding: 0 15px;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
     </div>
 
     <div id="hasilFilter" class="mt-4"></div>
@@ -74,7 +80,8 @@
                                     </button>
                                 </td>
                                 <td>{{ $item->unitKerja->nama_unit ?? '-' }}</td>
-                                <td>{{ $item->proses_aktivitas_id ? $item->prosesAktivitas->nama_proses : $item->proses_manual }}</td>
+                                <td>{{ $item->proses_aktivitas_id ? $item->prosesAktivitas->nama_proses : $item->proses_manual }}
+                                </td>
                                 <td>{{ $item->kategoriRisiko->nama_kategori ?? '-' }}</td>
                                 <td>{{ $item->jenisRisiko->nama_jenis ?? '-' }}</td>
                                 <td>{{ $item->isu_resiko }}</td>
@@ -90,62 +97,63 @@
                                 <td>{{ $item->status_registrasi }}</td>
                             </tr>
 
-                        <!-- TABEL MITIGASI -->
-                        <tr class="collapse-row collapse bg-light" id="mitigasi{{ $item->id_registrasi }}">
-                            <td colspan="17">
-                                <div class="p-3">
-                                    <!-- Header Mitigasi -->
-                                    <table class="table table-sm table-bordered">
-                                        <thead class="table-secondary text-center">
-                                            <tr>
-                                                <th rowspan="2">Triwulan</th>
-                                                <th rowspan="2">Isu/Risiko</th>
-                                                <th colspan="2">Tindak Lanjut</th>
-                                                <th colspan="2">Evaluasi</th>
-                                                <th rowspan="2">Status Pelaksanaan Rencana Aksi</th>
-                                                <th rowspan="2">Hasil Penerapan Manajemen Risiko</th>
-                                                <th rowspan="2">Dokumen Pendukung</th>
-                                            </tr>
-                                            <tr>
-                                                <th>Rencana Aksi</th>
-                                                <th>Tanggal Pelaksanaan Rencana Aksi</th>
-                                                <th>Hasil Tindak Lanjut</th>
-                                                <th>Tanggal Evaluasi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @if($item->mitigasis && $item->mitigasis->count())
-                                                @foreach($item->mitigasis as $m)
-                                                    <tr>
-                                                        <td>{{ $m->triwulan }} / {{ $m->tahun }}</td>
-                                                        <td>{{ $m->isurisiko }}</td>
-                                                        <td>{{ $m->rencana_aksi }}</td>
-                                                        <td>{{ $m->tanggal_pelaksanaan ?? '-' }}</td>
-                                                        <td>{{ $m->hasil_tindak_lanjut ?? '-' }}</td>
-                                                        <td>{{ $m->tanggal_evaluasi ?? '-' }}</td>
-                                                        <td>{{ ucfirst($m->status) }}</td>
-                                                        <td>{{ $m->hasil_manajemen_risiko ?? '-' }}</td>
-                                                        <td class="text-center align-middle">
-                                                            @if($m->dokumen_pendukung)
-                                                                <a href="{{ $m->dokumen_pendukung }}" target="_blank" class="btn btn-sm btn-secondary">
-                                                                    <i class="fa-solid fa-eye"></i>
-                                                                </a>
-                                                            @else
-                                                                -
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            @else
+                            <!-- TABEL MITIGASI -->
+                            <tr class="collapse-row collapse bg-light" id="mitigasi{{ $item->id_registrasi }}">
+                                <td colspan="17">
+                                    <div class="p-3">
+                                        <!-- Header Mitigasi -->
+                                        <table class="table table-sm table-bordered">
+                                            <thead class="table-secondary text-center">
                                                 <tr>
-                                                    <td colspan="9" class="text-center text-muted">Belum ada mitigasi</td>
+                                                    <th rowspan="2">Triwulan</th>
+                                                    <th rowspan="2">Isu/Risiko</th>
+                                                    <th colspan="2">Tindak Lanjut</th>
+                                                    <th colspan="2">Evaluasi</th>
+                                                    <th rowspan="2">Status Pelaksanaan Rencana Aksi</th>
+                                                    <th rowspan="2">Hasil Penerapan Manajemen Risiko</th>
+                                                    <th rowspan="2">Dokumen Pendukung</th>
                                                 </tr>
-                                            @endif
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
+                                                <tr>
+                                                    <th>Rencana Aksi</th>
+                                                    <th>Tanggal Pelaksanaan Rencana Aksi</th>
+                                                    <th>Hasil Tindak Lanjut</th>
+                                                    <th>Tanggal Evaluasi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if($item->mitigasis && $item->mitigasis->count())
+                                                    @foreach($item->mitigasis as $m)
+                                                        <tr>
+                                                            <td>{{ $m->triwulan }} / {{ $m->tahun }}</td>
+                                                            <td>{{ $m->isurisiko }}</td>
+                                                            <td>{{ $m->rencana_aksi }}</td>
+                                                            <td>{{ $m->tanggal_pelaksanaan ?? '-' }}</td>
+                                                            <td>{{ $m->hasil_tindak_lanjut ?? '-' }}</td>
+                                                            <td>{{ $m->tanggal_evaluasi ?? '-' }}</td>
+                                                            <td>{{ ucfirst($m->status) }}</td>
+                                                            <td>{{ $m->hasil_manajemen_risiko ?? '-' }}</td>
+                                                            <td class="text-center align-middle">
+                                                                @if($m->dokumen_pendukung)
+                                                                    <a href="{{ $m->dokumen_pendukung }}" target="_blank"
+                                                                        class="btn btn-sm btn-secondary">
+                                                                        <i class="fa-solid fa-eye"></i>
+                                                                    </a>
+                                                                @else
+                                                                    -
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td colspan="9" class="text-center text-muted">Belum ada mitigasi</td>
+                                                    </tr>
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
                         @empty
                             <tr>
                                 <td colspan="17" class="text-center text-muted">Tidak ada registrasi ditemukan.</td>

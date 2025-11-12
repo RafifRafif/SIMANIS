@@ -12,26 +12,32 @@
     <div class="d-flex flex-wrap align-items-center gap-2">
         <label class="me-3">Urutkan berdasarkan</label>
 
-        <!-- Dropdown Unit Kerja -->
-        <select id="unitkerja" class="form-select w-auto dropdown-fixed">
-            <option value="">Unit Kerja</option>
-            @foreach($unitKerja as $unit)
-                <option value="{{ $unit->id }}">{{ $unit->nama_unit }}</option>
-            @endforeach
-        </select>
+        <form action="{{ route('arsip_closed') }}" method="GET" class="d-flex align-items-center gap-2">
+            <!-- Dropdown Unit Kerja -->
+            <select name="unit_kerja_id" id="unitkerja" class="form-select w-auto dropdown-fixed">
+                <option value="">Unit Kerja</option>
+                @foreach($unitKerja as $unit)
+                    <option value="{{ $unit->id }}" {{ request('unit_kerja_id') == $unit->id ? 'selected' : '' }}>
+                        {{ $unit->nama_unit }}
+                    </option>
+                @endforeach
+            </select>
 
-        <!-- Dropdown Tahun -->
-        <select id="tahun" class="form-select w-auto dropdown-fixed">
-            <option value="">Tahun</option>
-            <option value="2025">2025</option>
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-        </select>
+            <!-- Dropdown Tahun -->
+            <select name="tahun" id="tahun" class="form-select w-auto dropdown-fixed">
+                <option value="">Tahun</option>
+                @foreach($tahunList as $tahun)
+                    <option value="{{ $tahun }}" {{ request('tahun') == $tahun ? 'selected' : '' }}>
+                        {{ $tahun }}
+                    </option>
+                @endforeach
+            </select>
 
-        <button id="btnSearch" class="btn btn-primary btn-sm btn-search ms-2" style="height: 35px; padding: 0 15px;">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
+            <button type="submit" id="btnSearch" class="btn btn-primary btn-sm btn-search ms-2"
+                style="height: 35px; padding: 0 15px;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
     </div>
 
     <div id="hasilFilter" class="mt-4"></div>
