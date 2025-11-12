@@ -16,20 +16,22 @@ class PenilaianController extends Controller
         $unitKerja = UnitKerja::all();
 
         // Ambil semua tahun unik dari mitigasi
-        $tahunList = \App\Models\Mitigasi::select('tahun')
+        $tahunList = Mitigasi::select('tahun')
             ->distinct()
             ->orderBy('tahun', 'desc')
             ->pluck('tahun');
 
         // Query dasar
-        $query = \App\Models\Registrasi::with([
+        $query = Registrasi::with([
             'unitKerja',
             'prosesAktivitas',
             'kategoriRisiko',
             'jenisRisiko',
             'ikuTerkait',
             'mitigasis.penilaian'
-        ]);
+        ])
+
+        ->where('status_registrasi', 'Terverifikasi');
 
         // Filter berdasarkan Unit Kerja (kalau dipilih)
         if ($request->filled('unit_kerja_id')) {
