@@ -10,6 +10,8 @@
     @include('components.kelolamitigasi.edit-mitigasi')
     @include('components.kelolamitigasi.hapus-mitigasi')
     @include('components.kelolapenilaian.modal-tambah-penilaian')
+    @include('components.kelolapenilaian.modal-edit-penilaian')
+    @include('components.kelolapenilaian.modal-hapus-penilaian')
 @endpush
 
 @section('content')
@@ -213,6 +215,50 @@
                                                 @endif
                                             </tbody>
                                         </table>
+
+                                        {{-- Bagian Penilaian Auditor --}}
+                                        @if ($item->mitigasis && $item->mitigasis->count() > 0)
+                                            <div class="mt-4">
+                                                <table class="table table-sm table-bordered mb-0">
+                                                    <thead class="table-secondary text-center">
+                                                        <tr>
+                                                            <th>Triwulan</th>
+                                                            <th>Penilaian</th>
+                                                            <th>Uraian</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @php
+                                                            $penilaian = $m->penilaian ?? collect();
+                                                        @endphp
+
+                                                        @forelse ($penilaian as $p)
+                                                            <tr>
+                                                                <td class="centered">{{ $p->triwulan_tahun }}</td>
+                                                                <td class="centered">
+                                                                    @php
+                                                                        // Mapping untuk ubah value database ke format tampilan
+                                                                        $label = [
+                                                                            'tercapai' => 'Tercapai',
+                                                                            'terlampaui' => 'Terlampaui',
+                                                                            'tidaktercapai' => 'Tidak Tercapai',
+                                                                        ][$p->penilaian] ?? ucfirst($p->penilaian);
+                                                                    @endphp
+                                                                    {{ $label }}
+                                                                </td>
+                                                                <td>{{ $p->uraian ?? '-' }}</td>
+                                                            </tr>
+                                                        @empty
+                                                            <tr>
+                                                                <td colspan="4" class="text-center text-muted">
+                                                                    Belum ada penilaian auditor
+                                                                </td>
+                                                            </tr>
+                                                        @endforelse
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
@@ -341,54 +387,50 @@
         });
     </script>
 
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-    
-        function toggleManualInput(dropdown, manualInput) {
-            if (dropdown.value === "manual") {
-                manualInput.style.display = "block";
-                manualInput.name = "proses";
-                dropdown.removeAttribute("name");
-            } else {
-                manualInput.style.display = "none";
-                manualInput.value = "";
-                manualInput.removeAttribute("name");
-                dropdown.setAttribute("name", "proses");
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        
+            function toggleManualInput(dropdown, manualInput) {
+                if (dropdown.value === "manual") {
+                    manualInput.style.display = "block";
+                    manualInput.name = "proses";
+                    dropdown.removeAttribute("name");
+                } else {
+                    manualInput.style.display = "none";
+                    manualInput.value = "";
+                    manualInput.removeAttribute("name");
+                    dropdown.setAttribute("name", "proses");
+                }
             }
-        }
-    
-        // =============== ADD FORM ===============
-        const addDropdown = document.getElementById("proses_aktivitas");
-        const addManual = document.getElementById("proses_manual_input");
-    
-        if (addDropdown) {
-            addDropdown.addEventListener("change", function () {
-                toggleManualInput(addDropdown, addManual);
-            });
-        }
-    
-        // =============== EDIT FORM ===============
-        const editDropdown = document.getElementById("edit-proses");
-        const editManual = document.getElementById("edit-proses-manual");
-    
-        if (editDropdown) {
-            // Saat modal kebuka → cek apakah nilai yang digunakan itu manual
-            let isManual = editDropdown.dataset.manual === "true"; 
-            if (isManual) {
-                editDropdown.value = "manual"; 
+        
+            // =============== ADD FORM ===============
+            const addDropdown = document.getElementById("proses_aktivitas");
+            const addManual = document.getElementById("proses_manual_input");
+        
+            if (addDropdown) {
+                addDropdown.addEventListener("change", function () {
+                    toggleManualInput(addDropdown, addManual);
+                });
             }
-            toggleManualInput(editDropdown, editManual);
-    
-            editDropdown.addEventListener("change", function () {
+        
+            // =============== EDIT FORM ===============
+            const editDropdown = document.getElementById("edit-proses");
+            const editManual = document.getElementById("edit-proses-manual");
+        
+            if (editDropdown) {
+                // Saat modal kebuka → cek apakah nilai yang digunakan itu manual
+                let isManual = editDropdown.dataset.manual === "true"; 
+                if (isManual) {
+                    editDropdown.value = "manual"; 
+                }
                 toggleManualInput(editDropdown, editManual);
-            });
-        }
-    
-    });
+        
+                editDropdown.addEventListener("change", function () {
+                    toggleManualInput(editDropdown, editManual);
+                });
+            }
+        
+        });
     </script>
-    
 
-    
-    
 @endsection
