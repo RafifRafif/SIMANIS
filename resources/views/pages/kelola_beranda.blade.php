@@ -43,8 +43,8 @@
                                 <tr>
                                     <th class="bg-light">{{ $row }}</th>
                                     @for ($col = 1; $col <= 5; $col++)
-                                        <td data-row="{{ $row }}" data-col="{{ $col }}" class="heatmap-cell"
-                                            style="width:45px;height:45px;cursor:pointer;">
+                                        <td data-row="{{ $row }}" data-col="{{ $col }}"
+                                            class="heatmap-cell" style="width:45px;height:45px;cursor:pointer;">
                                         </td>
                                     @endfor
                                 </tr>
@@ -129,7 +129,8 @@
                                     <td>{{ $index + 1 }}</td>
                                     <td>
                                         @if ($item->gambar)
-                                            <img src="{{ asset('storage/' . $item->gambar) }}" alt="gambar" width="60">
+                                            <img src="{{ asset('storage/' . $item->gambar) }}" alt="gambar"
+                                                width="60">
                                         @else
                                             <span class="text-muted">Tidak ada gambar</span>
                                         @endif
@@ -174,7 +175,7 @@
 
     <!-- Script Interaktif -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const cells = document.querySelectorAll(".heatmap-cell");
             const popup = document.getElementById("colorPickerPopup");
             let activeCell = null;
@@ -251,24 +252,49 @@
                 });
 
                 fetch("{{ route('kelola_beranda.save_colors') }}", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                    },
-                    body: JSON.stringify({ colors: data })
-                }).then(res => res.json())
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                        body: JSON.stringify({
+                            colors: data
+                        })
+                    }).then(res => res.json())
                     .then(res => {
                         if (res.success) {
-                            alert("Warna matriks berhasil disimpan!");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil!',
+                                text: 'Warna heatmap berhasil disimpan!',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal!',
+                                text: 'Terjadi kesalahan saat menyimpan warna!',
+                                showConfirmButton: true
+                            });
                         }
+                    })
+                    .catch(() => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal!',
+                            text: 'Tidak dapat terhubung ke server!',
+                            showConfirmButton: true
+                        });
                     });
             });
 
         });
     </script>
 
-    {{-- alert bawaan browser --}}
+    {{-- Script untuk alert CRUD --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             @php
@@ -277,15 +303,23 @@
             @endphp
 
             @if ($success)
-                setTimeout(function() {
-                    alert("{{ $success }}");
-                }, 300);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ $success }}',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                });
             @endif
 
             @if ($error)
-                setTimeout(function() {
-                    alert("{{ $error }}");
-                }, 300);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: '{{ $error }}',
+                    showConfirmButton: true,
+                });
             @endif
         });
     </script>

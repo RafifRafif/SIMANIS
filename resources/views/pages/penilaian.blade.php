@@ -310,5 +310,35 @@
             });
         });
     </script>
+    {{-- Script untuk alert CRUD --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            @php
+                $success = session()->pull('success');
+                $error = session()->pull('error');
+            @endphp
+
+            @if ($success)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ $success }}',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                });
+            @endif
+
+            @if ($error)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: '{{ $error }}',
+                    showConfirmButton: true,
+                });
+            @endif
+        });
+    </script>
 
 @endsection

@@ -51,9 +51,9 @@
                         <td class="text-center">
                             <!-- Tombol Edit -->
                             <button class="btn btn-sm btn-primary edit-button" data-bs-toggle="modal"
-                                data-bs-target="#editDataModal" data-id="{{ $user->id }}" data-nik="{{ $user->username }}"
-                                data-nama="{{ $user->name }}" data-unit="{{ $user->unit_kerja_id }}"
-                                data-role="{{ $user->role }}">
+                                data-bs-target="#editDataModal" data-id="{{ $user->id }}"
+                                data-nik="{{ $user->username }}" data-nama="{{ $user->name }}"
+                                data-unit="{{ $user->unit_kerja_id }}" data-role="{{ $user->role }}">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
 
@@ -69,7 +69,8 @@
         </table>
     </div>
 
-    {{-- alert bawaan browser --}}
+    {{-- Script untuk alert CRUD --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             @php
@@ -77,16 +78,24 @@
                 $error = session()->pull('error');
             @endphp
 
-            @if($success)
-                setTimeout(function() {
-                    alert("{{ $success }}");
-                }, 300);
+            @if ($success)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ $success }}',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                });
             @endif
 
-            @if($error)
-                setTimeout(function() {
-                    alert("{{ $error }}");
-                }, 300);
+            @if ($error)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: '{{ $error }}',
+                    showConfirmButton: true,
+                });
             @endif
         });
     </script>
