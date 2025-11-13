@@ -106,12 +106,16 @@
             <div class="card p-3">
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <h5 class="mb-0">Status Probabilitas Risiko</h5>
-                    <select class="form-select form-select-sm" style="width: auto;">
-                        <option selected>2025</option>
-                        <option>2024</option>
-                        <option>2023</option>
-                        <option>2022</option>
-                    </select>
+                    <form method="GET" action="{{ route('beranda') }}">
+                        <select class="form-select form-select-sm" name="tahun" style="width: auto;"
+                            onchange="this.form.submit()">
+                            @foreach ($daftarTahun as $t)
+                                <option value="{{ $t }}" {{ $tahun == $t ? 'selected' : '' }}>
+                                    {{ $t }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
                 </div>
                 <div class="bar-container">
                     <div class="bar-label">Low</div>
