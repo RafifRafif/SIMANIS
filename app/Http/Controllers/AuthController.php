@@ -47,6 +47,11 @@ class AuthController extends Controller
         $request->validate([
             'current_password' => 'required',
             'new_password' => 'required|min:6|confirmed',
+        ], [
+            'current_password.required' => 'Sandi saat ini wajib diisi.',
+            'new_password.required' => 'Sandi baru wajib diisi.',
+            'new_password.min' => 'Sandi baru minimal 6 karakter.',
+            'new_password.confirmed' => 'Konfirmasi sandi baru tidak cocok.',
         ]);
 
         $user = Auth::user();

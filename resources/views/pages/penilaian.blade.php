@@ -6,8 +6,6 @@
     @include('components.kelolapenilaian.modal-tambah-penilaian')
     @include('components.kelolapenilaian.modal-edit-penilaian')
     @include('components.kelolapenilaian.modal-hapus-penilaian')
-
-
 @endpush
 
 @section('content')
@@ -145,7 +143,8 @@
                                                     </tr>
                                                 @empty
                                                     <tr>
-                                                        <td colspan="9" class="text-center text-muted">Belum ada data mitigasi</td>
+                                                        <td colspan="9" class="text-center text-muted">Belum ada data
+                                                            mitigasi</td>
                                                     </tr>
                                                 @endforelse
                                             </tbody>
@@ -190,11 +189,12 @@
                                                             <td class="centered">
                                                                 @php
                                                                     // Mapping untuk ubah value database ke format tampilan
-                                                                    $label = [
-                                                                        'tercapai' => 'Tercapai',
-                                                                        'terlampaui' => 'Terlampaui',
-                                                                        'tidaktercapai' => 'Tidak Tercapai',
-                                                                    ][$p->penilaian] ?? ucfirst($p->penilaian);
+                                                                    $label =
+                                                                        [
+                                                                            'tercapai' => 'Tercapai',
+                                                                            'terlampaui' => 'Terlampaui',
+                                                                            'tidaktercapai' => 'Tidak Tercapai',
+                                                                        ][$p->penilaian] ?? ucfirst($p->penilaian);
                                                                 @endphp
                                                                 {{ $label }}
                                                             </td>
@@ -211,7 +211,8 @@
                                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                                 </button>
 
-                                                                <button class="btn btn-sm btn-danger delete-registrasi-button"
+                                                                <button
+                                                                    class="btn btn-sm btn-danger delete-registrasi-button"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#hapusPenilaianAuditorModal"
                                                                     data-id="{{ $p->id_penilaian }}">
@@ -241,7 +242,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // --- Bagian tombol + / − ---
             document.querySelectorAll('.toggle-collapse').forEach(button => {
                 const targetSelector = button.getAttribute('data-bs-target');
@@ -266,7 +267,7 @@
             // --- Bagian tombol Edit ---
             const editButtons = document.querySelectorAll('.edit-button');
             editButtons.forEach(button => {
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
                     // Ambil semua data dari atribut data-*
                     const nik = this.getAttribute('data-nik');
                     const nama = this.getAttribute('data-nama');
@@ -304,7 +305,8 @@
                     document.getElementById('edit-frekuensi').value = frekuensi || '';
 
                     // Buka modal edit
-                    const modal = new bootstrap.Modal(document.getElementById('editPenilaianAuditorModal'));
+                    const modal = new bootstrap.Modal(document.getElementById(
+                        'editPenilaianAuditorModal'));
                     modal.show();
                 });
             });
