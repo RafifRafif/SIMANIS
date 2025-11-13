@@ -37,6 +37,10 @@ class KelolaPenggunaController extends Controller
             'nama' => 'required',
             'role2' => 'required',
             'role1' => 'nullable|exists:unit_kerja,id'
+        ], [
+            'nik.required' => 'NIK wajib diisi.',
+            'nik.unique' => 'NIK sudah terdaftar!',
+            'nama.required' => 'Nama wajib diisi.',
         ]);
 
         $unitId = $request->role1;
