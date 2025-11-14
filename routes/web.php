@@ -47,6 +47,11 @@ Route::post('/kelola_regis/import/proses', [KelolaRegisController::class, 'impor
 Route::post('/kelola_regis/import/kategori', [KelolaRegisController::class, 'importKategori'])->name('formregis.import.kategori');
 Route::post('/kelola_regis/import/jenis', [KelolaRegisController::class, 'importJenis'])->name('formregis.import.jenis');
 Route::post('/kelola_regis/import/iku', [KelolaRegisController::class, 'importIku'])->name('formregis.import.iku');
+Route::post('/save-collapse', function (\Illuminate\Http\Request $request) {
+    session(['collapse_open' => $request->open]);
+    return response()->json(['status' => 'ok']);
+});
+
 // CRUD Unit Kerja
 Route::post('/unitkerja/store', [KelolaRegisController::class, 'store'])->name('unitkerja.store');
 Route::post('/unitkerja/update/{id}', [KelolaRegisController::class, 'update'])->name('unitkerja.update');

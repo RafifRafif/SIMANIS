@@ -60,6 +60,13 @@
                                 </button>
                             </div>
                         </div>
+                        <form action="{{ route('kelola_regis') }}" method="GET" class="d-flex w-25 mb-3">
+                            <input type="text" name="search_unit" class="form-control" placeholder="Cari Unit Kerja..." 
+                                value="{{ request('search_unit') }}">
+                            <button type="submit" class="btn btn-primary btn-sm ms-2">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </form>
                         <div class="table-responsive">
                             <table class="table table-bordered w-100">
                                 <thead class="table-secondary text-center">
@@ -123,6 +130,13 @@
                                 </button>
                             </div>
                         </div>
+                        <form action="{{ route('kelola_regis') }}" method="GET" class="d-flex w-25 mb-3">
+                            <input type="text" name="search_proses" class="form-control" placeholder="Cari Proses/Aktivitas..." 
+                                value="{{ request('search_proses') }}">
+                            <button type="submit" class="btn btn-primary btn-sm ms-2">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </form>
                         <div class="table-responsive">
                             <table class="table table-bordered  w-100">
                                 <thead class="table-secondary text-center">
@@ -186,6 +200,13 @@
                                 </button>
                             </div>
                         </div>
+                        <form action="{{ route('kelola_regis') }}" method="GET" class="d-flex w-25 mb-3">
+                            <input type="text" name="search_kategori" class="form-control" placeholder="Cari Kategori Risiko..." 
+                                value="{{ request('search_kategori') }}">
+                            <button type="submit" class="btn btn-primary btn-sm ms-2">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </form>
                         <div class="table-responsive">
                             <table class="table table-bordered  w-100">
                                 <thead class="table-secondary text-center">
@@ -250,6 +271,13 @@
                                 </button>
                             </div>
                         </div>
+                        <form action="{{ route('kelola_regis') }}" method="GET" class="d-flex w-25 mb-3">
+                            <input type="text" name="search_jenis" class="form-control" placeholder="Cari Jenis Risiko..." 
+                                value="{{ request('search_jenis') }}">
+                            <button type="submit" class="btn btn-primary btn-sm ms-2">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </form>
                         <div class="table-responsive">
                             <table class="table table-bordered  w-100">
                                 <thead class="table-secondary text-center">
@@ -312,6 +340,13 @@
                                 </button>
                             </div>
                         </div>
+                        <form action="{{ route('kelola_regis') }}" method="GET" class="d-flex w-25 mb-3">
+                            <input type="text" name="search_iku" class="form-control" placeholder="Cari IKU..." 
+                                value="{{ request('search_iku') }}">
+                            <button type="submit" class="btn btn-primary btn-sm ms-2">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </form>
                         <div class="table-responsive">
                             <table class="table table-bordered  w-100">
                                 <thead class="table-secondary text-center">
@@ -425,6 +460,55 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            let opened = "{{ session('collapse_open') }}";
+
+            if (opened) {
+                let el = document.getElementById(opened);
+                if (el) {
+                    let collapse = new bootstrap.Collapse(el, { show: true });
+
+                    //ubah tombol + jadi -
+                    let btn = document.querySelector(`[data-bs-target="#${opened}"]`);
+                    if (btn) btn.textContent = btn.textContent.replace('+', '−');
+                }
+            }
+        });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.collapse').forEach(collapse => {
+
+            // kalau dibuka, simpan ke session
+            collapse.addEventListener('show.bs.collapse', function () {
+                fetch("/save-collapse", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ open: collapse.id })
+                });
+            });
+
+            // kalau ditutup, hapus session
+            collapse.addEventListener('hide.bs.collapse', function () {
+                fetch("/save-collapse", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ open: null })
+                });
+            });
+
+        });
+    });
+    </script>
+
 
 
 @endsection

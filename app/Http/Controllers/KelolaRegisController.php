@@ -13,29 +13,43 @@ use App\Models\IkuTerkait;
 
 class KelolaRegisController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $unitKerja = UnitKerja::all();
-        $prosesAktivitas = ProsesAktivitas::all();
-        $kategoriRisiko = KategoriRisiko::all();
-        $jenisRisiko = JenisRisiko::all();
-        $ikuTerkait = IkuTerkait::all();
-        return view('pages.kelola_regis', compact('unitKerja', 'prosesAktivitas', 'kategoriRisiko', 'jenisRisiko', 'ikuTerkait'));
+        $searchUnit = $request->search_unit;
+        $searchProses = $request->search_proses;
+        $searchKategori = $request->search_kategori;
+        $searchJenis = $request->search_jenis;
+        $searchIku = $request->search_iku;
+
+        $unitKerja = UnitKerja::when($searchUnit, function ($q) use ($searchUnit) {
+            $q->where('nama_unit', 'like', "%$searchUnit%");
+        })->get();
+
+        $prosesAktivitas = ProsesAktivitas::when($searchProses, function ($q) use ($searchProses) {
+            $q->where('nama_proses', 'like', "%$searchProses%");
+        })->get();
+
+        $kategoriRisiko = KategoriRisiko::when($searchKategori, function ($q) use ($searchKategori) {
+            $q->where('nama_kategori', 'like', "%$searchKategori%");
+        })->get();
+
+        $jenisRisiko = JenisRisiko::when($searchJenis, function ($q) use ($searchJenis) {
+            $q->where('nama_jenis', 'like', "%$searchJenis%");
+        })->get();
+
+        $ikuTerkait = IkuTerkait::when($searchIku, function ($q) use ($searchIku) {
+            $q->where('nama_iku', 'like', "%$searchIku%");
+        })->get();
+
+        return view('pages.kelola_regis', compact(
+            'unitKerja',
+            'prosesAktivitas',
+            'kategoriRisiko',
+            'jenisRisiko',
+            'ikuTerkait'
+        ));
     }
 
-    public function store(Request $request)
-    {
-        $request->merge(['modal' => 'tambahUnit']);
-        $request->validate([
-            'unitkerja' => 'required|unique:unit_kerja,nama_unit',
-        ], [
-            'unitkerja.required' => 'Nama Unit Kerja wajib diisi!',
-            'unitkerja.unique' => 'Unit Kerja sudah ada!',
-        ]);
-
-        UnitKerja::create(['nama_unit' => $request->unitkerja]);
-        return redirect()->route('kelola_regis')->with('success', 'Unit Kerja berhasil ditambahkan!');
-    }
 
     public function update(Request $request, $id)
     {
@@ -290,5 +304,6 @@ class KelolaRegisController extends Controller
             return redirect()->route('kelola_regis')->with('error', 'Gagal mengimpor IKU Terkait: ' . $e->getMessage());
         }
     }
+    
 
 }
