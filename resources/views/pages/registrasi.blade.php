@@ -121,19 +121,22 @@
                                 <td colspan="17">
                                     <div class="p-3">
                                         <div class="d-flex justify-content-between align-items-center mb-2">
-                                            @if ($item->status_registrasi === 'Terverifikasi')
-                                            <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
-                                                data-bs-target="#tambahDataMitigasiModal"
-                                                data-regid="{{ $item->id_registrasi }}">
-                                                <i class="fa-solid fa-plus"></i> Tambah Mitigasi
-                                            </button>
-                                        @else
-                                            <button class="btn btn-secondary fw-bold" disabled>
-                                                <i class="fa-solid fa-lock"></i> Registrasi Belum Terverifikasi
-                                            </button>
-                                        @endif
-                                        
-                                        
+                                            @php
+                                                $sudahClosed = $item->mitigasis->contains('status', 'closed');
+                                            @endphp
+
+                                            @if (!$sudahClosed)
+                                                <button class="btn btn-primary fw-bold"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#tambahDataMitigasiModal"
+                                                    data-regid="{{ $item->id_registrasi }}">
+                                                    <i class="fa-solid fa-plus"></i> Tambah Mitigasi
+                                                </button>
+                                            @else
+                                                <button class="btn btn-secondary fw-bold" disabled>
+                                                    <i class="fa-solid fa-lock"></i> Mitigasi Sudah Closed
+                                                </button>
+                                            @endif
                                         </div>
 
                                         <!-- Bagian mitigasi -->
@@ -180,7 +183,7 @@
                                                             </td>
                                                             <td class="text-center">
                                                                 <div class="d-flex justify-content-center gap-2">
-                                                                    <button class="btn btn-sm btn-primary edit-mitigasi {{ $m->status === 'closed' ? 'disabled' : '' }}"
+                                                                    <button class="btn btn-sm btn-primary edit-mitigasi"
                                                                         data-id="{{ $m->id_mitigasi }}"
                                                                         data-triwulan="{{ $m->triwulan }}"
                                                                         data-tahun="{{ $m->tahun }}"
@@ -192,7 +195,8 @@
                                                                         data-status="{{ $m->status }}"
                                                                         data-manajemen="{{ $m->hasil_manajemen_risiko }}"
                                                                         data-dok="{{ $m->dokumen_pendukung }}"
-                                                                        {{ $m->status === 'closed' ? 'disabled title="Mitigasi sudah closed"' : 'data-bs-toggle=modal data-bs-target=#editDataMitigasiModal' }}>
+                                                                        data-bs-toggle="modal" 
+                                                                        data-bs-target="#editDataMitigasiModal">
                                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                                     </button>
                                                                     

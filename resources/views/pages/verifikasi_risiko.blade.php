@@ -11,6 +11,27 @@
     <link rel="stylesheet" href="{{ asset('css/registrasi.css') }}">
     <h3 class="mt-3 mb-4">Verifikasi Risiko</h3>
 
+    <div class="d-flex flex-wrap align-items-center gap-2">
+        <label class="me-3">Urutkan berdasarkan</label>
+
+        <!-- Dropdown Unit Kerja dan Tahun -->
+        <form action="{{ route('verifikasi_risiko') }}" method="GET" class="d-flex align-items-center gap-2">
+            <select name="unit_kerja_id" id="unitkerja" class="form-select w-auto dropdown-fixed">
+                <option value="">Pilih Unit Kerja</option>
+                @foreach ($unitKerja as $uk)
+                    <option value="{{ $uk->id }}" {{ request('unit_kerja_id') == $uk->id ? 'selected' : '' }}>
+                        {{ $uk->nama_unit }}
+                    </option>
+                @endforeach
+            </select>
+
+            <button id="btnSearch" class="btn btn-primary btn-sm btn-search ms-2" style="height: 35px; padding: 0 15px;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+    </div>
+    <div id="hasilFilter" class="mt-4"></div>
+
     <!-- Card Wrapper -->
     <div class="card shadow-sm border-1">
         <div class="card-body">
