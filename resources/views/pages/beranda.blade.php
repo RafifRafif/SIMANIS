@@ -4,9 +4,53 @@
 @section('content')
     {{-- Beranda CSS --}}
     <link rel="stylesheet" href="{{ asset('css/beranda.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <div class="container-fluid">
         <h3 class="mt-3 mb-4">Beranda</h3>
+
+        <!-- Card Penilaian Mitigasi -->
+        <div class="row mb-3">
+            <!-- Card 1 -->
+            <div class="col-md-4 mb-3">
+                <div class="card p-3 d-flex flex-column" style="border: 1px solid #E5E7EB; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.10);">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">Penilaian Mitigasi</h6>
+                        <span class="fs-4" style="color: #A6D96A;">
+                            <i class="bi bi-check-circle-fill"></i>
+                        </span>
+                    </div>
+                    <h2 class="mt-2 mb-2" style="font-weight: 700; color: #A6D96A;">{{ $penilaian_sudah_terlampaui ?? 0 }}</h2>
+                    <p class="mb-0">Yang sudah terlampaui</p>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="col-md-4 mb-3">
+                <div class="card p-3 d-flex flex-column" style="border: 1px solid #E5E7EB; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.10);">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">Penilaian Mitigasi</h6>
+                        <span class="fs-4" style="color: #FCE08B;">
+                            <i class="bi bi-exclamation-circle-fill"></i>
+                        </span>
+                    </div>
+                    <h2 class="mt-2 mb-2" style="font-weight: 700; color: #FCE08B;">{{ $penilaian_sudah_tercapai ?? 0}}</h2>
+                    <p class="mb-0">Yang sudah tercapai</p>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="col-md-4 mb-3">
+                <div class="card p-3 d-flex flex-column" style="border 1px solid #E5E7EB;border-radius: 12px; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.10);">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">Penilaian Mitigasi</h6>
+                        <span class="fs-4" style="color: #DC362E;">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </span>
+                    </div>
+                    <h2 class="mt-2 mb-2" style="font-weight: 700; color: #DC362E;">{{ $penilaian_tidak_tercapai ?? 0}}</h2>
+                    <p class="mb-0">Yang tidak tercapai</p>
+                </div>
+            </div>
+        </div>
 
         <div class="dashboard-grid">
             <!-- Card 1: Heatmap Risiko -->
