@@ -79,7 +79,7 @@
                                 <tbody>
                                     @foreach ($unitKerja as $index => $unit)
                                         <tr>
-                                            <td class="centered">{{ $index + 1 }}</td>
+                                            <td class="centered">{{ $unitKerja->firstItem() + $index }}</td>
                                             <td>{{ $unit->nama_unit }}</td>
                                             <td class="centered">
                                                 <!-- Tombol Edit -->
@@ -101,6 +101,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        {{ $unitKerja->appends(request()->query())->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
             </div>
@@ -149,7 +150,7 @@
                                 <tbody>
                                     @foreach ($prosesAktivitas as $index => $proses)
                                         <tr>
-                                            <td class="centered">{{ $index + 1 }}</td>
+                                            <td class="centered">{{ $unitKerja->firstItem() + $index }}</td>
                                             <td>{{ $proses->nama_proses }}</td>
                                             <td class="centered">
                                                 <!-- Tombol Edit -->
@@ -219,7 +220,7 @@
                                 <tbody>
                                     @foreach ($kategoriRisiko as $index => $kategori)
                                         <tr>
-                                            <td class="centered">{{ $index + 1 }}</td>
+                                            <td class="centered">{{ $unitKerja->firstItem() + $index }}</td>
                                             <td>{{ $kategori->nama_kategori }}</td>
                                             <td class="centered">
                                                 <!-- Tombol Edit -->
@@ -290,7 +291,7 @@
                                 <tbody>
                                     @foreach ($jenisRisiko as $index => $jenis)
                                         <tr>
-                                            <td class="centered">{{ $index + 1 }}</td>
+                                            <td class="centered">{{ $unitKerja->firstItem() + $index }}</td>
                                             <td>{{ $jenis->nama_jenis }}</td>
                                             <td class="centered">
                                                 <!-- Tombol Edit -->
@@ -359,7 +360,7 @@
                                 <tbody>
                                     @foreach ($ikuTerkait as $index => $iku)
                                         <tr>
-                                            <td class="centered">{{ $index + 1 }}</td>
+                                            <td class="centered">{{ $unitKerja->firstItem() + $index }}</td>
                                             <td>{{ $iku->nama_iku }}</td>
                                             <td class="centered">
                                                 <!-- Tombol Edit -->

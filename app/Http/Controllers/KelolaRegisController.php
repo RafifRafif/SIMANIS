@@ -23,23 +23,23 @@ class KelolaRegisController extends Controller
 
         $unitKerja = UnitKerja::when($searchUnit, function ($q) use ($searchUnit) {
             $q->where('nama_unit', 'like', "%$searchUnit%");
-        })->get();
+        })->paginate(10);
 
         $prosesAktivitas = ProsesAktivitas::when($searchProses, function ($q) use ($searchProses) {
             $q->where('nama_proses', 'like', "%$searchProses%");
-        })->get();
+        })->paginate(10);
 
         $kategoriRisiko = KategoriRisiko::when($searchKategori, function ($q) use ($searchKategori) {
             $q->where('nama_kategori', 'like', "%$searchKategori%");
-        })->get();
+        })->paginate(10);
 
         $jenisRisiko = JenisRisiko::when($searchJenis, function ($q) use ($searchJenis) {
             $q->where('nama_jenis', 'like', "%$searchJenis%");
-        })->get();
+        })->paginate(10);
 
         $ikuTerkait = IkuTerkait::when($searchIku, function ($q) use ($searchIku) {
             $q->where('nama_iku', 'like', "%$searchIku%");
-        })->get();
+        })->paginate(10);
 
         return view('pages.kelola_regis', compact(
             'unitKerja',
