@@ -125,14 +125,23 @@
                                                 $sudahClosed = $item->mitigasis->contains('status', 'closed');
                                             @endphp
 
-                                            @if (!$sudahClosed)
+                                            @if ($item->status_registrasi != 'Terverifikasi')
+                                                <!-- Registrasi belum diverifikasi -->
+                                                <button class="btn btn-secondary fw-bold" disabled>
+                                                    <i class="fa-solid fa-lock"></i> Menunggu Verifikasi
+                                                </button>
+
+                                            @elseif (!$sudahClosed)
+                                                <!-- Sudah diverifikasi dan mitigasi belum closed -->
                                                 <button class="btn btn-primary fw-bold"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#tambahDataMitigasiModal"
                                                     data-regid="{{ $item->id_registrasi }}">
                                                     <i class="fa-solid fa-plus"></i> Tambah Mitigasi
                                                 </button>
+
                                             @else
+                                                <!-- Sudah diverifikasi tapi mitigasi sudah closed -->
                                                 <button class="btn btn-secondary fw-bold" disabled>
                                                     <i class="fa-solid fa-lock"></i> Mitigasi Sudah Closed
                                                 </button>
@@ -221,8 +230,13 @@
                                         </table>
 
                                         {{-- Bagian Penilaian Auditor --}}
-                                        @if ($item->mitigasis && $item->mitigasis->count() > 0)
+                                        @php
+                                            $closedMitigasi = $item->mitigasis->where('status', 'closed');
+                                        @endphp
+
+                                        @if ($closedMitigasi->count())
                                             <div class="mt-4">
+
                                                 <table class="table table-sm table-bordered mb-0">
                                                     <thead class="table-secondary text-center">
                                                         <tr>
@@ -232,33 +246,30 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @php
-                                                            $penilaian = $m->penilaian ?? collect();
-                                                        @endphp
 
-                                                        @forelse ($penilaian as $p)
-                                                            <tr>
-                                                                <td class="centered">{{ $p->triwulan_tahun }}</td>
-                                                                <td class="centered">
-                                                                    @php
-                                                                        // Mapping untuk ubah value database ke format tampilan
-                                                                        $label = [
-                                                                            'tercapai' => 'Tercapai',
-                                                                            'terlampaui' => 'Terlampaui',
-                                                                            'tidaktercapai' => 'Tidak Tercapai',
-                                                                        ][$p->penilaian] ?? ucfirst($p->penilaian);
-                                                                    @endphp
-                                                                    {{ $label }}
-                                                                </td>
-                                                                <td>{{ $p->uraian ?? '-' }}</td>
-                                                            </tr>
-                                                        @empty
-                                                            <tr>
-                                                                <td colspan="4" class="text-center text-muted">
-                                                                    Belum ada penilaian auditor
-                                                                </td>
-                                                            </tr>
-                                                        @endforelse
+                                                        @foreach ($closedMitigasi as $cm)
+                                                            @forelse ($cm->penilaian as $p)
+                                                                <tr>
+                                                                    <td class="centered">{{ $p->triwulan_tahun }}</td>
+                                                                    <td class="centered">
+                                                                        @php
+                                                                            $label = [
+                                                                                'tercapai' => 'Tercapai',
+                                                                                'terlampaui' => 'Terlampaui',
+                                                                                'tidaktercapai' => 'Tidak Tercapai',
+                                                                            ][$p->penilaian] ?? ucfirst($p->penilaian);
+                                                                        @endphp
+                                                                        {{ $label }}
+                                                                    </td>
+                                                                    <td>{{ $p->uraian ?? '-' }}</td>
+                                                                </tr>
+                                                            @empty
+                                                                <tr>
+                                                                    <td colspan="3" class="text-center text-muted">Belum ada penilaian auditor</td>
+                                                                </tr>
+                                                            @endforelse
+                                                        @endforeach
+
                                                     </tbody>
                                                 </table>
                                             </div>

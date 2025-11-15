@@ -32,7 +32,9 @@ class PenilaianController extends Controller
         ])
 
         ->where('status_registrasi', 'Terverifikasi')
-        ->whereHas('mitigasis');
+        ->whereHas('mitigasis', function ($q) {
+            $q->where('status', 'closed');
+        });
 
         // Filter berdasarkan Unit Kerja (kalau dipilih)
         if ($request->filled('unit_kerja_id')) {
