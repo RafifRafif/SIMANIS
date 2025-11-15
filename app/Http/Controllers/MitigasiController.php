@@ -30,7 +30,7 @@ class MitigasiController extends Controller
         if ($registrasi->status_registrasi !== 'Terverifikasi') {
             return back()->with('error', 'Registrasi belum diverifikasi. Tidak dapat menambah mitigasi.');
         }
-        
+
 
         Mitigasi::create($data);
 
@@ -53,6 +53,10 @@ class MitigasiController extends Controller
             'hasil_manajemen_risiko' => 'nullable|string',
             'dokumen_pendukung' => 'nullable|url',
         ]);
+
+        if ($mitigasi->status === 'closed' && $request->status === 'opened') {
+            $mitigasi->penilaian()->delete();
+        }
 
         $mitigasi->update($data);
 

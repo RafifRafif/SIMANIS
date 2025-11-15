@@ -73,176 +73,188 @@
                     </thead>
                     <tbody>
                         @foreach ($registrasis as $index => $r)
-                            <tr>
-                                <td class="text-center">
-                                    <button class="btn btn-sm btn-outline-primary toggle-collapse" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#mitigasi{{ $r->id_registrasi }}"
-                                        aria-expanded="false" aria-controls="mitigasi{{ $r->id_registrasi }}">+
-                                    </button>
-                                </td>
-                                <td>{{ $r->unitKerja->nama_unit ?? '-' }}</td>
-                                <td>{{ $r->prosesDisplay }}</td>
-                                <td>{{ $r->kategoriRisiko->nama_kategori ?? '-' }}</td>
-                                <td>{{ $r->jenisRisiko->nama_jenis ?? '-' }}</td>
-                                <td>{{ $r->isu_resiko }}</td>
-                                <td>{{ $r->jenis_isu }}</td>
-                                <td>{{ $r->akar_permasalahan }}</td>
-                                <td>{{ $r->dampak }}</td>
-                                <td>{{ $r->ikuTerkait->nama_iku ?? '-' }}</td>
-                                <td>{{ $r->pihak_terkait }}</td>
-                                <td>{{ $r->kontrol_pencegahan }}</td>
-                                <td class="centered">{{ $r->keparahan }}</td>
-                                <td class="centered">{{ $r->frekuensi }}</td>
-                                <td class="centered">{{ $r->probabilitas }}</td>
-                                <td class="centered">{{ $r->status_registrasi }}</td>
-                            </tr>
+                                        <tr>
+                                            <td class="text-center">
+                                                <button class="btn btn-sm btn-outline-primary toggle-collapse" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#mitigasi{{ $r->id_registrasi }}"
+                                                    aria-expanded="false" aria-controls="mitigasi{{ $r->id_registrasi }}">+
+                                                </button>
+                                            </td>
+                                            <td>{{ $r->unitKerja->nama_unit ?? '-' }}</td>
+                                            <td>{{ $r->prosesDisplay }}</td>
+                                            <td>{{ $r->kategoriRisiko->nama_kategori ?? '-' }}</td>
+                                            <td>{{ $r->jenisRisiko->nama_jenis ?? '-' }}</td>
+                                            <td>{{ $r->isu_resiko }}</td>
+                                            <td>{{ $r->jenis_isu }}</td>
+                                            <td>{{ $r->akar_permasalahan }}</td>
+                                            <td>{{ $r->dampak }}</td>
+                                            <td>{{ $r->ikuTerkait->nama_iku ?? '-' }}</td>
+                                            <td>{{ $r->pihak_terkait }}</td>
+                                            <td>{{ $r->kontrol_pencegahan }}</td>
+                                            <td class="centered">{{ $r->keparahan }}</td>
+                                            <td class="centered">{{ $r->frekuensi }}</td>
+                                            <td class="centered">{{ $r->probabilitas }}</td>
+                                            <td class="centered">{{ $r->status_registrasi }}</td>
+                                        </tr>
 
-                            {{-- Bagian Mitigasi --}}
-                            <tr class="collapse bg-light" id="mitigasi{{ $r->id_registrasi }}">
-                                <td colspan="17">
-                                    <div class="p-3">
-                                        <table class="table table-sm table-bordered">
-                                            <thead class="table-secondary text-center">
-                                                <tr>
-                                                    <th rowspan="2">Triwulan</th>
-                                                    <th rowspan="2">Isu/Risiko</th>
-                                                    <th colspan="2">Tindak Lanjut</th>
-                                                    <th colspan="2">Evaluasi</th>
-                                                    <th rowspan="2">Status Pelaksanaan</th>
-                                                    <th rowspan="2">Hasil Penerapan</th>
-                                                    <th rowspan="2">Dokumen Pendukung</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Rencana Aksi</th>
-                                                    <th>Tanggal Pelaksanaan</th>
-                                                    <th>Hasil Tindak Lanjut</th>
-                                                    <th>Tanggal Evaluasi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @forelse ($r->mitigasis as $m)
-                                                    <tr>
-                                                        <td class="centered">{{ $m->triwulan }}-{{ $m->tahun }}</td>
-                                                        <td>{{ $m->isurisiko }}</td>
-                                                        <td>{{ $m->rencana_aksi }}</td>
-                                                        <td class="centered">{{ $m->tanggal_pelaksanaan }}</td>
-                                                        <td>{{ $m->hasil_tindak_lanjut }}</td>
-                                                        <td class="centered">{{ $m->tanggal_evaluasi }}</td>
-                                                        <td class="centered">{{ $m->status }}</td>
-                                                        <td>{{ $m->hasil_manajemen_risiko }}</td>
-                                                        <td class="text-center align-middle">
-                                                            @if ($m->dokumen_pendukung)
-                                                                <a href="{{ asset('storage/' . $m->dokumen_pendukung) }}"
-                                                                    target="_blank" class="btn btn-sm btn-secondary">
-                                                                    <i class="fa-solid fa-eye"></i>
-                                                                </a>
+                                        {{-- Bagian Mitigasi --}}
+                                        <tr class="collapse bg-light" id="mitigasi{{ $r->id_registrasi }}">
+                                            <td colspan="17">
+                                                <div class="p-3">
+                                                    <table class="table table-sm table-bordered">
+                                                        <thead class="table-secondary text-center">
+                                                            <tr>
+                                                                <th rowspan="2">Triwulan</th>
+                                                                <th rowspan="2">Isu/Risiko</th>
+                                                                <th colspan="2">Tindak Lanjut</th>
+                                                                <th colspan="2">Evaluasi</th>
+                                                                <th rowspan="2">Status Pelaksanaan</th>
+                                                                <th rowspan="2">Hasil Penerapan</th>
+                                                                <th rowspan="2">Dokumen Pendukung</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Rencana Aksi</th>
+                                                                <th>Tanggal Pelaksanaan</th>
+                                                                <th>Hasil Tindak Lanjut</th>
+                                                                <th>Tanggal Evaluasi</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @forelse ($r->mitigasis as $m)
+                                                                <tr>
+                                                                    <td class="centered">{{ $m->triwulan }}-{{ $m->tahun }}</td>
+                                                                    <td>{{ $m->isurisiko }}</td>
+                                                                    <td>{{ $m->rencana_aksi }}</td>
+                                                                    <td class="centered">{{ $m->tanggal_pelaksanaan }}</td>
+                                                                    <td>{{ $m->hasil_tindak_lanjut }}</td>
+                                                                    <td class="centered">{{ $m->tanggal_evaluasi }}</td>
+                                                                    <td class="centered">{{ $m->status }}</td>
+                                                                    <td>{{ $m->hasil_manajemen_risiko }}</td>
+                                                                    <td class="text-center align-middle">
+                                                                        @if ($m->dokumen_pendukung)
+                                                                            <a href="{{ asset('storage/' . $m->dokumen_pendukung) }}"
+                                                                                target="_blank" class="btn btn-sm btn-secondary">
+                                                                                <i class="fa-solid fa-eye"></i>
+                                                                            </a>
+                                                                        @else
+                                                                            <span>-</span>
+                                                                        @endif
+                                                                    </td>
+                                                                </tr>
+                                                            @empty
+                                                                <tr>
+                                                                    <td colspan="9" class="text-center text-muted">Belum ada data
+                                                                        mitigasi</td>
+                                                                </tr>
+                                                            @endforelse
+                                                        </tbody>
+                                                    </table>
+
+                                                    {{-- Bagian Penilaian Auditor --}}
+                                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                                        @if ($r->mitigasis->count() > 0)
+
+                                                            {{-- Hanya berlaku untuk mitigasi yang CLOSED --}}
+                                                            @if ($m->status == 'closed')
+
+                                                                {{-- Jika belum ada penilaian → tombol aktif --}}
+                                                                @if ($m->penilaian->count() == 0)
+                                                                    <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
+                                                                        data-bs-target="#tambahPenilaianAuditorModal"
+                                                                        data-mitigasi-id="{{ $m->id_mitigasi }}">
+                                                                        <i class="fa-solid fa-plus"></i> Tambah Penilaian
+                                                                    </button>
+                                                                @else
+                                                                    {{-- Sudah ada penilaian → tombol dimatikan --}}
+                                                                    <button class="btn btn-secondary fw-bold" disabled>
+                                                                        <i class="fa-solid fa-lock"></i> Penilaian Sudah Ada
+                                                                    </button>
+                                                                @endif
+
                                                             @else
-                                                                <span>-</span>
+                                                                {{-- Status mitigasi bukan CLOSED --}}
+                                                                <button class="btn btn-secondary fw-bold" disabled>
+                                                                    <i class="fa-solid fa-lock"></i> Mitigasi Belum Closed
+                                                                </button>
                                                             @endif
-                                                        </td>
-                                                    </tr>
-                                                @empty
-                                                    <tr>
-                                                        <td colspan="9" class="text-center text-muted">Belum ada data
-                                                            mitigasi</td>
-                                                    </tr>
-                                                @endforelse
-                                            </tbody>
-                                        </table>
 
-                                        {{-- Bagian Penilaian Auditor --}}
-                                        <div class="mt-4">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                @if ($r->mitigasis->count() > 0)
-                                                    {{-- Kalau sudah ada mitigasi, tombol aktif --}}
-                                                    <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
-                                                        data-bs-target="#tambahPenilaianAuditorModal"
-                                                        data-mitigasi-id="{{ $m->id_mitigasi }}">
-                                                        <i class="fa-solid fa-plus"></i> Tambah Penilaian
-                                                    </button>
-                                                @else
-                                                    {{-- Kalau belum ada mitigasi, tombol nonaktif --}}
-                                                    <button class="btn btn-secondary fw-bold" disabled>
-                                                        <i class="fa-solid fa-lock"></i> Belum Ada Mitigasi
-                                                    </button>
-                                                @endif
-                                            </div>
+                                                        @else
+                                                            {{-- Tidak ada mitigasi sama sekali --}}
+                                                            <button class="btn btn-secondary fw-bold" disabled>
+                                                                <i class="fa-solid fa-lock"></i> Belum Ada Mitigasi
+                                                            </button>
+                                                        @endif
+                                                    </div>
+                                                    <table class="table table-sm table-bordered mb-0">
+                                                        <thead class="table-secondary text-center">
+                                                            <tr>
+                                                                <th>Triwulan</th>
+                                                                <th>Penilaian</th>
+                                                                <th>Uraian</th>
+                                                                <th>Aksi</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @php
+                                                                $penilaian = $m->penilaian ?? collect();
+                                                            @endphp
 
+                                                            @forelse ($penilaian as $p)
+                                                                <tr>
+                                                                    <td class="centered">{{ $p->triwulan_tahun }}</td>
+                                                                    <td class="centered">
+                                                                        @php
+                                                                            // Mapping untuk ubah value database ke format tampilan
+                                                                            $label =
+                                                                                [
+                                                                                    'tercapai' => 'Tercapai',
+                                                                                    'terlampaui' => 'Terlampaui',
+                                                                                    'tidaktercapai' => 'Tidak Tercapai',
+                                                                                ][$p->penilaian] ?? ucfirst($p->penilaian);
+                                                                        @endphp
+                                                                        {{ $label }}
+                                                                    </td>
+                                                                    <td>{{ $p->uraian ?? '-' }}</td>
+                                                                    <td class="text-center">
+                                                                        <button class="btn btn-sm btn-primary edit-button"
+                                                                            data-bs-toggle="modal" data-bs-target="#editPenilaianAuditorModal"
+                                                                            data-id="{{ $p->id_penilaian }}"
+                                                                            data-mitigasi-id="{{ $p->mitigasi_id }}"
+                                                                            data-triwulan="{{ $p->triwulan_tahun }}"
+                                                                            data-penilaian="{{ $p->penilaian }}" data-uraian="{{ $p->uraian }}">
+                                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                                        </button>
 
-                                            <table class="table table-sm table-bordered mb-0">
-                                                <thead class="table-secondary text-center">
-                                                    <tr>
-                                                        <th>Triwulan</th>
-                                                        <th>Penilaian</th>
-                                                        <th>Uraian</th>
-                                                        <th>Aksi</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @php
-                                                        $penilaian = $m->penilaian ?? collect();
-                                                    @endphp
-
-                                                    @forelse ($penilaian as $p)
-                                                        <tr>
-                                                            <td class="centered">{{ $p->triwulan_tahun }}</td>
-                                                            <td class="centered">
-                                                                @php
-                                                                    // Mapping untuk ubah value database ke format tampilan
-                                                                    $label =
-                                                                        [
-                                                                            'tercapai' => 'Tercapai',
-                                                                            'terlampaui' => 'Terlampaui',
-                                                                            'tidaktercapai' => 'Tidak Tercapai',
-                                                                        ][$p->penilaian] ?? ucfirst($p->penilaian);
-                                                                @endphp
-                                                                {{ $label }}
-                                                            </td>
-                                                            <td>{{ $p->uraian ?? '-' }}</td>
-                                                            <td class="text-center">
-                                                                <button class="btn btn-sm btn-primary edit-button"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#editPenilaianAuditorModal"
-                                                                    data-id="{{ $p->id_penilaian }}"
-                                                                    data-mitigasi-id="{{ $p->mitigasi_id }}"
-                                                                    data-triwulan="{{ $p->triwulan_tahun }}"
-                                                                    data-penilaian="{{ $p->penilaian }}"
-                                                                    data-uraian="{{ $p->uraian }}">
-                                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                                </button>
-
-                                                                <button
-                                                                    class="btn btn-sm btn-danger delete-registrasi-button"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#hapusPenilaianAuditorModal"
-                                                                    data-id="{{ $p->id_penilaian }}">
-                                                                    <i class="fa-solid fa-trash"></i>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                    @empty
-                                                        <tr>
-                                                            <td colspan="4" class="text-center text-muted">
-                                                                Belum ada penilaian auditor
-                                                            </td>
-                                                        </tr>
-                                                    @endforelse
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </td>
+                                                                        <button class="btn btn-sm btn-danger delete-registrasi-button"
+                                                                            data-bs-toggle="modal" data-bs-target="#hapusPenilaianAuditorModal"
+                                                                            data-id="{{ $p->id_penilaian }}">
+                                                                            <i class="fa-solid fa-trash"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            @empty
+                                                                <tr>
+                                                                    <td colspan="4" class="text-center text-muted">
+                                                                        Belum ada penilaian auditor
+                                                                    </td>
+                                                                </tr>
+                                                            @endforelse
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                            </div>
+                            </td>
                             </tr>
                         @endforeach
-                    </tbody>
-                </table>
+            </tbody>
+            </table>
 
-            </div>
         </div>
+    </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // --- Bagian tombol + / − ---
             document.querySelectorAll('.toggle-collapse').forEach(button => {
                 const targetSelector = button.getAttribute('data-bs-target');
@@ -267,7 +279,7 @@
             // --- Bagian tombol Edit ---
             const editButtons = document.querySelectorAll('.edit-button');
             editButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     // Ambil semua data dari atribut data-*
                     const nik = this.getAttribute('data-nik');
                     const nama = this.getAttribute('data-nama');
@@ -315,32 +327,30 @@
     {{-- Script untuk alert CRUD --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             @php
                 $success = session()->pull('success');
                 $error = session()->pull('error');
             @endphp
-
-            @if ($success)
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil!',
-                    text: '{{ $success }}',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true
+        @if ($success)
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ $success }}',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true
                 });
-            @endif
-
-            @if ($error)
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Gagal!',
-                    text: '{{ $error }}',
-                    showConfirmButton: true,
+        @endif
+        @if ($error)
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: '{{ $error }}',
+                showConfirmButton: true,
                 });
-            @endif
+        @endif
         });
-    </script>
+        </script>
 
 @endsection
