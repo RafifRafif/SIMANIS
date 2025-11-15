@@ -15,7 +15,7 @@ class BerandaController extends Controller
         $tahun = $request->get('tahun', date('Y'));
 
         $konten = KontenBeranda::all();
-        $colors = HeatmapColor::all();   // ⬅️ ambil semua warna matriks
+        $colors = HeatmapColor::all();   
 
         $daftarTahun = Mitigasi::select('tahun')
             ->distinct()
@@ -41,10 +41,10 @@ class BerandaController extends Controller
         $registrasiFiltered = Registrasi::whereIn('id_registrasi', $registrasiIds)->get();
 
         $total = $registrasiFiltered->count();
-        $low = $registrasiFiltered->where('probabilitas', 'L')->count();
-        $medium = $registrasiFiltered->where('probabilitas', 'M')->count();
-        $high = $registrasiFiltered->where('probabilitas', 'H')->count();
-        $extreme = $registrasiFiltered->where('probabilitas', 'E')->count();
+        $low = $registrasiFiltered->where('probabilitas', 'Low')->count();
+        $medium = $registrasiFiltered->where('probabilitas', 'Medium')->count();
+        $high = $registrasiFiltered->where('probabilitas', 'High')->count();
+        $extreme = $registrasiFiltered->where('probabilitas', 'Extreme')->count();
 
         // Hitung persentase (hindari pembagian nol)
         $probabilitasData = [

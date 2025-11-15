@@ -74,17 +74,17 @@ else {
 
         // Matriks probabilitas
         $matrix = [
-            'A' => [1 => 'M', 2 => 'H', 3 => 'H', 4 => 'E', 5 => 'E'],
-            'B' => [1 => 'L', 2 => 'M', 3 => 'H', 4 => 'E', 5 => 'E'],
-            'C' => [1 => 'L', 2 => 'M', 3 => 'M', 4 => 'H', 5 => 'E'],
-            'D' => [1 => 'L', 2 => 'L', 3 => 'M', 4 => 'H', 5 => 'H'],
-            'E' => [1 => 'L', 2 => 'L', 3 => 'L', 4 => 'M', 5 => 'H'],
+            'A' => [1 => 'Medium', 2 => 'High', 3 => 'High', 4 => 'Extreme', 5 => 'Extreme'],
+            'B' => [1 => 'Low', 2 => 'Medium', 3 => 'High', 4 => 'Extreme', 5 => 'Extreme'],
+            'C' => [1 => 'Low', 2 => 'Medium', 3 => 'Medium', 4 => 'Extreme', 5 => 'Extreme'],
+            'D' => [1 => 'Low', 2 => 'Low', 3 => 'Medium', 4 => 'High', 5 => 'High'],
+            'E' => [1 => 'Low', 2 => 'Low', 3 => 'Low', 4 => 'Medium', 5 => 'High'],
         ];
 
         $keparahan = (int) $request->keparahan;
         $frekuensi = $request->frekuensi;
 
-        $validated['probabilitas'] = $matrix[$frekuensi][$keparahan] ?? 'L';
+        $validated['probabilitas'] = $matrix[$frekuensi][$keparahan] ?? 'Low';
 
         // Tambahkan default value untuk status_registrasi
         $validated['status_registrasi'] = 'Belum Terverifikasi';
@@ -138,16 +138,16 @@ else {
 
         // hitung ulang probabilitas (biar sama kayak di store)
         $matrix = [
-            'A' => [1 => 'M', 2 => 'H', 3 => 'H', 4 => 'E', 5 => 'E'],
-            'B' => [1 => 'L', 2 => 'M', 3 => 'H', 4 => 'E', 5 => 'E'],
-            'C' => [1 => 'L', 2 => 'M', 3 => 'M', 4 => 'H', 5 => 'E'],
-            'D' => [1 => 'L', 2 => 'L', 3 => 'M', 4 => 'H', 5 => 'H'],
-            'E' => [1 => 'L', 2 => 'L', 3 => 'L', 4 => 'M', 5 => 'H'],
+            'A' => [1 => 'Medium', 2 => 'High', 3 => 'High', 4 => 'Extreme', 5 => 'Extreme'],
+            'B' => [1 => 'Low', 2 => 'Medium', 3 => 'High', 4 => 'Extreme', 5 => 'Extreme'],
+            'C' => [1 => 'Low', 2 => 'Medium', 3 => 'Medium', 4 => 'High', 5 => 'Extreme'],
+            'D' => [1 => 'Low', 2 => 'Low', 3 => 'Medium', 4 => 'High', 5 => 'High'],
+            'E' => [1 => 'Low', 2 => 'Low', 3 => 'Low', 4 => 'Medium', 5 => 'High'],
         ];
 
         $keparahan = (int) $request->keparahan;
         $frekuensi = $request->frekuensi;
-        $validated['probabilitas'] = $matrix[$frekuensi][$keparahan] ?? 'L';
+        $validated['probabilitas'] = $matrix[$frekuensi][$keparahan] ?? 'Low';
 
         $registrasi->update($validated);
 
