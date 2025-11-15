@@ -50,6 +50,22 @@ class KelolaRegisController extends Controller
         ));
     }
 
+    public function store(Request $request)
+    {
+        $request->merge(['modal' => 'tambahUnit']);
+        $validated = $request->validate([
+            'unitkerja' => 'required|unique:unit_kerja,nama_unit',
+        ], [
+            'unitkerja.required' => 'Unit Kerja wajib diisi!',
+            'unitkerja.unique' => 'Unit Kerja sudah ada!',
+        ]);
+
+        UnitKerja::create([
+            'nama_unit' => $validated['unitkerja'],
+        ]);
+        return redirect()->route('kelola_regis')->with('success', 'Unit Kerja berhasil ditambahkan!');
+    }
+
 
     public function update(Request $request, $id)
     {
@@ -304,6 +320,6 @@ class KelolaRegisController extends Controller
             return redirect()->route('kelola_regis')->with('error', 'Gagal mengimpor IKU Terkait: ' . $e->getMessage());
         }
     }
-    
+
 
 }
