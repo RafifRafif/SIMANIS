@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <form action="{{ route('kelola_regis') }}" method="GET" class="d-flex w-25 mb-3">
-                            <input type="text" name="search_unit" class="form-control" placeholder="Cari Unit Kerja..." 
+                            <input type="text" name="search_unit" class="form-control" placeholder="Cari Unit Kerja..."
                                 value="{{ request('search_unit') }}">
                             <button type="submit" class="btn btn-primary btn-sm ms-2">
                                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -71,7 +71,7 @@
                             <table class="table table-bordered w-100">
                                 <thead class="table-secondary text-center">
                                     <tr>
-                                        <th>No</th>
+                                        <th class="text-center">No</th>
                                         <th>Unit Kerja</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -79,7 +79,10 @@
                                 <tbody>
                                     @foreach ($unitKerja as $index => $unit)
                                         <tr>
-                                            <td class="centered">{{ $unitKerja->firstItem() + $index }}</td>
+                                            <td class="text-center">
+                                                <input type="checkbox" name="selected_ids[]" value="{{ $unit->id }}">
+                                                {{ $unitKerja->firstItem() + $index }}
+                                            </td>
                                             <td>{{ $unit->nama_unit }}</td>
                                             <td class="centered">
                                                 <!-- Tombol Edit -->
@@ -101,7 +104,45 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{ $unitKerja->appends(request()->query())->links('pagination::bootstrap-5') }}
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+
+                            {{-- CHECKBOX PILIH SEMUA --}}
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="form-check mb-0">
+                                    <input class="form-check-input" type="checkbox" id="select-all-unit">
+                                    <label class="form-check-label" for="select-all-unit">
+                                        Pilih Semua
+                                    </label>
+                                </div>
+
+                                {{-- Tombol Hapus --}}
+                                <button type="button" id="delete-selected-unit" class="btn btn-sm btn-danger">
+                                    Hapus
+                                </button>
+                            </div>
+
+                            {{-- NAVIGASI PAGINASI --}}
+                            @if ($unitKerja->hasPages())
+                                <div class="d-flex align-items-center gap-1">
+                                    <a class="btn btn-sm btn-light {{ $unitKerja->onFirstPage() ? 'disabled' : '' }}"
+                                        href="{{ $unitKerja->previousPageUrl() }}">
+                                        &larr;
+                                    </a>
+
+                                    @foreach ($unitKerja->getUrlRange(1, $unitKerja->lastPage()) as $page => $url)
+                                        <a class="btn btn-sm {{ $page == $unitKerja->currentPage() ? 'btn-primary' : 'btn-light' }}"
+                                            href="{{ $url }}">
+                                            {{ $page }}
+                                        </a>
+                                    @endforeach
+
+                                    <a class="btn btn-sm btn-light {{ !$unitKerja->hasMorePages() ? 'disabled' : '' }}"
+                                        href="{{ $unitKerja->nextPageUrl() }}">
+                                        &rarr;
+                                    </a>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,8 +173,8 @@
                             </div>
                         </div>
                         <form action="{{ route('kelola_regis') }}" method="GET" class="d-flex w-25 mb-3">
-                            <input type="text" name="search_proses" class="form-control" placeholder="Cari Proses/Aktivitas..." 
-                                value="{{ request('search_proses') }}">
+                            <input type="text" name="search_proses" class="form-control"
+                                placeholder="Cari Proses/Aktivitas..." value="{{ request('search_proses') }}">
                             <button type="submit" class="btn btn-primary btn-sm ms-2">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
@@ -156,7 +197,8 @@
                                                 <!-- Tombol Edit -->
                                                 <button class="btn btn-sm btn-primary edit-proses-button"
                                                     data-bs-toggle="modal" data-bs-target="#editDataModalProsesAktivitas"
-                                                    data-id="{{ $proses->id }}" data-nama="{{ $proses->nama_proses }}">
+                                                    data-id="{{ $proses->id }}"
+                                                    data-nama="{{ $proses->nama_proses }}">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
                                                 <!-- Tombol Hapus -->
@@ -202,8 +244,8 @@
                             </div>
                         </div>
                         <form action="{{ route('kelola_regis') }}" method="GET" class="d-flex w-25 mb-3">
-                            <input type="text" name="search_kategori" class="form-control" placeholder="Cari Kategori Risiko..." 
-                                value="{{ request('search_kategori') }}">
+                            <input type="text" name="search_kategori" class="form-control"
+                                placeholder="Cari Kategori Risiko..." value="{{ request('search_kategori') }}">
                             <button type="submit" class="btn btn-primary btn-sm ms-2">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
@@ -273,8 +315,8 @@
                             </div>
                         </div>
                         <form action="{{ route('kelola_regis') }}" method="GET" class="d-flex w-25 mb-3">
-                            <input type="text" name="search_jenis" class="form-control" placeholder="Cari Jenis Risiko..." 
-                                value="{{ request('search_jenis') }}">
+                            <input type="text" name="search_jenis" class="form-control"
+                                placeholder="Cari Jenis Risiko..." value="{{ request('search_jenis') }}">
                             <button type="submit" class="btn btn-primary btn-sm ms-2">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
@@ -342,7 +384,7 @@
                             </div>
                         </div>
                         <form action="{{ route('kelola_regis') }}" method="GET" class="d-flex w-25 mb-3">
-                            <input type="text" name="search_iku" class="form-control" placeholder="Cari IKU..." 
+                            <input type="text" name="search_iku" class="form-control" placeholder="Cari IKU..."
                                 value="{{ request('search_iku') }}">
                             <button type="submit" class="btn btn-primary btn-sm ms-2">
                                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -411,7 +453,7 @@
         });
     </script>
 
-    {{-- Script untuk alert CRUD--}}
+    {{-- Script untuk alert CRUD --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -462,14 +504,16 @@
         });
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
             let opened = "{{ session('collapse_open') }}";
 
             if (opened) {
                 let el = document.getElementById(opened);
                 if (el) {
-                    let collapse = new bootstrap.Collapse(el, { show: true });
+                    let collapse = new bootstrap.Collapse(el, {
+                        show: true
+                    });
 
                     //ubah tombol + jadi -
                     let btn = document.querySelector(`[data-bs-target="#${opened}"]`);
@@ -479,36 +523,74 @@
         });
     </script>
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.collapse').forEach(collapse => {
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.collapse').forEach(collapse => {
 
-            // kalau dibuka, simpan ke session
-            collapse.addEventListener('show.bs.collapse', function () {
-                fetch("/save-collapse", {
-                    method: "POST",
-                    headers: {
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ open: collapse.id })
+                // kalau dibuka, simpan ke session
+                collapse.addEventListener('show.bs.collapse', function() {
+                    fetch("/save-collapse", {
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            open: collapse.id
+                        })
+                    });
                 });
-            });
 
-            // kalau ditutup, hapus session
-            collapse.addEventListener('hide.bs.collapse', function () {
-                fetch("/save-collapse", {
-                    method: "POST",
-                    headers: {
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ open: null })
+                // kalau ditutup, hapus session
+                collapse.addEventListener('hide.bs.collapse', function() {
+                    fetch("/save-collapse", {
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            open: null
+                        })
+                    });
                 });
-            });
 
+            });
         });
-    });
     </script>
+
+    <script>
+        // Checkbox Pilih Semua
+        document.getElementById('select-all-unit').addEventListener('change', function() {
+            let checked = this.checked;
+            document.querySelectorAll('input[name="selected_ids[]"]').forEach(cb => cb.checked = checked);
+        });
+
+        // Hapus data yang terpilih
+        document.getElementById('delete-selected-unit').addEventListener('click', function() {
+            let selected = [...document.querySelectorAll('input[name="selected_ids[]"]:checked')].map(cb => cb
+                .value);
+
+            if (selected.length === 0) {
+                alert("Tidak ada data yang dipilih!");
+                return;
+            }
+
+            if (confirm("Yakin ingin menghapus data yang dipilih?")) {
+                fetch("{{ route('unitkerja.deleteSelected') }}", {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        ids: selected
+                    })
+                }).then(() => location.reload());
+            }
+        });
+    </script>
+
+
 
 
 

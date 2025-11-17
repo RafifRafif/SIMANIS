@@ -56,6 +56,7 @@ Route::post('/save-collapse', function (\Illuminate\Http\Request $request) {
 Route::post('/unitkerja/store', [KelolaRegisController::class, 'store'])->name('unitkerja.store');
 Route::post('/unitkerja/update/{id}', [KelolaRegisController::class, 'update'])->name('unitkerja.update');
 Route::delete('/unitkerja/delete/{id}', [KelolaRegisController::class, 'destroy'])->name('unitkerja.destroy');
+Route::delete('/unitkerja/delete-selected', [KelolaRegisController::class, 'deleteSelected'])->name('unitkerja.deleteSelected');
 
 // CRUD Proses/Aktivitas
 Route::post('/proses/store', [KelolaRegisController::class, 'storeProses'])->name('proses.store');

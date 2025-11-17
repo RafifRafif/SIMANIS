@@ -95,6 +95,19 @@ class KelolaRegisController extends Controller
         return redirect()->route('kelola_regis')->with('success', 'Unit Kerja berhasil dihapus!');
     }
 
+    public function deleteSelected(Request $request)
+    {
+        $ids = $request->ids;
+
+        if (!$ids) {
+            return back()->with('error', 'Tidak ada data yang dipilih.');
+        }
+
+        UnitKerja::whereIn('id', $ids)->delete();
+
+        return back()->with('success', 'Data terpilih berhasil dihapus!');
+    }
+
     public function storeProses(Request $request)
     {
         $request->merge(['modal' => 'tambahProses']);
