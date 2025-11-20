@@ -16,3 +16,10 @@ table.table th.centered {
     text-align: center;
     vertical-align: middle;
 }
+
+#select_isurisiko {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: none !important;
+}

@@ -26,7 +26,9 @@
 
                     <div class="mb-3">
                         <label for="edit_tahun" class="form-label">Tahun</label>
-                        <input type="text" class="form-control" id="edit_tahun" name="tahun" required>
+                        <input type="text" class="form-control" id="edit_tahun" name="tahun" placeholder="Masukan Tahun" required
+                            pattern="\d{4}" maxlength="4" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                            title="Masukkan tahun (4 digit)">
                     </div>
 
                     <div class="mb-3">
@@ -35,12 +37,12 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="edit_rencanaaksi" class="form-label">Rencana Aksi</label>
+                        <label for="edit_rencanaaksi" class="form-label">Rencana Aksi (Kebijakan, Panduan, SOP, alat, Training, dll)</label>
                         <input type="text" class="form-control" id="edit_rencanaaksi" name="rencana_aksi" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="edit_tanggalpelaksanaan" class="form-label">Tanggal Pelaksanaan</label>
+                        <label for="edit_tanggalpelaksanaan" class="form-label">Tanggal Pelakasanaan Rencana Aksi</label>
                         <input type="date" class="form-control" id="edit_tanggalpelaksanaan" name="tanggal_pelaksanaan">
                     </div>
 
@@ -55,7 +57,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="edit_statuspelaksanaan" class="form-label">Status Pelaksanaan</label>
+                        <label for="edit_statuspelaksanaan" class="form-label">Status Pelaksanaan Rencana Aksi</label>
                         <select class="form-select" id="edit_statuspelaksanaan" name="status" required>
                             <option value="" disabled>Pilih Status</option>
                             <option value="opened">Opened</option>

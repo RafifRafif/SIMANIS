@@ -107,7 +107,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Kontrol Pencegahan</label>
+                        <label class="form-label">Kontrol/Pencegahan Saat Ini/Sistem Saat Ini</label>
                         <input type="text" class="form-control" id="edit-kontrol" name="kontrol_pencegahan" required>
                     </div>
 

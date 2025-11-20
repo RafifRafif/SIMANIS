@@ -48,7 +48,7 @@
                             <th>Dampak</th>
                             <th>IKU Terkait</th>
                             <th>Pihak Terkait</th>
-                            <th>Kontrol/Pencegahan</th>
+                            <th>Kontrol/Pencegahan Saat Ini/Sistem Saat Ini</th>
                             <th>Keparahan</th>
                             <th>Frekuensi</th>
                             <th>Probabilitas</th>
@@ -136,7 +136,8 @@
                                                 <button class="btn btn-primary fw-bold"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#tambahDataMitigasiModal"
-                                                    data-regid="{{ $item->id_registrasi }}">
+                                                    data-regid="{{ $item->id_registrasi }}"
+                                                    data-isurisiko="{{ $item->isu_resiko }}">
                                                     <i class="fa-solid fa-plus"></i> Tambah Mitigasi
                                                 </button>
 
@@ -340,6 +341,10 @@
                 btn.addEventListener('click', function() {
                     const regId = this.getAttribute('data-regid');
                     document.getElementById('registrasi_id_tambah').value = regId;
+
+                    const isu = this.getAttribute('data-isurisiko');
+                    const select = document.getElementById('select_isurisiko');
+                    select.innerHTML = `<option value="${isu}" selected>${isu}</option>`;
                 });
             });
         });
