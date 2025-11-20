@@ -9,10 +9,9 @@
 @endpush
 
 @section('content')
-    <!-- Konten -->
     <h3 class="mt-3 mb-4">Kelola Pengguna</h3>
 
-    <!-- Pencarian dan Dropdown -->
+    <!-- Pencarian -->
     <div class="d-flex mb-4 gap-2">
         <form action="{{ route('kelola_pengguna') }}" method="GET" class="d-flex w-25">
             <input type="text" name="search" class="form-control" placeholder="Cari..." value="{{ request('search') }}">
@@ -45,8 +44,13 @@
                         <td class="text-center">{{ $user->username }}</td>
                         <td>{{ $user->name }}</td>
                         <td class="text-center">{{ $user->unitKerja->nama_unit ?? '-' }}</td>
+                        @php
+                            $roles = array_map('trim', explode(',', $user->role));
+                        @endphp
                         <td class="text-center">
-                            {{ $user->role === 'p4m' ? 'P4M' : ucwords(str_replace('_', ' ', $user->role)) }}
+                            @foreach($roles as $r)
+                                <span class="badge bg-secondary">{{ ucwords(str_replace('_',' ', $r)) }}</span>
+                            @endforeach
                         </td>
                         <td class="text-center">
                             <!-- Tombol Edit -->

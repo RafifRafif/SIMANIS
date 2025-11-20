@@ -42,4 +42,16 @@ class User extends Authenticatable
     {
         return $this->belongsTo(UnitKerja::class);
     }
+
+    public function hasAnyRole($roles)
+    {
+        // normalize roles param to array
+        $roles = (array) $roles;
+
+        // parse stored roles
+        $userRoles = explode(',', $this->role);
+        $userRoles = array_map('trim', $userRoles);
+
+        return (bool) array_intersect($userRoles, $roles);
+    }
 }

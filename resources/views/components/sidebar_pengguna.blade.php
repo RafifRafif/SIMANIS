@@ -5,13 +5,17 @@
     use Illuminate\Support\Facades\Auth;
 
     $user = Auth::user();
-    $role = $user->role;
+    $roleString = $user->role ?? '';
+    $userRoles = array_map('trim', explode(',', $roleString));
     $unit = strtolower($user->unitKerja->nama_unit ?? '');
 
-    // identifikasi jenis unit kerja
     $isP4M = str_contains($unit, 'p4m');
     $isManajemen = str_contains($unit, 'manajemen');
     $isUnitNormal = $unit && !$isP4M && !$isManajemen;
+
+    $isKepalaUnit = in_array('kepala_unit', $userRoles);
+    $isAuditor = in_array('auditor', $userRoles);
+    $isP4mRole = in_array('p4m', $userRoles);
 @endphp
 
 <div class="sidebar" id="sidebar">
@@ -21,13 +25,14 @@
     <a href="{{ route('arsip_risiko') }}"><i class="fa-solid fa-box-archive"></i> Arsip Risiko</a>
 
     {{-- MENU KEPALA UNIT --}}
-    @if($role === 'kepala_unit' || ($role === 'auditor' && $isUnitNormal) || $role === 'p4m')
+    @if($isKepalaUnit || ($isAuditor && $isUnitNormal) || $isP4mRole)
         <p class="px-3 text-uppercase small mt-3 mb-2">Menu Kepala Unit</p>
-        <a href="{{ route('registrasi.index') }}"><i class="fa-solid fa-pen-to-square"></i> Registrasi dan Mitigasi Risiko</a>
+        <a href="{{ route('registrasi.index') }}"><i class="fa-solid fa-pen-to-square"></i> Registrasi dan Mitigasi
+            Risiko</a>
     @endif
 
     {{-- MENU KHUSUS P4M --}}
-    @if($role === 'p4m')
+    @if($isP4mRole)
         <p class="px-3 text-uppercase small mt-3 mb-2">Menu P4M</p>
         <a href="{{ route('verifikasi_risiko') }}"><i class="fa-solid fa-circle-check"></i> Verifikasi Risiko</a>
         <a href="{{ route('kelola_beranda') }}"><i class="fa-solid fa-gear"></i> Kelola Beranda</a>
@@ -36,11 +41,7 @@
     @endif
 
     {{-- MENU AUDITOR --}}
-    @if(
-        $role === 'auditor' ||                         
-        ($role === 'p4m') ||                          
-        ($role === 'kepala_unit' && $isUnitNormal && str_contains($unit, 'auditor'))
-    )
+    @if($isAuditor || $isP4mRole || ($isKepalaUnit && $isUnitNormal && str_contains($unit, 'auditor')))
         <p class="px-3 text-uppercase small mt-3 mb-2">Menu Auditor</p>
         <a href="{{ route('penilaian') }}"><i class="fa-solid fa-list-check"></i> Penilaian Auditor</a>
     @endif

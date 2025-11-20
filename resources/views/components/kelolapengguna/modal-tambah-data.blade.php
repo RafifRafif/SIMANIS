@@ -32,14 +32,29 @@
                         </p>
                     </div>
                     <div class="mb-4">
-                        <label for="role2" class="form-label">Role</label>
-                        <select class="form-select" id="role2" name="role2" required>
-                            <option value="" selected disabled>Pilih Role</option>
-                            <option value="p4m">P4M</option>
-                            <option value="kepala_unit">Kepala Unit</option>
-                            <option value="manajemen">Manajemen</option>
-                            <option value="auditor">Auditor</option>
-                        </select>
+                        <label class="form-label">Role</label>
+                        <div id="role-checkboxes">
+                            <div class="form-check">
+                                <input class="form-check-input role-checkbox" type="checkbox" name="roles[]" value="p4m"
+                                    id="role-p4m">
+                                <label class="form-check-label" for="role-p4m">P4M</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input role-checkbox" type="checkbox" name="roles[]"
+                                    value="kepala_unit" id="role-kepala_unit">
+                                <label class="form-check-label" for="role-kepala_unit">Kepala Unit</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input role-checkbox" type="checkbox" name="roles[]"
+                                    value="manajemen" id="role-manajemen">
+                                <label class="form-check-label" for="role-manajemen">Manajemen</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input role-checkbox" type="checkbox" name="roles[]"
+                                    value="auditor" id="role-auditor">
+                                <label class="form-check-label" for="role-auditor">Auditor</label>
+                            </div>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Simpan</button>
                 </form>
@@ -49,51 +64,37 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const unitSelect = document.getElementById('role1'); // unit_kerja select
-        const roleSelect = document.getElementById('role2'); // role select
+document.addEventListener('DOMContentLoaded', function () {
+    const unitSelect = document.getElementById('role1'); // unit_kerja select
+    const checkboxes = Array.from(document.querySelectorAll('.role-checkbox'));
 
-        // helper: enable/disable role options by value
-        function setRoleOptions(allowedValues) {
-            // allowedValues = array of allowed role values e.g. ['p4m']
-            Array.from(roleSelect.options).forEach(opt => {
-                if (!opt.value) return; // skip placeholder
-                opt.disabled = !allowedValues.includes(opt.value);
-                // optionally hide disabled options:
-                // opt.style.display = allowedValues.includes(opt.value) ? '' : 'none';
-            });
+    function setRoleCheckboxes(allowedValues) {
+        checkboxes.forEach(cb => {
+            const allowed = allowedValues.includes(cb.value);
+            cb.disabled = !allowed;
 
-            // if current selected role is disabled -> reset to placeholder
-            if (roleSelect.selectedOptions.length > 0 && roleSelect.selectedOptions[0].disabled) {
-                roleSelect.value = ''; // set to placeholder (value="")
-            }
-        }
-
-        // mapping: unitNameLowerCase -> allowed role values (value attributes used in form)
-        function allowedRolesForUnit(unitName) {
-            if (!unitName) {
-                return ['auditor']; // no unit chosen => only auditor
-            }
-            const name = unitName.toLowerCase();
-            if (name.includes('p4m')) {
-                return ['p4m'];
-            }
-            if (name.includes('manajemen')) {
-                return ['manajemen'];
-            }
-            // other units
-            return ['kepala_unit', 'auditor'];
-        }
-
-        // on initial load ensure roles follow selection (if editing modal prefilled)
-        (function init() {
-            const selectedUnitText = unitSelect.options[unitSelect.selectedIndex]?.text || '';
-            setRoleOptions(allowedRolesForUnit(selectedUnitText));
-        })();
-
-        unitSelect.addEventListener('change', function () {
-            const selectedText = this.options[this.selectedIndex]?.text || '';
-            setRoleOptions(allowedRolesForUnit(selectedText));
+            // if a checkbox is disabled and checked -> uncheck
+            if (!allowed && cb.checked) cb.checked = false;
         });
+    }
+
+    function allowedRolesForUnit(unitName) {
+        if (!unitName) return ['auditor']; // no unit chosen => only auditor
+        const name = unitName.toLowerCase();
+        if (name.includes('p4m')) return ['p4m'];
+        if (name.includes('manajemen')) return ['manajemen'];
+        return ['kepala_unit', 'auditor'];
+    }
+
+    // init
+    (function init() {
+        const selectedUnitText = unitSelect.options[unitSelect.selectedIndex]?.text || '';
+        setRoleCheckboxes(allowedRolesForUnit(selectedUnitText));
+    })();
+
+    unitSelect.addEventListener('change', function () {
+        const selectedText = this.options[this.selectedIndex]?.text || '';
+        setRoleCheckboxes(allowedRolesForUnit(selectedText));
     });
+});
 </script>

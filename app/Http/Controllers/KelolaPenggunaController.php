@@ -35,12 +35,14 @@ class KelolaPenggunaController extends Controller
         $request->validate([
             'nik' => 'required|unique:users,username',
             'nama' => 'required',
-            'role2' => 'required',
+            'roles' => 'required|array|min:1',
+            'roles.*' => 'string',
             'role1' => 'nullable|exists:unit_kerja,id'
         ], [
             'nik.required' => 'NIK wajib diisi.',
             'nik.unique' => 'NIK sudah terdaftar!',
             'nama.required' => 'Nama wajib diisi.',
+            'roles.required' => 'Role wajib dipilih.'
         ]);
 
         $unitId = $request->role1;
@@ -50,40 +52,44 @@ class KelolaPenggunaController extends Controller
             $unitName = $unit ? strtolower($unit->nama_unit) : null;
         }
 
-        $role = $request->role2;
+        $roles = $request->roles;
+        $roleString = implode(',', array_map('trim', $roles));
 
         // Tambahan validasi khusus:
-        if ($role === 'kepala_unit' && !$unitId) {
+        if (in_array('kepala_unit', $roles) && !$unitId) {
             return back()->withInput()->withErrors([
                 'role1' => 'Kepala Unit wajib memiliki Unit Kerja.'
             ]);
         }
 
-
-        // Mapping rules (sama seperti frontend)
+        // Mapping rules 
         $valid = false;
         if (!$unitId) {
-            // no unit -> only auditor
-            $valid = ($role === 'auditor');
+            $valid = ($roles === ['auditor'] || (count($roles) === 1 && in_array('auditor', $roles)));
         } elseif (strpos($unitName, 'p4m') !== false) {
-            $valid = ($role === 'p4m');
+            $valid = (in_array('p4m', $roles) && count($roles) === 1);
         } elseif (strpos($unitName, 'manajemen') !== false) {
-            $valid = ($role === 'manajemen');
+            $valid = (in_array('manajemen', $roles) && count($roles) === 1);
         } else {
-            // any other unit -> kepala_unit or auditor
-            $valid = in_array($role, ['kepala_unit', 'auditor']);
+            if ($roles === ['auditor'] || (count($roles) === 1 && $roles[0] === 'auditor')) {
+                $valid = false;
+            }
+            // ✔ kepala_unit → valid
+            // ✔ kepala_unit + auditor → valid
+            else {
+                $allowed = ['kepala_unit', 'auditor'];
+                $valid = empty(array_diff($roles, $allowed));
+            }
         }
 
         if (!$valid) {
-            return back()->withInput()->withErrors(['role2' => 'Kombinasi Unit Kerja dan Role tidak valid.']);
+            return back()->withInput()->withErrors(['roles' => 'Kombinasi Unit Kerja dan Role tidak valid.']);
         }
-
-
 
         User::create([
             'username' => $request->nik,
             'name' => $request->nama,
-            'role' => $request->role2,
+            'role' => $roleString,
             'unit_kerja_id' => $unitId,
             'password' => Hash::make('123456') // default password
         ]);
@@ -96,16 +102,49 @@ class KelolaPenggunaController extends Controller
         $request->validate([
             'nik' => 'required',
             'nama' => 'required',
-            'role2' => 'required',
+            'roles' => 'required|array|min:1',
+            'roles.*' => 'string'
         ]);
 
         $user = User::findOrFail($id);
+
+        $unitId = $request->role1;
+        $unitName = null;
+        if ($unitId) {
+            $unit = UnitKerja::find($unitId);
+            $unitName = $unit ? strtolower($unit->nama_unit) : null;
+        }
+
+        $roles = $request->roles;
+        $roleString = implode(',', array_map('trim', $roles));
+
+        if (in_array('kepala_unit', $roles) && !$unitId) {
+            return back()->withInput()->withErrors([
+                'role1' => 'Kepala Unit wajib memiliki Unit Kerja.'
+            ]);
+        }
+
+        $valid = false;
+        if (!$unitId) {
+            $valid = ($roles === ['auditor'] || (count($roles) === 1 && in_array('auditor', $roles)));
+        } elseif (strpos($unitName, 'p4m') !== false) {
+            $valid = (in_array('p4m', $roles) && count($roles) === 1);
+        } elseif (strpos($unitName, 'manajemen') !== false) {
+            $valid = (in_array('manajemen', $roles) && count($roles) === 1);
+        } else {
+            $allowed = ['kepala_unit', 'auditor'];
+            $valid = empty(array_diff($roles, $allowed));
+        }
+
+        if (!$valid) {
+            return back()->withInput()->withErrors(['roles' => 'Kombinasi Unit Kerja dan Role tidak valid.']);
+        }
 
         // Update data
         $user->update([
             'username' => $request->nik,
             'name' => $request->nama,
-            'role' => $request->role2,
+            'role' => $roleString,
             'unit_kerja_id' => $request->role1
         ]);
 

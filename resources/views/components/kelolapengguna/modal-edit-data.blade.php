@@ -20,7 +20,7 @@
                         <input type="text" class="form-control" id="edit-nama" name="nama" required>
                     </div>
 
-                    <div class="mb-3"> 
+                    <div class="mb-3">
                         <label for="edit-unit" class="form-label">Unit Kerja</label>
                         <select class="form-select" id="edit-unit" name="role1">
                             <option value="" selected disabled>Pilih Unit Kerja</option>
@@ -36,14 +36,29 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="edit-role" class="form-label">Role</label>
-                        <select class="form-select" id="edit-role" name="role2" required>
-                            <option value="" selected disabled>Pilih Role</option>
-                            <option value="p4m">P4M</option>
-                            <option value="kepala_unit">Kepala Unit</option>
-                            <option value="manajemen">Manajemen</option>
-                            <option value="auditor">Auditor</option>
-                        </select>
+                        <label class="form-label">Role</label>
+                        <div id="role-checkboxes">
+                            <div class="form-check">
+                                <input class="form-check-input role-checkbox" type="checkbox" name="roles[]" value="p4m"
+                                    id="role-p4m">
+                                <label class="form-check-label" for="role-p4m">P4M</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input role-checkbox" type="checkbox" name="roles[]"
+                                    value="kepala_unit" id="role-kepala_unit">
+                                <label class="form-check-label" for="role-kepala_unit">Kepala Unit</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input role-checkbox" type="checkbox" name="roles[]"
+                                    value="manajemen" id="role-manajemen">
+                                <label class="form-check-label" for="role-manajemen">Manajemen</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input role-checkbox" type="checkbox" name="roles[]"
+                                    value="auditor" id="role-auditor">
+                                <label class="form-check-label" for="role-auditor">Auditor</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -56,57 +71,63 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const editButtons = document.querySelectorAll('.edit-button');
-    const editForm = document.getElementById('editForm');
-    const unitSelect = document.getElementById('edit-unit');
-    const roleSelect = document.getElementById('edit-role');
+    document.addEventListener('DOMContentLoaded', function () {
+        const editButtons = document.querySelectorAll('.edit-button');
+        const editForm = document.getElementById('editForm');
+        const unitSelect = document.getElementById('edit-unit');
+        const roleSelect = document.getElementById('edit-role');
 
-    // Fungsi helper untuk aktif/nonaktif role sesuai unit
-    function setRoleOptions(allowedValues) {
-        Array.from(roleSelect.options).forEach(opt => {
-            if (!opt.value) return;
-            opt.disabled = !allowedValues.includes(opt.value);
-        });
-        if (roleSelect.selectedOptions.length > 0 && roleSelect.selectedOptions[0].disabled) {
-            roleSelect.value = '';
+        // Fungsi helper untuk aktif/nonaktif role sesuai unit
+        function setRoleOptions(allowedValues) {
+            Array.from(roleSelect.options).forEach(opt => {
+                if (!opt.value) return;
+                opt.disabled = !allowedValues.includes(opt.value);
+            });
+            if (roleSelect.selectedOptions.length > 0 && roleSelect.selectedOptions[0].disabled) {
+                roleSelect.value = '';
+            }
         }
-    }
 
-    // Mapping unit ke role
-    function allowedRolesForUnit(unitName) {
-        if (!unitName) return ['auditor'];
-        const name = unitName.toLowerCase();
-        if (name.includes('p4m')) return ['p4m'];
-        if (name.includes('manajemen')) return ['manajemen'];
-        return ['kepala_unit', 'auditor'];
-    }
+        // Mapping unit ke role
+        function allowedRolesForUnit(unitName) {
+            if (!unitName) return ['auditor'];
+            const name = unitName.toLowerCase();
+            if (name.includes('p4m')) return ['p4m'];
+            if (name.includes('manajemen')) return ['manajemen'];
+            return ['kepala_unit', 'auditor'];
+        }
 
-    editButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            const id = this.getAttribute('data-id');
-            const nik = this.getAttribute('data-nik');
-            const nama = this.getAttribute('data-nama');
-            const unit = this.getAttribute('data-unit');
-            const role = this.getAttribute('data-role');
+        editButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const nik = this.getAttribute('data-nik');
+                const nama = this.getAttribute('data-nama');
+                const unit = this.getAttribute('data-unit');
+                const role = this.getAttribute('data-role'); // ex: "kepala_unit,auditor" or "auditor"
 
-            // Isi form
-            editForm.action = `/kelola_pengguna/update/${id}`;
-            document.getElementById('edit-nik').value = nik;
-            document.getElementById('edit-nama').value = nama;
-            document.getElementById('edit-unit').value = unit ?? '';
-            document.getElementById('edit-role').value = role ?? '';
+                // Isi form action etc
+                editForm.action = `/kelola_pengguna/update/${id}`;
+                document.getElementById('edit-nik').value = nik;
+                document.getElementById('edit-nama').value = nama;
+                document.getElementById('edit-unit').value = unit ?? '';
 
-            // Jalankan logika role sesuai unit terpilih
-            const selectedText = unitSelect.options[unitSelect.selectedIndex]?.text || '';
+                // set checkboxes: uncheck all then check matching ones
+                const rolesToCheck = role ? role.split(',').map(r => r.trim()) : [];
+                document.querySelectorAll('#edit-role input.role-checkbox').forEach(cb => {
+                    cb.checked = rolesToCheck.includes(cb.value);
+                });
+
+                // run logic role enable/disable based on selected unit text
+                const selectedText = unitSelect.options[unitSelect.selectedIndex]?.text || '';
+                setRoleOptions(allowedRolesForUnit(selectedText));
+            });
+        });
+        ;
+
+        // Update role saat unit diubah di modal edit
+        unitSelect.addEventListener('change', function () {
+            const selectedText = this.options[this.selectedIndex]?.text || '';
             setRoleOptions(allowedRolesForUnit(selectedText));
         });
     });
-
-    // Update role saat unit diubah di modal edit
-    unitSelect.addEventListener('change', function () {
-        const selectedText = this.options[this.selectedIndex]?.text || '';
-        setRoleOptions(allowedRolesForUnit(selectedText));
-    });
-});
 </script>
