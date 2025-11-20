@@ -52,26 +52,32 @@ Route::post('/unitkerja/store', [KelolaRegisController::class, 'store'])->name('
 Route::post('/unitkerja/update/{id}', [KelolaRegisController::class, 'update'])->name('unitkerja.update');
 Route::delete('/unitkerja/delete/{id}', [KelolaRegisController::class, 'destroy'])->name('unitkerja.destroy');
 Route::delete('/unitkerja/delete-selected', [KelolaRegisController::class, 'deleteSelected'])->name('unitkerja.deleteSelected');
+Route::delete('/unitkerja/delete-selected', [KelolaRegisController::class, 'deleteSelected'])->name('unitkerja.delete-selected');
+
 
 // CRUD Proses/Aktivitas
 Route::post('/proses/store', [KelolaRegisController::class, 'storeProses'])->name('proses.store');
 Route::post('/proses/update/{id}', [KelolaRegisController::class, 'updateProses'])->name('proses.update');
 Route::delete('/proses/delete/{id}', [KelolaRegisController::class, 'destroyProses'])->name('proses.destroy');
+Route::delete('/proses/delete-selected', [KelolaRegisController::class, 'deleteSelectedProses'])->name('proses.delete-selected');
 
 // CRUD Kategori Risiko
 Route::post('/kategori/store', [KelolaRegisController::class, 'storeKategori'])->name('kategori.store');
 Route::post('/kategori/update/{id}', [KelolaRegisController::class, 'updateKategori'])->name('kategori.update');
 Route::delete('/kategori/delete/{id}', [KelolaRegisController::class, 'destroyKategori'])->name('kategori.destroy');
+Route::delete('/kategori/delete-selected', [KelolaRegisController::class, 'deleteSelectedKategori'])->name('kategori.delete-selected');
 
 // CRUD Jenis Risiko
 Route::post('/jenis/store', [KelolaRegisController::class, 'storeJenis'])->name('jenis.store');
 Route::post('/jenis/update/{id}', [KelolaRegisController::class, 'updateJenis'])->name('jenis.update');
 Route::delete('/jenis/delete/{id}', [KelolaRegisController::class, 'destroyJenis'])->name('jenis.destroy');
+Route::delete('/jenis/delete-selected', [KelolaRegisController::class, 'deleteSelectedJenis'])->name('jenis.delete-selected');
 
 // CRUD IKU Terkait
 Route::post('/iku/store', [KelolaRegisController::class, 'storeIku'])->name('iku.store');
 Route::post('/iku/update/{id}', [KelolaRegisController::class, 'updateIku'])->name('iku.update');
 Route::delete('/iku/delete/{id}', [KelolaRegisController::class, 'destroyIku'])->name('iku.destroy');
+Route::delete('/iku/delete-selected', [KelolaRegisController::class, 'deleteSelectedIku'])->name('iku.delete-selected');
 
 use App\Http\Controllers\KelolaBerandaController;
 Route::middleware(['role:p4m'])->group(function () {

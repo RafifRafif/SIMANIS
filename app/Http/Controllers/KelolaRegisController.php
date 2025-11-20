@@ -152,6 +152,19 @@ class KelolaRegisController extends Controller
         return redirect()->route('kelola_regis')->with('success', 'Proses/Aktivitas berhasil dihapus!');
     }
 
+    public function deleteSelectedProses(Request $request)
+    {
+        $ids = $request->ids;
+
+        if (!$ids) {
+            return back()->with('error', 'Tidak ada data yang dipilih.');
+        }
+
+        ProsesAktivitas::whereIn('id', $ids)->delete();
+
+        return back()->with('success', 'Data terpilih berhasil dihapus!');
+    }
+
     public function storeKategori(Request $request)
     {
         $request->merge(['modal' => 'tambahKategori']);
@@ -190,6 +203,19 @@ class KelolaRegisController extends Controller
         $kategori = KategoriRisiko::findOrFail($id);
         $kategori->delete();
         return redirect()->route('kelola_regis')->with('success', 'Kategori Risiko berhasil dihapus!');
+    }
+
+    public function deleteSelectedKategori(Request $request)
+    {
+        $ids = $request->ids;
+
+        if (!$ids) {
+            return back()->with('error', 'Tidak ada data yang dipilih.');
+        }
+
+        KategoriRisiko::whereIn('id', $ids)->delete();
+
+        return back()->with('success', 'Data terpilih berhasil dihapus!');
     }
 
     public function storeJenis(Request $request)
@@ -233,6 +259,19 @@ class KelolaRegisController extends Controller
         return redirect()->route('kelola_regis')->with('success', 'Jenis Risiko berhasil dihapus!');
     }
 
+    public function deleteSelectedJenis(Request $request)
+    {
+        $ids = $request->ids;
+
+        if (!$ids) {
+            return back()->with('error', 'Tidak ada data yang dipilih.');
+        }
+
+        JenisRisiko::whereIn('id', $ids)->delete();
+
+        return back()->with('success', 'Data terpilih berhasil dihapus!');
+    }
+
     public function storeIku(Request $request)
     {
         $request->merge(['modal' => 'tambahIku']);
@@ -272,6 +311,19 @@ class KelolaRegisController extends Controller
         $iku = IkuTerkait::findOrFail($id);
         $iku->delete();
         return redirect()->route('kelola_regis')->with('success', 'IKU Terkait berhasil dihapus!');
+    }
+
+    public function deleteSelectedIku(Request $request)
+    {
+        $ids = $request->ids;
+
+        if (!$ids) {
+            return back()->with('error', 'Tidak ada data yang dipilih.');
+        }
+
+        IkuTerkait::whereIn('id', $ids)->delete();
+
+        return back()->with('success', 'Data terpilih berhasil dihapus!');
     }
 
     // Import Unit Kerja

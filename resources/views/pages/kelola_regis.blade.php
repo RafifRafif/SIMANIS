@@ -36,7 +36,7 @@
         {{-- Tombol + Tabel (vertikal dan bisa tutup) --}}
         <div class="d-flex flex-column gap-3">
 
-            {{-- UNIT KERJA --}}
+            {{-- 1. UNIT KERJA --}}
             <div>
                 <button class="btn btn-secondary toggle-btn text-start" type="button" data-bs-toggle="collapse"
                     data-bs-target="#unitKerja" aria-expanded="false">
@@ -47,13 +47,11 @@
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold mb-0">Unit Kerja</h6>
                             <div class="d-flex ms-auto gap-2">
-                                <!-- Tombol Import -->
                                 <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
                                     data-bs-target="#importDataModal" data-template="{{ asset('template/unitkerja.xlsx') }}"
                                     data-route="{{ route('formregis.import.unitkerja') }}">
                                     <i class="fa-solid fa-upload"></i> Import
                                 </button>
-                                <!-- Tombol Tambah -->
                                 <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
                                     data-bs-target="#tambahDataModalUnit">
                                     <i class="fa-solid fa-plus me-1"></i>Tambah
@@ -80,19 +78,19 @@
                                     @foreach ($unitKerja as $index => $unit)
                                         <tr>
                                             <td class="text-center">
-                                                <input type="checkbox" name="selected_ids[]" value="{{ $unit->id }}">
+                                                {{-- Checkbox Per Baris --}}
+                                                <input type="checkbox" class="form-check-input check-unit"
+                                                    value="{{ $unit->id }}">
                                                 {{ $unitKerja->firstItem() + $index }}
                                             </td>
                                             <td>{{ $unit->nama_unit }}</td>
                                             <td class="centered">
-                                                <!-- Tombol Edit -->
                                                 <button class="btn btn-sm btn-primary edit-unit-button"
                                                     data-bs-toggle="modal" data-bs-target="#editDataModalUnit"
                                                     data-id="{{ $unit->id }}" data-nama="{{ $unit->nama_unit }}">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
 
-                                                <!-- Tombol Hapus -->
                                                 <button class="btn btn-sm btn-danger delete-unit-button"
                                                     data-bs-toggle="modal" data-bs-target="#hapusUnitKerjaModal"
                                                     data-id="{{ $unit->id }}">
@@ -105,7 +103,6 @@
                             </table>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-2">
-
                             {{-- CHECKBOX PILIH SEMUA --}}
                             <div class="d-flex align-items-center gap-2">
                                 <div class="form-check mb-0">
@@ -114,13 +111,11 @@
                                         Pilih Semua
                                     </label>
                                 </div>
-
-                                {{-- Tombol Hapus --}}
+                                {{-- Tombol Hapus Semua --}}
                                 <button type="button" id="delete-selected-unit" class="btn btn-sm btn-danger">
                                     Hapus
                                 </button>
                             </div>
-
                             {{-- NAVIGASI PAGINASI --}}
                             @if ($unitKerja->hasPages())
                                 <div class="d-flex align-items-center gap-1">
@@ -128,14 +123,12 @@
                                         href="{{ $unitKerja->previousPageUrl() }}">
                                         &larr;
                                     </a>
-
                                     @foreach ($unitKerja->getUrlRange(1, $unitKerja->lastPage()) as $page => $url)
                                         <a class="btn btn-sm {{ $page == $unitKerja->currentPage() ? 'btn-primary' : 'btn-light' }}"
                                             href="{{ $url }}">
                                             {{ $page }}
                                         </a>
                                     @endforeach
-
                                     <a class="btn btn-sm btn-light {{ !$unitKerja->hasMorePages() ? 'disabled' : '' }}"
                                         href="{{ $unitKerja->nextPageUrl() }}">
                                         &rarr;
@@ -147,7 +140,7 @@
                 </div>
             </div>
 
-            {{-- PROSES/AKTIVITAS --}}
+            {{-- 2. PROSES/AKTIVITAS --}}
             <div>
                 <button class="btn btn-secondary toggle-btn text-start" type="button" data-bs-toggle="collapse"
                     data-bs-target="#prosesAktivitas" aria-expanded="false">
@@ -158,14 +151,12 @@
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold mb-0">Proses/Aktivitas</h6>
                             <div class="d-flex ms-auto gap-2">
-                                <!-- Tombol Import -->
                                 <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
                                     data-bs-target="#importDataModal"
                                     data-template="{{ asset('template/proses_aktivitas.xlsx') }}"
                                     data-route="{{ route('formregis.import.proses') }}">
                                     <i class="fa-solid fa-upload"></i> Import
                                 </button>
-                                <!-- Tombol Tambah -->
                                 <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
                                     data-bs-target="#tambahDataModalProsesAktivitas">
                                     <i class="fa-solid fa-plus me-1"></i>Tambah
@@ -180,10 +171,10 @@
                             </button>
                         </form>
                         <div class="table-responsive">
-                            <table class="table table-bordered  w-100">
+                            <table class="table table-bordered w-100">
                                 <thead class="table-secondary text-center">
                                     <tr>
-                                        <th>No</th>
+                                        <th class="text-center">No</th>
                                         <th>Proses/Aktivitas</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -191,17 +182,20 @@
                                 <tbody>
                                     @foreach ($prosesAktivitas as $index => $proses)
                                         <tr>
-                                            <td class="centered">{{ $unitKerja->firstItem() + $index }}</td>
+                                            <td class="text-center">
+                                                {{-- Checkbox per baris --}}
+                                                <input type="checkbox" class="form-check-input check-proses"
+                                                    value="{{ $proses->id }}">
+                                                {{ $prosesAktivitas->firstItem() + $index }}
+                                            </td>
                                             <td>{{ $proses->nama_proses }}</td>
                                             <td class="centered">
-                                                <!-- Tombol Edit -->
                                                 <button class="btn btn-sm btn-primary edit-proses-button"
                                                     data-bs-toggle="modal" data-bs-target="#editDataModalProsesAktivitas"
                                                     data-id="{{ $proses->id }}"
                                                     data-nama="{{ $proses->nama_proses }}">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
-                                                <!-- Tombol Hapus -->
                                                 <button class="btn btn-danger btn-sm delete-proses-button"
                                                     data-bs-toggle="modal" data-bs-target="#hapusProsesAktivitasModal"
                                                     data-id="{{ $proses->id }}">
@@ -213,11 +207,34 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="form-check mb-0">
+                                    <input class="form-check-input" type="checkbox" id="select-all-proses">
+                                    <label class="form-check-label" for="select-all-proses">Pilih Semua</label>
+                                </div>
+                                <button type="button" id="delete-selected-proses" class="btn btn-sm btn-danger">
+                                    Hapus
+                                </button>
+                            </div>
+                            @if ($prosesAktivitas->hasPages())
+                                <div class="d-flex align-items-center gap-1">
+                                    <a class="btn btn-sm btn-light {{ $prosesAktivitas->onFirstPage() ? 'disabled' : '' }}"
+                                        href="{{ $prosesAktivitas->previousPageUrl() }}">&larr;</a>
+                                    @foreach ($prosesAktivitas->getUrlRange(1, $prosesAktivitas->lastPage()) as $page => $url)
+                                        <a class="btn btn-sm {{ $page == $prosesAktivitas->currentPage() ? 'btn-primary' : 'btn-light' }}"
+                                            href="{{ $url }}">{{ $page }}</a>
+                                    @endforeach
+                                    <a class="btn btn-sm btn-light {{ !$prosesAktivitas->hasMorePages() ? 'disabled' : '' }}"
+                                        href="{{ $prosesAktivitas->nextPageUrl() }}">&rarr;</a>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {{-- KATEGORI RISIKO --}}
+            {{-- 3. KATEGORI RISIKO --}}
             <div>
                 <button class="btn btn-secondary toggle-btn text-start" type="button" data-bs-toggle="collapse"
                     data-bs-target="#kategoriRisiko" aria-expanded="false">
@@ -228,15 +245,12 @@
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold mb-0">Kategori Risiko</h6>
                             <div class="d-flex ms-auto gap-2">
-                                <!-- Tombol Import -->
                                 <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
                                     data-bs-target="#importDataModal"
                                     data-template="{{ asset('template/kategori_risiko.xlsx') }}"
                                     data-route="{{ route('formregis.import.kategori') }}">
                                     <i class="fa-solid fa-upload"></i> Import
                                 </button>
-
-                                <!-- Tombol Tambah -->
                                 <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
                                     data-bs-target="#tambahDataModalKategori">
                                     <i class="fa-solid fa-plus me-1"></i>Tambah
@@ -251,10 +265,10 @@
                             </button>
                         </form>
                         <div class="table-responsive">
-                            <table class="table table-bordered  w-100">
+                            <table class="table table-bordered w-100">
                                 <thead class="table-secondary text-center">
                                     <tr>
-                                        <th>No</th>
+                                        <th class="text-center">No</th>
                                         <th>Kategori Risiko</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -262,17 +276,20 @@
                                 <tbody>
                                     @foreach ($kategoriRisiko as $index => $kategori)
                                         <tr>
-                                            <td class="centered">{{ $unitKerja->firstItem() + $index }}</td>
+                                            <td class="text-center">
+                                                {{-- Checkbox Per Baris --}}
+                                                <input type="checkbox" class="form-check-input check-kategori"
+                                                    value="{{ $kategori->id }}">
+                                                {{ $kategoriRisiko->firstItem() + $index }}
+                                            </td>
                                             <td>{{ $kategori->nama_kategori }}</td>
                                             <td class="centered">
-                                                <!-- Tombol Edit -->
                                                 <button class="btn btn-sm btn-primary edit-kategori-button"
                                                     data-bs-toggle="modal" data-bs-target="#editDataModalKategori"
                                                     data-id="{{ $kategori->id }}"
                                                     data-nama="{{ $kategori->nama_kategori }}">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
-                                                <!-- Tombol Hapus -->
                                                 <button class="btn btn-danger btn-sm delete-kategori-button"
                                                     data-bs-toggle="modal" data-bs-target="#hapusKategoriRisikoModal"
                                                     data-id="{{ $kategori->id }}">
@@ -284,11 +301,34 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="form-check mb-0">
+                                    <input class="form-check-input" type="checkbox" id="select-all-kategori">
+                                    <label class="form-check-label" for="select-all-kategori">Pilih Semua</label>
+                                </div>
+                                <button type="button" id="delete-selected-kategori" class="btn btn-sm btn-danger">
+                                    Hapus
+                                </button>
+                            </div>
+                            @if ($kategoriRisiko->hasPages())
+                                <div class="d-flex align-items-center gap-1">
+                                    <a class="btn btn-sm btn-light {{ $kategoriRisiko->onFirstPage() ? 'disabled' : '' }}"
+                                        href="{{ $kategoriRisiko->previousPageUrl() }}">&larr;</a>
+                                    @foreach ($kategoriRisiko->getUrlRange(1, $kategoriRisiko->lastPage()) as $page => $url)
+                                        <a class="btn btn-sm {{ $page == $kategoriRisiko->currentPage() ? 'btn-primary' : 'btn-light' }}"
+                                            href="{{ $url }}">{{ $page }}</a>
+                                    @endforeach
+                                    <a class="btn btn-sm btn-light {{ !$kategoriRisiko->hasMorePages() ? 'disabled' : '' }}"
+                                        href="{{ $kategoriRisiko->nextPageUrl() }}">&rarr;</a>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {{-- JENIS RISIKO --}}
+            {{-- 4. JENIS RISIKO --}}
             <div>
                 <button class="btn btn-secondary toggle-btn text-start" type="button" data-bs-toggle="collapse"
                     data-bs-target="#jenisRisiko" aria-expanded="false">
@@ -299,15 +339,12 @@
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold mb-0">Jenis Risiko</h6>
                             <div class="d-flex ms-auto gap-2">
-                                <!-- Tombol Import -->
                                 <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
                                     data-bs-target="#importDataModal"
                                     data-template="{{ asset('template/jenis_risiko.xlsx') }}"
                                     data-route="{{ route('formregis.import.jenis') }}">
                                     <i class="fa-solid fa-upload"></i> Import
                                 </button>
-
-                                <!-- Tombol Tambah -->
                                 <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
                                     data-bs-target="#tambahDataModalJenis">
                                     <i class="fa-solid fa-plus me-1"></i>Tambah
@@ -322,10 +359,10 @@
                             </button>
                         </form>
                         <div class="table-responsive">
-                            <table class="table table-bordered  w-100">
+                            <table class="table table-bordered w-100">
                                 <thead class="table-secondary text-center">
                                     <tr>
-                                        <th>No</th>
+                                        <th class="text-center">No</th>
                                         <th>Jenis Risiko</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -333,16 +370,19 @@
                                 <tbody>
                                     @foreach ($jenisRisiko as $index => $jenis)
                                         <tr>
-                                            <td class="centered">{{ $unitKerja->firstItem() + $index }}</td>
+                                            <td class="text-center">
+                                                {{-- Checkbox Per Baris --}}
+                                                <input type="checkbox" class="form-check-input check-jenis"
+                                                    value="{{ $jenis->id }}">
+                                                {{ $jenisRisiko->firstItem() + $index }}
+                                            </td>
                                             <td>{{ $jenis->nama_jenis }}</td>
                                             <td class="centered">
-                                                <!-- Tombol Edit -->
                                                 <button class="btn btn-sm btn-primary edit-jenis-button"
                                                     data-bs-toggle="modal" data-bs-target="#editDataModalJenis"
                                                     data-id="{{ $jenis->id }}" data-nama="{{ $jenis->nama_jenis }}">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
-                                                <!-- Tombol Hapus -->
                                                 <button class="btn btn-danger btn-sm delete-jenis-button"
                                                     data-bs-toggle="modal" data-bs-target="#hapusJenisRisikoModal"
                                                     data-id="{{ $jenis->id }}">
@@ -354,11 +394,34 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="form-check mb-0">
+                                    <input class="form-check-input" type="checkbox" id="select-all-jenis">
+                                    <label class="form-check-label" for="select-all-jenis">Pilih Semua</label>
+                                </div>
+                                <button type="button" id="delete-selected-jenis" class="btn btn-sm btn-danger">
+                                    Hapus
+                                </button>
+                            </div>
+                            @if ($jenisRisiko->hasPages())
+                                <div class="d-flex align-items-center gap-1">
+                                    <a class="btn btn-sm btn-light {{ $jenisRisiko->onFirstPage() ? 'disabled' : '' }}"
+                                        href="{{ $jenisRisiko->previousPageUrl() }}">&larr;</a>
+                                    @foreach ($jenisRisiko->getUrlRange(1, $jenisRisiko->lastPage()) as $page => $url)
+                                        <a class="btn btn-sm {{ $page == $jenisRisiko->currentPage() ? 'btn-primary' : 'btn-light' }}"
+                                            href="{{ $url }}">{{ $page }}</a>
+                                    @endforeach
+                                    <a class="btn btn-sm btn-light {{ !$jenisRisiko->hasMorePages() ? 'disabled' : '' }}"
+                                        href="{{ $jenisRisiko->nextPageUrl() }}">&rarr;</a>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {{-- IKU TERKAIT --}}
+            {{-- 5. IKU TERKAIT --}}
             <div>
                 <button class="btn btn-secondary toggle-btn text-start" type="button" data-bs-toggle="collapse"
                     data-bs-target="#ikuTerkait" aria-expanded="false">
@@ -369,14 +432,11 @@
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold mb-0">IKU Terkait</h6>
                             <div class="d-flex ms-auto gap-2">
-                                <!-- Tombol Import -->
                                 <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
                                     data-bs-target="#importDataModal" data-template="{{ asset('template/iku.xlsx') }}"
                                     data-route="{{ route('formregis.import.iku') }}">
                                     <i class="fa-solid fa-upload"></i> Import
                                 </button>
-
-                                <!-- Tombol Tambah -->
                                 <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
                                     data-bs-target="#tambahDataModalIku">
                                     <i class="fa-solid fa-plus me-1"></i>Tambah
@@ -391,10 +451,10 @@
                             </button>
                         </form>
                         <div class="table-responsive">
-                            <table class="table table-bordered  w-100">
+                            <table class="table table-bordered w-100">
                                 <thead class="table-secondary text-center">
                                     <tr>
-                                        <th>No</th>
+                                        <th class="text-center">No</th>
                                         <th>IKU Terkait</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -402,19 +462,22 @@
                                 <tbody>
                                     @foreach ($ikuTerkait as $index => $iku)
                                         <tr>
-                                            <td class="centered">{{ $unitKerja->firstItem() + $index }}</td>
+                                            <td class="text-center">
+                                                {{-- Checkbox Per baris --}}
+                                                <input type="checkbox" class="form-check-input check-iku"
+                                                    value="{{ $iku->id }}">
+                                                {{ $ikuTerkait->firstItem() + $index }}
+                                            </td>
                                             <td>{{ $iku->nama_iku }}</td>
                                             <td class="centered">
-                                                <!-- Tombol Edit -->
                                                 <button class="btn btn-sm btn-primary edit-iku-button"
                                                     data-bs-toggle="modal" data-bs-target="#editDataModalIku"
                                                     data-id="{{ $iku->id }}" data-nama="{{ $iku->nama_iku }}">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
-                                                <!-- Tombol Hapus -->
                                                 <button class="btn btn-danger btn-sm delete-iku-button"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#hapusIkuModal"data-id="{{ $iku->id }}">
+                                                    data-bs-toggle="modal" data-bs-target="#hapusIkuModal"
+                                                    data-id="{{ $iku->id }}">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             </td>
@@ -423,9 +486,33 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="form-check mb-0">
+                                    <input class="form-check-input" type="checkbox" id="select-all-iku">
+                                    <label class="form-check-label" for="select-all-iku">Pilih Semua</label>
+                                </div>
+                                <button type="button" id="delete-selected-iku" class="btn btn-sm btn-danger">
+                                    Hapus
+                                </button>
+                            </div>
+                            @if ($ikuTerkait->hasPages())
+                                <div class="d-flex align-items-center gap-1">
+                                    <a class="btn btn-sm btn-light {{ $ikuTerkait->onFirstPage() ? 'disabled' : '' }}"
+                                        href="{{ $ikuTerkait->previousPageUrl() }}">&larr;</a>
+                                    @foreach ($ikuTerkait->getUrlRange(1, $ikuTerkait->lastPage()) as $page => $url)
+                                        <a class="btn btn-sm {{ $page == $ikuTerkait->currentPage() ? 'btn-primary' : 'btn-light' }}"
+                                            href="{{ $url }}">{{ $page }}</a>
+                                    @endforeach
+                                    <a class="btn btn-sm btn-light {{ !$ikuTerkait->hasMorePages() ? 'disabled' : '' }}"
+                                        href="{{ $ikuTerkait->nextPageUrl() }}">&rarr;</a>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -503,6 +590,8 @@
             });
         });
     </script>
+
+    {{-- Script Keep Open Collapse --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -558,40 +647,136 @@
         });
     </script>
 
+    {{-- Script untuk Multi-Select & Hapus Semua --}}
     <script>
-        // Checkbox Pilih Semua
-        document.getElementById('select-all-unit').addEventListener('change', function() {
-            let checked = this.checked;
-            document.querySelectorAll('input[name="selected_ids[]"]').forEach(cb => cb.checked = checked);
-        });
+        document.addEventListener('DOMContentLoaded', function() {
 
-        // Hapus data yang terpilih
-        document.getElementById('delete-selected-unit').addEventListener('click', function() {
-            let selected = [...document.querySelectorAll('input[name="selected_ids[]"]:checked')].map(cb => cb
-                .value);
+            // Konfigurasi untuk 5 Tabel
+            const configs = [{
+                    name: 'Unit Kerja',
+                    masterId: '#select-all-unit',
+                    btnId: '#delete-selected-unit',
+                    checkboxClass: '.check-unit',
+                    route: "{{ route('unitkerja.delete-selected') }}"
+                },
+                {
+                    name: 'Proses/Aktivitas',
+                    masterId: '#select-all-proses',
+                    btnId: '#delete-selected-proses',
+                    checkboxClass: '.check-proses',
+                    route: "{{ route('proses.delete-selected') }}"
+                },
+                {
+                    name: 'Kategori Risiko',
+                    masterId: '#select-all-kategori',
+                    btnId: '#delete-selected-kategori',
+                    checkboxClass: '.check-kategori',
+                    route: "{{ route('kategori.delete-selected') }}"
+                },
+                {
+                    name: 'Jenis Risiko',
+                    masterId: '#select-all-jenis',
+                    btnId: '#delete-selected-jenis',
+                    checkboxClass: '.check-jenis',
+                    route: "{{ route('jenis.delete-selected') }}"
+                },
+                {
+                    name: 'IKU',
+                    masterId: '#select-all-iku',
+                    btnId: '#delete-selected-iku',
+                    checkboxClass: '.check-iku',
+                    route: "{{ route('iku.delete-selected') }}"
+                }
+            ];
 
-            if (selected.length === 0) {
-                alert("Tidak ada data yang dipilih!");
-                return;
-            }
+            // Loop setiap konfigurasi
+            configs.forEach(config => {
+                const masterCheckbox = document.querySelector(config.masterId);
+                const deleteBtn = document.querySelector(config.btnId);
 
-            if (confirm("Yakin ingin menghapus data yang dipilih?")) {
-                fetch("{{ route('unitkerja.deleteSelected') }}", {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                    },
-                    body: JSON.stringify({
-                        ids: selected
-                    })
-                }).then(() => location.reload());
+                if (!masterCheckbox || !deleteBtn) return; // Skip jika elemen tidak ada
+
+                // 1. Event Listener: Pilih Semua
+                masterCheckbox.addEventListener('change', function() {
+                    const checkboxes = document.querySelectorAll(config.checkboxClass);
+                    checkboxes.forEach(cb => {
+                        cb.checked = this.checked;
+                    });
+                });
+
+                // 2. Event Listener: Tombol Hapus
+                deleteBtn.addEventListener('click', function() {
+                    // Ambil semua checkbox yang tercentang
+                    const checkedBoxes = document.querySelectorAll(config.checkboxClass + ':checked');
+
+                    // Validasi jika kosong
+                    if (checkedBoxes.length === 0) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Peringatan',
+                            text: 'Silakan pilih data ' + config.name +
+                                ' yang ingin dihapus terlebih dahulu.'
+                        });
+                        return;
+                    }
+
+                    // Konfirmasi User
+                    Swal.fire({
+                        title: 'Apakah Anda yakin?',
+                        text: "Anda akan menghapus " + checkedBoxes.length + " data " + config
+                            .name + " terpilih.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Ya, hapus!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Kumpulkan ID
+                            let ids = [];
+                            checkedBoxes.forEach(cb => ids.push(cb.value));
+
+                            // Submit Form Dinamis
+                            submitForm(config.route, ids);
+                        }
+                    });
+                });
+            });
+
+            // Fungsi Helper untuk Membuat dan Submit Form
+            function submitForm(actionUrl, ids) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = actionUrl;
+
+                // Input CSRF Token
+                const csrfToken = document.createElement('input');
+                csrfToken.type = 'hidden';
+                csrfToken.name = '_token';
+                csrfToken.value = "{{ csrf_token() }}";
+                form.appendChild(csrfToken);
+
+                // Input Method DELETE
+                const methodField = document.createElement('input');
+                methodField.type = 'hidden';
+                methodField.name = '_method';
+                methodField.value = 'DELETE';
+                form.appendChild(methodField);
+
+                // Input Array IDs
+                ids.forEach(id => {
+                    const inputId = document.createElement('input');
+                    inputId.type = 'hidden';
+                    inputId.name = 'ids[]';
+                    inputId.value = id;
+                    form.appendChild(inputId);
+                });
+
+                document.body.appendChild(form);
+                form.submit();
             }
         });
     </script>
-
-
-
-
 
 @endsection
