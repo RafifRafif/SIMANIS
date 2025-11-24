@@ -16,9 +16,9 @@
                         <label class="form-label">Penilaian</label>
                         <select class="form-select" name="penilaian" required>
                             <option value="" selected disabled>Pilih Penilaian</option>
-                            <option value="terlampaui">Terlampaui</option>
-                            <option value="tercapai">Tercapai</option>
-                            <option value="tidaktercapai">Tidak Tercapai</option>
+                            <option value="terlampaui">Closed</option>
+                            <option value="tercapai">Open (Menurun)</option>
+                            <option value="tidaktercapai">Open (Meningkat)</option>
                         </select>
                     </div>
 

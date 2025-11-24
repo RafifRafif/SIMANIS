@@ -232,10 +232,10 @@
 
                                         {{-- Bagian Penilaian Auditor --}}
                                         @php
-                                            $closedMitigasi = $item->mitigasis->where('status', 'closed');
+                                            $mitigasi = $item->mitigasis->sortByDesc('id_mitigasi')->first();
                                         @endphp
 
-                                        @if ($closedMitigasi->count())
+                                        @if ($mitigasi && $mitigasi->penilaian->count())
                                             <div class="mt-4">
 
                                                 <table class="table table-sm table-bordered mb-0">
@@ -248,28 +248,28 @@
                                                     </thead>
                                                     <tbody>
 
-                                                        @foreach ($closedMitigasi as $cm)
-                                                            @forelse ($cm->penilaian as $p)
+                                                        @forelse ($mitigasi->penilaian as $p)
+                                            
                                                                 <tr>
                                                                     <td class="centered">{{ $p->triwulan_tahun }}</td>
                                                                     <td class="centered">
                                                                         @php
                                                                             $label = [
-                                                                                'tercapai' => 'Tercapai',
-                                                                                'terlampaui' => 'Terlampaui',
-                                                                                'tidaktercapai' => 'Tidak Tercapai',
+                                                                                'tercapai' => 'Open (Menurun)',
+                                                                                'terlampaui' => 'Closed',
+                                                                                'tidaktercapai' => 'Open (Meningkat)',
                                                                             ][$p->penilaian] ?? ucfirst($p->penilaian);
                                                                         @endphp
                                                                         {{ $label }}
                                                                     </td>
                                                                     <td>{{ $p->uraian ?? '-' }}</td>
                                                                 </tr>
-                                                            @empty
+                                                                @empty
+                                    
                                                                 <tr>
                                                                     <td colspan="3" class="text-center text-muted">Belum ada penilaian auditor</td>
                                                                 </tr>
-                                                            @endforelse
-                                                        @endforeach
+                                                        @endforelse
 
                                                     </tbody>
                                                 </table>
