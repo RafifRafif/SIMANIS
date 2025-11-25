@@ -13,12 +13,10 @@
                     <!-- Unit Kerja -->
                     <div class="mb-4">
                         <label class="form-label">Unit Kerja</label>
-                        <select name="unit_kerja_id" class="form-select" required>
-                            <option value="" selected disabled>Pilih Unit Kerja</option>
-                            @foreach ($unitKerja as $u)
-                                <option value="{{ $u->id }}">{{ $u->nama_unit }}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" class="form-control" value="{{ Auth::user()->unitKerja->nama_unit }}"
+                            disabled>
+
+                        <input type="hidden" name="unit_kerja_id" value="{{ Auth::user()->unit_kerja_id }}">
                     </div>
 
                     <!-- Proses/Aktivitas (Dropdown + Manual Input) -->
@@ -32,12 +30,9 @@
                             @endforeach
                         </select>
 
-                    <!-- Input manual (hidden by default) -->
-                    <input type="text" id="proses_manual_input" 
-                    name="proses_manual_text"
-                    class="form-control mt-2"
-                    placeholder="Masukkan Proses/Aktivitas"
-                    style="display:none;">
+                        <!-- Input manual (hidden by default) -->
+                        <input type="text" id="proses_manual_input" name="proses_manual_text" class="form-control mt-2"
+                            placeholder="Masukkan Proses/Aktivitas" style="display:none;">
                     </div>
 
 
@@ -114,37 +109,31 @@
                         <input type="text" name="kontrol_pencegahan" class="form-control" required>
                     </div>
 
-                    <div class="d-flex align-items-center gap-4 mt-3 mb-3">
-                        <!-- Keparahan -->
-                        
-                        <div class="d-flex align-items-center">
-                            <label for="keparahan" class="me-2 fw-medium">Keparahan</label>
-                            <select id="keparahan" name="keparahan" class="form-select form-select-sm"
-                                style="min-width: 70px; padding-right: 24px;">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-
-                        <!-- Frekuensi -->
-                        <div class="d-flex align-items-center">
-                            <label for="frekuensi" class="me-2 fw-medium">Frekuensi</label>
-                            <select id="frekuensi" name="frekuensi" class="form-select form-select-sm"
-                                style="min-width: 70px; padding-right: 24px;">
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
-                            </select>
-                        </div>
+                    <div class="mb-3">
+                        <label for="keparahan" class="me-2 fw-medium">Keparahan</label>
+                        <select id="keparahan" name="keparahan" class="form-select form-select-sm"
+                            style="min-width: 70px; padding-right: 24px;">
+                            <option value="1">1. Tidak Signifikan (dampaknya hanya di area tersebut)</option>
+                            <option value="2">2. Kecil (Dampaknya sampai satu bagian/departemen)"</option>
+                            <option value="3">3. Sedang (Dampaknya sampai satu institusi)</option>
+                            <option value="4">4. Besar (Akibatnya sampai ke customer)</option>
+                            <option value="5">5. Bencana (Dampaknya sampai ke pemerintah dan atau Customer)</option>
+                        </select>
                     </div>
 
-
-
+                    <div class="mb-3">
+                        <label for="frekuensi" class="me-2 fw-medium">Frekuensi</label>
+                        <select id="frekuensi" name="frekuensi" class="form-select form-select-sm"
+                            style="min-width: 70px; padding-right: 24px;">
+                            <option value="A">A. Hampir Pasti (Beberapa kali tiap peristiwa/ tiap hari terjadi)
+                            </option>
+                            <option value="B">B. Mungkin Sekali (>1 kali tiap bulan)</option>
+                            <option value="C">C. Mungkin (Dalam Setahun ada 1- 5 kali)</option>
+                            <option value="D">D. Jarang (Dalam setahun hanya 1 kali)</option>
+                            <option value="E">E. Sangat Jarang (Hampir tidak pernah terjadi, dalam 5 tahun hanya 1
+                                kali)</option>
+                        </select>
+                    </div>
 
                     <button type="submit" class="btn btn-primary w-100"></i>Simpan</button>
                 </form>
