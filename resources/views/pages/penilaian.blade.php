@@ -154,36 +154,29 @@
                                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                                         @if ($r->mitigasis->count() > 0)
 
-                                                            {{-- Hanya berlaku untuk mitigasi yang CLOSED --}}
-                                                            @if ($m->status == 'closed')
-
-                                                                {{-- Jika belum ada penilaian → tombol aktif --}}
-                                                                @if ($m->penilaian->count() == 0)
-                                                                    <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
-                                                                        data-bs-target="#tambahPenilaianAuditorModal"
-                                                                        data-mitigasi-id="{{ $m->id_mitigasi }}">
-                                                                        <i class="fa-solid fa-plus"></i> Tambah Penilaian
-                                                                    </button>
-                                                                @else
-                                                                    {{-- Sudah ada penilaian → tombol dimatikan --}}
-                                                                    <button class="btn btn-secondary fw-bold" disabled>
-                                                                        <i class="fa-solid fa-lock"></i> Penilaian Sudah Ada
-                                                                    </button>
-                                                                @endif
-
-                                                            @else
-                                                                {{-- Status mitigasi bukan CLOSED --}}
-                                                                <button class="btn btn-secondary fw-bold" disabled>
-                                                                    <i class="fa-solid fa-lock"></i> Mitigasi Belum Closed
-                                                                </button>
-                                                            @endif
-
+                                                        {{-- Jika belum ada penilaian → tombol aktif --}}
+                                                        @if ($m->penilaian->count() == 0)
+                                                            <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
+                                                                data-bs-target="#tambahPenilaianAuditorModal"
+                                                                data-mitigasi-id="{{ $m->id_mitigasi }}">
+                                                                <i class="fa-solid fa-plus"></i> Tambah Penilaian
+                                                            </button>
                                                         @else
-                                                            {{-- Tidak ada mitigasi sama sekali --}}
+                                                            {{-- Sudah ada penilaian → tombol dimatikan --}}
                                                             <button class="btn btn-secondary fw-bold" disabled>
-                                                                <i class="fa-solid fa-lock"></i> Belum Ada Mitigasi
+                                                                <i class="fa-solid fa-lock"></i> Penilaian Sudah Ada
                                                             </button>
                                                         @endif
+                                                    
+                                                    @else
+                                                        {{-- Tidak ada mitigasi --}}
+                                                        <button class="btn btn-secondary fw-bold" disabled>
+                                                            <i class="fa-solid fa-lock"></i> Belum Ada Mitigasi
+                                                        </button>
+                                                    @endif
+                                                    
+
+
                                                     </div>
                                                     <table class="table table-sm table-bordered mb-0">
                                                         <thead class="table-secondary text-center">
@@ -207,9 +200,9 @@
                                                                             // Mapping untuk ubah value database ke format tampilan
                                                                             $label =
                                                                                 [
-                                                                                    'tercapai' => 'Tercapai',
-                                                                                    'terlampaui' => 'Terlampaui',
-                                                                                    'tidaktercapai' => 'Tidak Tercapai',
+                                                                                    'tercapai' => 'Open (Menurun)',
+                                                                                    'terlampaui' => 'Closed',
+                                                                                    'tidaktercapai' => 'Open (Meningkat)',
                                                                                 ][$p->penilaian] ?? ucfirst($p->penilaian);
                                                                         @endphp
                                                                         {{ $label }}

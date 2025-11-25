@@ -21,7 +21,7 @@
                         </span>
                     </div>
                     <h2 class="mt-2 mb-2" style="font-weight: 700; color: #A6D96A;">{{ $penilaian_sudah_terlampaui ?? 0 }}</h2>
-                    <p class="mb-0">Yang sudah terlampaui</p>
+                    <p class="mb-0">Closed</p>
                 </div>
             </div>
             <!-- Card 2 -->
@@ -34,7 +34,7 @@
                         </span>
                     </div>
                     <h2 class="mt-2 mb-2" style="font-weight: 700; color: #FCE08B;">{{ $penilaian_sudah_tercapai ?? 0}}</h2>
-                    <p class="mb-0">Yang sudah tercapai</p>
+                    <p class="mb-0">Open (Menurun)</p>
                 </div>
             </div>
             <!-- Card 3 -->
@@ -47,7 +47,7 @@
                         </span>
                     </div>
                     <h2 class="mt-2 mb-2" style="font-weight: 700; color: #DC362E;">{{ $penilaian_tidak_tercapai ?? 0}}</h2>
-                    <p class="mb-0">Yang tidak tercapai</p>
+                    <p class="mb-0">Open (Meningkat)</p>
                 </div>
             </div>
         </div>
