@@ -138,7 +138,7 @@
                                                     data-bs-target="#tambahDataMitigasiModal"
                                                     data-regid="{{ $item->id_registrasi }}"
                                                     data-isurisiko="{{ $item->isu_resiko }}"
-                                                    data-triwulan="{{ $item->mitigasis->pluck('triwulan')->implode(',') }}"></button>>
+                                                    data-triwulan="{{ $item->mitigasis->pluck('triwulan')->implode(',') }}">
                                                     <i class="fa-solid fa-plus"></i> Tambah Mitigasi
                                                 </button>
 
