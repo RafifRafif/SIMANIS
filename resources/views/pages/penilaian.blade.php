@@ -81,7 +81,7 @@
                                                 </button>
                                             </td>
                                             <td>{{ $r->unitKerja->nama_unit ?? '-' }}</td>
-                                            <td>{{ $r->prosesDisplay }}</td>
+                                            <td>{{ $r->prosesAktivitas->nama_proses ?? '-' }}</td>
                                             <td>{{ $r->kategoriRisiko->nama_kategori ?? '-' }}</td>
                                             <td>{{ $r->jenisRisiko->nama_jenis ?? '-' }}</td>
                                             <td>{{ $r->isu_resiko }}</td>
