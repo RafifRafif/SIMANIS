@@ -104,7 +104,7 @@
 
                     <div class="mb-3">
                         <label for="keparahan" class="me-2 fw-medium">Keparahan</label>
-                        <select id="keparahan" name="keparahan" class="form-select form-select-sm"
+                        <select id="edit-keparahan" name="keparahan" class="form-select form-select-sm"
                             style="min-width: 70px; padding-right: 24px;">
                             <option value="1">1. Tidak Signifikan (dampaknya hanya di area tersebut)</option>
                             <option value="2">2. Kecil (Dampaknya sampai satu bagian/departemen)"</option>
@@ -116,7 +116,7 @@
 
                     <div class="mb-3">
                         <label for="frekuensi" class="me-2 fw-medium">Frekuensi</label>
-                        <select id="frekuensi" name="frekuensi" class="form-select form-select-sm"
+                        <select id="edit-frekuensi" name="frekuensi" class="form-select form-select-sm"
                             style="min-width: 70px; padding-right: 24px;">
                             <option value="A">A. Hampir Pasti (Beberapa kali tiap peristiwa/ tiap hari terjadi)
                             </option>

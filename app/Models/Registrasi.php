@@ -13,7 +13,7 @@ class Registrasi extends Model
     protected $primaryKey = 'id_registrasi';
     protected $fillable = [
         'unit_kerja_id',
-        'proses_aktivitas_id', 
+        'proses_aktivitas_id',
         'kategori_risiko_id',
         'jenis_risiko_id',
         'iku_terkait_id',
@@ -59,9 +59,36 @@ class Registrasi extends Model
     }
 
     public function mitigasis()
-{
-    return $this->hasMany(Mitigasi::class, 'registrasi_id', 'id_registrasi');
-}
+    {
+        return $this->hasMany(Mitigasi::class, 'registrasi_id', 'id_registrasi');
+    }
+
+    public function getFrekuensiDetailAttribute()
+    {
+        $map = [
+            'A' => 'A. Hampir Pasti (Beberapa kali tiap peristiwa/ tiap hari terjadi)',
+            'B' => 'B. Mungkin Sekali (>1 kali tiap bulan)',
+            'C' => 'C. Mungkin (Dalam Setahun ada 1–5 kali)',
+            'D' => 'D. Jarang (Dalam setahun hanya 1 kali)',
+            'E' => 'E. Sangat Jarang (Hampir tidak pernah terjadi, dalam 5 tahun hanya 1 kali)',
+        ];
+
+        return $map[$this->frekuensi] ?? null;
+    }
+
+    public function getKeparahanDetailAttribute()
+    {
+        $map = [
+            1 => '1. Tidak Signifikan (Dampaknya hanya di area tersebut)',
+            2 => '2. Kecil (Dampaknya sampai satu bagian/departemen)',
+            3 => '3. Sedang (Dampaknya sampai satu institusi)',
+            4 => '4. Besar (Akibatnya sampai ke customer)',
+            5 => '5. Bencana (Dampaknya sampai ke pemerintah dan atau customer)',
+        ];
+
+        return $map[$this->keparahan] ?? null;
+    }
+
 
 
 
