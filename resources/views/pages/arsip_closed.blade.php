@@ -160,8 +160,7 @@
                                                 <thead class="table-secondary text-center">
                                                     <tr>
                                                         <th>Triwulan</th>
-                                                        <th>Penilaian</th>
-                                                        <th>Uraian</th>
+                                                        <th>Catatan Hasil Review</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -170,22 +169,12 @@
                                                         @forelse ($cm->penilaian as $p)
                                                             <tr>
                                                                 <td class="centered">{{ $p->triwulan_tahun }}</td>
-                                                                <td class="centered">
-                                                                    @php
-                                                                        $label = [
-                                                                            'tercapai' => 'Tercapai',
-                                                                            'terlampaui' => 'Terlampaui',
-                                                                            'tidaktercapai' => 'Tidak Tercapai'
-                                                                        ][$p->penilaian] ?? ucfirst($p->penilaian);
-                                                                    @endphp
-                                                                    {{ $label }}
-                                                                </td>
                                                                 <td>{{ $p->uraian ?? '-' }}</td>
                                                             </tr>
                                                         @empty
                                                             <tr>
                                                                 <td colspan="4" class="text-center text-muted">
-                                                                    Belum ada penilaian untuk mitigasi ini
+                                                                    Belum ada review auditor untuk mitigasi ini
                                                                 </td>
                                                             </tr>
                                                         @endforelse
