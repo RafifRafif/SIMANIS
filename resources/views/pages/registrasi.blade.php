@@ -242,35 +242,22 @@
                                                     <thead class="table-secondary text-center">
                                                         <tr>
                                                             <th>Triwulan</th>
-                                                            <th>Penilaian</th>
-                                                            <th>Uraian</th>
+                                                            <th>Catatan Hasil Review</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-
                                                         @forelse ($mitigasi->penilaian as $p)
                                             
                                                                 <tr>
                                                                     <td class="centered">{{ $p->triwulan_tahun }}</td>
-                                                                    <td class="centered">
-                                                                        @php
-                                                                            $label = [
-                                                                                'tercapai' => 'Open (Menurun)',
-                                                                                'terlampaui' => 'Closed',
-                                                                                'tidaktercapai' => 'Open (Meningkat)',
-                                                                            ][$p->penilaian] ?? ucfirst($p->penilaian);
-                                                                        @endphp
-                                                                        {{ $label }}
-                                                                    </td>
                                                                     <td>{{ $p->uraian ?? '-' }}</td>
                                                                 </tr>
                                                                 @empty
                                     
                                                                 <tr>
-                                                                    <td colspan="3" class="text-center text-muted">Belum ada penilaian auditor</td>
+                                                                    <td colspan="3" class="text-center text-muted">Belum ada review auditor</td>
                                                                 </tr>
                                                         @endforelse
-
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -423,7 +410,4 @@
             @endif
         });
     </script>
-
-    
-
 @endsection

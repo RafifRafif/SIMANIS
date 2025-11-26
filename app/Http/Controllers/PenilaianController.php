@@ -57,7 +57,6 @@ class PenilaianController extends Controller
     {
         $request->validate([
             'mitigasi_id' => 'required|exists:mitigasi,id_mitigasi',
-            'penilaian' => 'required|in:terlampaui,tercapai,tidaktercapai',
             'uraian' => 'nullable|string'
         ]);
 
@@ -67,28 +66,25 @@ class PenilaianController extends Controller
         Penilaian::create([
             'mitigasi_id' => $mitigasi->id_mitigasi,
             'triwulan_tahun' => $triwulanTahun,
-            'penilaian' => $request->penilaian,
             'uraian' => $request->uraian
         ]);
 
-        return redirect()->back()->with('success', 'Penilaian auditor berhasil ditambahkan!');
+        return redirect()->back()->with('success', 'Review auditor berhasil ditambahkan!');
     }
 
     public function update(Request $request)
     {
         $request->validate([
             'id_penilaian' => 'required|exists:penilaian,id_penilaian',
-            'penilaian' => 'required|in:terlampaui,tercapai,tidaktercapai',
             'uraian' => 'nullable|string'
         ]);
 
         $penilaian = Penilaian::findOrFail($request->id_penilaian);
         $penilaian->update([
-            'penilaian' => $request->penilaian,
             'uraian' => $request->uraian
         ]);
 
-        return redirect()->back()->with('success', 'Penilaian auditor berhasil diperbarui!');
+        return redirect()->back()->with('success', 'Review auditor berhasil diperbarui!');
     }
 
     public function destroy($id)
@@ -96,7 +92,7 @@ class PenilaianController extends Controller
         $penilaian = Penilaian::findOrFail($id);
         $penilaian->delete();
 
-        return redirect()->back()->with('success', 'Penilaian auditor berhasil dihapus!');
+        return redirect()->back()->with('success', 'Review auditor berhasil dihapus!');
     }
 
 }

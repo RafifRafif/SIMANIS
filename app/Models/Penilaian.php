@@ -14,7 +14,6 @@ class Penilaian extends Model
     protected $fillable = [
         'mitigasi_id',
         'triwulan_tahun',
-        'penilaian',
         'uraian'
     ];
 

@@ -1,6 +1,6 @@
 @extends('layouts.pengguna')
 
-@section('title', 'Penilaian Auditor')
+@section('title', 'Review Auditor')
 
 @push('modals')
     @include('components.kelolapenilaian.modal-tambah-penilaian')
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/registrasi.css') }}">
     <link rel="stylesheet" href="{{ asset('css/arsip_open_closed.css') }}">
     <!-- Konten -->
-    <h3 class="mt-3 mb-4">Penilaian Auditor</h3>
+    <h3 class="mt-3 mb-4">Review Auditor</h3>
 
     <div class="d-flex flex-wrap align-items-center gap-2">
         <label class="me-3">Urutkan berdasarkan</label>
@@ -159,12 +159,12 @@
                                                             <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
                                                                 data-bs-target="#tambahPenilaianAuditorModal"
                                                                 data-mitigasi-id="{{ $m->id_mitigasi }}">
-                                                                <i class="fa-solid fa-plus"></i> Tambah Penilaian
+                                                                <i class="fa-solid fa-plus"></i> Tambah Review
                                                             </button>
                                                         @else
                                                             {{-- Sudah ada penilaian → tombol dimatikan --}}
                                                             <button class="btn btn-secondary fw-bold" disabled>
-                                                                <i class="fa-solid fa-lock"></i> Penilaian Sudah Ada
+                                                                <i class="fa-solid fa-lock"></i> Review Sudah Ada
                                                             </button>
                                                         @endif
                                                     
@@ -175,15 +175,12 @@
                                                         </button>
                                                     @endif
                                                     
-
-
                                                     </div>
                                                     <table class="table table-sm table-bordered mb-0">
                                                         <thead class="table-secondary text-center">
                                                             <tr>
                                                                 <th>Triwulan</th>
-                                                                <th>Penilaian</th>
-                                                                <th>Uraian</th>
+                                                                <th>Catatan Hasil Review</th>
                                                                 <th>Aksi</th>
                                                             </tr>
                                                         </thead>
@@ -195,18 +192,6 @@
                                                             @forelse ($penilaian as $p)
                                                                 <tr>
                                                                     <td class="centered">{{ $p->triwulan_tahun }}</td>
-                                                                    <td class="centered">
-                                                                        @php
-                                                                            // Mapping untuk ubah value database ke format tampilan
-                                                                            $label =
-                                                                                [
-                                                                                    'tercapai' => 'Open (Menurun)',
-                                                                                    'terlampaui' => 'Closed',
-                                                                                    'tidaktercapai' => 'Open (Meningkat)',
-                                                                                ][$p->penilaian] ?? ucfirst($p->penilaian);
-                                                                        @endphp
-                                                                        {{ $label }}
-                                                                    </td>
                                                                     <td>{{ $p->uraian ?? '-' }}</td>
                                                                     <td class="text-center">
                                                                         <button class="btn btn-sm btn-primary edit-button"
@@ -214,7 +199,7 @@
                                                                             data-id="{{ $p->id_penilaian }}"
                                                                             data-mitigasi-id="{{ $p->mitigasi_id }}"
                                                                             data-triwulan="{{ $p->triwulan_tahun }}"
-                                                                            data-penilaian="{{ $p->penilaian }}" data-uraian="{{ $p->uraian }}">
+                                                                            data-uraian="{{ $p->uraian }}">
                                                                             <i class="fa-solid fa-pen-to-square"></i>
                                                                         </button>
 
@@ -228,7 +213,7 @@
                                                             @empty
                                                                 <tr>
                                                                     <td colspan="4" class="text-center text-muted">
-                                                                        Belum ada penilaian auditor
+                                                                        Belum ada review auditor
                                                                     </td>
                                                                 </tr>
                                                             @endforelse

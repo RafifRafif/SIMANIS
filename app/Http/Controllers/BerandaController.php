@@ -37,11 +37,6 @@ class BerandaController extends Controller
             'extreme' => 0,
         ];
 
-        // default penilaian counts
-        $penilaian_sudah_terlampaui = 0;
-        $penilaian_sudah_tercapai = 0;
-        $penilaian_tidak_tercapai = 0;
-
         if (!empty($mitigasiIds)) {
             // ambil registrasi terkait mitigasi di tahun itu (tetap seperti logic kamu sebelumnya)
             $registrasiIds = Mitigasi::whereIn('id_mitigasi', $mitigasiIds)
@@ -69,17 +64,6 @@ class BerandaController extends Controller
             // --- Hitung Penilaian untuk mitigasi di tahun itu ---
             // jika mau menghitung tanpa filter tahun, ganti whereIn('mitigasi_id', $mitigasiIds) 
             // dengan query ke Penilaian langsung (tanpa whereIn).
-            $penilaian_sudah_terlampaui = Penilaian::whereIn('mitigasi_id', $mitigasiIds)
-                ->where('penilaian', 'terlampaui')
-                ->count();
-
-            $penilaian_sudah_tercapai = Penilaian::whereIn('mitigasi_id', $mitigasiIds)
-                ->where('penilaian', 'tercapai')
-                ->count();
-
-            $penilaian_tidak_tercapai = Penilaian::whereIn('mitigasi_id', $mitigasiIds)
-                ->where('penilaian', 'tidaktercapai')
-                ->count();
         }
 
         return view('pages.beranda', compact(
@@ -87,10 +71,7 @@ class BerandaController extends Controller
             'colors',
             'probabilitasData',
             'tahun',
-            'daftarTahun',
-            'penilaian_sudah_terlampaui',
-            'penilaian_sudah_tercapai',
-            'penilaian_tidak_tercapai'
+            'daftarTahun'
         ));
     }
 }
