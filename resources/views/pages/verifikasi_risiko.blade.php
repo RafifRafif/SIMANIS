@@ -62,7 +62,7 @@
                         @forelse ($registrasi as $item)
                         <tr>
                             <td>{{ $item->unitKerja->nama_unit ?? '-' }}</td>
-                            <td>{{ $item->proses_aktivitas_id ? $item->prosesAktivitas->nama_proses : $item->proses_manual }}</td>
+                            <td>{{ $item->prosesAktivitas->nama_proses ?? '-' }}</td>
                             <td>{{ $item->kategoriRisiko->nama_kategori ?? '-' }}</td>
                             <td>{{ $item->jenisRisiko->nama_jenis ?? '-' }}</td>
                             <td>{{ $item->isu_resiko }}</td>

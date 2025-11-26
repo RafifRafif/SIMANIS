@@ -67,7 +67,7 @@
                                     </button>
                                 </td>
                                 <td>{{ $item->unitKerja->nama_unit ?? '-' }}</td>
-                                <td>{{ $item->proses_aktivitas_id ? $item->prosesAktivitas->nama_proses : $item->proses_manual }}</td>
+                                <td>{{ $item->prosesAktivitas->nama_proses ?? '-' }}</td>
                                 <td>{{ $item->kategoriRisiko->nama_kategori ?? '-' }}</td>
                                 <td>{{ $item->jenisRisiko->nama_jenis ?? '-' }}</td>
                                 <td>{{ $item->isu_resiko }}</td>
@@ -87,8 +87,7 @@
                                         <button class="btn btn-sm btn-primary edit-button"
                                             data-id="{{ $item->id_registrasi }}"
                                             data-unitkerja="{{ $item->unit_kerja_id }}"
-                                            data-prosesid="{{ $item->proses_aktivitas_id }}"
-                                            data-prosesmanual="{{ $item->proses_manual }}"
+                                            data-proses="{{ $item->proses_aktivitas_id }}"
                                             data-kategori="{{ $item->kategori_risiko_id }}"
                                             data-jenis="{{ $item->jenis_risiko_id }}"
                                             data-isuresiko="{{ $item->isu_resiko }}"
@@ -192,8 +191,8 @@
                                                                     -
                                                                 @endif
                                                             </td>
-                                                            <td class="text-center">
-                                                                <div class="d-flex justify-content-center gap-2">
+                                                            <td class="text-center align-middle">
+                                                                <div class="d-flex justify-content-center gap-1">
                                                                     <button class="btn btn-sm btn-primary edit-mitigasi"
                                                                         data-id="{{ $m->id_mitigasi }}"
                                                                         data-triwulan="{{ $m->triwulan }}"
@@ -425,50 +424,6 @@
         });
     </script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-        
-            function toggleManualInput(dropdown, manualInput) {
-                if (dropdown.value === "manual") {
-                    manualInput.style.display = "block";
-                    manualInput.name = "proses";
-                    dropdown.removeAttribute("name");
-                } else {
-                    manualInput.style.display = "none";
-                    manualInput.value = "";
-                    manualInput.removeAttribute("name");
-                    dropdown.setAttribute("name", "proses");
-                }
-            }
-        
-            // =============== ADD FORM ===============
-            const addDropdown = document.getElementById("proses_aktivitas");
-            const addManual = document.getElementById("proses_manual_input");
-        
-            if (addDropdown) {
-                addDropdown.addEventListener("change", function () {
-                    toggleManualInput(addDropdown, addManual);
-                });
-            }
-        
-            // =============== EDIT FORM ===============
-            const editDropdown = document.getElementById("edit-proses");
-            const editManual = document.getElementById("edit-proses-manual");
-        
-            if (editDropdown) {
-                // Saat modal kebuka → cek apakah nilai yang digunakan itu manual
-                let isManual = editDropdown.dataset.manual === "true"; 
-                if (isManual) {
-                    editDropdown.value = "manual"; 
-                }
-                toggleManualInput(editDropdown, editManual);
-        
-                editDropdown.addEventListener("change", function () {
-                    toggleManualInput(editDropdown, editManual);
-                });
-            }
-        
-        });
-    </script>
+    
 
 @endsection
