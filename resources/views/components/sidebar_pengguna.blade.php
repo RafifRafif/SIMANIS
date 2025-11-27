@@ -65,6 +65,6 @@
     {{-- MENU AUDITOR --}}
     @if ($isAuditor || $isP4mRole || ($isKepalaUnit && $isUnitNormal && str_contains($unit, 'auditor')))
         <p class="px-3 text-uppercase small mt-3 mb-2">Menu Auditor</p>
-        <a href="{{ route('penilaian') }}"><i class="fa-solid fa-list-check"></i> Penilaian Auditor</a>
+        <a href="{{ route('penilaian') }}"><i class="fa-solid fa-list-check"></i> Review Auditor</a>
     @endif
 </div>
