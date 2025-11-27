@@ -3,6 +3,7 @@
 
 @php
     use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Route; 
 
     $user = Auth::user();
     $roleString = $user->role ?? '';
@@ -21,28 +22,49 @@
 <div class="sidebar" id="sidebar">
     {{-- MENU UTAMA --}}
     <p class="px-3 text-uppercase small mb-2">Menu Utama</p>
-    <a href="{{ route('beranda') }}"><i class="fa-solid fa-house"></i> Beranda</a>
-    <a href="{{ route('arsip_risiko') }}"><i class="fa-solid fa-box-archive"></i> Arsip Risiko</a>
+
+    <a href="{{ route('beranda') }}" class="{{ Route::is('beranda') ? 'active' : '' }}">
+        <i class="fa-solid fa-house"></i> Beranda
+    </a>
+
+    {{-- Menggunakan wildcard (*) agar sub-halaman arsip juga membuat menu ini aktif --}}
+    <a href="{{ route('arsip_risiko') }}" class="{{ Route::is('arsip_risiko*') ? 'active' : '' }}">
+        <i class="fa-solid fa-box-archive"></i> Arsip Risiko
+    </a>
 
     {{-- MENU KEPALA UNIT --}}
-    @if($isKepalaUnit || ($isAuditor && $isUnitNormal) || $isP4mRole)
+    @if ($isKepalaUnit || ($isAuditor && $isUnitNormal) || $isP4mRole)
         <p class="px-3 text-uppercase small mt-3 mb-2">Menu Kepala Unit</p>
-        <a href="{{ route('registrasi.index') }}"><i class="fa-solid fa-pen-to-square"></i> Registrasi dan Mitigasi
-            Risiko</a>
+        {{-- Menggunakan registrasi.* agar aktif saat di halaman index, create, atau edit --}}
+        <a href="{{ route('registrasi.index') }}" class="{{ Route::is('registrasi*') ? 'active' : '' }}">
+            <i class="fa-solid fa-pen-to-square"></i> Registrasi dan Mitigasi Risiko
+        </a>
     @endif
 
     {{-- MENU KHUSUS P4M --}}
-    @if($isP4mRole)
+    @if ($isP4mRole)
         <p class="px-3 text-uppercase small mt-3 mb-2">Menu P4M</p>
-        <a href="{{ route('verifikasi_risiko') }}"><i class="fa-solid fa-circle-check"></i> Verifikasi Risiko</a>
-        <a href="{{ route('kelola_beranda') }}"><i class="fa-solid fa-gear"></i> Kelola Beranda</a>
-        <a href="{{ route('kelola_regis') }}"><i class="fa-solid fa-folder"></i> Kelola Form Regis</a>
-        <a href="{{ route('kelola_pengguna') }}"><i class="fa-solid fa-users"></i> Kelola Pengguna</a>
+
+        <a href="{{ route('verifikasi_risiko') }}" class="{{ Route::is('verifikasi_risiko*') ? 'active' : '' }}">
+            <i class="fa-solid fa-circle-check"></i> Verifikasi Risiko
+        </a>
+
+        <a href="{{ route('kelola_beranda') }}" class="{{ Route::is('kelola_beranda*') ? 'active' : '' }}">
+            <i class="fa-solid fa-gear"></i> Kelola Beranda
+        </a>
+
+        <a href="{{ route('kelola_regis') }}" class="{{ Route::is('kelola_regis*') ? 'active' : '' }}">
+            <i class="fa-solid fa-folder"></i> Kelola Form Regis
+        </a>
+
+        <a href="{{ route('kelola_pengguna') }}" class="{{ Route::is('kelola_pengguna*') ? 'active' : '' }}">
+            <i class="fa-solid fa-users"></i> Kelola Pengguna
+        </a>
     @endif
 
     {{-- MENU AUDITOR --}}
-    @if($isAuditor || $isP4mRole || ($isKepalaUnit && $isUnitNormal && str_contains($unit, 'auditor')))
+    @if ($isAuditor || $isP4mRole || ($isKepalaUnit && $isUnitNormal && str_contains($unit, 'auditor')))
         <p class="px-3 text-uppercase small mt-3 mb-2">Menu Auditor</p>
-        <a href="{{ route('penilaian') }}"><i class="fa-solid fa-list-check"></i> Review Auditor</a>
+        <a href="{{ route('penilaian') }}"><i class="fa-solid fa-list-check"></i> Penilaian Auditor</a>
     @endif
 </div>
