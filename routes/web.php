@@ -124,3 +124,8 @@ Route::middleware(['role:p4m,auditor'])->group(function () {
     Route::put('/penilaian/update', [PenilaianController::class, 'update'])->name('penilaian.update');
     Route::delete('/penilaian/{id}', [PenilaianController::class, 'destroy'])->name('penilaian.destroy');
 });
+
+use App\Http\Controllers\EvaluasiController;
+Route::post('/evaluasi', [EvaluasiController::class, 'store'])->name('evaluasi.store');
+Route::put('/evaluasi/{id}', [EvaluasiController::class, 'update'])->name('evaluasi.update');
+Route::delete('/evaluasi/{id}', [EvaluasiController::class, 'destroy'])->name('evaluasi.destroy');

@@ -10,18 +10,11 @@ class MitigasiController extends Controller
 {
     public function store(Request $request)
     {
-        $data = $request->validate([
+         $data = $request->validate([
             'registrasi_id' => 'required|exists:registrasi,id_registrasi',
-            'triwulan' => 'required',
-            'tahun' => 'required',
-            'isurisiko' => 'nullable|string',
+            'isurisiko' => 'required|string',
             'rencana_aksi' => 'required|string',
             'tanggal_pelaksanaan' => 'nullable|date',
-            'hasil_tindak_lanjut' => 'nullable|string',
-            'tanggal_evaluasi' => 'nullable|date',
-            'status' => 'required|string',
-            'hasil_manajemen_risiko' => 'nullable|string',
-            'dokumen_pendukung' => 'nullable|url',
         ]);
 
         // 🔒 Validasi status registrasi
@@ -42,21 +35,10 @@ class MitigasiController extends Controller
         $mitigasi = Mitigasi::findOrFail($id);
 
         $data = $request->validate([
-            'triwulan' => 'required',
-            'tahun' => 'required',
-            'isurisiko' => 'nullable|string',
+            'isurisiko' => 'required|string',
             'rencana_aksi' => 'required|string',
             'tanggal_pelaksanaan' => 'nullable|date',
-            'hasil_tindak_lanjut' => 'nullable|string',
-            'tanggal_evaluasi' => 'nullable|date',
-            'status' => 'required|string',
-            'hasil_manajemen_risiko' => 'nullable|string',
-            'dokumen_pendukung' => 'nullable|url',
         ]);
-
-        if ($mitigasi->status === 'closed' && $request->status === 'opened') {
-            $mitigasi->penilaian()->delete();
-        }
 
         $mitigasi->update($data);
 

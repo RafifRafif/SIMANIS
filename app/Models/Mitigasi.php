@@ -14,16 +14,9 @@ class Mitigasi extends Model
 
     protected $fillable = [
         'registrasi_id',
-        'triwulan',
-        'tahun',
         'isurisiko',
         'rencana_aksi',
-        'tanggal_pelaksanaan',
-        'hasil_tindak_lanjut',
-        'tanggal_evaluasi',
-        'status',
-        'hasil_manajemen_risiko',
-        'dokumen_pendukung'
+        'tanggal_pelaksanaan'
     ];
 
     public function registrasi()
@@ -31,9 +24,15 @@ class Mitigasi extends Model
         return $this->belongsTo(Registrasi::class, 'registrasi_id', 'id_registrasi');
     }
 
+    public function evaluasis()
+    {
+        return $this->hasMany(Evaluasi::class, 'mitigasi_id', 'id_mitigasi');
+    }
+
     public function penilaian()
-{
-    return $this->hasMany(Penilaian::class, 'mitigasi_id', 'id_mitigasi');
-}
+    {
+        return $this->hasMany(Penilaian::class, 'mitigasi_id', 'id_mitigasi');
+    }
+    
 
 }
