@@ -289,7 +289,7 @@
                                                                         $mitigasiTerakhir = $item->mitigasis->sortByDesc('id_mitigasi')->first();
                                                                     @endphp
 
-                                                                    @if ($mitigasiTerakhir)
+                                                                    @if ($mitigasiTerakhir && $mitigasiTerakhir->evaluasis->count() > 0)
                                                                         <div class="mt-4">
                                                                             <table class="table table-sm table-bordered mb-0">
                                                                                 <thead class="table-secondary text-center">
@@ -317,7 +317,6 @@
                                                                             </table>
                                                                         </div>
                                                                     @endif
-
                                                                 </div>
                                                             </td>
                                                         </tr>
