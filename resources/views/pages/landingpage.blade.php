@@ -1,6 +1,6 @@
 @extends('layouts.landingpage')
 
-@section('title', 'SiMANiS - Sistem Manajemen Risiko Polibatam')
+@section('title', 'Sistem Manajemen Risiko Polibatam')
 
 @section('content')
 
