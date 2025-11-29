@@ -27,4 +27,9 @@ class Evaluasi extends Model
     {
         return $this->belongsTo(Mitigasi::class, 'mitigasi_id', 'id_mitigasi');
     }
+
+    public function penilaian()
+    {
+        return $this->hasMany(Penilaian::class, 'evaluasi_id', 'id_evaluasi');
+    }
 }

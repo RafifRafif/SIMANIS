@@ -299,20 +299,25 @@
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
-                                                                                    @forelse ($mitigasiTerakhir->penilaian as $p)
-                                                                                        @php
-                                                                                            $evaluasiTerkait = $mitigasiTerakhir->evaluasis->firstWhere('triwulan', $p->triwulan);
-                                                                                            $tahunEvaluasi = $evaluasiTerkait ? $evaluasiTerkait->tahun : '-';
-                                                                                        @endphp
-                                                                                        <tr>
-                                                                                            <td class="centered">{{ $p->triwulan }}-{{ $tahunEvaluasi }}</td>
-                                                                                            <td>{{ $p->uraian ?? '-' }}</td>
-                                                                                        </tr>
-                                                                                    @empty
+                                                                                    @php $adaPenilaian = false; @endphp
+
+                                                                                    @foreach ($mitigasiTerakhir->evaluasis as $evaluasi)
+                                                                                        @if ($evaluasi->penilaian && $evaluasi->penilaian->count() > 0)
+                                                                                            @php $adaPenilaian = true; @endphp
+                                                                                            @foreach ($evaluasi->penilaian as $p)
+                                                                                                <tr>
+                                                                                                    <td class="centered">{{ $evaluasi->triwulan }}-{{ $evaluasi->tahun ?? '-' }}</td>
+                                                                                                    <td>{{ $p->uraian ?? '-' }}</td>
+                                                                                                </tr>
+                                                                                            @endforeach
+                                                                                        @endif
+                                                                                    @endforeach
+
+                                                                                    @unless($adaPenilaian)
                                                                                         <tr>
                                                                                             <td colspan="2" class="text-center text-muted">Belum ada review auditor</td>
                                                                                         </tr>
-                                                                                    @endforelse
+                                                                                    @endunless
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>

@@ -29,10 +29,4 @@ class Mitigasi extends Model
         return $this->hasMany(Evaluasi::class, 'mitigasi_id', 'id_mitigasi');
     }
 
-    public function penilaian()
-    {
-        return $this->hasMany(Penilaian::class, 'mitigasi_id', 'id_mitigasi');
-    }
-    
-
 }

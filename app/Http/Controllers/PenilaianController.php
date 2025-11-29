@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Registrasi;
 use App\Models\UnitKerja;
 use App\Models\Mitigasi;
+use App\Models\Evaluasi;
 use App\Models\Penilaian;
 
 class PenilaianController extends Controller
@@ -16,7 +17,7 @@ class PenilaianController extends Controller
         $unitKerja = UnitKerja::all();
 
         // Ambil semua tahun unik dari mitigasi
-        $tahunList = Mitigasi::select('tahun')
+        $tahunList = Evaluasi::select('tahun')
             ->distinct()
             ->orderBy('tahun', 'desc')
             ->pluck('tahun');
@@ -28,7 +29,8 @@ class PenilaianController extends Controller
             'kategoriRisiko',
             'jenisRisiko',
             'ikuTerkait',
-            'mitigasis.penilaian'
+            'mitigasis.evaluasis.penilaian',
+            'mitigasis.evaluasis'
         ])
 
         ->where('status_registrasi', 'Terverifikasi')
@@ -41,7 +43,7 @@ class PenilaianController extends Controller
 
         // Filter berdasarkan Tahun (kalau dipilih)
         if ($request->filled('tahun')) {
-            $query->whereHas('mitigasis', function ($q) use ($request) {
+            $query->whereHas('mitigasis.evaluasis', function ($q) use ($request) {
                 $q->where('tahun', $request->tahun);
             });
         }
@@ -56,15 +58,15 @@ class PenilaianController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'mitigasi_id' => 'required|exists:mitigasi,id_mitigasi',
+            'evaluasi_id' => 'required|exists:evaluasi,id_evaluasi',
             'uraian' => 'nullable|string'
         ]);
 
-        $mitigasi = Mitigasi::findOrFail($request->mitigasi_id);
-        $triwulanTahun = $mitigasi->triwulan . '-' . $mitigasi->tahun;
+        $evaluasi = Evaluasi::findOrFail($request->evaluasi_id);
+        $triwulanTahun = $evaluasi->triwulan . '-' . $evaluasi->tahun;
 
         Penilaian::create([
-            'mitigasi_id' => $mitigasi->id_mitigasi,
+            'evaluasi_id' => $evaluasi->id_evaluasi,
             'triwulan_tahun' => $triwulanTahun,
             'uraian' => $request->uraian
         ]);

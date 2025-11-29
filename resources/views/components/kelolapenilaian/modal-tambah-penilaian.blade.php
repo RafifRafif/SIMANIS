@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <form action="{{ route('penilaian.store') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="mitigasi_id" id="mitigasi_id">
+                    <input type="hidden" name="evaluasi_id" id="evaluasi_id">
 
                     <div class="mb-3">
                         <label class="form-label">Catatan Hasil Review</label>
@@ -25,12 +25,12 @@
 </div>
 
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const modal = document.getElementById('tambahPenilaianAuditorModal');
-            modal.addEventListener('show.bs.modal', function (event) {
-                const button = event.relatedTarget;
-                const mitigasiId = button.getAttribute('data-mitigasi-id');
-                modal.querySelector('#mitigasi_id').value = mitigasiId;
-            });
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById('tambahPenilaianAuditorModal');
+        modal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const evaluasiId = button.getAttribute('data-evaluasi-id');
+            modal.querySelector('#evaluasi_id').value = evaluasiId;
         });
-    </script>
+    });
+</script>

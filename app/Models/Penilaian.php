@@ -12,13 +12,13 @@ class Penilaian extends Model
     protected $table = 'penilaian';
     protected $primaryKey = 'id_penilaian';
     protected $fillable = [
-        'mitigasi_id',
+        'evaluasi_id',
         'triwulan_tahun',
         'uraian'
     ];
 
-    public function mitigasi()
+    public function evaluasi()
     {
-        return $this->belongsTo(Mitigasi::class, 'mitigasi_id', 'id_mitigasi');
+        return $this->belongsTo(Evaluasi::class, 'evaluasi_id', 'id_evaluasi');
     }
 }
