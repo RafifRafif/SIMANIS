@@ -73,6 +73,20 @@
                     </thead>
                     <tbody>
                         @foreach ($registrasis as $index => $r)
+                            @php
+                                $punyaEvaluasi = false;
+
+                                foreach ($r->mitigasis as $m) {
+                                    if ($m->evaluasis->count() > 0) {
+                                        $punyaEvaluasi = true;
+                                        break;
+                                    }
+                                }
+                            @endphp
+
+                            @if (!$punyaEvaluasi)
+                                @continue
+                            @endif
                             <tr>
                                 <td class="text-center">
                                     <button class="btn btn-sm btn-outline-primary toggle-collapse" type="button"
