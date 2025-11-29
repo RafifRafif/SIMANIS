@@ -9,9 +9,6 @@ use App\Models\Mitigasi;
 
 class EvaluasiController extends Controller
 {
-    /**
-     * Store Evaluasi
-     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -24,6 +21,14 @@ class EvaluasiController extends Controller
             'hasil_penerapan' => 'nullable|string',
             'dokumen_pendukung' => 'nullable|url',
         ]);
+
+        $cekDuplikat = Evaluasi::where('mitigasi_id', $request->mitigasi_id)
+            ->where('triwulan', $request->triwulan)
+            ->exists();
+
+        if ($cekDuplikat) {
+            return back()->with('error', 'Triwulan ini sudah digunakan. Tidak boleh duplikat.');
+        }
 
         Evaluasi::create([
             'mitigasi_id' => $request->mitigasi_id,
@@ -39,9 +44,6 @@ class EvaluasiController extends Controller
         return back()->with('success', 'Evaluasi berhasil ditambahkan.');
     }
 
-    /**
-     * Update Evaluasi
-     */
     public function update(Request $request, $id)
     {
         $evaluasi = Evaluasi::findOrFail($id);
@@ -56,6 +58,15 @@ class EvaluasiController extends Controller
             'hasil_penerapan' => 'nullable|string',
             'dokumen_pendukung' => 'nullable|url',
         ]);
+
+        $cekDuplikat = Evaluasi::where('mitigasi_id', $request->mitigasi_id)
+            ->where('triwulan', $request->triwulan)
+            ->where('id_evaluasi', '!=', $id)
+            ->exists();
+
+        if ($cekDuplikat) {
+            return back()->with('error', 'Triwulan ini sudah digunakan oleh evaluasi lain.');
+        }
 
         $evaluasi->update([
             'triwulan' => $request->triwulan,

@@ -89,3 +89,39 @@
         });
     });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    document.querySelectorAll('.edit-evaluasi-btn').forEach(button => {
+        button.addEventListener('click', function () {
+
+            const id = this.dataset.id;
+            const mitigasiId = this.dataset.mitigasiId;
+            const currentTriwulan = parseInt(this.dataset.triwulan);
+            const used = (this.dataset.used || '').split(',').map(Number);
+
+            document.getElementById('editEvaluasiForm').action = `/evaluasi/${id}`;
+            document.getElementById('edit_id').value = id;
+            document.getElementById('edit_mitigasi_id').value = mitigasiId;
+
+            document.getElementById('edit_triwulan').value = currentTriwulan;
+            document.getElementById('edit_tahun').value = this.dataset.tahun;
+            document.getElementById('edit_hasiltindaklanjut').value = this.dataset.hasil;
+            document.getElementById('edit_tanggalevaluasi').value = this.dataset.tanggal;
+            document.getElementById('edit_statuspelaksanaan').value = this.dataset.status;
+            document.getElementById('edit_hasilpenerapan').value = this.dataset.penerapan;
+            document.getElementById('edit_dokumenpendukung').value = this.dataset.dokumen;
+
+            document.querySelectorAll('#edit_triwulan option').forEach(opt => opt.disabled = false);
+
+            used.forEach(tw => {
+                if (tw !== currentTriwulan) {
+                    let opt = document.querySelector(`#edit_triwulan option[value="${tw}"]`);
+                    if (opt) opt.disabled = true;
+                }
+            });
+        });
+    });
+
+});
+</script>
