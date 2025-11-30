@@ -20,7 +20,7 @@
                             <i class="bi bi-check-circle-fill"></i>
                         </span>
                     </div>
-                    <h2 class="mt-2 mb-2" style="font-weight: 700; color: #A6D96A;">{{ $penilaian_sudah_terlampaui ?? 0 }}</h2>
+                    <h2 class="mt-2 mb-2" style="font-weight: 700; color: #A6D96A;">{{ $evaluasi_closed?? 0 }}</h2>
                     <p class="mb-0">Closed</p>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                             <i class="bi bi-exclamation-circle-fill"></i>
                         </span>
                     </div>
-                    <h2 class="mt-2 mb-2" style="font-weight: 700; color: #FCE08B;">{{ $penilaian_sudah_tercapai ?? 0}}</h2>
+                    <h2 class="mt-2 mb-2" style="font-weight: 700; color: #FCE08B;">{{ $evaluasi_menurun?? 0}}</h2>
                     <p class="mb-0">Open (Menurun)</p>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                             <i class="bi bi-x-circle-fill"></i>
                         </span>
                     </div>
-                    <h2 class="mt-2 mb-2" style="font-weight: 700; color: #DC362E;">{{ $penilaian_tidak_tercapai ?? 0}}</h2>
+                    <h2 class="mt-2 mb-2" style="font-weight: 700; color: #DC362E;">{{ $evaluasi_meningkat ?? 0}}</h2>
                     <p class="mb-0">Open (Meningkat)</p>
                 </div>
             </div>

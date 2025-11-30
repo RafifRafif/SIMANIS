@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Registrasi;
 use App\Models\Mitigasi;
 use App\Models\Penilaian;
+use App\Models\Evaluasi;
 
 class BerandaController extends Controller
 {
@@ -19,14 +20,14 @@ class BerandaController extends Controller
         $colors = HeatmapColor::all();
 
         // daftar tahun untuk select
-        $daftarTahun = Mitigasi::select('tahun')
+        $daftarTahun = Evaluasi::select('tahun')
             ->distinct()
             ->orderBy('tahun', 'desc')
             ->pluck('tahun');
 
         // ambil mitigasi yang ada di tahun itu (dipakai untuk probabilitas & penilaian)
-        $mitigasiIds = Mitigasi::where('tahun', $tahun)
-            ->pluck('id_mitigasi')
+        $mitigasiIds = Evaluasi::where('tahun', $tahun)
+            ->pluck(column: 'mitigasi_id')
             ->toArray();
 
         // default probabilitasData (jika tidak ada registrasi untuk tahun itu)
@@ -60,8 +61,24 @@ class BerandaController extends Controller
                     'extreme' => $total ? round(($extreme / $total) * 100, 2) : 0,
                 ];
             }
+                            // --- Hitung status evaluasi berdasarkan mitigasi di tahun itu ---
+                $evaluasiTahunIni = Evaluasi::where('tahun', $tahun)->get();
 
-            // --- Hitung Penilaian untuk mitigasi di tahun itu ---
+                $evaluasi_closed = $evaluasiTahunIni
+                    ->where('status_pelaksanaan', 'closed')
+                    ->count();
+
+                $evaluasi_menurun = $evaluasiTahunIni
+                    ->where('status_pelaksanaan', 'opened-menurun')
+                    ->count();
+
+                $evaluasi_meningkat = $evaluasiTahunIni
+                    ->where('status_pelaksanaan', 'opened-meningkat')
+                    ->count();
+
+            
+
+            // --- Hitung Penilaian     untuk mitigasi di tahun itu ---
             // jika mau menghitung tanpa filter tahun, ganti whereIn('mitigasi_id', $mitigasiIds) 
             // dengan query ke Penilaian langsung (tanpa whereIn).
         }
@@ -71,7 +88,10 @@ class BerandaController extends Controller
             'colors',
             'probabilitasData',
             'tahun',
-            'daftarTahun'
+            'daftarTahun',
+            'evaluasi_closed',
+            'evaluasi_menurun',
+            'evaluasi_meningkat'
         ));
     }
 }
