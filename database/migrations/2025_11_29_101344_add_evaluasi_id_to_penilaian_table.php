@@ -4,18 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
         Schema::table('penilaian', function (Blueprint $table) {
-            $table->unsignedBigInteger('evaluasi_id')->after('id_penilaian');
 
-            // opsional: foreign key ke tabel evaluasi
-            $table->foreign('evaluasi_id')
-                  ->references('id_evaluasi')
-                  ->on('evaluasi')
-                  ->onDelete('cascade');
+            // Tambahkan kolom evaluasi_id hanya kalau belum ada
+            if (!Schema::hasColumn('penilaian', 'evaluasi_id')) {
+                $table->unsignedBigInteger('evaluasi_id')->after('id_penilaian');
+
+                $table->foreign('evaluasi_id')
+                    ->references('id_evaluasi')
+                    ->on('evaluasi')
+                    ->onDelete('cascade');
+            }
         });
     }
 

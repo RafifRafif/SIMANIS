@@ -15,7 +15,7 @@
             <div class="col-md-4 mb-3">
                 <div class="card p-3 d-flex flex-column" style="border: 1px solid #E5E7EB; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.10);">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h6 class="mb-0">Status Mitigasi</h6>
+                        <h6 class="mb-0">Status Pelaksanaan Evaluasi</h6>
                         <span class="fs-4" style="color: #A6D96A;">
                             <i class="bi bi-check-circle-fill"></i>
                         </span>
@@ -28,7 +28,7 @@
             <div class="col-md-4 mb-3">
                 <div class="card p-3 d-flex flex-column" style="border: 1px solid #E5E7EB; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.10);">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h6 class="mb-0">Status Mitigasi</h6>
+                        <h6 class="mb-0">Status Pelaksanaan Evaluasi</h6>
                         <span class="fs-4" style="color: #FCE08B;">
                             <i class="bi bi-exclamation-circle-fill"></i>
                         </span>
@@ -41,7 +41,7 @@
             <div class="col-md-4 mb-3">
                 <div class="card p-3 d-flex flex-column" style="border 1px solid #E5E7EB;border-radius: 12px; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.10);">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h6 class="mb-0">Status Mitigasi</h6>
+                        <h6 class="mb-0">Status Pelaksanaan Evaluasi</h6>
                         <span class="fs-4" style="color: #DC362E;">
                             <i class="bi bi-x-circle-fill"></i>
                         </span>
