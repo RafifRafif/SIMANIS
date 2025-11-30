@@ -61,21 +61,33 @@ class BerandaController extends Controller
                     'extreme' => $total ? round(($extreme / $total) * 100, 2) : 0,
                 ];
             }
-                            // --- Hitung status evaluasi berdasarkan mitigasi di tahun itu ---
-                $evaluasiTahunIni = Evaluasi::where('tahun', $tahun)->get();
+            
+            // --- Hitung status evaluasi terbaru per mitigasi ---
+            $evaluasi_closed = 0;
+            $evaluasi_menurun = 0;
+            $evaluasi_meningkat = 0;
 
-                $evaluasi_closed = $evaluasiTahunIni
-                    ->where('status_pelaksanaan', 'closed')
-                    ->count();
+            // ambil mitigasi lengkap dengan evaluasi tahun ini
+            $mitigasiTahunIni = Mitigasi::with(['evaluasis' => function($q) use ($tahun) {
+                $q->where('tahun', $tahun);
+            }])->whereIn('id_mitigasi', $mitigasiIds)->get();
 
-                $evaluasi_menurun = $evaluasiTahunIni
-                    ->where('status_pelaksanaan', 'opened-menurun')
-                    ->count();
+            foreach ($mitigasiTahunIni as $m) {
+                // ambil evaluasi terbaru berdasarkan triwulan
+                $last = $m->evaluasis->sortByDesc('triwulan')->first();
 
-                $evaluasi_meningkat = $evaluasiTahunIni
-                    ->where('status_pelaksanaan', 'opened-meningkat')
-                    ->count();
+                if ($last) {
+                    $status = strtolower(trim($last->status_pelaksanaan));
 
+                    if ($status === 'closed') {
+                        $evaluasi_closed++;
+                    } elseif ($status === 'opened-menurun') {
+                        $evaluasi_menurun++;
+                    } elseif ($status === 'opened-meningkat') {
+                        $evaluasi_meningkat++;
+                    }
+                }
+            }
             
 
             // --- Hitung Penilaian     untuk mitigasi di tahun itu ---
