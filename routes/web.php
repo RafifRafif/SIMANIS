@@ -105,12 +105,6 @@ Route::post('/mitigasi', [MitigasiController::class, 'store'])->name('mitigasi.s
 Route::put('/mitigasi/{id}', [MitigasiController::class, 'update'])->name('mitigasi.update');
 Route::delete('/mitigasi/{id}', [MitigasiController::class, 'destroy'])->name('mitigasi.destroy');
 
-use App\Http\Controllers\ArsipOpenController;
-Route::get('/arsip_open', [ArsipOpenController::class, 'index'])->name('arsip_open');
-
-use App\Http\Controllers\ArsipClosedController;
-Route::get('/arsip_closed', [ArsipClosedController::class, 'index'])->name('arsip_closed');
-
 use App\Http\Controllers\VerifikasiRisikoController;
 Route::middleware(['role:p4m'])->group(function () {
     Route::get('/verifikasi_risiko', [VerifikasiRisikoController::class, 'index'])->name('verifikasi_risiko');
