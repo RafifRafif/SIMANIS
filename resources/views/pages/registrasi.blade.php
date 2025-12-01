@@ -60,6 +60,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if ($registrasi->isEmpty())
+                            <tr>
+                                <td colspan="17" class="text-center text-muted">
+                                    Belum ada data registrasi
+                                </td>
+                            </tr>
+                        @endif
                         @foreach ($registrasi as $item)
                             <tr>
                                 <td class="text-center">
@@ -366,6 +373,12 @@
                                                             </td>
                                                         </tr>
                                                     @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td colspan="17" class="text-center text-muted">
+                                                            Belum ada mitigasi
+                                                        </td>
+                                                    </tr>
                                                 @endif
                                             </tbody>
                                         </table>
