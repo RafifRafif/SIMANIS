@@ -14,23 +14,25 @@ class BerandaController extends Controller
 {
     public function index(Request $request)
     {
-        $tahun = $request->get('tahun', date('Y'));
+        // Ambil tahun pilihan
+        $tahun = $request->get('tahun', Evaluasi::max('tahun'));
 
         $konten = KontenBeranda::all();
         $colors = HeatmapColor::all();
 
-        // daftar tahun untuk select
+        // Dropdown tahun
         $daftarTahun = Evaluasi::select('tahun')
             ->distinct()
             ->orderBy('tahun', 'desc')
             ->pluck('tahun');
 
-        // ambil mitigasi yang ada di tahun itu (dipakai untuk probabilitas & penilaian)
+        // Mengambil MITIGASI yang punya evaluasi di tahun itu
         $mitigasiIds = Evaluasi::where('tahun', $tahun)
-            ->pluck(column: 'mitigasi_id')
+            ->pluck('mitigasi_id')
+            ->unique()
             ->toArray();
 
-        // default probabilitasData (jika tidak ada registrasi untuk tahun itu)
+        // Persiapan default semua data
         $probabilitasData = [
             'low' => 0,
             'medium' => 0,
@@ -38,17 +40,24 @@ class BerandaController extends Controller
             'extreme' => 0,
         ];
 
+        $evaluasi_closed = 0;
+        $evaluasi_menurun = 0;
+        $evaluasi_meningkat = 0;
+
         if (!empty($mitigasiIds)) {
-            // ambil registrasi terkait mitigasi di tahun itu (tetap seperti logic kamu sebelumnya)
+
+            // Mengambil registrasi berdasarkan mitigasi
             $registrasiIds = Mitigasi::whereIn('id_mitigasi', $mitigasiIds)
                 ->pluck('registrasi_id')
                 ->unique()
                 ->toArray();
 
+            // Hitung Probabilitas Risiko
             if (!empty($registrasiIds)) {
                 $registrasiFiltered = Registrasi::whereIn('id_registrasi', $registrasiIds)->get();
 
                 $total = $registrasiFiltered->count();
+
                 $low = $registrasiFiltered->where('probabilitas', 'Low')->count();
                 $medium = $registrasiFiltered->where('probabilitas', 'Medium')->count();
                 $high = $registrasiFiltered->where('probabilitas', 'High')->count();
@@ -61,23 +70,25 @@ class BerandaController extends Controller
                     'extreme' => $total ? round(($extreme / $total) * 100, 2) : 0,
                 ];
             }
-            
-            // --- Hitung status evaluasi terbaru per mitigasi ---
-            $evaluasi_closed = 0;
-            $evaluasi_menurun = 0;
-            $evaluasi_meningkat = 0;
 
-            // ambil mitigasi lengkap dengan evaluasi tahun ini
-            $mitigasiTahunIni = Mitigasi::with(['evaluasis' => function($q) use ($tahun) {
-                $q->where('tahun', $tahun);
-            }])->whereIn('id_mitigasi', $mitigasiIds)->get();
+            // Hitung Status Evaluasi per Mitigasi (tahun terpilih)
+            $mitigasiTahunIni = Mitigasi::with([
+                'evaluasis' => function ($q) use ($tahun) {
+                    $q->where('tahun', $tahun);
+                }
+            ])->whereIn('id_mitigasi', $mitigasiIds)->get();
 
             foreach ($mitigasiTahunIni as $m) {
-                // ambil evaluasi terbaru berdasarkan triwulan
-                $last = $m->evaluasis->sortByDesc('triwulan')->first();
+
+                // Ambil evaluasi terbaru berdasarkan triwulan (STRING tapi angka)
+                $last = $m->evaluasis
+                    ->sortByDesc(function ($row) {
+                        return (int) $row->triwulan; 
+                    })
+                    ->first();
 
                 if ($last) {
-                    $status = strtolower(trim($last->status_pelaksanaan));
+                    $status = strtolower(trim($last->status_pelaksanaan)); // normalize
 
                     if ($status === 'closed') {
                         $evaluasi_closed++;
@@ -88,11 +99,6 @@ class BerandaController extends Controller
                     }
                 }
             }
-            
-
-            // --- Hitung Penilaian     untuk mitigasi di tahun itu ---
-            // jika mau menghitung tanpa filter tahun, ganti whereIn('mitigasi_id', $mitigasiIds) 
-            // dengan query ke Penilaian langsung (tanpa whereIn).
         }
 
         return view('pages.beranda', compact(
@@ -106,4 +112,5 @@ class BerandaController extends Controller
             'evaluasi_meningkat'
         ));
     }
+
 }
