@@ -187,64 +187,55 @@
                                                             </td>
                                                         </tr>
 
+
                                                         {{-- Tabel Evaluasi --}}
+                                                        @php
+                                                            $evaluasiTerakhir = $m->evaluasis
+                                                                ->sortByDesc(fn($e) => ($e->tahun ?? 0) * 10 + ($e->triwulan ?? 0))
+                                                                ->first();
+
+                                                            $statusTerakhir = $evaluasiTerakhir->status_pelaksanaan ?? null;
+                                                            $triwulanTerakhir = $evaluasiTerakhir->triwulan ?? null;
+
+                                                            $triwulanAda = $m->evaluasis->pluck('triwulan')->toArray();
+                                                            $semuaTriwulanTerisi = in_array(1, $triwulanAda) &&
+                                                                                in_array(2, $triwulanAda) &&
+                                                                                in_array(3, $triwulanAda) &&
+                                                                                in_array(4, $triwulanAda);
+                                                        @endphp
+                                                        
                                                         <tr>
                                                             <td colspan="17" class="bg-white">
 
                                                                 <div class="ms-4 mt-3">
 
                                                                     <div class="d-flex justify-content-between align-items-center mb-2 mt-3">
-                                                                        @php
-                                                                            $evaluasiTerakhir = $m->evaluasis
-                                                                                ->sortByDesc(fn($e) => ($e->tahun ?? 0) * 10 + ($e->triwulan ?? 0))
-                                                                                ->first();
-
-                                                                            $statusTerakhir = $evaluasiTerakhir->status_pelaksanaan ?? null;
-                                                                            $triwulanTerakhir = $evaluasiTerakhir->triwulan ?? null;
-
-                                                                            $triwulanAda = $m->evaluasis->pluck('triwulan')->toArray();
-                                                                            $semuaTriwulanTerisi = in_array(1, $triwulanAda) &&
-                                                                                                in_array(2, $triwulanAda) &&
-                                                                                                in_array(3, $triwulanAda) &&
-                                                                                                in_array(4, $triwulanAda);
-                                                                        @endphp
 
                                                                         @if ($statusTerakhir === 'closed')
-                                                                            <button class="btn btn-secondary fw-bold" disabled>
-                                                                                <i class="fa-solid fa-lock"></i> Evaluasi Sudah Closed
-                                                                            </button>
-
-                                                                        @elseif (in_array($statusTerakhir, ['opened-menurun', 'opened-meningkat'])
-                                                                                && $triwulanTerakhir == 4
-                                                                                && $semuaTriwulanTerisi)
-                                                                            <button class="btn btn-primary fw-bold registrasi-ulang-btn"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#tambahDataModal"
-                                                                                data-regid="{{ $item->id_registrasi }}"
-                                                                                data-unitkerja="{{ $item->unit_kerja_id }}"
-                                                                                data-proses="{{ $item->proses_aktivitas_id }}"
-                                                                                data-kategori="{{ $item->kategori_risiko_id }}"
-                                                                                data-jenis="{{ $item->jenis_risiko_id }}"
-                                                                                data-isuresiko="{{ $item->isu_resiko }}"
-                                                                                data-jenisisu="{{ $item->jenis_isu }}"
-                                                                                data-akar="{{ $item->akar_permasalahan }}"
-                                                                                data-dampak="{{ $item->dampak }}"
-                                                                                data-iku="{{ $item->iku_terkait_id }}"
-                                                                                data-pihak="{{ $item->pihak_terkait }}"
-                                                                                data-kontrol="{{ $item->kontrol_pencegahan }}">
-                                                                                <i class="fa-solid fa-repeat"></i> Registrasi Ulang
-                                                                            </button>
-
-                                                                        @else
-                                                                            <button class="btn btn-primary fw-bold tambah-evaluasi-btn"
-                                                                                data-bs-toggle="modal"
-                                                                                data-bs-target="#tambahEvaluasiModal"
-                                                                                data-mitigasi="{{ $m->id_mitigasi }}"
-                                                                                data-triwulan="{{ $m->evaluasis->pluck('triwulan')->implode(',') }}">
-                                                                                <i class="fa-solid fa-plus"></i> Tambah Evaluasi
-                                                                            </button>
-                                                                        @endif
+                                                                        <button class="btn btn-secondary fw-bold" disabled>
+                                                                            <i class="fa-solid fa-lock"></i> Evaluasi Sudah Closed
+                                                                        </button>
+                                                                    
+                                                                    @else
+                                                                        {{-- CEK: apakah sudah waktunya Registrasi Ulang? --}}
+                                                                        @php
+                                                                            $harusRegistrasiUlang = in_array($statusTerakhir, ['opened-menurun', 'opened-meningkat'])
+                                                                                                    && $triwulanTerakhir == 4
+                                                                                                    && $semuaTriwulanTerisi;
+                                                                        @endphp
+                                                                    
+                                                                        <button class="btn btn-primary fw-bold tambah-evaluasi-btn"
+                                                                            {{ $harusRegistrasiUlang ? 'disabled' : '' }}
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#tambahEvaluasiModal"
+                                                                            data-mitigasi="{{ $m->id_mitigasi }}"
+                                                                            data-triwulan="{{ $m->evaluasis->pluck('triwulan')->implode(',') }}">
+                                                                            <i class="fa-solid fa-plus"></i> Tambah Evaluasi
+                                                                        </button>
+                                                                    @endif
+                                                                    
                                                                     </div>
+                                                                    
 
                                                                     <table class="table table-sm table-bordered mb-0">
                                                                         <thead class="table-secondary text-center">
@@ -332,6 +323,33 @@
                                                                             @endif
                                                                         </tbody>
                                                                     </table>
+                                                                    {{-- TOMBOL REGISTRASI ULANG DI BAWAH TABEL --}}
+                                                                        @if (in_array($statusTerakhir, ['opened-menurun', 'opened-meningkat'])
+                                                                        && $triwulanTerakhir == 4
+                                                                        && $semuaTriwulanTerisi)
+                                                                        <p class="mt-4" style="color: red;">* Status masih open sehingga anda perlu melakukan Registrasi ulang dengan klik tombol Registrasi ulang.</p>
+
+                                                                        <div class="mt-3">
+                                                                        <button class="btn btn-primary fw-bold registrasi-ulang-btn"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#tambahDataModal"
+                                                                            data-regid="{{ $item->id_registrasi }}"
+                                                                            data-unitkerja="{{ $item->unit_kerja_id }}"
+                                                                            data-proses="{{ $item->proses_aktivitas_id }}"
+                                                                            data-kategori="{{ $item->kategori_risiko_id }}"
+                                                                            data-jenis="{{ $item->jenis_risiko_id }}"
+                                                                            data-isuresiko="{{ $item->isu_resiko }}"
+                                                                            data-jenisisu="{{ $item->jenis_isu }}"
+                                                                            data-akar="{{ $item->akar_permasalahan }}"
+                                                                            data-dampak="{{ $item->dampak }}"
+                                                                            data-iku="{{ $item->iku_terkait_id }}"
+                                                                            data-pihak="{{ $item->pihak_terkait }}"
+                                                                            data-kontrol="{{ $item->kontrol_pencegahan }}">
+                                                                            <i class="fa-solid fa-repeat"></i> Registrasi Ulang
+                                                                        </button>
+                                                                        </div>
+                                                                        @endif
+
                                                                     {{-- Tabel Review Auditor --}}
                                                                     @php
                                                                         $mitigasiTerakhir = $item->mitigasis->sortByDesc('id_mitigasi')->first();
