@@ -42,8 +42,9 @@
             </button>
         </form>
     </div>
+    <p class="mt-4" style="color: red;">* Untuk melihat data sampai selesai, silakan geser tabel ke kanan.</p>
 
-    <div id="hasilFilter" class="mt-4"></div>
+    <div id="hasilFilter" class="mt-2"></div>
 
     <!-- Card Wrapper -->
     <div class="card shadow-sm border-1">
@@ -150,7 +151,7 @@
                                                                                 <th>Tanggal Evaluasi</th>
                                                                                 <th>Status Pelaksanaan</th>
                                                                                 <th>Hasil Penerapan</th>
-                                                                                <th>Dokumen</th>
+                                                                                <th>Bukti Dokumen</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>

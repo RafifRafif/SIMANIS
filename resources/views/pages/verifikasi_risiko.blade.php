@@ -30,7 +30,8 @@
             </button>
         </form>
     </div>
-    <div id="hasilFilter" class="mt-4"></div>
+    <p class="mt-4" style="color: red;">* Untuk melihat data sampai selesai, silakan geser tabel ke kanan.</p>
+    <div id="hasilFilter" class="mt-2"></div>
 
     <!-- Card Wrapper -->
     <div class="card shadow-sm border-1">

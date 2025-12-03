@@ -29,11 +29,11 @@
                 <div class="card p-3 d-flex flex-column" style="border: 1px solid #E5E7EB; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.10);">
                     <div class="d-flex justify-content-between align-items-center">
                         <h6 class="mb-0">Status Pelaksanaan Evaluasi</h6>
-                        <span class="fs-4" style="color: #FCE08B;">
+                        <span class="fs-4" style="color: #F46D43;">
                             <i class="bi bi-exclamation-circle-fill"></i>
                         </span>
                     </div>
-                    <h2 class="mt-2 mb-2" style="font-weight: 700; color: #FCE08B;">{{ $evaluasi_menurun?? 0}}</h2>
+                    <h2 class="mt-2 mb-2" style="font-weight: 700; color: #F46D43;">{{ $evaluasi_menurun?? 0}}</h2>
                     <p class="mb-0">Open (Menurun)</p>
                 </div>
             </div>
@@ -139,11 +139,12 @@
                                 style="display:inline-block; width:18px; height:18px; background-color:#F46D43; border-radius:50%; margin-right:6px;"></span>
                             H (High)
                         </p>
-                        <p class="mb-0 d-flex align-items-center">
+                        <p class="mb-3 d-flex align-items-center">
                             <span
                                 style="display:inline-block; width:18px; height:18px; background-color:#D73026; border-radius:50%; margin-right:6px;"></span>
                             E (Extreme)
                         </p>
+                        <p class="d-flex align-items-center" style="color: red;">* Selera Risiko Polibatam = 13</p>
                     </div>
                 </div>
             </div> <!-- Card 2: Status Probabilitas Risiko -->

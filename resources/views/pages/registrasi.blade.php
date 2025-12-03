@@ -26,11 +26,12 @@
     </h6>
 
     <!-- Pencarian dan Dropdown -->
-    <div class="d-flex mb-4 gap-2">
+    <div class="d-flex gap-2">
         <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal" data-bs-target="#tambahDataModal">
             <i class="fa-solid fa-plus"></i> Tambah
         </button>
     </div>
+    <p style="color: red;">* Untuk melihat data sampai selesai, silakan geser tabel ke kanan.</p>
 
     <!-- Card Wrapper -->
     <div class="card shadow-sm border-1">
@@ -253,7 +254,7 @@
                                                                                 <th>Tanggal Evaluasi</th>
                                                                                 <th>Status Pelaksanaan</th>
                                                                                 <th>Hasil Penerapan</th>
-                                                                                <th>Dokumen</th>
+                                                                                <th>Bukti Dokumen</th>
                                                                                 <th>Aksi</th>
                                                                             </tr>
                                                                         </thead>
