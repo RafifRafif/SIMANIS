@@ -14,25 +14,60 @@ class BerandaController extends Controller
 {
     public function index(Request $request)
     {
-        // Ambil tahun pilihan
-        $tahun = $request->get('tahun', Evaluasi::max('tahun'));
+        // Ambil user login
+        $user = auth()->user();
+        $unitUser = $user->unit_kerja_id;
 
-        $konten = KontenBeranda::all();
-        $colors = HeatmapColor::all();
+        $roleFullAccess = ['p4m', 'manajemen', 'auditor'];
+        $isFullAccess = $user->hasAnyRole($roleFullAccess);
 
-        // Dropdown tahun
-        $daftarTahun = Evaluasi::select('tahun')
-            ->distinct()
+        // Kepala unit hanya berlaku jika TIDAK punya full access
+        $isKepalaUnitOnly = !$isFullAccess && $user->hasAnyRole(['kepala_unit']);
+
+        // Ambil daftar tahun sesuai role
+        $evaluasiTahunQuery = Evaluasi::select('tahun')->distinct();
+
+        if ($isKepalaUnitOnly) {
+            $evaluasiTahunQuery->whereHas('mitigasi.registrasi', function ($q) use ($unitUser) {
+                $q->where('unit_kerja_id', $unitUser);
+            });
+        }
+
+        $daftarTahun = $evaluasiTahunQuery
             ->orderBy('tahun', 'desc')
             ->pluck('tahun');
 
-        // Mengambil MITIGASI yang punya evaluasi di tahun itu
-        $mitigasiIds = Evaluasi::where('tahun', $tahun)
+        // Tentukan tahun default sesuai role
+        if ($isKepalaUnitOnly) {
+            $maxTahun = Evaluasi::whereHas('mitigasi.registrasi', function ($q) use ($unitUser) {
+                $q->where('unit_kerja_id', $unitUser);
+            })->max('tahun');
+        } else {
+            $maxTahun = Evaluasi::max('tahun');
+        }
+
+        $tahun = $request->get('tahun', $maxTahun);
+
+        // Ambil konten lain
+        $konten = KontenBeranda::all();
+        $colors = HeatmapColor::all();
+
+        // Ambil mitigasi berdasarkan role + tahun
+        $evaluasiQuery = Evaluasi::where('tahun', $tahun);
+
+        // Jika kepala unit → filter registrasi via relasi mitigasi → registrasi
+        if ($isKepalaUnitOnly) {
+            $evaluasiQuery->whereHas('mitigasi.registrasi', function ($q) use ($unitUser) {
+                $q->where('unit_kerja_id', $unitUser);
+            });
+        }
+
+        $mitigasiIds = $evaluasiQuery
             ->pluck('mitigasi_id')
             ->unique()
             ->toArray();
 
-        // Persiapan default semua data
+        // Default data kosong
         $probabilitasData = [
             'low' => 0,
             'medium' => 0,
@@ -44,6 +79,7 @@ class BerandaController extends Controller
         $evaluasi_menurun = 0;
         $evaluasi_meningkat = 0;
 
+        // Hitung probabilitas + status evaluasi
         if (!empty($mitigasiIds)) {
 
             // Mengambil registrasi berdasarkan mitigasi
@@ -54,7 +90,13 @@ class BerandaController extends Controller
 
             // Hitung Probabilitas Risiko
             if (!empty($registrasiIds)) {
-                $registrasiFiltered = Registrasi::whereIn('id_registrasi', $registrasiIds)->get();
+                $registrasiQuery = Registrasi::whereIn('id_registrasi', $registrasiIds);
+
+                if ($isKepalaUnitOnly) {
+                    $registrasiQuery->where('unit_kerja_id', $unitUser);
+                }
+
+                $registrasiFiltered = $registrasiQuery->get();
 
                 $total = $registrasiFiltered->count();
 
@@ -72,18 +114,26 @@ class BerandaController extends Controller
             }
 
             // Hitung Status Evaluasi per Mitigasi (tahun terpilih)
-            $mitigasiTahunIni = Mitigasi::with([
+            $mitigasiQuery = Mitigasi::with([
                 'evaluasis' => function ($q) use ($tahun) {
                     $q->where('tahun', $tahun);
                 }
-            ])->whereIn('id_mitigasi', $mitigasiIds)->get();
+            ])->whereIn('id_mitigasi', $mitigasiIds);
+
+            if ($isKepalaUnitOnly) {
+                $mitigasiQuery->whereHas('registrasi', function ($q) use ($unitUser) {
+                    $q->where('unit_kerja_id', $unitUser);
+                });
+            }
+
+            $mitigasiTahunIni = $mitigasiQuery->get();
 
             foreach ($mitigasiTahunIni as $m) {
 
                 // Ambil evaluasi terbaru berdasarkan triwulan (STRING tapi angka)
                 $last = $m->evaluasis
                     ->sortByDesc(function ($row) {
-                        return (int) $row->triwulan; 
+                        return (int) $row->triwulan;
                     })
                     ->first();
 
