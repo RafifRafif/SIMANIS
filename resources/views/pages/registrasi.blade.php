@@ -442,7 +442,6 @@
                     document.getElementById('edit-id').value = id;
 
                     document.getElementById('edit-unitkerja').value = this.getAttribute('data-unitkerja') || '';
-                    document.getElementById('edit-proses').value = this.getAttribute('data-proses') || '';
                     document.getElementById('edit-kategori').value = this.getAttribute('data-kategori') || '';
                     document.getElementById('edit-jenis').value = this.getAttribute('data-jenis') || '';
                     document.getElementById('edit-isurisiko').value = this.getAttribute('data-isuresiko') || '';

@@ -7,6 +7,8 @@
     @include('components.kelolaformregis.modal-tambah-formregis')
     @include('components.kelolaformregis.modal-edit-formregis')
     @include('components.kelolaformregis.modal-hapus-formregis')
+    @include('components.kelolaformregis.modal-tambah-formregis-prosesaktivitas')
+    @include('components.kelolaformregis.modal-edit-formregis-prosesaktivitas')
 @endpush
 
 @section('content')

@@ -10,6 +10,7 @@ use App\Models\ProsesAktivitas;
 use App\Models\KategoriRisiko;
 use App\Models\JenisRisiko;
 use App\Models\IkuTerkait;
+use Illuminate\Support\Facades\Auth;
 
 class KelolaRegisController extends Controller
 {
@@ -41,12 +42,15 @@ class KelolaRegisController extends Controller
             $q->where('nama_iku', 'like', "%$searchIku%");
         })->paginate(10);
 
+        $allUnitKerja = UnitKerja::all();
+
         return view('pages.kelola_regis', compact(
             'unitKerja',
             'prosesAktivitas',
             'kategoriRisiko',
             'jenisRisiko',
-            'ikuTerkait'
+            'ikuTerkait',
+            'allUnitKerja'
         ));
     }
 
@@ -110,36 +114,46 @@ class KelolaRegisController extends Controller
 
     public function storeProses(Request $request)
     {
-        $request->merge(['modal' => 'tambahProses']);
-        $request->validate([
-            'proses' => 'required|unique:proses_aktivitas,nama_proses',
-        ], [
-            'proses.required' => 'Proses/Aktivitas wajib diisi!',
-            'proses.unique' => 'Proses/Aktivitas sudah ada!',
-        ]);
+    $request->merge(['modal' => 'tambahProses']);
 
-        ProsesAktivitas::create(['nama_proses' => $request->proses]);
-        return redirect()->route('kelola_regis')->with('success', 'Proses/Aktivitas berhasil ditambahkan!');
+    $request->validate([
+        'proses' => 'required|unique:proses_aktivitas,nama_proses',
+        'unit_kerja_id' => 'required|exists:unit_kerja,id'
+    ]);
+
+    ProsesAktivitas::create([
+        'nama_proses' => $request->proses,
+        'unit_kerja_id' => $request->unit_kerja_id, // ✔ sekarang sesuai dropdown
+    ]);
+
+    return redirect()->route('kelola_regis')->with('success', 'Proses/Aktivitas berhasil ditambahkan!');
     }
+
 
     public function updateProses(Request $request, $id)
     {
-        // pastikan kita menyimpan penanda modal + id yang sedang diedit
+        // simpan penanda modal agar bisa muncul lagi jika error
         $request->merge([
             'modal' => 'editProses',
             'edit_id' => $id,
         ]);
-
+    
         $validated = $request->validate([
             'proses' => 'required|unique:proses_aktivitas,nama_proses,' . $id,
+            'unit_kerja_id' => 'required|exists:unit_kerja,id',
         ], [
             'proses.required' => 'Proses/Aktivitas wajib diisi!',
             'proses.unique' => 'Proses/Aktivitas sudah ada!',
+            'unit_kerja_id.required' => 'Unit Kerja wajib dipilih!',
+            'unit_kerja_id.exists' => 'Unit Kerja tidak valid!',
         ]);
-
+    
         $proses = ProsesAktivitas::findOrFail($id);
-        $proses->update(['nama_proses' => $validated['proses']]);
-
+        $proses->update([
+            'nama_proses' => $validated['proses'],
+            'unit_kerja_id' => $validated['unit_kerja_id'],
+        ]);
+    
         return redirect()->route('kelola_regis')->with('success', 'Proses/Aktivitas berhasil diubah!');
     }
 

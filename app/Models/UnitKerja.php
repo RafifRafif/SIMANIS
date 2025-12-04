@@ -20,4 +20,9 @@ class UnitKerja extends Model
         return $this->belongsToMany(User::class, 'auditor_unit', 'unit_id', 'auditor_id');
     }
 
+    public function prosesAktivitas()
+    {
+        return $this->hasMany(ProsesAktivitas::class, 'unit_kerja_id');
+    }
+
 }

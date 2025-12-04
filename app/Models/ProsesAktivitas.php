@@ -11,5 +11,11 @@ class ProsesAktivitas extends Model
 
     protected $table = 'proses_aktivitas';
     
-    protected $fillable = ['nama_proses'];
+    protected $fillable = ['nama_proses', 'unit_kerja_id'];
+
+    public function unitKerja()
+{
+    return $this->belongsTo(UnitKerja::class, 'unit_kerja_id');
+}
+
 }

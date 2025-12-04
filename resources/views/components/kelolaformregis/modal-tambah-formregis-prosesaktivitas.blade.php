@@ -27,6 +27,22 @@
                         @enderror
                     </div>
 
+                     <!-- Field Unit Kerja -->
+                     <div class="mb-3">
+                        <label for="unit_kerja_id" class="form-label">Unit Kerja</label>
+                        <select name="unit_kerja_id" class="form-control" required>
+                            <option value="">-- Pilih Unit Kerja --</option>
+                            @foreach ($allUnitKerja as $unit)
+                                <option value="{{ $unit->id }}">{{ $unit->nama_unit }}</option>
+                            @endforeach
+                        </select>
+                        
+                        
+                        @error('unit_kerja_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <button type="submit" class="btn btn-primary w-100">Simpan</button>
                 </div>
             </form>

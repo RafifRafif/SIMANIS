@@ -20,15 +20,21 @@
                     </div>
 
                     <!-- Proses/Aktivitas (Dropdown + Manual Input) -->
-                    <div class="mb-4">
-                        <label class="form-label">Proses/Aktifitas</label>
-                        <select name="proses_aktivitas_id" class="form-select" required>
-                            <option value="" selected disabled>Pilih Proses/Aktifitas</option>
-                            @foreach ($proses as $p)
-                                <option value="{{ $p->id }}">{{ $p->nama_proses }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <label class="form-label">Proses/Aktivitas</label>
+                    <select id="proses_aktivitas" name="proses_aktivitas_id" class="form-select">
+                        <option value="" disabled selected>-- Pilih Proses/Aktivitas --</option>
+                        <option value="manual">+ Tambah Proses Manual</option>
+                        @foreach ($proses as $p)
+                            <option value="{{ $p->id }}">{{ $p->nama_proses }}</option>
+                        @endforeach
+                    </select>
+
+                    <input type="text"
+                        id="proses_manual_input"
+                        name="proses_manual"
+                        class="form-control mt-2"
+                        placeholder="Masukkan proses baru"
+                        style="display:none;">
 
 
                     <!-- Kategori Risiko -->
@@ -136,3 +142,9 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('proses_aktivitas').addEventListener('change', function() {
+        let manual = document.getElementById('proses_manual_input');
+        manual.style.display = (this.value === 'manual') ? 'block' : 'none';
+    });
+    </script>

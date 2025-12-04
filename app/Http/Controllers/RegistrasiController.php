@@ -18,6 +18,7 @@ class RegistrasiController extends Controller
     public function index()
     {
         $userId = auth()->id(); // ambil id user yang sedang login
+        $userUnit = Auth::user()->unit_kerja_id;
 
         $registrasi = Registrasi::with(['unitKerja', 'prosesAktivitas', 'kategoriRisiko', 'jenisRisiko', 'ikuterkait'])
             ->where('user_id', $userId) // ✅ filter berdasarkan user
@@ -25,7 +26,7 @@ class RegistrasiController extends Controller
 
         // Ambil data dropdown untuk form tambah/edit
         $unitKerja = UnitKerja::all();
-        $proses = ProsesAktivitas::all();
+        $proses = ProsesAktivitas::where('unit_kerja_id', $userUnit)->get();
         $kategori = KategoriRisiko::all();
         $jenis = JenisRisiko::all();
         $iku = IkuTerkait::all();
@@ -38,7 +39,8 @@ class RegistrasiController extends Controller
     {
         $validated = $request->validate([
             'unit_kerja_id' => 'required',
-            'proses_aktivitas_id' => 'required', 
+            'proses_aktivitas_id' => 'required',
+            'proses_manual' => 'nullable|string|max:255', 
             'kategori_risiko_id' => 'required',
             'jenis_risiko_id' => 'required',
             'iku_terkait_id' => 'required',
@@ -51,6 +53,25 @@ class RegistrasiController extends Controller
             'keparahan' => 'required',
             'frekuensi' => 'required',
         ]);
+
+          // Handle proses manual vs dropdown
+          if ($request->proses_aktivitas_id === "manual") {
+
+            // Buat proses baru
+            $prosesBaru = ProsesAktivitas::create([
+                'nama_proses' => $request->proses_manual,
+                'unit_kerja_id' => $request->unit_kerja_id,
+
+            ]);
+            
+
+            // Pakai ID proses baru
+            $validated['proses_aktivitas_id'] = $prosesBaru->id;
+
+        } else {
+            // Dropdown normal
+            $validated['proses_aktivitas_id'] = $request->proses_aktivitas_id;
+        }
 
         // Matriks probabilitas
         $matrix = [
@@ -83,6 +104,7 @@ class RegistrasiController extends Controller
 
         $validated = $request->validate([
             'proses_aktivitas_id' => 'required',
+            'proses_manual' => 'nullable|string|max:255',
             'kategori_risiko_id' => 'required',
             'jenis_risiko_id' => 'required',
             'iku_terkait_id' => 'required',
@@ -97,6 +119,17 @@ class RegistrasiController extends Controller
         ]);
 
         $validated['unit_kerja_id'] = Auth::user()->unit_kerja_id;
+        if ($request->proses_aktivitas_id === "manual") {
+
+            $prosesBaru = ProsesAktivitas::firstOrCreate([
+                'nama_proses' => $request->proses_manual
+            ]);
+        
+            $validated['proses_aktivitas_id'] = $prosesBaru->id;
+        
+        } else {
+            $validated['proses_aktivitas_id'] = $request->proses_aktivitas_id;
+        }
 
 
         // hitung ulang probabilitas (biar sama kayak di store)

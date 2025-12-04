@@ -14,7 +14,7 @@
                         data-route="{{ route('formregis.import.proses') }}">
                         <i class="fa-solid fa-upload"></i> Import
                     </button>
-                    <button class="btn btn-primary fw-bold" data-bs-toggle="modal" data-bs-target="#modalTambahData"
+                    <button class="btn btn-primary fw-bold" data-bs-toggle="modal" data-bs-target="#tambahDataModalProsesAktivitas"
                         data-modal-type data-title="Tambah Proses / Aktivitas" data-route="{{ route('proses.store') }}"
                         data-field="proses" data-label="Proses / Aktivitas" data-modal="tambahProses">
                         <i class="fa-solid fa-plus me-1"></i>Tambah
@@ -35,6 +35,7 @@
                         <tr>
                             <th class="text-center">No</th>
                             <th>Proses/Aktivitas</th>
+                            <th>Unit Kerja</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -48,12 +49,15 @@
                                     {{ $prosesAktivitas->firstItem() + $index }}
                                 </td>
                                 <td>{{ $proses->nama_proses }}</td>
+                                <td>{{ $proses->unitKerja->nama_unit ?? '-' }}</td>
+
                                 <td class="centered">
-                                    <button class="btn btn-sm btn-primary btn-edit-universal" data-bs-toggle="modal"
-                                        data-bs-target="#modalEditUniversal" data-id="{{ $proses->id }}"
-                                        data-nama="{{ $proses->nama_proses }}" data-route="/proses/update"
-                                        data-title="Edit Proses / Aktivitas" data-field="Proses / Aktivitas"
-                                        data-fieldname="proses">
+                                    <button class="btn btn-sm btn-primary edit-proses-button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editDataModalProsesAktivitas"
+                                        data-id="{{ $proses->id }}"
+                                        data-nama="{{ $proses->nama_proses }}"
+                                        data-unit="{{ $proses->unit_kerja_id }}">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
                                     <button class="btn btn-danger btn-sm btn-delete-universal" data-bs-toggle="modal"

@@ -27,13 +27,25 @@
 
 
                     <div class="mb-4">
-                        <label class="form-label">Proses/Aktifitas</label>
-                        <select class="form-select" id="edit-proses" name="proses_aktivitas_id" required>
-                            <option value="" selected disabled>Pilih Proses/Aktifitas</option>
+                        <label class="form-label">Proses/Aktivitas</label>
+                        <select class="form-select" id="edit_proses_aktivitas" name="proses_aktivitas_id" required>
+                            <option value="" selected disabled>Pilih Proses/Aktivitas</option>
+                    
+                            <!-- Opsi untuk tambah manual -->
+                            <option value="manual">+ Tambah Proses Manual</option>
+                    
                             @foreach ($proses as $p)
                                 <option value="{{ $p->id }}">{{ $p->nama_proses }}</option>
                             @endforeach
                         </select>
+                    
+                        <!-- Input manual muncul kalau pilih "manual" -->
+                        <input type="text"
+                        class="form-control mt-2"
+                        id="edit_proses_manual_input"
+                        name="proses_manual"
+                        placeholder="Masukkan proses baru"
+                        style="display:none;">
                         </div>
 
 
@@ -134,3 +146,13 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('edit_proses_aktivitas').addEventListener('change', function () {
+        let manual = document.getElementById('edit_proses_manual_input');
+        manual.style.display = (this.value === 'manual') ? 'block' : 'none';
+    
+        if (this.value !== 'manual') {
+            manual.value = "";
+        }
+    });
+    </script>

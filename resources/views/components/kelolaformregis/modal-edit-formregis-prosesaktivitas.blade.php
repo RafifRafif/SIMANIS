@@ -24,6 +24,18 @@
                             </div>
                         @enderror
                     </div>
+                    <div class="mb-3">
+                        <label for="edit-unit-kerja" class="form-label">Unit Kerja</label>
+                        <select id="edit-unit-kerja" name="unit_kerja_id" class="form-control" required>
+                            @foreach ($allUnitKerja as $unit)
+                                <option value="{{ $unit->id }}">{{ $unit->nama_unit }}</option>
+                            @endforeach
+                        </select>
+                    
+                        @error('unit_kerja_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
 
                     <button type="submit" class="btn btn-primary w-100">Simpan</button>
                 </div>
@@ -46,12 +58,17 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.edit-proses-button').forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
+    
                 const id = this.dataset.id;
                 const nama = this.dataset.nama;
+                const unit = this.dataset.unit; // <── ambil unit_kerja_id
+    
                 document.getElementById('edit-proses').value = nama;
+                document.getElementById('edit-unit-kerja').value = unit;
+    
                 document.getElementById('editProsesForm').action = `/proses/update/${id}`;
             });
         });
     });
-</script>
+    </script>
