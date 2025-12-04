@@ -89,8 +89,4 @@ class Registrasi extends Model
         return $map[$this->keparahan] ?? null;
     }
 
-
-
-
-
 }

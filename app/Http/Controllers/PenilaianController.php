@@ -13,48 +13,77 @@ class PenilaianController extends Controller
 {
     public function index(Request $request)
     {
-        // Ambil semua unit kerja
-        $unitKerja = UnitKerja::all();
+        $user = auth()->user();
 
-        // Ambil semua tahun unik dari mitigasi
-        $tahunList = Evaluasi::select('tahun')
-            ->distinct()
-            ->orderBy('tahun', 'desc')
-            ->pluck('tahun');
+        // Status role
+        $isAuditor = str_contains(strtolower($user->role), 'auditor');
+        $isP4M = str_contains(strtolower($user->role), 'p4m');
 
-        // Query dasar
+        // Query awal
         $query = Registrasi::with([
             'unitKerja',
-            'prosesAktivitas',
-            'kategoriRisiko',
-            'jenisRisiko',
-            'ikuTerkait',
             'mitigasis.evaluasis.penilaian',
-            'mitigasis.evaluasis'
-        ])
+        ]);
 
-        ->where('status_registrasi', 'Terverifikasi')
-        ->whereHas('mitigasis');
+        //   FILTER UNTUK AUDITOR
+        if ($isAuditor && !$isP4M) {
 
-        // Filter berdasarkan Unit Kerja (kalau dipilih)
-        if ($request->filled('unit_kerja_id')) {
+            $allowedUnits = $user->auditorUnits->pluck('id')->toArray();
+
+            if (empty($allowedUnits)) {
+                $query->whereNull('id_registrasi'); // menghasilkan data kosong
+            } else {
+                $query->whereIn('unit_kerja_id', $allowedUnits);
+            }
+
+            $unitKerja = $user->auditorUnits;
+
+        } else {
+            $unitKerja = UnitKerja::all();
+        }
+
+        //   FILTER DARI DROPDOWN
+        if ($request->unit_kerja_id) {
             $query->where('unit_kerja_id', $request->unit_kerja_id);
         }
 
-        // Filter berdasarkan Tahun (kalau dipilih)
-        if ($request->filled('tahun')) {
+        if ($request->tahun) {
             $query->whereHas('mitigasis.evaluasis', function ($q) use ($request) {
                 $q->where('tahun', $request->tahun);
             });
         }
 
-        // Ambil hasil
         $registrasis = $query->get();
 
-        // Kirim ke view
-        return view('pages.penilaian', compact('registrasis', 'unitKerja', 'tahunList'));
-    }
+        //   DROPDOWN TAHUN
+        // DROPDOWN TAHUN (sumber: evaluasi)
+        if ($isAuditor && !$isP4M) {
 
+            $tahunList = Evaluasi::whereHas('mitigasi.registrasi', function ($q) use ($allowedUnits) {
+                $q->whereIn('unit_kerja_id', $allowedUnits);
+            })
+                ->select('tahun')
+                ->distinct()
+                ->orderBy('tahun', 'desc')
+                ->pluck('tahun');
+
+        } else {
+
+            $tahunList = Evaluasi::select('tahun')
+                ->distinct()
+                ->orderBy('tahun', 'desc')
+                ->pluck('tahun');
+        }
+
+
+        return view('pages.penilaian', [
+            'registrasis' => $registrasis,
+            'unitKerja' => $unitKerja,
+            'tahunList' => $tahunList,
+            'unitDipilih' => $request->unit_kerja_id,
+            'tahunDipilih' => $request->tahun,
+        ]);
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -62,9 +91,29 @@ class PenilaianController extends Controller
             'uraian' => 'nullable|string'
         ]);
 
+        $user = auth()->user();
+        $isAuditor = str_contains(strtolower($user->role), 'auditor');
+        $isP4M = str_contains(strtolower($user->role), 'p4m');
+
+        // Ambil evaluasi terkait
         $evaluasi = Evaluasi::findOrFail($request->evaluasi_id);
+
+        // Cari unit dari registrasi
+        $unitID = $evaluasi->mitigasi->registrasi->unit_kerja_id;
+
+        // BLOKIR AUDITOR YANG TIDAK BERHAK 
+        if ($isAuditor && !$isP4M) {
+            $allowedUnits = $user->auditorUnits->pluck('id')->toArray();
+
+            if (!in_array($unitID, $allowedUnits)) {
+                return back()->with('error', 'Anda tidak memiliki akses menilai unit ini.');
+            }
+        }
+
+        // Buat nilai triwulan-tahun
         $triwulanTahun = $evaluasi->triwulan . '-' . $evaluasi->tahun;
 
+        // Simpan ke database
         Penilaian::create([
             'evaluasi_id' => $evaluasi->id_evaluasi,
             'triwulan_tahun' => $triwulanTahun,
@@ -81,7 +130,25 @@ class PenilaianController extends Controller
             'uraian' => 'nullable|string'
         ]);
 
+        $user = auth()->user();
+        $isAuditor = str_contains(strtolower($user->role), 'auditor');
+        $isP4M = str_contains(strtolower($user->role), 'p4m');
+
+        // Ambil penilaian
         $penilaian = Penilaian::findOrFail($request->id_penilaian);
+
+        // Ambil unit dari registrasi
+        $unitID = $penilaian->evaluasi->mitigasi->registrasi->unit_kerja_id;
+
+        // AUDITOR TIDAK BOLEH UPDATE UNIT YANG TIDAK MASUK PEMETAAN
+        if ($isAuditor && !$isP4M) {
+            $allowed = $user->auditorUnits->pluck('id')->toArray();
+
+            if (!in_array($unitID, $allowed)) {
+                return back()->with('error', 'Anda tidak memiliki akses mengedit review ini.');
+            }
+        }
+
         $penilaian->update([
             'uraian' => $request->uraian
         ]);
@@ -91,7 +158,24 @@ class PenilaianController extends Controller
 
     public function destroy($id)
     {
+        $user = auth()->user();
+        $isAuditor = str_contains(strtolower($user->role), 'auditor');
+        $isP4M = str_contains(strtolower($user->role), 'p4m');
+
         $penilaian = Penilaian::findOrFail($id);
+
+        // Ambil unit dari registrasi
+        $unitID = $penilaian->evaluasi->mitigasi->registrasi->unit_kerja_id;
+
+        // AUDITOR TIDAK BOLEH DELETE UNIT YANG TIDAK MASUK PEMETAAN
+        if ($isAuditor && !$isP4M) {
+            $allowed = $user->auditorUnits->pluck('id')->toArray();
+
+            if (!in_array($unitID, $allowed)) {
+                return back()->with('error', 'Anda tidak memiliki akses menghapus review ini.');
+            }
+        }
+
         $penilaian->delete();
 
         return redirect()->back()->with('success', 'Review auditor berhasil dihapus!');

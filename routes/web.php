@@ -123,3 +123,14 @@ use App\Http\Controllers\EvaluasiController;
 Route::post('/evaluasi', [EvaluasiController::class, 'store'])->name('evaluasi.store');
 Route::put('/evaluasi/{id}', [EvaluasiController::class, 'update'])->name('evaluasi.update');
 Route::delete('/evaluasi/{id}', [EvaluasiController::class, 'destroy'])->name('evaluasi.destroy');
+
+use App\Http\Controllers\PemetaanAuditorController;
+
+Route::middleware(['auth', 'role:p4m'])->group(function () {
+    Route::get('/pemetaan_auditor', 
+        [PemetaanAuditorController::class, 'index'])->name('pemetaan_auditor');
+    Route::post('/pemetaan_auditor/store', 
+        [PemetaanAuditorController::class, 'store'])->name('pemetaan_auditor.store');
+    Route::delete('/pemetaan_auditor/delete_all/{auditor_id}',
+    [PemetaanAuditorController::class, 'deleteAll'])->name('pemetaan_auditor.delete_all');
+});

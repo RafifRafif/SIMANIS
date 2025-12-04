@@ -54,4 +54,9 @@ class User extends Authenticatable
 
         return (bool) array_intersect($userRoles, $roles);
     }
+    
+    public function auditorUnits()
+    {
+        return $this->belongsToMany(UnitKerja::class, 'auditor_unit', 'auditor_id', 'unit_id');
+    }
 }

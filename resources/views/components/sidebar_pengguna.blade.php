@@ -60,6 +60,11 @@
         <a href="{{ route('kelola_pengguna') }}" class="{{ Route::is('kelola_pengguna*') ? 'active' : '' }}">
             <i class="fa-solid fa-users"></i> Kelola Pengguna
         </a>
+        
+        <a href="{{ route('pemetaan_auditor') }}" class="{{ Route::is('pemetaan_auditor*') ? 'active' : '' }}">
+            <i class="fa-solid fa-sitemap"></i> Pemetaan Auditor
+        </a>
+        
     @endif
 
     {{-- MENU AUDITOR --}}

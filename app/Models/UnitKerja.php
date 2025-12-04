@@ -14,4 +14,10 @@ class UnitKerja extends Model
     protected $fillable = [
         'nama_unit'
     ];
+
+    public function auditorList()
+    {
+        return $this->belongsToMany(User::class, 'auditor_unit', 'unit_id', 'auditor_id');
+    }
+
 }
