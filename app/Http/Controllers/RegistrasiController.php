@@ -60,9 +60,9 @@ class RegistrasiController extends Controller
             // Buat proses baru
             $prosesBaru = ProsesAktivitas::create([
                 'nama_proses' => $request->proses_manual,
-                'unit_kerja_id' => $request->unit_kerja_id,
-
+                'unit_kerja_id' => Auth::user()->unit_kerja_id,
             ]);
+            
             
 
             // Pakai ID proses baru
@@ -121,9 +121,11 @@ class RegistrasiController extends Controller
         $validated['unit_kerja_id'] = Auth::user()->unit_kerja_id;
         if ($request->proses_aktivitas_id === "manual") {
 
-            $prosesBaru = ProsesAktivitas::firstOrCreate([
-                'nama_proses' => $request->proses_manual
+            $prosesBaru = ProsesAktivitas::create([
+                'nama_proses' => $request->proses_manual,
+                'unit_kerja_id' => Auth::user()->unit_kerja_id,
             ]);
+            
         
             $validated['proses_aktivitas_id'] = $prosesBaru->id;
         
