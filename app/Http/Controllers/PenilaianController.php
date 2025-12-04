@@ -26,20 +26,27 @@ class PenilaianController extends Controller
         ]);
 
         //   FILTER UNTUK AUDITOR
-        if ($isAuditor && !$isP4M) {
+        if ($isAuditor) {
 
             $allowedUnits = $user->auditorUnits->pluck('id')->toArray();
 
             if (empty($allowedUnits)) {
-                $query->whereNull('id_registrasi'); // menghasilkan data kosong
+                $query->whereNull('id_registrasi');
             } else {
                 $query->whereIn('unit_kerja_id', $allowedUnits);
             }
 
             $unitKerja = $user->auditorUnits;
+        }
+        // P4M SAJA
+        else if ($isP4M) {
 
-        } else {
             $unitKerja = UnitKerja::all();
+        }
+        // Role lain (manajemen/kepala unit)
+        else {
+
+            $unitKerja = collect(); // atau batasi
         }
 
         //   FILTER DARI DROPDOWN
@@ -56,8 +63,7 @@ class PenilaianController extends Controller
         $registrasis = $query->get();
 
         //   DROPDOWN TAHUN
-        // DROPDOWN TAHUN (sumber: evaluasi)
-        if ($isAuditor && !$isP4M) {
+        if ($isAuditor) {
 
             $tahunList = Evaluasi::whereHas('mitigasi.registrasi', function ($q) use ($allowedUnits) {
                 $q->whereIn('unit_kerja_id', $allowedUnits);
@@ -102,7 +108,7 @@ class PenilaianController extends Controller
         $unitID = $evaluasi->mitigasi->registrasi->unit_kerja_id;
 
         // BLOKIR AUDITOR YANG TIDAK BERHAK 
-        if ($isAuditor && !$isP4M) {
+        if ($isAuditor) {
             $allowedUnits = $user->auditorUnits->pluck('id')->toArray();
 
             if (!in_array($unitID, $allowedUnits)) {
@@ -141,7 +147,7 @@ class PenilaianController extends Controller
         $unitID = $penilaian->evaluasi->mitigasi->registrasi->unit_kerja_id;
 
         // AUDITOR TIDAK BOLEH UPDATE UNIT YANG TIDAK MASUK PEMETAAN
-        if ($isAuditor && !$isP4M) {
+        if ($isAuditor) {
             $allowed = $user->auditorUnits->pluck('id')->toArray();
 
             if (!in_array($unitID, $allowed)) {
@@ -168,7 +174,7 @@ class PenilaianController extends Controller
         $unitID = $penilaian->evaluasi->mitigasi->registrasi->unit_kerja_id;
 
         // AUDITOR TIDAK BOLEH DELETE UNIT YANG TIDAK MASUK PEMETAAN
-        if ($isAuditor && !$isP4M) {
+        if ($isAuditor) {
             $allowed = $user->auditorUnits->pluck('id')->toArray();
 
             if (!in_array($unitID, $allowed)) {

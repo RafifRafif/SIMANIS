@@ -67,7 +67,8 @@ class KelolaPenggunaController extends Controller
         if (!$unitId) {
             $valid = ($roles === ['auditor'] || (count($roles) === 1 && in_array('auditor', $roles)));
         } elseif (strpos($unitName, 'p4m') !== false) {
-            $valid = (in_array('p4m', $roles) && count($roles) === 1);
+            $allowed = ['p4m', 'auditor'];
+            $valid = empty(array_diff($roles, $allowed));
         } elseif (strpos($unitName, 'manajemen') !== false) {
             $valid = (in_array('manajemen', $roles) && count($roles) === 1);
         } else {

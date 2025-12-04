@@ -72,62 +72,66 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+
         const editButtons = document.querySelectorAll('.edit-button');
         const editForm = document.getElementById('editForm');
         const unitSelect = document.getElementById('edit-unit');
-        const roleSelect = document.getElementById('edit-role');
+        const roleCheckboxes = Array.from(
+            document.querySelectorAll('#editDataModal .role-checkbox')
+        );
 
-        // Fungsi helper untuk aktif/nonaktif role sesuai unit
-        function setRoleOptions(allowedValues) {
-            Array.from(roleSelect.options).forEach(opt => {
-                if (!opt.value) return;
-                opt.disabled = !allowedValues.includes(opt.value);
+        function setRoleCheckboxes(allowedValues) {
+            roleCheckboxes.forEach(cb => {
+                const allowed = allowedValues.includes(cb.value);
+                cb.disabled = !allowed;
+
+                if (!allowed && cb.checked) cb.checked = false;
             });
-            if (roleSelect.selectedOptions.length > 0 && roleSelect.selectedOptions[0].disabled) {
-                roleSelect.value = '';
-            }
         }
 
-        // Mapping unit ke role
         function allowedRolesForUnit(unitName) {
             if (!unitName) return ['auditor'];
+
             const name = unitName.toLowerCase();
-            if (name.includes('p4m')) return ['p4m'];
+
+            if (name.includes('p4m')) return ['p4m', 'auditor'];     // <--- PERUBAHAN DI SINI
             if (name.includes('manajemen')) return ['manajemen'];
+
             return ['kepala_unit', 'auditor'];
         }
 
         editButtons.forEach(button => {
             button.addEventListener('click', function () {
+
                 const id = this.getAttribute('data-id');
                 const nik = this.getAttribute('data-nik');
                 const nama = this.getAttribute('data-nama');
                 const unit = this.getAttribute('data-unit');
-                const role = this.getAttribute('data-role'); // ex: "kepala_unit,auditor" or "auditor"
+                const role = this.getAttribute('data-role');
 
-                // Isi form action etc
                 editForm.action = `/kelola_pengguna/update/${id}`;
                 document.getElementById('edit-nik').value = nik;
                 document.getElementById('edit-nama').value = nama;
                 document.getElementById('edit-unit').value = unit ?? '';
 
-                // set checkboxes: uncheck all then check matching ones
                 const rolesToCheck = role ? role.split(',').map(r => r.trim()) : [];
-                document.querySelectorAll('#edit-role input.role-checkbox').forEach(cb => {
+
+                roleCheckboxes.forEach(cb => {
                     cb.checked = rolesToCheck.includes(cb.value);
                 });
 
-                // run logic role enable/disable based on selected unit text
-                const selectedText = unitSelect.options[unitSelect.selectedIndex]?.text || '';
-                setRoleOptions(allowedRolesForUnit(selectedText));
+                const selectedText =
+                    unitSelect.options[unitSelect.selectedIndex]?.text || '';
+
+                setRoleCheckboxes(allowedRolesForUnit(selectedText));
             });
         });
-        ;
 
-        // Update role saat unit diubah di modal edit
         unitSelect.addEventListener('change', function () {
-            const selectedText = this.options[this.selectedIndex]?.text || '';
-            setRoleOptions(allowedRolesForUnit(selectedText));
+            const selectedText =
+                this.options[this.selectedIndex]?.text || '';
+
+            setRoleCheckboxes(allowedRolesForUnit(selectedText));
         });
     });
 </script>
