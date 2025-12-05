@@ -22,7 +22,41 @@
                 <i class="fa-solid fa-ellipsis-vertical fs-6"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                <li class="dropdown-header fw-bold text-muted">{{ Auth::user()->name }}</li>
+                <li class="dropdown-header fw-bold text-muted">
+                    {{ Auth::user()->name }}
+                    @php
+                        $user = Auth::user();
+                        $roles = explode(',', $user->role);
+                        $roles = array_map('trim', $roles);
+
+                        $isAuditor = in_array('auditor', $roles);
+                        $isKepalaUnit = in_array('kepala_unit', $roles);
+                        $isP4m = in_array('p4m', $roles);
+                        $isManajemen = in_array('manajemen', $roles);
+
+                        $unitText = '-';
+
+                        if ($isAuditor && count($roles) === 1) {
+                            // Auditor saja
+                            $unitText = 'Auditor';
+                        } elseif ($isP4m) {
+                            // Role P4M = unit kerja P4M
+                            $unitText = $user->unitKerja->nama_unit ?? 'P4M';
+                        } elseif ($isManajemen) {
+                            // Role Manajemen
+                            $unitText = $user->unitKerja->nama_unit ?? 'Manajemen';
+                        } elseif ($isKepalaUnit && !$isAuditor) {
+                            // Kepala unit saja
+                            $unitText = $user->unitKerja->nama_unit ?? '-';
+                        } elseif ($isKepalaUnit && $isAuditor) {
+                            // Kepala unit + auditor
+                            $unitText = ($user->unitKerja->nama_unit ?? '-') . ' — Auditor';
+                        }
+                    @endphp
+                    <div class="small text-secondary">
+                        {{ $unitText }}
+                    </div>
+                </li>
                 <li>
                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ubahSandiModal">
                         <i class="fa-solid fa-key"></i> Ubah Sandi
@@ -33,7 +67,6 @@
                         <i class="fa-solid fa-right-from-bracket"></i> Keluar
                     </a>
                 </li>
-
             </ul>
         </div>
     </div>
