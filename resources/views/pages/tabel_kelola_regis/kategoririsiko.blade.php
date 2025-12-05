@@ -12,7 +12,7 @@
                      <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
                          data-bs-target="#importDataModal" data-template="{{ asset('template/kategori_risiko.xlsx') }}"
                          data-route="{{ route('formregis.import.kategori') }}">
-                         <i class="fa-solid fa-upload"></i> Import
+                         <i class="fa-solid fa-upload"></i> Impor
                      </button>
                      <button class="btn btn-primary fw-bold" data-bs-toggle="modal" data-bs-target="#modalTambahData"
                          data-modal-type data-title="Tambah Kategori Risiko" data-route="{{ route('kategori.store') }}"

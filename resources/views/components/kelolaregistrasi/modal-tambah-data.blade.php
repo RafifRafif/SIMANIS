@@ -20,6 +20,7 @@
                     </div>
 
                     <!-- Proses/Aktivitas (Dropdown + Manual Input) -->
+                    <div class="mb-4">
                     <label class="form-label">Proses/Aktivitas</label>
                     <select id="proses_aktivitas" name="proses_aktivitas_id" class="form-select">
                         <option value="" disabled selected>-- Pilih Proses/Aktivitas --</option>
@@ -35,6 +36,7 @@
                         class="form-control mt-2"
                         placeholder="Masukkan proses baru"
                         style="display:none;">
+                    </div>
 
 
                     <!-- Kategori Risiko -->

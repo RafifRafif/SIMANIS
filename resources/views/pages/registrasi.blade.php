@@ -35,7 +35,7 @@
         <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
             data-bs-target="#importRegistrasiModal" data-template="{{ asset('template/isu_risiko.xlsx') }}"
             data-route="{{ route('registrasi.import') }}">
-            <i class="fa-solid fa-upload"></i> Import
+            <i class="fa-solid fa-upload"></i> Impor
         </button>
         {{-- Tombol Tambah Registrasi --}}
         <button class="btn btn-primary fw-bold" data-bs-toggle="modal" data-bs-target="#tambahDataModal">
