@@ -9,22 +9,17 @@ use App\Models\Registrasi;
 use App\Models\Mitigasi;
 use App\Models\Penilaian;
 use App\Models\Evaluasi;
+use App\Models\UnitKerja;
 
 class BerandaController extends Controller
 {
     public function index(Request $request)
     {
-        // Ambil user login
         $user = auth()->user();
         $unitUser = $user->unit_kerja_id;
-
         $roleFullAccess = ['p4m', 'manajemen', 'auditor'];
         $isFullAccess = $user->hasAnyRole($roleFullAccess);
-
-        // Kepala unit hanya berlaku jika TIDAK punya full access
         $isKepalaUnitOnly = !$isFullAccess && $user->hasAnyRole(['kepala_unit']);
-
-        // Ambil daftar tahun sesuai role
         $evaluasiTahunQuery = Evaluasi::select('tahun')->distinct();
 
         if ($isKepalaUnitOnly) {
@@ -37,7 +32,6 @@ class BerandaController extends Controller
             ->orderBy('tahun', 'desc')
             ->pluck('tahun');
 
-        // Tentukan tahun default sesuai role
         if ($isKepalaUnitOnly) {
             $maxTahun = Evaluasi::whereHas('mitigasi.registrasi', function ($q) use ($unitUser) {
                 $q->where('unit_kerja_id', $unitUser);
@@ -55,7 +49,6 @@ class BerandaController extends Controller
         // Ambil mitigasi berdasarkan role + tahun
         $evaluasiQuery = Evaluasi::where('tahun', $tahun);
 
-        // Jika kepala unit → filter registrasi via relasi mitigasi → registrasi
         if ($isKepalaUnitOnly) {
             $evaluasiQuery->whereHas('mitigasi.registrasi', function ($q) use ($unitUser) {
                 $q->where('unit_kerja_id', $unitUser);
@@ -67,7 +60,6 @@ class BerandaController extends Controller
             ->unique()
             ->toArray();
 
-        // Default data kosong
         $probabilitasData = [
             'low' => 0,
             'medium' => 0,
@@ -138,7 +130,7 @@ class BerandaController extends Controller
                     ->first();
 
                 if ($last) {
-                    $status = strtolower(trim($last->status_pelaksanaan)); // normalize
+                    $status = strtolower(trim($last->status_pelaksanaan)); 
 
                     if ($status === 'closed') {
                         $evaluasi_closed++;
@@ -151,6 +143,31 @@ class BerandaController extends Controller
             }
         }
 
+        $allUnits = UnitKerja::orderBy('nama_unit')->get();
+
+        // DROPDOWN TAHUN UNTUK REGISTRASI
+        $daftarTahunRegistrasi = Registrasi::selectRaw('YEAR(created_at) as tahun')
+            ->distinct()
+            ->orderBy('tahun', 'desc')
+            ->pluck('tahun');
+
+        // Default → tahun terbaru dari registrasi
+        $tahunRegistrasi = $request->get('tahun_registrasi', $daftarTahunRegistrasi->first());
+
+        // Ambil unit yang punya registrasi
+        $unitsSudahIsi = UnitKerja::whereIn('id', function ($q) use ($tahunRegistrasi) {
+            $q->select('unit_kerja_id')
+                ->from('registrasi')
+                ->whereYear('created_at', $tahunRegistrasi);
+        })->orderBy('nama_unit')->get();
+
+        // Unit yang belum isi = semua unit MINUS unit yang sudah isi
+        $unitsBelumIsi = $allUnits->whereNotIn('id', $unitsSudahIsi->pluck('id'));
+
+        // Hitung jumlah
+        $jumlahSudahIsi = $unitsSudahIsi->count();
+        $jumlahBelumIsi = $unitsBelumIsi->count();
+
         return view('pages.beranda', compact(
             'konten',
             'colors',
@@ -159,8 +176,13 @@ class BerandaController extends Controller
             'daftarTahun',
             'evaluasi_closed',
             'evaluasi_menurun',
-            'evaluasi_meningkat'
+            'evaluasi_meningkat',
+            'jumlahSudahIsi',
+            'jumlahBelumIsi',
+            'unitsSudahIsi',
+            'unitsBelumIsi',
+            'daftarTahunRegistrasi',
+            'tahunRegistrasi'
         ));
     }
-
 }
