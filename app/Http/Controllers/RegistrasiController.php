@@ -9,7 +9,8 @@ use App\Models\UnitKerja;
 use App\Models\ProsesAktivitas;
 use App\Models\KategoriRisiko;
 use App\Models\JenisRisiko;
-use App\Models\Iku;
+use App\Imports\RegistrasiImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 
 class RegistrasiController extends Controller
@@ -21,7 +22,7 @@ class RegistrasiController extends Controller
         $userUnit = Auth::user()->unit_kerja_id;
 
         $registrasi = Registrasi::with(['unitKerja', 'prosesAktivitas', 'kategoriRisiko', 'jenisRisiko', 'ikuterkait'])
-            ->where('user_id', $userId) // ✅ filter berdasarkan user
+            ->where('user_id', $userId) // filter berdasarkan user
             ->get();
 
         // Ambil data dropdown untuk form tambah/edit
@@ -159,5 +160,18 @@ class RegistrasiController extends Controller
         $registrasi->delete();
 
         return redirect()->route('registrasi.index')->with('success', 'Data registrasi berhasil dihapus!');
+    }
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv'
+        ]);
+
+        try {
+            Excel::import(new \App\Imports\RegistrasiImport, $request->file('file'));
+            return redirect()->route('registrasi.index')->with('success', 'Isu/Risiko Berhasil Diimport!');
+        } catch (\Exception $e) {
+            return redirect()->route('registrasi.index')->with('error', 'Isu/Risiko Gagal Diimport!: ' . $e->getMessage());
+        }
     }
 }

@@ -3,15 +3,20 @@
 @section('title', 'Registrasi')
 
 @push('modals')
+    {{-- Registrasi --}}
     @include('components.kelolaregistrasi.modal-tambah-data')
     @include('components.kelolaregistrasi.modal-edit-data')
     @include('components.kelolaregistrasi.modal-hapus-data')
+    @include('components.kelolaregistrasi.modal-import-data')
+    {{-- Mitigasi --}}
     @include('components.kelolamitigasi.tambah-mitigasi')
     @include('components.kelolamitigasi.edit-mitigasi')
     @include('components.kelolamitigasi.hapus-mitigasi')
+    {{-- Penilaian --}}
     @include('components.kelolapenilaian.modal-tambah-penilaian')
     @include('components.kelolapenilaian.modal-edit-penilaian')
     @include('components.kelolapenilaian.modal-hapus-penilaian')
+    {{-- Evaluasi --}}
     @include('components.kelolaevaluasi.modal-tambah-evaluasi')
     @include('components.kelolaevaluasi.modal-hapus-evaluasi')
     @include('components.kelolaevaluasi.modal-edit-evaluasi')
@@ -25,9 +30,15 @@
         Unit Kerja: <span style="color: #1E376C;">{{ Auth::user()->unitKerja->nama_unit ?? '-' }}</span>
     </h6>
 
-    <!-- Pencarian dan Dropdown -->
-    <div class="d-flex gap-2">
-        <button class="btn btn-primary fw-bold ms-auto" data-bs-toggle="modal" data-bs-target="#tambahDataModal">
+    <div class="d-flex gap-2 justify-content-end">
+        {{-- Tombol Import Registrasi --}}
+        <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
+            data-bs-target="#importRegistrasiModal" data-template="{{ asset('template/isu_risiko.xlsx') }}"
+            data-route="{{ route('registrasi.import') }}">
+            <i class="fa-solid fa-upload"></i> Import
+        </button>
+        {{-- Tombol Tambah Registrasi --}}
+        <button class="btn btn-primary fw-bold" data-bs-toggle="modal" data-bs-target="#tambahDataModal">
             <i class="fa-solid fa-plus"></i> Tambah
         </button>
     </div>
@@ -94,22 +105,26 @@
                                 <td>{{ $item->status_registrasi }}</td>
                                 <td class="text-center align-middle">
                                     <div class="d-flex justify-content-center gap-1">
-                                        <button class="btn btn-sm btn-primary edit-button" data-id="{{ $item->id_registrasi }}"
+                                        <button class="btn btn-sm btn-primary edit-button"
+                                            data-id="{{ $item->id_registrasi }}"
                                             data-unitkerja="{{ $item->unit_kerja_id }}"
                                             data-proses="{{ $item->proses_aktivitas_id }}"
                                             data-kategori="{{ $item->kategori_risiko_id }}"
-                                            data-jenis="{{ $item->jenis_risiko_id }}" data-isuresiko="{{ $item->isu_resiko }}"
-                                            data-jenisisu="{{ $item->jenis_isu }}" data-akar="{{ $item->akar_permasalahan }}"
-                                            data-dampak="{{ $item->dampak }}" data-iku="{{ $item->iku_terkait_id }}"
-                                            data-pihak="{{ $item->pihak_terkait }}"
+                                            data-jenis="{{ $item->jenis_risiko_id }}"
+                                            data-isuresiko="{{ $item->isu_resiko }}"
+                                            data-jenisisu="{{ $item->jenis_isu }}"
+                                            data-akar="{{ $item->akar_permasalahan }}" data-dampak="{{ $item->dampak }}"
+                                            data-iku="{{ $item->iku_terkait_id }}" data-pihak="{{ $item->pihak_terkait }}"
                                             data-kontrol="{{ $item->kontrol_pencegahan }}"
-                                            data-keparahan="{{ $item->keparahan }}" data-frekuensi="{{ $item->frekuensi }}"
+                                            data-keparahan="{{ $item->keparahan }}"
+                                            data-frekuensi="{{ $item->frekuensi }}"
                                             data-probabilitas="{{ $item->probabilitas }}" data-bs-toggle="modal"
                                             data-bs-target="#editDataModal">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-danger delete-registrasi-button" data-bs-toggle="modal"
-                                            data-bs-target="#hapusRegistrasiModal" data-id="{{ $item->id_registrasi }}">
+                                        <button class="btn btn-sm btn-danger delete-registrasi-button"
+                                            data-bs-toggle="modal" data-bs-target="#hapusRegistrasiModal"
+                                            data-id="{{ $item->id_registrasi }}">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </div>
@@ -129,17 +144,14 @@
                                                 <button class="btn btn-secondary fw-bold" disabled>
                                                     <i class="fa-solid fa-lock"></i> Menunggu Verifikasi
                                                 </button>
-
                                             @elseif ($sudahAdaMitigasi)
                                                 <button class="btn btn-secondary fw-bold" disabled>
                                                     <i class="fa-solid fa-lock"></i> Mitigasi Sudah Ada
                                                 </button>
-
                                             @else
-                                                <button class="btn btn-primary fw-bold" 
-                                                    data-bs-toggle="modal"
+                                                <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
                                                     data-bs-target="#tambahDataMitigasiModal"
-                                                    data-regid="{{ $item->id_registrasi }}" 
+                                                    data-regid="{{ $item->id_registrasi }}"
                                                     data-isurisiko="{{ $item->isu_resiko }}"
                                                     data-triwulan="{{ $item->mitigasis->pluck('triwulan')->implode(',') }}">
                                                     <i class="fa-solid fa-plus"></i> Tambah Mitigasi
@@ -161,12 +173,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @if($item->mitigasis && $item->mitigasis->count())
-                                                    @foreach($item->mitigasis as $m)
+                                                @if ($item->mitigasis && $item->mitigasis->count())
+                                                    @foreach ($item->mitigasis as $m)
                                                         <tr>
                                                             <td>{{ $m->isurisiko }}</td>
                                                             <td>{{ $m->rencana_aksi }}</td>
-                                                            <td>{{ $m->tanggal_pelaksanaan ? \Carbon\Carbon::parse($m->tanggal_pelaksanaan)->format('d M Y') : '-' }}</td>
+                                                            <td>{{ $m->tanggal_pelaksanaan ? \Carbon\Carbon::parse($m->tanggal_pelaksanaan)->format('d M Y') : '-' }}
+                                                            </td>
                                                             <td class="text-center align-middle">
                                                                 <div class="d-flex justify-content-center gap-1">
                                                                     <button class="btn btn-sm btn-primary edit-mitigasi"
@@ -174,12 +187,15 @@
                                                                         data-isurisiko="{{ $m->isurisiko }}"
                                                                         data-rencana="{{ $m->rencana_aksi }}"
                                                                         data-tanggal="{{ $m->tanggal_pelaksanaan }}"
-                                                                        data-bs-toggle="modal" data-bs-target="#editDataMitigasiModal">
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#editDataMitigasiModal">
                                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                                     </button>
 
-                                                                    <button class="btn btn-sm btn-danger delete-mitigasi-button"
-                                                                        data-bs-toggle="modal" data-bs-target="#hapusMitigasiModal"
+                                                                    <button
+                                                                        class="btn btn-sm btn-danger delete-mitigasi-button"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#hapusMitigasiModal"
                                                                         data-id="{{ $m->id_mitigasi }}">
                                                                         <i class="fa-solid fa-trash"></i>
                                                                     </button>
@@ -191,51 +207,64 @@
                                                         {{-- Tabel Evaluasi --}}
                                                         @php
                                                             $evaluasiTerakhir = $m->evaluasis
-                                                                ->sortByDesc(fn($e) => ($e->tahun ?? 0) * 10 + ($e->triwulan ?? 0))
+                                                                ->sortByDesc(
+                                                                    fn($e) => ($e->tahun ?? 0) * 10 +
+                                                                        ($e->triwulan ?? 0),
+                                                                )
                                                                 ->first();
 
-                                                            $statusTerakhir = $evaluasiTerakhir->status_pelaksanaan ?? null;
+                                                            $statusTerakhir =
+                                                                $evaluasiTerakhir->status_pelaksanaan ?? null;
                                                             $triwulanTerakhir = $evaluasiTerakhir->triwulan ?? null;
 
                                                             $triwulanAda = $m->evaluasis->pluck('triwulan')->toArray();
-                                                            $semuaTriwulanTerisi = in_array(1, $triwulanAda) &&
-                                                                                in_array(2, $triwulanAda) &&
-                                                                                in_array(3, $triwulanAda) &&
-                                                                                in_array(4, $triwulanAda);
+                                                            $semuaTriwulanTerisi =
+                                                                in_array(1, $triwulanAda) &&
+                                                                in_array(2, $triwulanAda) &&
+                                                                in_array(3, $triwulanAda) &&
+                                                                in_array(4, $triwulanAda);
                                                         @endphp
-                                                        
+
                                                         <tr>
                                                             <td colspan="17" class="bg-white">
 
                                                                 <div class="ms-4 mt-3">
 
-                                                                    <div class="d-flex justify-content-between align-items-center mb-2 mt-3">
+                                                                    <div
+                                                                        class="d-flex justify-content-between align-items-center mb-2 mt-3">
 
                                                                         @if ($statusTerakhir === 'closed')
-                                                                        <button class="btn btn-secondary fw-bold" disabled>
-                                                                            <i class="fa-solid fa-lock"></i> Evaluasi Sudah Closed
-                                                                        </button>
-                                                                    
-                                                                    @else
-                                                                        {{-- CEK: apakah sudah waktunya Registrasi Ulang? --}}
-                                                                        @php
-                                                                            $harusRegistrasiUlang = in_array($statusTerakhir, ['opened-menurun', 'opened-meningkat'])
-                                                                                                    && $triwulanTerakhir == 4
-                                                                                                    && $semuaTriwulanTerisi;
-                                                                        @endphp
-                                                                    
-                                                                        <button class="btn btn-primary fw-bold tambah-evaluasi-btn"
-                                                                            {{ $harusRegistrasiUlang ? 'disabled' : '' }}
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#tambahEvaluasiModal"
-                                                                            data-mitigasi="{{ $m->id_mitigasi }}"
-                                                                            data-triwulan="{{ $m->evaluasis->pluck('triwulan')->implode(',') }}">
-                                                                            <i class="fa-solid fa-plus"></i> Tambah Evaluasi
-                                                                        </button>
-                                                                    @endif
-                                                                    
+                                                                            <button class="btn btn-secondary fw-bold"
+                                                                                disabled>
+                                                                                <i class="fa-solid fa-lock"></i> Evaluasi
+                                                                                Sudah Closed
+                                                                            </button>
+                                                                        @else
+                                                                            {{-- CEK: apakah sudah waktunya Registrasi Ulang? --}}
+                                                                            @php
+                                                                                $harusRegistrasiUlang =
+                                                                                    in_array($statusTerakhir, [
+                                                                                        'opened-menurun',
+                                                                                        'opened-meningkat',
+                                                                                    ]) &&
+                                                                                    $triwulanTerakhir == 4 &&
+                                                                                    $semuaTriwulanTerisi;
+                                                                            @endphp
+
+                                                                            <button
+                                                                                class="btn btn-primary fw-bold tambah-evaluasi-btn"
+                                                                                {{ $harusRegistrasiUlang ? 'disabled' : '' }}
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#tambahEvaluasiModal"
+                                                                                data-mitigasi="{{ $m->id_mitigasi }}"
+                                                                                data-triwulan="{{ $m->evaluasis->pluck('triwulan')->implode(',') }}">
+                                                                                <i class="fa-solid fa-plus"></i> Tambah
+                                                                                Evaluasi
+                                                                            </button>
+                                                                        @endif
+
                                                                     </div>
-                                                                    
+
 
                                                                     <table class="table table-sm table-bordered mb-0">
                                                                         <thead class="table-secondary text-center">
@@ -252,30 +281,38 @@
                                                                         <tbody>
                                                                             @foreach ($m->evaluasis as $e)
                                                                                 <tr>
-                                                                                    <td class="centered">{{ $e->triwulan }}-{{ $e->tahun }}</td>
+                                                                                    <td class="centered">
+                                                                                        {{ $e->triwulan }}-{{ $e->tahun }}
+                                                                                    </td>
                                                                                     <td>{{ $e->hasil_tindak_lanjut }}</td>
                                                                                     <td class="centered">
                                                                                         {{ $e->tanggal_evaluasi ? \Carbon\Carbon::parse($e->tanggal_evaluasi)->format('d M Y') : '-' }}
                                                                                     </td>
                                                                                     <td>
                                                                                         @php
-                                                                                            $status = $e->status_pelaksanaan;
+                                                                                            $status =
+                                                                                                $e->status_pelaksanaan;
 
                                                                                             switch ($status) {
                                                                                                 case 'opened-menurun':
-                                                                                                    $tampilStatus = 'Opened (Menurun)';
+                                                                                                    $tampilStatus =
+                                                                                                        'Opened (Menurun)';
                                                                                                     break;
 
                                                                                                 case 'opened-meningkat':
-                                                                                                    $tampilStatus = 'Opened (Meningkat)';
+                                                                                                    $tampilStatus =
+                                                                                                        'Opened (Meningkat)';
                                                                                                     break;
 
                                                                                                 case 'closed':
-                                                                                                    $tampilStatus = 'Closed';
+                                                                                                    $tampilStatus =
+                                                                                                        'Closed';
                                                                                                     break;
 
                                                                                                 default:
-                                                                                                    $tampilStatus = ucfirst($status);
+                                                                                                    $tampilStatus = ucfirst(
+                                                                                                        $status,
+                                                                                                    );
                                                                                             }
                                                                                         @endphp
                                                                                         {{ $tampilStatus }}
@@ -283,16 +320,19 @@
                                                                                     <td>{{ $e->hasil_penerapan }}</td>
                                                                                     <td class="text-center align-middle">
                                                                                         @if ($e->dokumen_pendukung)
-                                                                                            <a href="{{ $e->dokumen_pendukung }}" target="_blank"
+                                                                                            <a href="{{ $e->dokumen_pendukung }}"
+                                                                                                target="_blank"
                                                                                                 class="btn btn-sm btn-secondary">
-                                                                                                <i class="fa-solid fa-eye"></i>
+                                                                                                <i
+                                                                                                    class="fa-solid fa-eye"></i>
                                                                                             </a>
                                                                                         @else
                                                                                             <span>-</span>
                                                                                         @endif
                                                                                     </td>
                                                                                     <td class="text-center">
-                                                                                        <button class="btn btn-sm btn-primary edit-evaluasi-btn"
+                                                                                        <button
+                                                                                            class="btn btn-sm btn-primary edit-evaluasi-btn"
                                                                                             data-bs-toggle="modal"
                                                                                             data-bs-target="#editDataEvaluasiModal"
                                                                                             data-id="{{ $e->id_evaluasi }}"
@@ -305,59 +345,70 @@
                                                                                             data-status="{{ $e->status_pelaksanaan }}"
                                                                                             data-penerapan="{{ $e->hasil_penerapan }}"
                                                                                             data-dokumen="{{ $e->dokumen_pendukung }}">
-                                                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                                                            <i
+                                                                                                class="fa-solid fa-pen-to-square"></i>
                                                                                         </button>
-                                                                                        <button class="btn btn-sm btn-danger delete-evaluasi-btn"
+                                                                                        <button
+                                                                                            class="btn btn-sm btn-danger delete-evaluasi-btn"
                                                                                             data-bs-toggle="modal"
                                                                                             data-bs-target="#hapusEvaluasiModal"
                                                                                             data-id="{{ $e->id_evaluasi }}">
-                                                                                            <i class="fa-solid fa-trash"></i>
+                                                                                            <i
+                                                                                                class="fa-solid fa-trash"></i>
                                                                                         </button>
                                                                                     </td>
                                                                                 </tr>
                                                                             @endforeach
                                                                             @if ($m->evaluasis->isEmpty())
                                                                                 <tr>
-                                                                                    <td colspan="7" class="text-center text-muted">Belum ada evaluasi</td>
+                                                                                    <td colspan="7"
+                                                                                        class="text-center text-muted">
+                                                                                        Belum ada evaluasi</td>
                                                                                 </tr>
                                                                             @endif
                                                                         </tbody>
                                                                     </table>
                                                                     {{-- TOMBOL REGISTRASI ULANG DI BAWAH TABEL --}}
-                                                                        @if (in_array($statusTerakhir, ['opened-menurun', 'opened-meningkat'])
-                                                                        && $triwulanTerakhir == 4
-                                                                        && $semuaTriwulanTerisi)
-                                                                        <p class="mt-4" style="color: red;">* Status masih open sehingga anda perlu melakukan Registrasi ulang dengan klik tombol Registrasi ulang.</p>
+                                                                    @if (in_array($statusTerakhir, ['opened-menurun', 'opened-meningkat']) && $triwulanTerakhir == 4 && $semuaTriwulanTerisi)
+                                                                        <p class="mt-4" style="color: red;">* Status
+                                                                            masih open sehingga anda perlu melakukan
+                                                                            Registrasi ulang dengan klik tombol Registrasi
+                                                                            ulang.</p>
 
                                                                         <div class="mt-3">
-                                                                        <button class="btn btn-primary fw-bold registrasi-ulang-btn"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#tambahDataModal"
-                                                                            data-regid="{{ $item->id_registrasi }}"
-                                                                            data-unitkerja="{{ $item->unit_kerja_id }}"
-                                                                            data-proses="{{ $item->proses_aktivitas_id }}"
-                                                                            data-kategori="{{ $item->kategori_risiko_id }}"
-                                                                            data-jenis="{{ $item->jenis_risiko_id }}"
-                                                                            data-isuresiko="{{ $item->isu_resiko }}"
-                                                                            data-jenisisu="{{ $item->jenis_isu }}"
-                                                                            data-akar="{{ $item->akar_permasalahan }}"
-                                                                            data-dampak="{{ $item->dampak }}"
-                                                                            data-iku="{{ $item->iku_terkait_id }}"
-                                                                            data-pihak="{{ $item->pihak_terkait }}"
-                                                                            data-kontrol="{{ $item->kontrol_pencegahan }}">
-                                                                            <i class="fa-solid fa-repeat"></i> Registrasi Ulang
-                                                                        </button>
+                                                                            <button
+                                                                                class="btn btn-primary fw-bold registrasi-ulang-btn"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#tambahDataModal"
+                                                                                data-regid="{{ $item->id_registrasi }}"
+                                                                                data-unitkerja="{{ $item->unit_kerja_id }}"
+                                                                                data-proses="{{ $item->proses_aktivitas_id }}"
+                                                                                data-kategori="{{ $item->kategori_risiko_id }}"
+                                                                                data-jenis="{{ $item->jenis_risiko_id }}"
+                                                                                data-isuresiko="{{ $item->isu_resiko }}"
+                                                                                data-jenisisu="{{ $item->jenis_isu }}"
+                                                                                data-akar="{{ $item->akar_permasalahan }}"
+                                                                                data-dampak="{{ $item->dampak }}"
+                                                                                data-iku="{{ $item->iku_terkait_id }}"
+                                                                                data-pihak="{{ $item->pihak_terkait }}"
+                                                                                data-kontrol="{{ $item->kontrol_pencegahan }}">
+                                                                                <i class="fa-solid fa-repeat"></i>
+                                                                                Registrasi Ulang
+                                                                            </button>
                                                                         </div>
-                                                                        @endif
+                                                                    @endif
 
                                                                     {{-- Tabel Review Auditor --}}
                                                                     @php
-                                                                        $mitigasiTerakhir = $item->mitigasis->sortByDesc('id_mitigasi')->first();
+                                                                        $mitigasiTerakhir = $item->mitigasis
+                                                                            ->sortByDesc('id_mitigasi')
+                                                                            ->first();
                                                                     @endphp
 
                                                                     @if ($mitigasiTerakhir && $mitigasiTerakhir->evaluasis->count() > 0)
                                                                         <div class="mt-4">
-                                                                            <table class="table table-sm table-bordered mb-0">
+                                                                            <table
+                                                                                class="table table-sm table-bordered mb-0">
                                                                                 <thead class="table-secondary text-center">
                                                                                     <tr>
                                                                                         <th>Triwulan</th>
@@ -372,16 +423,21 @@
                                                                                             @php $adaPenilaian = true; @endphp
                                                                                             @foreach ($evaluasi->penilaian as $p)
                                                                                                 <tr>
-                                                                                                    <td class="centered">{{ $evaluasi->triwulan }}-{{ $evaluasi->tahun ?? '-' }}</td>
-                                                                                                    <td>{{ $p->uraian ?? '-' }}</td>
+                                                                                                    <td class="centered">
+                                                                                                        {{ $evaluasi->triwulan }}-{{ $evaluasi->tahun ?? '-' }}
+                                                                                                    </td>
+                                                                                                    <td>{{ $p->uraian ?? '-' }}
+                                                                                                    </td>
                                                                                                 </tr>
                                                                                             @endforeach
                                                                                         @endif
                                                                                     @endforeach
 
-                                                                                    @unless($adaPenilaian)
+                                                                                    @unless ($adaPenilaian)
                                                                                         <tr>
-                                                                                            <td colspan="2" class="text-center text-muted">Belum ada review auditor</td>
+                                                                                            <td colspan="2"
+                                                                                                class="text-center text-muted">
+                                                                                                Belum ada review auditor</td>
                                                                                         </tr>
                                                                                     @endunless
                                                                                 </tbody>
@@ -412,7 +468,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // --- Bagian tombol + / − ---
             document.querySelectorAll('.toggle-collapse').forEach(button => {
                 const targetSelector = button.getAttribute('data-bs-target');
@@ -434,59 +490,69 @@
             // --- Bagian tombol Edit Registrasi ---
             const editButtons = document.querySelectorAll('.edit-button');
             editButtons.forEach(button => {
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
                     const id = this.getAttribute('data-id');
                     const form = document.getElementById('editForm');
                     form.action = `/registrasi/${id}`;
                     document.getElementById('edit-method').value = 'PUT';
                     document.getElementById('edit-id').value = id;
-
-                    document.getElementById('edit-unitkerja').value = this.getAttribute('data-unitkerja') || '';
-                    document.getElementById('edit-kategori').value = this.getAttribute('data-kategori') || '';
-                    document.getElementById('edit-jenis').value = this.getAttribute('data-jenis') || '';
-                    document.getElementById('edit-isurisiko').value = this.getAttribute('data-isuresiko') || '';
-                    document.getElementById('edit-jenisisu').value = this.getAttribute('data-jenisisu') || '';
-                    document.getElementById('edit-akar').value = this.getAttribute('data-akar') || '';
-                    document.getElementById('edit-dampak').value = this.getAttribute('data-dampak') || '';
+                    document.getElementById('edit-unitkerja').value = this.getAttribute(
+                        'data-unitkerja') || '';
+                    document.getElementById('edit-kategori').value = this.getAttribute(
+                        'data-kategori') || '';
+                    document.getElementById('edit-jenis').value = this.getAttribute('data-jenis') ||
+                        '';
+                    document.getElementById('edit-isurisiko').value = this.getAttribute(
+                        'data-isuresiko') || '';
+                    document.getElementById('edit-jenisisu').value = this.getAttribute(
+                        'data-jenisisu') || '';
+                    document.getElementById('edit-akar').value = this.getAttribute('data-akar') ||
+                        '';
+                    document.getElementById('edit-dampak').value = this.getAttribute(
+                        'data-dampak') || '';
                     document.getElementById('edit-iku').value = this.getAttribute('data-iku') || '';
-                    document.getElementById('edit-pihak').value = this.getAttribute('data-pihak') || '';
-                    document.getElementById('edit-kontrol').value = this.getAttribute('data-kontrol') || '';
-                    document.getElementById('edit-keparahan').value = this.getAttribute('data-keparahan') || '';
-                    document.getElementById('edit-frekuensi').value = this.getAttribute('data-frekuensi') || '';
+                    document.getElementById('edit-pihak').value = this.getAttribute('data-pihak') ||
+                        '';
+                    document.getElementById('edit-kontrol').value = this.getAttribute(
+                        'data-kontrol') || '';
+                    document.getElementById('edit-keparahan').value = this.getAttribute(
+                        'data-keparahan') || '';
+                    document.getElementById('edit-frekuensi').value = this.getAttribute(
+                        'data-frekuensi') || '';
 
                     const modal = new bootstrap.Modal(document.getElementById('editDataModal'));
                     modal.show();
                 });
             });
-        });        
+        });
     </script>
 
     {{-- Script untuk alert CRUD --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             @php
                 $success = session()->pull('success');
                 $error = session()->pull('error');
             @endphp
-        @if ($success)
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: '{{ $success }}',
-                showConfirmButton: false,
-                timer: 2000,
-                timerProgressBar: true
+            @if ($success)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ $success }}',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
                 });
-        @endif
-        @if ($error)
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal!',
-                text: '{{ $error }}',
-                showConfirmButton: true,
+            @endif
+            @if ($error)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: '{{ $error }}',
+                    showConfirmButton: true,
                 });
-        @endif
+            @endif
         });
     </script>
     <script>
@@ -498,13 +564,13 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
 
             document.querySelectorAll('[data-bs-target="#tambahDataMitigasiModal"]').forEach(btn => {
-                btn.addEventListener("click", function () {
+                btn.addEventListener("click", function() {
 
-                    let regid = this.getAttribute("data-regid");          
-                    let isu = this.getAttribute("data-isurisiko");        
+                    let regid = this.getAttribute("data-regid");
+                    let isu = this.getAttribute("data-isurisiko");
 
                     document.getElementById("registrasi_id_tambah").value = regid;
 
@@ -518,31 +584,36 @@
         });
     </script>
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll('.registrasi-ulang-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const modal = document.getElementById("tambahDataModal");
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.registrasi-ulang-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const modal = document.getElementById("tambahDataModal");
 
-                modal.querySelector('[name="proses_aktivitas_id"]').value = this.dataset.proses || '';
-                modal.querySelector('[name="kategori_risiko_id"]').value = this.dataset.kategori || '';
-                modal.querySelector('[name="jenis_risiko_id"]').value = this.dataset.jenis || '';
+                    modal.querySelector('[name="proses_aktivitas_id"]').value = this.dataset
+                        .proses || '';
+                    modal.querySelector('[name="kategori_risiko_id"]').value = this.dataset
+                        .kategori || '';
+                    modal.querySelector('[name="jenis_risiko_id"]').value = this.dataset.jenis ||
+                        '';
 
-                modal.querySelector('[name="isu_resiko"]').value = this.dataset.isuresiko || '';
-                modal.querySelector('[name="jenis_isu"]').value = this.dataset.jenisisu || '';
-                modal.querySelector('[name="akar_permasalahan"]').value = this.dataset.akar || '';
-                modal.querySelector('[name="dampak"]').value = this.dataset.dampak || '';
+                    modal.querySelector('[name="isu_resiko"]').value = this.dataset.isuresiko || '';
+                    modal.querySelector('[name="jenis_isu"]').value = this.dataset.jenisisu || '';
+                    modal.querySelector('[name="akar_permasalahan"]').value = this.dataset.akar ||
+                        '';
+                    modal.querySelector('[name="dampak"]').value = this.dataset.dampak || '';
 
-                modal.querySelector('[name="iku_terkait_id"]').value = this.dataset.iku || '';
-                modal.querySelector('[name="pihak_terkait"]').value = this.dataset.pihak || '';
-                modal.querySelector('[name="kontrol_pencegahan"]').value = this.dataset.kontrol || '';
+                    modal.querySelector('[name="iku_terkait_id"]').value = this.dataset.iku || '';
+                    modal.querySelector('[name="pihak_terkait"]').value = this.dataset.pihak || '';
+                    modal.querySelector('[name="kontrol_pencegahan"]').value = this.dataset
+                        .kontrol || '';
 
-                const keparahan = modal.querySelector('[name="keparahan"]');
-                const frekuensi = modal.querySelector('[name="frekuensi"]');
-                if (keparahan) keparahan.value = "";
-                if (frekuensi) frekuensi.value = "";
+                    const keparahan = modal.querySelector('[name="keparahan"]');
+                    const frekuensi = modal.querySelector('[name="frekuensi"]');
+                    if (keparahan) keparahan.value = "";
+                    if (frekuensi) frekuensi.value = "";
+                });
             });
         });
-    });
     </script>
 
 @endsection

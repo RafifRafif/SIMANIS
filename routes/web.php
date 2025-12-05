@@ -97,6 +97,7 @@ Route::middleware(['role:p4m,kepala_unit'])->group(function () {
     Route::post('/registrasi', [RegistrasiController::class, 'store'])->name('registrasi.store');
     Route::put('/registrasi/{id}', [RegistrasiController::class, 'update'])->name('registrasi.update');
     Route::delete('/registrasi/{id}', [RegistrasiController::class, 'destroy'])->name('registrasi.destroy');
+    Route::post('/registrasi/import', [RegistrasiController::class, 'import'])->name('registrasi.import');
 });
 
 use App\Http\Controllers\MitigasiController;
