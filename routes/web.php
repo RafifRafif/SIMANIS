@@ -90,6 +90,7 @@ Route::middleware(['role:p4m'])->group(function () {
 
 use App\Http\Controllers\ArsipRisikoController;
 Route::get('/arsip_risiko', [ArsipRisikoController::class, 'index'])->name('arsip_risiko');
+Route::get('/arsip_risiko/export', [ArsipRisikoController::class, 'export'])->name('arsip_risiko.export');
 
 use App\Http\Controllers\RegistrasiController;
 Route::middleware(['role:p4m,kepala_unit'])->group(function () {

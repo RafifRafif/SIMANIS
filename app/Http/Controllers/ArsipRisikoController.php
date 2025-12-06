@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\UnitKerja;
 use App\Models\Registrasi;
 use App\Models\Evaluasi;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ArsipRisikoExport;
 
 class ArsipRisikoController extends Controller
 {
@@ -75,5 +77,55 @@ class ArsipRisikoController extends Controller
 
         // Kirim data ke view
         return view('pages.arsip_risiko', compact('unitKerja', 'tahunList', 'registrasi'));
+    }
+
+    public function export(Request $request)
+    {
+        // ⬇️ Ambil ulang data menggunakan logic yang sama dengan index()
+        $registrasi = Registrasi::with([
+            'unitKerja',
+            'prosesAktivitas',
+            'kategoriRisiko',
+            'jenisRisiko',
+            'ikuTerkait',
+            'mitigasis.evaluasis'
+        ])->whereHas('mitigasis');
+
+        if ($request->filled('unit_kerja_id')) {
+            $registrasi->where('unit_kerja_id', $request->unit_kerja_id);
+        }
+
+        $registrasi = $registrasi->get()->filter(function ($item) {
+            $evaluasiTerakhir = $item->mitigasis->flatMap->evaluasis
+                ->sortByDesc('tahun')
+                ->sortByDesc('triwulan')
+                ->first();
+            return $evaluasiTerakhir !== null;
+        });
+
+        if ($request->filled('tahun')) {
+            $tahun = $request->tahun;
+            $registrasi = $registrasi->filter(function ($item) use ($tahun) {
+                $ev = $item->mitigasis->flatMap->evaluasis
+                    ->sortByDesc('tahun')
+                    ->sortByDesc('triwulan')
+                    ->first();
+                return $ev && $ev->tahun == $tahun;
+            });
+        }
+
+        if ($request->filled('status')) {
+            $status = $request->status;
+            $registrasi = $registrasi->filter(function ($item) use ($status) {
+                $ev = $item->mitigasis->flatMap->evaluasis
+                    ->sortByDesc('tahun')
+                    ->sortByDesc('triwulan')
+                    ->first();
+                return $ev && $ev->status_pelaksanaan == $status;
+            });
+        }
+
+        // Download Excel
+        return Excel::download(new ArsipRisikoExport($registrasi), 'arsip_risiko.xlsx');
     }
 }

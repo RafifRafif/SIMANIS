@@ -45,6 +45,15 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
         </form>
+        <form action="{{ route('arsip_risiko.export') }}" method="GET">
+            <input type="hidden" name="unit_kerja_id" value="{{ request('unit_kerja_id') }}">
+            <input type="hidden" name="tahun" value="{{ request('tahun') }}">
+            <input type="hidden" name="status" value="{{ request('status') }}">
+            
+            <button type="submit" class="btn btn-success btn-sm ms-2 fw-bold" style="height: 35px; padding: 0 12px;">
+                <i class="fa-solid fa-file-excel"></i> Ekspor
+            </button>
+        </form>
     </div>
     <p class="mt-4" style="color: red;">* Untuk melihat data sampai selesai, silakan geser tabel ke kanan.</p>
 
