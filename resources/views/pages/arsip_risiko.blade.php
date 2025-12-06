@@ -112,8 +112,8 @@
                                 <td>{{ $item->ikuTerkait->nama_iku ?? '-' }}</td>
                                 <td>{{ $item->pihak_terkait }}</td>
                                 <td>{{ $item->kontrol_pencegahan }}</td>
-                                <td>{{ $item->keparahan }}</td>
-                                <td>{{ $item->frekuensi }}</td>
+                                <td>{{ $item->keparahan_detail }}</td>
+                                <td>{{ $item->frekuensi_detail }}</td>
                                 <td>{{ $item->probabilitas }}</td>
                                 <td>{{ $item->status_registrasi }}</td>
                             </tr>

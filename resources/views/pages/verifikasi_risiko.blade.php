@@ -73,10 +73,10 @@
                             <td>{{ $item->ikuTerkait->nama_iku ?? '-' }}</td>
                             <td>{{ $item->pihak_terkait }}</td>
                             <td>{{ $item->kontrol_pencegahan }}</td>
-                            <td>{{ $item->keparahan }}</td>
-                            <td>{{ $item->frekuensi }}</td>
+                            <td>{{ $item->keparahan_detail }}</td>
+                            <td>{{ $item->frekuensi_detail }}</td>
                             <td>{{ $item->probabilitas }}</td>
-                            <td>{{ $item->status_registrasi }}</td>
+                            <td class="centered">{{ $item->status_registrasi }}</td>
                             <td class="text-center">
                                 <button class="btn btn-primary btn-sm edit-status-button" data-bs-toggle="modal"
                                     data-bs-target="#editStatusModal" data-id="{{ $item->id_registrasi }}"

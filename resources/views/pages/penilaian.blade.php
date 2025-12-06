@@ -106,9 +106,9 @@
                                 <td>{{ $r->ikuTerkait->nama_iku ?? '-' }}</td>
                                 <td>{{ $r->pihak_terkait }}</td>
                                 <td>{{ $r->kontrol_pencegahan }}</td>
-                                <td class="centered">{{ $r->keparahan }}</td>
-                                <td class="centered">{{ $r->frekuensi }}</td>
-                                <td class="centered">{{ $r->probabilitas }}</td>
+                                <td>{{ $r->keparahan_detail }}</td>
+                                <td>{{ $r->frekuensi_detail }}</td>
+                                <td>{{ $r->probabilitas }}</td>
                                 <td class="centered">{{ $r->status_registrasi }}</td>
                             </tr>
 

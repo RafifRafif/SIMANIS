@@ -130,7 +130,7 @@ class BerandaController extends Controller
                     ->first();
 
                 if ($last) {
-                    $status = strtolower(trim($last->status_pelaksanaan)); 
+                    $status = strtolower(trim($last->status_pelaksanaan));
 
                     if ($status === 'closed') {
                         $evaluasi_closed++;
@@ -144,6 +144,7 @@ class BerandaController extends Controller
         }
 
         $allUnits = UnitKerja::orderBy('nama_unit')->get();
+        $manajemenId = UnitKerja::where('nama_unit', 'Manajemen')->value('id');
 
         // DROPDOWN TAHUN UNTUK REGISTRASI
         $daftarTahunRegistrasi = Registrasi::selectRaw('YEAR(created_at) as tahun')
@@ -159,10 +160,16 @@ class BerandaController extends Controller
             $q->select('unit_kerja_id')
                 ->from('registrasi')
                 ->whereYear('created_at', $tahunRegistrasi);
-        })->orderBy('nama_unit')->get();
+        })
+            ->when($manajemenId, fn($q) => $q->where('id', '!=', $manajemenId))
+            ->orderBy('nama_unit')
+            ->get();
 
         // Unit yang belum isi = semua unit MINUS unit yang sudah isi
-        $unitsBelumIsi = $allUnits->whereNotIn('id', $unitsSudahIsi->pluck('id'));
+        $unitsBelumIsi = $allUnits
+            ->whereNotIn('id', $unitsSudahIsi->pluck('id'))
+            ->filter(fn($u) => $u->id != $manajemenId)
+            ->values();
 
         // Hitung jumlah
         $jumlahSudahIsi = $unitsSudahIsi->count();
