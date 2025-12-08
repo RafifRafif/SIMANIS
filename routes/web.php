@@ -61,6 +61,11 @@ Route::post('/proses/update/{id}', [KelolaRegisController::class, 'updateProses'
 Route::delete('/proses/delete/{id}', [KelolaRegisController::class, 'destroyProses'])->name('proses.destroy');
 Route::delete('/proses/delete-selected', [KelolaRegisController::class, 'deleteSelectedProses'])->name('proses.delete-selected');
 
+//EXPORT Proses/Aktivitas
+//EXPORT PROSES UNIT KERJA
+Route::get('/proses/export', [KelolaRegisController::class, 'exportTemplate'])
+    ->name('proses.export');
+    
 // CRUD Kategori Risiko
 Route::post('/kategori/store', [KelolaRegisController::class, 'storeKategori'])->name('kategori.store');
 Route::post('/kategori/update/{id}', [KelolaRegisController::class, 'updateKategori'])->name('kategori.update');

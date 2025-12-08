@@ -10,6 +10,7 @@ use App\Models\ProsesAktivitas;
 use App\Models\KategoriRisiko;
 use App\Models\JenisRisiko;
 use App\Models\IkuTerkait;
+use App\Exports\ProsesAktivitasExport;
 use Illuminate\Support\Facades\Auth;
 
 class KelolaRegisController extends Controller
@@ -362,6 +363,12 @@ class KelolaRegisController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('kelola_regis')->with('error', 'Gagal mengimpor Proses/Aktivitas: ' . $e->getMessage());
         }
+    }
+
+    //EXPORT Proses/Aktivitas
+    public function exportTemplate()
+    {
+    return Excel::download(new ProsesAktivitasExport, 'template_proses_aktivitas.xlsx');
     }
 
     // Import Kategori Risiko

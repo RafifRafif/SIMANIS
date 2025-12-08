@@ -9,8 +9,10 @@
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <h6 class="fw-bold mb-0">Proses/Aktivitas</h6>
                 <div class="d-flex ms-auto gap-2">
-                    <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
-                        data-bs-target="#importDataModal" data-template="{{ asset('template/proses_aktivitas.xlsx') }}"
+                    <button class="btn btn-success fw-bold btn-import" 
+                        data-bs-toggle="modal"
+                        data-bs-target="#importDataModal" 
+                        data-template="{{ route('proses.export') }}"
                         data-route="{{ route('formregis.import.proses') }}">
                         <i class="fa-solid fa-upload"></i> Impor
                     </button>
@@ -97,3 +99,21 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelectorAll('.btn-import').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const route = this.getAttribute('data-route');
+            const template = this.getAttribute('data-template');
+    
+            const form = document.querySelector('#importDataModal form');
+            const templateLink = document.querySelector('#templateLink');
+    
+            form.setAttribute('action', route);
+            templateLink.style.display = 'inline-block';
+            templateLink.setAttribute('href', template);
+        });
+    });
+    </script>
+    
+    
