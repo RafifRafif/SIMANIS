@@ -10,6 +10,7 @@ use App\Models\ProsesAktivitas;
 use App\Models\KategoriRisiko;
 use App\Models\JenisRisiko;
 use App\Imports\RegistrasiImport;
+use App\Exports\RegistrasiExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 
@@ -173,5 +174,10 @@ class RegistrasiController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('registrasi.index')->with('error', 'Isu/Risiko Gagal Diimport!: ' . $e->getMessage());
         }
+    }
+    
+    public function export()
+    {
+    return Excel::download(new RegistrasiExport, 'template_registrasi.xlsx');
     }
 }

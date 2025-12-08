@@ -18,7 +18,7 @@
                             Unduh Template Excel
                         </a>
                     </p>
-
+                
                     <div class="mb-3">
                         <label for="file_import" class="form-label fw-semibold">Pilih File Excel</label>
                         <input type="file" name="file" id="file_import" class="form-control" accept=".xls,.xlsx"
@@ -43,12 +43,22 @@
 </div>
 
 <script>
-document.querySelectorAll('.btn-import').forEach(btn => {
-    btn.addEventListener('click', function () {
-        const route = this.getAttribute('data-route');
-        const template = this.getAttribute('data-template');
-        document.querySelector('#importRegistrasiModal form').setAttribute('action', route);
-        document.querySelector('#templateLink').setAttribute('href', template);
+    document.querySelectorAll('.btn-import').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const route = this.getAttribute('data-route');
+            const template = this.getAttribute('data-template');
+    
+            // set action form
+            document.querySelector('#importRegistrasiModal form')
+                .setAttribute('action', route);
+    
+            // set link download template
+            const link = document.querySelector('#templateLink');
+            link.setAttribute('href', template);
+    
+            // set nama file saat download
+            link.setAttribute('download', 'template_registrasi.xlsx');
+        });
     });
-});
-</script>
+    </script>
+    

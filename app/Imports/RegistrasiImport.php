@@ -15,7 +15,15 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class RegistrasiImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
-    {
+    { 
+        if (
+            !isset($row['frekuensi']) || 
+            !isset($row['keparahan']) ||
+            empty($row['frekuensi']) || 
+            empty($row['keparahan'])
+        ) {
+            return null; // skip baris kosong
+        }
         // Matriks Probabilitas
         $matrix = [
             'A' => [1 => 'Medium', 2 => 'High', 3 => 'High', 4 => 'Extreme', 5 => 'Extreme'],
@@ -24,8 +32,10 @@ class RegistrasiImport implements ToModel, WithHeadingRow
             'D' => [1 => 'Low', 2 => 'Low', 3 => 'Medium', 4 => 'High', 5 => 'High'],
             'E' => [1 => 'Low', 2 => 'Low', 3 => 'Low', 4 => 'Medium', 5 => 'High'],
         ];
+        $freq  = strtoupper(trim($row['frekuensi'] ?? ''));
+        $sever = (int) ($row['keparahan'] ?? 0);
 
-        $probabilitas = $matrix[$row['frekuensi']][$row['keparahan']] ?? 'Low';
+         $probabilitas = $matrix[$freq][$sever] ?? 'Low';
 
         // Return Data Ke Model
         $iku = IkuTerkait::where('nama_iku', $row['iku_terkait'])->value('id');

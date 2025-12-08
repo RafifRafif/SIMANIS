@@ -32,8 +32,10 @@
 
     <div class="d-flex gap-2 justify-content-end">
         {{-- Tombol Import Registrasi --}}
-        <button class="btn btn-success fw-bold btn-import" data-bs-toggle="modal"
-            data-bs-target="#importRegistrasiModal" data-template="{{ asset('template/isu_risiko.xlsx') }}"
+        <button class="btn btn-success fw-bold btn-import" 
+            data-bs-toggle="modal"
+            data-bs-target="#importRegistrasiModal"
+            data-template="{{ route('registrasi.export') }}"
             data-route="{{ route('registrasi.import') }}">
             <i class="fa-solid fa-upload"></i> Impor
         </button>

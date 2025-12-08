@@ -65,7 +65,7 @@ Route::delete('/proses/delete-selected', [KelolaRegisController::class, 'deleteS
 //EXPORT PROSES UNIT KERJA
 Route::get('/proses/export', [KelolaRegisController::class, 'exportTemplate'])
     ->name('proses.export');
-    
+
 // CRUD Kategori Risiko
 Route::post('/kategori/store', [KelolaRegisController::class, 'storeKategori'])->name('kategori.store');
 Route::post('/kategori/update/{id}', [KelolaRegisController::class, 'updateKategori'])->name('kategori.update');
@@ -105,6 +105,10 @@ Route::middleware(['role:p4m,kepala_unit'])->group(function () {
     Route::delete('/registrasi/{id}', [RegistrasiController::class, 'destroy'])->name('registrasi.destroy');
     Route::post('/registrasi/import', [RegistrasiController::class, 'import'])->name('registrasi.import');
 });
+
+//IMPORT REGISTRASI
+Route::get('/registrasi/export', [RegistrasiController::class, 'export'])
+    ->name('registrasi.export');
 
 use App\Http\Controllers\MitigasiController;
 Route::get('/mitigasi', [MitigasiController::class, 'index'])->name('mitigasi.index');
