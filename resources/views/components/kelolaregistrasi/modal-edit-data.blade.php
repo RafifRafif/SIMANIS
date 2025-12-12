@@ -11,7 +11,6 @@
                 <!-- Form edit -->
                 <form id="editForm" method="POST">
                     @csrf
-                    <!-- ini akan diubah jadi PUT oleh JavaScript -->
                     <input type="hidden" name="_method" id="edit-method" value="PUT">
                     <input type="hidden" id="edit-id" name="id">
 

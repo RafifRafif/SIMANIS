@@ -27,7 +27,6 @@
     </div>
 </div>
 
-{{-- Buka otomatis modal tambah jika error --}}
 @if ($errors->any() && old('modal') === 'tambahJenis')
     <script>
         document.addEventListener('DOMContentLoaded', () => {

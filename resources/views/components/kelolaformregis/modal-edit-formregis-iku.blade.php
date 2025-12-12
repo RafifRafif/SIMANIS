@@ -29,7 +29,6 @@
     </div>
 </div>
 
-{{-- Buka otomatis modal edit kalau error --}}
 @if ($errors->any() && old('modal') === 'editIku')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -39,7 +38,6 @@
     </script>
 @endif
 
-{{-- Script untuk isi data modal edit --}}
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.edit-iku-button').forEach(button => {

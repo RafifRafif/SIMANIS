@@ -24,18 +24,15 @@
             font-weight: 500;
         }
 
-        /* Deskripsi */
         .small-text {
             font-size: 0.85rem;
             color: red;
         }
 
-        /* Teks Placeholder di kolom Password */
         input::placeholder {
             font-size: 0.9rem;
         }
 
-        /* Posisi ikon mata */
         .password-wrapper {
             position: relative;
         }

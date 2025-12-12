@@ -45,10 +45,8 @@ class User extends Authenticatable
 
     public function hasAnyRole($roles)
     {
-        // normalize roles param to array
         $roles = (array) $roles;
 
-        // parse stored roles
         $userRoles = explode(',', $this->role);
         $userRoles = array_map('trim', $userRoles);
 

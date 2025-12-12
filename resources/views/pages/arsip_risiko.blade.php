@@ -33,7 +33,7 @@
                 @endforeach
             </select>
 
-            {{-- ✅ Dropdown Status (BARU) --}}
+            {{-- Dropdown Status --}}
             <select name="status" id="status" class="form-select w-auto dropdown-fixed">
                 <option value="">Status</option>
                 <option value="opened-meningkat" {{ request('status') == 'opened-meningkat' ? 'selected' : '' }}>Open (Meningkat)</option>
@@ -265,7 +265,7 @@
                 </table>
             </div>
         </div>
-    </div> <!-- /card -->
+    </div> 
 
     <script>
         // --- Bagian tombol + / − ---

@@ -101,10 +101,8 @@ class PenilaianController extends Controller
         $isAuditor = str_contains(strtolower($user->role), 'auditor');
         $isP4M = str_contains(strtolower($user->role), 'p4m');
 
-        // Ambil evaluasi terkait
         $evaluasi = Evaluasi::findOrFail($request->evaluasi_id);
 
-        // Cari unit dari registrasi
         $unitID = $evaluasi->mitigasi->registrasi->unit_kerja_id;
 
         // BLOKIR AUDITOR YANG TIDAK BERHAK 
@@ -119,7 +117,6 @@ class PenilaianController extends Controller
         // Buat nilai triwulan-tahun
         $triwulanTahun = $evaluasi->triwulan . '-' . $evaluasi->tahun;
 
-        // Simpan ke database
         Penilaian::create([
             'evaluasi_id' => $evaluasi->id_evaluasi,
             'triwulan_tahun' => $triwulanTahun,

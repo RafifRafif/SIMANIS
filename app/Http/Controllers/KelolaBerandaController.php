@@ -80,7 +80,6 @@ class KelolaBerandaController extends Controller
     {
         $konten = KontenBeranda::findOrFail($id);
 
-        // Hapus file gambar dan dokumen dari folder public kalau ada
         if ($konten->gambar && file_exists(public_path($konten->gambar))) {
             unlink(public_path($konten->gambar));
         }

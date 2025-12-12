@@ -79,14 +79,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function allowedRolesForUnit(unitName) {
-        if (!unitName) return ['auditor']; // no unit chosen => only auditor
+        if (!unitName) return ['auditor']; 
         const name = unitName.toLowerCase();
         if (name.includes('p4m')) return ['p4m', 'auditor'];
         if (name.includes('manajemen')) return ['manajemen'];
         return ['kepala_unit', 'auditor'];
     }
 
-    // init
+    
     (function init() {
         const selectedUnitText = unitSelect.options[unitSelect.selectedIndex]?.text || '';
         setRoleCheckboxes(allowedRolesForUnit(selectedUnitText));

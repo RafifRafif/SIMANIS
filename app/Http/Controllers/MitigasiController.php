@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Mitigasi;
-use App\Models\Registrasi; // tambahkan di atas
+use App\Models\Registrasi; 
 
 class MitigasiController extends Controller
 {
@@ -17,7 +17,7 @@ class MitigasiController extends Controller
             'tanggal_pelaksanaan' => 'nullable|date',
         ]);
 
-        // 🔒 Validasi status registrasi
+        // Validasi status registrasi
         $registrasi = Registrasi::findOrFail($request->registrasi_id);
 
         if ($registrasi->status_registrasi !== 'Terverifikasi') {

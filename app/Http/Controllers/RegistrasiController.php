@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Auth;
 
 class RegistrasiController extends Controller
 {
-    // Menampilkan semua data registrasi
     public function index()
     {
         $userId = auth()->id(); // ambil id user yang sedang login
@@ -136,7 +135,7 @@ class RegistrasiController extends Controller
         }
 
 
-        // hitung ulang probabilitas (biar sama kayak di store)
+        // hitung ulang probabilitas 
         $matrix = [
             'A' => [1 => 'Medium', 2 => 'High', 3 => 'High', 4 => 'Extreme', 5 => 'Extreme'],
             'B' => [1 => 'Low', 2 => 'Medium', 3 => 'High', 4 => 'Extreme', 5 => 'Extreme'],

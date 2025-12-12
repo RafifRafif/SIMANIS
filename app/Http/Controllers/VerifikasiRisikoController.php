@@ -9,13 +9,10 @@ class VerifikasiRisikoController extends Controller
 {
     public function index(Request $request)
     {
-        // Ambil semua unit kerja (buat dropdown)
         $unitKerja = \App\Models\UnitKerja::all();
 
-        // WAJIB: Baris ini tidak boleh dihapus
         $registrasi = Registrasi::where('status_registrasi', 'Belum Terverifikasi')->get();
 
-        // Jika ada filter unit kerja → lakukan filter manual dari collection
         if ($request->filled('unit_kerja_id')) {
             $registrasi = $registrasi->where('unit_kerja_id', $request->unit_kerja_id);
         }

@@ -32,7 +32,6 @@
   </div>
 </div>
 
-{{-- Buka otomatis modal tambah jika error --}}
 @if ($errors->any() && old('modal') === 'tambahIku')
   <script>
     document.addEventListener('DOMContentLoaded', () => {

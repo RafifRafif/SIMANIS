@@ -23,7 +23,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // ✅ Semua user diarahkan ke halaman beranda yang sama
+            // Semua user diarahkan ke halaman beranda yang sama
             return redirect()->route('beranda');
         }
 

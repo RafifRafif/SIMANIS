@@ -10,7 +10,6 @@ class JenisRisikoImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-        // Pastikan kolom di Excel ada dan tidak kosong
         if (!isset($row['jenis_risiko']) || empty($row['jenis_risiko'])) {
             return null;
         }

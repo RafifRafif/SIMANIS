@@ -50,7 +50,6 @@
     </div>
 </div>
 
-{{-- Buka otomatis modal tambah jika ada error --}}
 @if ($errors->any() && old('modal') === 'tambahProses')
 <script>
     document.addEventListener('DOMContentLoaded', () => {

@@ -61,7 +61,6 @@ class PemetaanAuditorController extends Controller
 
     public function deleteAll($auditor_id)
     {
-        // hapus semua pivot auditor ini
         DB::table('auditor_unit')
             ->where('auditor_id', $auditor_id)
             ->delete();

@@ -124,7 +124,7 @@ class KelolaRegisController extends Controller
 
     ProsesAktivitas::create([
         'nama_proses' => $request->proses,
-        'unit_kerja_id' => $request->unit_kerja_id, // ✔ sekarang sesuai dropdown
+        'unit_kerja_id' => $request->unit_kerja_id, 
     ]);
 
     return redirect()->route('kelola_regis')->with('success', 'Proses/Aktivitas berhasil ditambahkan!');
@@ -133,7 +133,6 @@ class KelolaRegisController extends Controller
 
     public function updateProses(Request $request, $id)
     {
-        // simpan penanda modal agar bisa muncul lagi jika error
         $request->merge([
             'modal' => 'editProses',
             'edit_id' => $id,

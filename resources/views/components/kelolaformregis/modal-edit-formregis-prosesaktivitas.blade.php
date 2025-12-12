@@ -44,7 +44,7 @@
     </div>
 </div>
 
-{{-- Buka otomatis modal edit kalau error --}}
+
 @if ($errors->any() && old('modal') === 'editProses')
     <script>
         document.addEventListener('DOMContentLoaded', () => {

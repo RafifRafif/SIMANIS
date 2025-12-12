@@ -28,7 +28,6 @@
     </div>
 </div>
 
-{{-- Buka otomatis modal tambah jika error --}}
 @if ($errors->any() && old('modal') === 'tambahKategori')
     <script>
         document.addEventListener('DOMContentLoaded', () => {

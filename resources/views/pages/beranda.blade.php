@@ -9,78 +9,80 @@
     <div class="container-fluid">
         <h3 class="mt-3 mb-4">Beranda</h3>
 
-        <!-- REPORT REGISTRASI -->
-        <div class="card p-4 mb-4" style="border: 1px solid #E5E7EB; box-shadow: 0 6px 14px rgba(0,0,0,0.10);">
+        @if (auth()->user()->hasAnyRole(['p4m']))
+            <!-- REPORT REGISTRASI -->
+            <div class="card p-4 mb-4" style="border: 1px solid #E5E7EB; box-shadow: 0 6px 14px rgba(0,0,0,0.10);">
 
-            <!-- DROPDOWN TAHUN REGISTRASI -->
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <form method="GET" action="{{ route('beranda') }}">
-                    <select name="tahun_registrasi" class="form-select form-select-sm" style="width: 150px;"
-                        onchange="this.form.submit()">
-                        @foreach ($daftarTahunRegistrasi as $t)
-                            <option value="{{ $t }}" {{ $tahunRegistrasi == $t ? 'selected' : '' }}>
-                                Tahun {{ $t }}
-                            </option>
-                        @endforeach
-                    </select>
-                </form>
-            </div>
-            <div class="row">
-                <!-- UNIT SUDAH MENGISI -->
-                <div class="col-md-6 mb-3">
-                    <div class="card p-3 h-100" style="border: 1px solid #E5E7EB; box-shadow: 0 3px 8px rgba(0,0,0,0.08);">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="mb-0">Unit yang Telah Mengisi Registrasi</h6>
-                            <span class="fs-4" style="color: #4194cb;">
-                                <i class="bi-emoji-smile-fill"></i>
-                            </span>
+                <!-- DROPDOWN TAHUN REGISTRASI -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <form method="GET" action="{{ route('beranda') }}">
+                        <select name="tahun_registrasi" class="form-select form-select-sm" style="width: 150px;"
+                            onchange="this.form.submit()">
+                            @foreach ($daftarTahunRegistrasi as $t)
+                                <option value="{{ $t }}" {{ $tahunRegistrasi == $t ? 'selected' : '' }}>
+                                    Tahun {{ $t }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
+                <div class="row">
+                    <!-- UNIT SUDAH MENGISI -->
+                    <div class="col-md-6 mb-3">
+                        <div class="card p-3 h-100" style="border: 1px solid #E5E7EB; box-shadow: 0 3px 8px rgba(0,0,0,0.08);">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0">Unit yang Telah Mengisi Registrasi</h6>
+                                <span class="fs-4" style="color: #4194cb;">
+                                    <i class="bi-emoji-smile-fill"></i>
+                                </span>
+                            </div>
+                            <h2 class="mt-2 mb-3 fw-bold" style="color: #4194cb;">{{ $jumlahSudahIsi }}</h2>
+                            <div class="dropdown" style="width: 100%;">
+                                <button class="btn btn-sm dropdown-toggle d-flex justify-content-between align-items-center"
+                                    data-bs-toggle="dropdown" data-bs-auto-close="inside"
+                                    style="background-color: #4194cb; color: white; width: 100%;">
+                                    <span>Lihat Daftar Unit</span>
+                                </button>
+                                <ul class="dropdown-menu" style="width: 100%; max-height: 200px; overflow-y: auto;">
+                                    @forelse ($unitsSudahIsi as $u)
+                                        <li><span class="dropdown-item-text">{{ $u->nama_unit }}</span></li>
+                                    @empty
+                                        <li><span class="dropdown-item-text text-muted">Tidak ada</span></li>
+                                    @endforelse
+                                </ul>
+                            </div>
                         </div>
-                        <h2 class="mt-2 mb-3 fw-bold" style="color: #4194cb;">{{ $jumlahSudahIsi }}</h2>
-                        <div class="dropdown" style="width: 100%;">
-                            <button class="btn btn-sm dropdown-toggle d-flex justify-content-between align-items-center"
-                                data-bs-toggle="dropdown" data-bs-auto-close="inside"
-                                style="background-color: #4194cb; color: white; width: 100%;">
-                                <span>Lihat Daftar Unit</span>
-                            </button>
-                            <ul class="dropdown-menu" style="width: 100%; max-height: 200px; overflow-y: auto;">
-                                @forelse ($unitsSudahIsi as $u)
-                                    <li><span class="dropdown-item-text">{{ $u->nama_unit }}</span></li>
-                                @empty
-                                    <li><span class="dropdown-item-text text-muted">Tidak ada</span></li>
-                                @endforelse
-                            </ul>
+                    </div>
+
+                    <!-- UNIT BELUM MENGISI -->
+                    <div class="col-md-6 mb-3">
+                        <div class="card p-3 h-100" style="border: 1px solid #E5E7EB; box-shadow: 0 3px 8px rgba(0,0,0,0.08);">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0">Unit yang Belum Mengisi Registrasi</h6>
+                                <span class="fs-4" style="color: #7f7f7f;">
+                                    <i class="bi-emoji-frown-fill"></i>
+                                </span>
+                            </div>
+                            <h2 class="mt-2 mb-3 fw-bold" style="color: #7f7f7f;">{{ $jumlahBelumIsi }}</h2>
+                            <div class="dropdown" style="width: 100%;">
+                                <button class="btn btn-sm dropdown-toggle d-flex justify-content-between align-items-center"
+                                    data-bs-toggle="dropdown" data-bs-auto-close="inside"
+                                    style="background-color: #7f7f7f; color: white; width: 100%;">
+                                    <span>Lihat Daftar Unit</span>
+                                </button>
+                                <ul class="dropdown-menu" style="width: 100%; max-height: 400px; overflow-y: auto;">
+                                    @forelse ($unitsBelumIsi as $u)
+                                        <li><span class="dropdown-item-text">{{ $u->nama_unit }}</span></li>
+                                    @empty
+                                        <li><span class="dropdown-item-text text-muted">Semua unit sudah mengisi</span></li>
+                                    @endforelse
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- UNIT BELUM MENGISI -->
-                <div class="col-md-6 mb-3">
-                    <div class="card p-3 h-100" style="border: 1px solid #E5E7EB; box-shadow: 0 3px 8px rgba(0,0,0,0.08);">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="mb-0">Unit yang Belum Mengisi Registrasi</h6>
-                            <span class="fs-4" style="color: #7f7f7f;">
-                                <i class="bi-emoji-frown-fill"></i>
-                            </span>
-                        </div>
-                        <h2 class="mt-2 mb-3 fw-bold" style="color: #7f7f7f;">{{ $jumlahBelumIsi }}</h2>
-                        <div class="dropdown" style="width: 100%;">
-                            <button class="btn btn-sm dropdown-toggle d-flex justify-content-between align-items-center"
-                                data-bs-toggle="dropdown" data-bs-auto-close="inside"
-                                style="background-color: #7f7f7f; color: white; width: 100%;">
-                                <span>Lihat Daftar Unit</span>
-                            </button>
-                            <ul class="dropdown-menu" style="width: 100%; max-height: 400px; overflow-y: auto;">
-                                @forelse ($unitsBelumIsi as $u)
-                                    <li><span class="dropdown-item-text">{{ $u->nama_unit }}</span></li>
-                                @empty
-                                    <li><span class="dropdown-item-text text-muted">Semua unit sudah mengisi</span></li>
-                                @endforelse
-                            </ul>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
+        @endif
 
         <!-- STATUS EVALUASI -->
         <div class="card p-4 mb-4" style="border:1px solid #E5E7EB; box-shadow:0 6px 14px rgba(0,0,0,0.10);">
@@ -299,7 +301,7 @@
             savedColors.forEach(item => {
                 const row = item.row;
                 const col = item.col;
-                const level = item.color_level; 
+                const level = item.color_level;
                 const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
                 if (cell) {
                     const hex = colorMap[level] ?? level;

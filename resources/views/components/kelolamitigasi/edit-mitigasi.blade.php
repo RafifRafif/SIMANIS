@@ -40,7 +40,7 @@
     document.querySelectorAll('.edit-mitigasi').forEach(button => {
         button.addEventListener('click', function () {
             if (this.classList.contains('disabled')) {
-                return; // gak buka modal kalau status closed
+                return;
             }
 
             const id = this.getAttribute('data-id');

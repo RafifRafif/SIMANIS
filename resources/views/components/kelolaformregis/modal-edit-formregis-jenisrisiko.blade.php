@@ -29,7 +29,6 @@
     </div>
 </div>
 
-{{-- Buka otomatis modal edit kalau error --}}
 @if ($errors->any() && old('modal') === 'editJenis')
     <script>
         document.addEventListener('DOMContentLoaded', () => {

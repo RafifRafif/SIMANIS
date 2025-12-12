@@ -31,7 +31,6 @@ class Registrasi extends Model
 
     ];
 
-    // Relasi ke tabel lain
     public function unitKerja()
     {
         return $this->belongsTo(UnitKerja::class, 'unit_kerja_id');

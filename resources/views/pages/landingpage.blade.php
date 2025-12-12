@@ -35,18 +35,12 @@
     
 
     <!-- Section Kontak -->
-    <!-- Wrapper umum -->
     <div class="wrapper-kontak" style="position:relative; margin:0;">
 
-        <!-- Card Oren (belakang) -->
         <section id="card-oren" style="background-color:#F2682A; border-radius:85px 85px 0 0; margin:0; height:300px;">
         </section>
-
-        <!-- Card Biru (nimpah tapi lebih rendah) -->
         <section id="card-biru" style="background-color:#57C9E8; border-radius:78px 78px 0 0; margin:0; height:300px;">
         </section>
-
-        <!-- Card Putih (paling depan tapi lebih rendah) -->
         <section id="kontak" style="background-color:white; border-radius:69px 69px 0 0; margin:0; height:300px;
                        display:flex; align-items:center;">
             <div class="container">

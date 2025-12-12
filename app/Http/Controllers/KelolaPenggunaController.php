@@ -75,8 +75,6 @@ class KelolaPenggunaController extends Controller
             if ($roles === ['auditor'] || (count($roles) === 1 && $roles[0] === 'auditor')) {
                 $valid = false;
             }
-            // ✔ kepala_unit → valid
-            // ✔ kepala_unit + auditor → valid
             else {
                 $allowed = ['kepala_unit', 'auditor'];
                 $valid = empty(array_diff($roles, $allowed));

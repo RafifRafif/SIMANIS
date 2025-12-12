@@ -26,8 +26,6 @@
     <a href="{{ route('beranda') }}" class="{{ Route::is('beranda') ? 'active' : '' }}">
         <i class="fa-solid fa-house"></i> Beranda
     </a>
-
-    {{-- Menggunakan wildcard (*) agar sub-halaman arsip juga membuat menu ini aktif --}}
     <a href="{{ route('arsip_risiko') }}" class="{{ Route::is('arsip_risiko*') ? 'active' : '' }}">
         <i class="fa-solid fa-box-archive"></i> Arsip Risiko
     </a>

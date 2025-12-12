@@ -122,7 +122,7 @@ class BerandaController extends Controller
 
             foreach ($mitigasiTahunIni as $m) {
 
-                // Ambil evaluasi terbaru berdasarkan triwulan (STRING tapi angka)
+                // Ambil evaluasi terbaru berdasarkan triwulan 
                 $last = $m->evaluasis
                     ->sortByDesc(function ($row) {
                         return (int) $row->triwulan;

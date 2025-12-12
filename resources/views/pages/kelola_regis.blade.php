@@ -42,10 +42,10 @@
                 const collapseEl = document.querySelector(button.dataset.bsTarget);
                 const bsCollapse = new bootstrap.Collapse(collapseEl, {
                     toggle: false
-                }); // biar bisa manual
+                }); 
 
                 button.addEventListener('click', () => {
-                    bsCollapse.toggle(); // toggle manual
+                    bsCollapse.toggle(); 
                 });
 
                 collapseEl.addEventListener('show.bs.collapse', () => {
@@ -134,7 +134,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.collapse').forEach(collapse => {
 
-                // kalau dibuka, simpan ke session
                 collapse.addEventListener('show.bs.collapse', function() {
                     fetch("/save-collapse", {
                         method: "POST",
@@ -148,7 +147,6 @@
                     });
                 });
 
-                // kalau ditutup, hapus session
                 collapse.addEventListener('hide.bs.collapse', function() {
                     fetch("/save-collapse", {
                         method: "POST",
@@ -170,7 +168,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
-            // Konfigurasi untuk 5 Tabel
             const configs = [{
                     name: 'Unit Kerja',
                     masterId: '#select-all-unit',
@@ -215,7 +212,6 @@
 
                 if (!masterCheckbox || !deleteBtn) return; // Skip jika elemen tidak ada
 
-                // 1. Event Listener: Pilih Semua
                 masterCheckbox.addEventListener('change', function() {
                     const checkboxes = document.querySelectorAll(config.checkboxClass);
                     checkboxes.forEach(cb => {
@@ -223,7 +219,6 @@
                     });
                 });
 
-                // 2. Event Listener: Tombol Hapus
                 deleteBtn.addEventListener('click', function() {
                     // Ambil semua checkbox yang tercentang
                     const checkedBoxes = document.querySelectorAll(config.checkboxClass +

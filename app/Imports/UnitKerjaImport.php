@@ -10,7 +10,6 @@ class UnitKerjaImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-        // Pastikan kolom di Excel ada dan tidak kosong
         if (!isset($row['unit_kerja']) || empty($row['unit_kerja'])) {
             return null;
         }

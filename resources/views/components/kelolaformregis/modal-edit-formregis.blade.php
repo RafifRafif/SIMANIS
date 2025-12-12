@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const route = this.dataset.route;
       const title = this.dataset.title;
       const field = this.dataset.field;
-      const fieldName = this.dataset.fieldname; // ← penting
+      const fieldName = this.dataset.fieldname; 
 
       // Set judul dan label
       document.getElementById('modalEditUniversalLabel').textContent = title;

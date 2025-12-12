@@ -32,7 +32,7 @@
                         style="width:auto; position: relative;">
                         <thead>
                             <tr>
-                                <th class="bg-light"></th> <!-- Kosong untuk pojok kiri atas -->
+                                <th class="bg-light"></th> 
                                 @for ($col = 1; $col <= 5; $col++)
                                     <th class="bg-light">{{ $col }}</th>
                                 @endfor

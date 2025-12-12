@@ -8,13 +8,11 @@
         font-size: 0.95rem;
     }
 
-    /* Hilangkan tampilan default ikon agar seragam di semua browser */
     input[type="date"]::-webkit-calendar-picker-indicator {
         position: absolute;
         right: 10px;
         top: 83%;
         transform: translateY(-50%);
-        /* ini yang bikin ikon sejajar vertikal */
         cursor: pointer;
     }
 
@@ -22,6 +20,7 @@
         position: relative;
     }
 </style>
+
 <!-- MODAL TAMBAH MITIGASI -->
 <div class="modal fade" id="tambahDataMitigasiModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">

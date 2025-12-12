@@ -37,7 +37,6 @@ class ArsipRisikoController extends Controller
             $registrasi->where('unit_kerja_id', $request->unit_kerja_id);
         }
 
-        // Ambil data dulu
         $registrasi = $registrasi->get();
         $registrasi = $registrasi->filter(function ($item) {
             $evaluasiTerakhir = $item->mitigasis->flatMap->evaluasis
@@ -81,7 +80,6 @@ class ArsipRisikoController extends Controller
 
     public function export(Request $request)
     {
-        // ⬇️ Ambil ulang data menggunakan logic yang sama dengan index()
         $registrasi = Registrasi::with([
             'unitKerja',
             'prosesAktivitas',

@@ -1,13 +1,12 @@
-/* Hamburger Menu */
 .navbar-toggler {
     border: none !important;
     box-shadow: none !important;
     transition: transform 0.2s ease, background-color 0.3s ease;
-    border-radius: 6px; /* biar agak lembut di ujungnya */
+    border-radius: 6px; 
 }
 
 .navbar-toggler:hover {
-    transform: scale(1.1); /* efek membesar pada Hamburger Menu */
+    transform: scale(1.1); 
 }
 
 .navbar-toggler:focus {
@@ -15,17 +14,15 @@
     box-shadow: none !important;
 }
 
-/* Efek hover pada 3 menu di navbar*/
 .nav-link {
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .nav-link:hover {
     color: #000 !important;
-    transform: scale(1.05); /* efek membesar pada 3 menu di navbar */
+    transform: scale(1.05);
 }
 
-/* Efek shadow pada Tombol Masuk */
 .navbar .btn.btn-primary {
     padding: 3px 15px;
     font-size: 14px;
@@ -35,5 +32,5 @@
 }
 
 .navbar .btn.btn-primary:hover {
-   transform: scale(1.05); /* efek membesar pada Tombol Masuk */
+   transform: scale(1.05); 
 }

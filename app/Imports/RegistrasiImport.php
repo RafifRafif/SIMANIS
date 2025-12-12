@@ -22,7 +22,7 @@ class RegistrasiImport implements ToModel, WithHeadingRow
             empty($row['frekuensi']) || 
             empty($row['keparahan'])
         ) {
-            return null; // skip baris kosong
+            return null; 
         }
         // Matriks Probabilitas
         $matrix = [
@@ -60,7 +60,7 @@ class RegistrasiImport implements ToModel, WithHeadingRow
 
 
         return new Registrasi([
-            'unit_kerja_id' => Auth::user()->unit_kerja_id,  // langsung ikut user login
+            'unit_kerja_id' => Auth::user()->unit_kerja_id,  
             'proses_aktivitas_id' => $proses,
             'kategori_risiko_id' => $kategori,
             'jenis_risiko_id' => $jenis,

@@ -27,7 +27,7 @@
         </div>
     </div>
 </div>
-{{-- Buka otomatis modal edit kalau error --}}
+
 @if ($errors->any() && old('modal') === 'editKategori')
     <script>
         document.addEventListener('DOMContentLoaded', () => {

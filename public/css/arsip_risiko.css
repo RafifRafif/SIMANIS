@@ -1,4 +1,3 @@
-/* Dropdown tidak melebar walaupun teksnya panjang */
 .dropdown-fixed {
     width: 180px !important;
     text-overflow: ellipsis;
@@ -7,7 +6,6 @@
     display: inline-block;
 }
 
-/* Biar tulisan di dalam dropdown rapi */
 .dropdown-fixed option {
-    white-space: normal; /* isi dropdown tetap bisa dibaca penuh waktu dibuka */
+    white-space: normal; 
 }

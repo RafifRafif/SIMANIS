@@ -136,10 +136,6 @@
                                                             <td>{{ $m->tanggal_pelaksanaan ? \Carbon\Carbon::parse($m->tanggal_pelaksanaan)->format('d M Y') : '-' }}</td>
                                                         </tr>
 
-                                                        {{-- =========================== --}}
-                                                        {{-- Bagian Evaluasi (per mitigasi) --}}
-                                                        {{-- =========================== --}}
-
                                                         <tr>
                                                             <td colspan="17" class="bg-white">
                                                                 <div class="ms-4 mt-3">

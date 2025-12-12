@@ -6,10 +6,6 @@ Route::get('/', function () {
     return view('pages.landingpage');
 });
 
-/* Route::get('/login', function () {
-    return view('auth.login');
-})->name('login'); */ 
-
 use App\Http\Controllers\AuthController;
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
@@ -20,7 +16,6 @@ use App\Http\Controllers\BerandaController;
 Route::get('/beranda', [BerandaController::class, 'index'])
     ->name('beranda')
     ->middleware('auth');
-
 
 use App\Http\Controllers\KelolaPenggunaController;
 Route::middleware(['auth', 'role:p4m'])->group(function () {
@@ -43,6 +38,7 @@ Route::middleware(['role:p4m'])->group(function () {
     Route::post('/kelola_regis/import/jenis', [KelolaRegisController::class, 'importJenis'])->name('formregis.import.jenis');
     Route::post('/kelola_regis/import/iku', [KelolaRegisController::class, 'importIku'])->name('formregis.import.iku');
 });
+
 Route::post('/save-collapse', function (\Illuminate\Http\Request $request) {
     session(['collapse_open' => $request->open]);
     return response()->json(['status' => 'ok']);
@@ -53,7 +49,6 @@ Route::post('/unitkerja/update/{id}', [KelolaRegisController::class, 'update'])-
 Route::delete('/unitkerja/delete/{id}', [KelolaRegisController::class, 'destroy'])->name('unitkerja.destroy');
 Route::delete('/unitkerja/delete-selected', [KelolaRegisController::class, 'deleteSelected'])->name('unitkerja.deleteSelected');
 Route::delete('/unitkerja/delete-selected', [KelolaRegisController::class, 'deleteSelected'])->name('unitkerja.delete-selected');
-
 
 // CRUD Proses/Aktivitas
 Route::post('/proses/store', [KelolaRegisController::class, 'storeProses'])->name('proses.store');

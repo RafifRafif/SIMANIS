@@ -1,12 +1,10 @@
-/* Biar semua teks header tabel rata tengah */
 table thead th {
     text-align: center !important;
-    vertical-align: middle !important; /* teksnya tetap di tengah vertikal */
+    vertical-align: middle !important; 
 }
 
-/* Opsional — Biar tampilan header lebih clean */
 .table thead {
-    background-color: #f8f9fa; /* warna abu muda (bisa disesuaikan) */
+    background-color: #f8f9fa; 
     font-weight: 600;
     letter-spacing: 0.3px;
 }

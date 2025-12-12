@@ -21,7 +21,7 @@
         font-family: 'Roboto', sans-serif;
         color: #FFFFFF;
         display: flex;
-        align-items: center;          /* sejajarkan ikon dan teks di tengah */
+        align-items: center;          
         gap: 10px;                   
         padding: 10px 20px;
         text-decoration: none;
@@ -39,7 +39,7 @@
     }
 
     .sidebar a i {
-        flex-shrink: 0;               /* ikon tidak ketekan teks */
+        flex-shrink: 0;         
         font-size: 1rem;              
         margin-top: 0;  
     }

@@ -10,7 +10,6 @@ class IkuTerkaitImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-        // Pastikan kolom di Excel ada dan tidak kosong
         if (!isset($row['iku_terkait']) || empty($row['iku_terkait'])) {
             return null;
         }
