@@ -500,6 +500,8 @@
                     document.getElementById('edit-id').value = id;
                     document.getElementById('edit-unitkerja').value = this.getAttribute(
                         'data-unitkerja') || '';
+                    document.getElementById('edit_proses_aktivitas').value =this.getAttribute(
+                        'data-proses') || '';
                     document.getElementById('edit-kategori').value = this.getAttribute(
                         'data-kategori') || '';
                     document.getElementById('edit-jenis').value = this.getAttribute('data-jenis') ||
@@ -617,5 +619,64 @@
             });
         });
     </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        document.querySelectorAll('.collapse').forEach(collapse => {
+
+            // Saat collapse dibuka → simpan ID
+            collapse.addEventListener('show.bs.collapse', function () {
+                fetch("/save-collapse", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        open: collapse.id
+                    })
+                });
+            });
+
+            // Saat collapse ditutup → hapus session
+            collapse.addEventListener('hide.bs.collapse', function () {
+                fetch("/save-collapse", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        open: null
+                    })
+                });
+            });
+
+        });
+
+    });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        let opened = "{{ session('collapse_open') }}";
+
+        if (opened) {
+            let el = document.getElementById(opened);
+
+            if (el) {
+                let collapse = new bootstrap.Collapse(el, {
+                    show: true
+                });
+
+                // Sinkronkan tombol + jadi −
+                let btn = document.querySelector(`[data-bs-target="#${opened}"]`);
+                if (btn) btn.textContent = '−';
+            }
+        }
+
+    });
+    </script>
+
 
 @endsection
