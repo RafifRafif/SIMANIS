@@ -1,6 +1,7 @@
 <h1 align="center">SIMANIS - Sistem Manajemen Risiko Polibatam </h1>
 
 <h2 align="center">Transformasi Tata Kelola Organisasi: Aplikasi Manajemen Risiko Polibatam.</h2>
+<p>SIMANIS adalah aplikasi berbasis web yang dirancang untuk membantu organisasi dalam mengelola data risiko secara terstruktur, terintegrasi, dan terdokumentasi. Sistem ini mencakup fungsi registrasi risiko, verifikasi, mitigasi risiko, penilaian risiko serta monitoring risiko secara digital.</p>
 
 ## 📄 Luaran
 - [Video Presentasi](https://youtu.be/mCyZr-lHlXo?si=PYkEiJJrr3Kq4zst)
