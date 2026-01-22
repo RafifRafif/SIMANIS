@@ -9,7 +9,7 @@ use App\Models\Evaluasi;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ArsipRisikoExport;
 
-class ArsipRisikoController extends Controller
+class KelolaArsipController extends Controller
 {
     public function index(Request $request)
     {
@@ -79,7 +79,7 @@ class ArsipRisikoController extends Controller
         }
 
         // Kirim data ke view
-        return view('pages.arsip_risiko', compact('unitKerja', 'tahunList', 'registrasi'));
+        return view('pages.kelola_arsip', compact('unitKerja', 'tahunList', 'registrasi'));
     }
 
     public function export(Request $request)
@@ -133,5 +133,13 @@ class ArsipRisikoController extends Controller
 
         // Download Excel
         return Excel::download(new ArsipRisikoExport($registrasi), 'arsip_risiko.xlsx');
+    }
+
+    public function destroy($id)
+    {
+        $registrasi = Registrasi::findOrFail($id);
+        $registrasi->delete();
+
+        return redirect()->route('kelola_arsip')->with('success', 'Data arsip berhasil dihapus!');
     }
 }

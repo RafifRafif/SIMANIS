@@ -140,3 +140,7 @@ Route::middleware(['auth', 'role:p4m'])->group(function () {
     Route::delete('/pemetaan_auditor/delete_all/{auditor_id}',
     [PemetaanAuditorController::class, 'deleteAll'])->name('pemetaan_auditor.delete_all');
 });
+
+use App\Http\Controllers\KelolaArsipController;
+Route::get('/kelola_arsip', [KelolaArsipController::class, 'index'])->name('kelola_arsip');
+Route::delete('/kelola_arsip/{id}', [KelolaArsipController::class, 'destroy'])->name('kelola_arsip.destroy');

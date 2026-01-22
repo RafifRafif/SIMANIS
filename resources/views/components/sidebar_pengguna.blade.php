@@ -62,6 +62,9 @@
         <a href="{{ route('pemetaan_auditor') }}" class="{{ Route::is('pemetaan_auditor*') ? 'active' : '' }}">
             <i class="fa-solid fa-sitemap"></i> Pemetaan Auditor
         </a>
+        <a href="{{ route('kelola_arsip') }}" class="{{ Route::is('kelola_arsip*') ? 'active' : '' }}">
+            <i class="fa-solid fa-folder-open"></i> Kelola Arsip
+        </a>
         
     @endif
 

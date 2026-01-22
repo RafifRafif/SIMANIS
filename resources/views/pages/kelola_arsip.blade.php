@@ -1,17 +1,21 @@
 @extends('layouts.pengguna')
 
-@section('title', 'Arsip Risiko')
+@section('title', 'Kelola Arsip')
+
+@push('modals')
+    @include('components.kelolaarsip.modal-hapus-kelola-arsip')
+@endpush
 
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/registrasi.css') }}">
     <link rel="stylesheet" href="{{ asset('css/arsip_risiko.css') }}">
 
-    <h3 class="mt-3 mb-4">Arsip Risiko</h3>
+    <h3 class="mt-3 mb-4">Kelola Arsip</h3>
 
     <div class="d-flex flex-wrap align-items-center gap-2">
         <label class="me-3">Urutkan berdasarkan</label>
 
-        <form action="{{ route('arsip_risiko') }}" method="GET" class="d-flex align-items-center gap-2">
+        <form action="{{ route('kelola_arsip') }}" method="GET" class="d-flex align-items-center gap-2">
 
             {{-- Dropdown Unit Kerja --}}
             <select name="unit_kerja_id" id="unitkerja" class="form-select w-auto dropdown-fixed">
@@ -93,6 +97,7 @@
                             <th>Frekuensi</th>
                             <th>Probabilitas</th>
                             <th>Status Registrasi</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -126,10 +131,19 @@
                                 <td>{{ $item->frekuensi_detail }}</td>
                                 <td>{{ $item->probabilitas }}</td>
                                 <td>{{ $item->status_registrasi }}</td>
+                                <td class="text-center">
+                                    <button 
+                                        class="btn btn-sm btn-danger delete-button"
+                                        data-id="{{ $item->id_registrasi }}"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#hapusKelolaArsipModal">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
                             </tr>
                             <!-- Collapse Mitigasi -->
                             <tr class="collapse bg-light" id="mitigasi{{ $item->id_registrasi }}">
-                                <td colspan="17">
+                                <td colspan="18">
                                     <div class="p-3">
                                         <!-- Tabel mitigasi -->
                                         <table class="table table-sm table-bordered">
