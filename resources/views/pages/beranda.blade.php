@@ -270,7 +270,13 @@
                     <div class="col-md-6 mb-4">
                         <div class="card card-illustration p-3 h-100 d-flex flex-column align-items-center justify-content-center"
                             style="border:1px solid #E5E7EB; box-shadow:0 3px 8px rgba(0,0,0,0.08);">
-                            <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}" width="100">
+                            @if ($item->gambar)
+                                <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}" width="100">
+                            @else
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <img src="{{ asset('images/konten.svg') }}" width="80" alt="Ilustrasi">
+                                </div>
+                            @endif
                             @if ($item->file)
                                 <a href="{{ asset($item->file) }}" target="_blank" class="mt-2 fw-semibold text-center">
                                     {{ $item->judul }}

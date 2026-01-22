@@ -25,10 +25,10 @@
                     </div>
 
                     <!-- Gambar -->
-                    <div class="mb-4">
+                    <div class="mb-4 d-none">
                         <label for="gambar" class="form-label">Gambar</label>
                         <div class="input-group">
-                            <input type="file" class="form-control" id="gambar" name="gambar" required>
+                            <input type="file" class="form-control" id="gambar" name="gambar" >
                         </div>
                     </div>
 

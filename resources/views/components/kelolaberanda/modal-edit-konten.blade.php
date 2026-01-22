@@ -27,7 +27,7 @@
                     </div>
 
                     <!-- Gambar -->
-                    <div class="mb-4">
+                    <div class="mb-4 d-none">
                         <label class="form-label d-block mb-1">Gambar Lama</label>
 
                         <!-- Preview Gambar -->

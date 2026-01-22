@@ -132,7 +132,7 @@
                                             <img src="{{ asset('storage/' . $item->gambar) }}" alt="gambar"
                                                 width="60">
                                         @else
-                                            <span class="text-muted">Tidak ada gambar</span>
+                                            <i class="fa-regular fa-image text-muted"></i>
                                         @endif
                                     </td>
                                     <td class="text-start">{{ $item->judul }}</td>
@@ -149,7 +149,7 @@
                                         <button class="btn btn-sm btn-primary btnEdit" data-id="{{ $item->id }}"
                                             data-judul="{{ $item->judul }}" data-file="{{ $item->file }}"
                                             data-file-nama="{{ basename($item->file) }}"
-                                            data-gambar="{{ asset('storage/' . $item->gambar) }}" data-bs-toggle="modal"
+                                            data-gambar="{{ $item->gambar ? asset('storage/'.$item->gambar) : '' }}" data-bs-toggle="modal"
                                             data-bs-target="#editDataModal">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
