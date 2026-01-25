@@ -70,12 +70,12 @@ class KelolaPenggunaController extends Controller
             $allowed = ['p4m', 'auditor'];
             $valid = empty(array_diff($roles, $allowed));
         } elseif (strpos($unitName, 'manajemen') !== false) {
-            $valid = (in_array('manajemen', $roles) && count($roles) === 1);
+            $allowed = ['kepala_unit', 'auditor'];
+            $valid = empty(array_diff($roles, $allowed));
         } else {
             if ($roles === ['auditor'] || (count($roles) === 1 && $roles[0] === 'auditor')) {
                 $valid = false;
-            }
-            else {
+            } else {
                 $allowed = ['kepala_unit', 'auditor'];
                 $valid = empty(array_diff($roles, $allowed));
             }
@@ -130,7 +130,8 @@ class KelolaPenggunaController extends Controller
             $allowed = ['p4m', 'auditor'];
             $valid = empty(array_diff($roles, $allowed));
         } elseif (strpos($unitName, 'manajemen') !== false) {
-            $valid = (in_array('manajemen', $roles) && count($roles) === 1);
+            $allowed = ['kepala_unit', 'auditor'];
+            $valid = empty(array_diff($roles, $allowed));
         } else {
             $allowed = ['kepala_unit', 'auditor'];
             $valid = empty(array_diff($roles, $allowed));

@@ -50,11 +50,6 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input role-checkbox" type="checkbox" name="roles[]"
-                                    value="manajemen" id="role-manajemen">
-                                <label class="form-check-label" for="role-manajemen">Manajemen</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input role-checkbox" type="checkbox" name="roles[]"
                                     value="auditor" id="role-auditor">
                                 <label class="form-check-label" for="role-auditor">Auditor</label>
                             </div>
@@ -95,7 +90,7 @@
             const name = unitName.toLowerCase();
 
             if (name.includes('p4m')) return ['p4m', 'auditor'];     // <--- PERUBAHAN DI SINI
-            if (name.includes('manajemen')) return ['manajemen'];
+            if (name.includes('manajemen')) return ['kepala_unit', 'auditor'];
 
             return ['kepala_unit', 'auditor'];
         }

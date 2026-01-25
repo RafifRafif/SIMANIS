@@ -144,7 +144,6 @@ class BerandaController extends Controller
         }
 
         $allUnits = UnitKerja::orderBy('nama_unit')->get();
-        $manajemenId = UnitKerja::where('nama_unit', 'Manajemen')->value('id');
 
         // DROPDOWN TAHUN UNTUK REGISTRASI
         $daftarTahunRegistrasi = Registrasi::selectRaw('YEAR(created_at) as tahun')
@@ -161,14 +160,12 @@ class BerandaController extends Controller
                 ->from('registrasi')
                 ->whereYear('created_at', $tahunRegistrasi);
         })
-            ->when($manajemenId, fn($q) => $q->where('id', '!=', $manajemenId))
             ->orderBy('nama_unit')
             ->get();
 
         // Unit yang belum isi = semua unit MINUS unit yang sudah isi
         $unitsBelumIsi = $allUnits
             ->whereNotIn('id', $unitsSudahIsi->pluck('id'))
-            ->filter(fn($u) => $u->id != $manajemenId)
             ->values();
 
         // Hitung jumlah
