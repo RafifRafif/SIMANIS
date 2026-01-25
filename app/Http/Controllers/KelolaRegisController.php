@@ -11,6 +11,7 @@ use App\Models\KategoriRisiko;
 use App\Models\JenisRisiko;
 use App\Models\IkuTerkait;
 use App\Exports\ProsesAktivitasExport;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 
 class KelolaRegisController extends Controller
@@ -115,12 +116,21 @@ class KelolaRegisController extends Controller
 
     public function storeProses(Request $request)
     {
-    $request->merge(['modal' => 'tambahProses']);
-
-    $request->validate([
-        'proses' => 'required|unique:proses_aktivitas,nama_proses',
-        'unit_kerja_id' => 'required|exists:unit_kerja,id'
-    ]);
+        $request->merge(['modal' => 'tambahProses']);
+    
+        $request->validate([
+            'proses' => [
+                'required',
+                Rule::unique('proses_aktivitas', 'nama_proses')
+                    ->where('unit_kerja_id', $request->unit_kerja_id),
+            ],
+            'unit_kerja_id' => 'required|exists:unit_kerja,id',
+        ], [
+            'proses.required' => 'Proses/Aktivitas wajib diisi!',
+            'proses.unique' => 'Proses/Aktivitas sudah ada untuk unit kerja ini!',
+            'unit_kerja_id.required' => 'Unit Kerja wajib dipilih!',
+            'unit_kerja_id.exists' => 'Unit Kerja tidak valid!',
+        ]);
 
     ProsesAktivitas::create([
         'nama_proses' => $request->proses,
@@ -132,21 +142,26 @@ class KelolaRegisController extends Controller
 
 
     public function updateProses(Request $request, $id)
-    {
-        $request->merge([
-            'modal' => 'editProses',
-            'edit_id' => $id,
-        ]);
-    
-        $validated = $request->validate([
-            'proses' => 'required|unique:proses_aktivitas,nama_proses,' . $id,
-            'unit_kerja_id' => 'required|exists:unit_kerja,id',
-        ], [
-            'proses.required' => 'Proses/Aktivitas wajib diisi!',
-            'proses.unique' => 'Proses/Aktivitas sudah ada!',
-            'unit_kerja_id.required' => 'Unit Kerja wajib dipilih!',
-            'unit_kerja_id.exists' => 'Unit Kerja tidak valid!',
-        ]);
+{
+    $request->merge([
+        'modal'   => 'editProses',
+        'edit_id' => $id,
+    ]);
+
+    $validated = $request->validate([
+        'proses' => [
+            'required',
+            Rule::unique('proses_aktivitas', 'nama_proses')
+                ->where('unit_kerja_id', $request->unit_kerja_id)
+                ->ignore($id),
+        ],
+        'unit_kerja_id' => 'required|exists:unit_kerja,id',
+    ], [
+        'proses.required' => 'Proses/Aktivitas wajib diisi!',
+        'proses.unique' => 'Proses/Aktivitas sudah ada untuk unit kerja ini!',
+        'unit_kerja_id.required' => 'Unit Kerja wajib dipilih!',
+        'unit_kerja_id.exists' => 'Unit Kerja tidak valid!',
+    ]);
     
         $proses = ProsesAktivitas::findOrFail($id);
         $proses->update([
