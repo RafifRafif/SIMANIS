@@ -56,6 +56,7 @@
                             <th>Frekuensi</th>
                             <th>Probabilitas</th>
                             <th>Status Registrasi</th>
+                            <th>Komentar</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -77,6 +78,7 @@
                             <td>{{ $item->frekuensi_detail }}</td>
                             <td>{{ $item->probabilitas }}</td>
                             <td class="centered">{{ $item->status_registrasi }}</td>
+                            <td>{{ $item->komentar ?? '-' }}</td>
                             <td class="text-center">
                                 <button class="btn btn-primary btn-sm edit-status-button" data-bs-toggle="modal"
                                     data-bs-target="#editStatusModal" data-id="{{ $item->id_registrasi }}"

@@ -97,6 +97,7 @@
                             <th>Frekuensi</th>
                             <th>Probabilitas</th>
                             <th>Status Registrasi</th>
+                            <th>Komentar</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -131,6 +132,7 @@
                                 <td>{{ $item->frekuensi_detail }}</td>
                                 <td>{{ $item->probabilitas }}</td>
                                 <td>{{ $item->status_registrasi }}</td>
+                                <td>{{ $item->komentar ?? '-' }}</td>
                                 <td class="text-center">
                                     <button 
                                         class="btn btn-sm btn-danger delete-button"

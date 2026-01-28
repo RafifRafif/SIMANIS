@@ -70,6 +70,7 @@
                             <th>Frekuensi</th>
                             <th>Probabilitas</th>
                             <th>Status Registrasi</th>
+                            <th>Komentar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -110,6 +111,7 @@
                                 <td>{{ $r->frekuensi_detail }}</td>
                                 <td>{{ $r->probabilitas }}</td>
                                 <td class="centered">{{ $r->status_registrasi }}</td>
+                                <td>{{ $r->komentar ?? '-' }}</td>
                             </tr>
 
                             <!-- Bagian mitigasi -->

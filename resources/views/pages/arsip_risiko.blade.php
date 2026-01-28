@@ -93,6 +93,7 @@
                             <th>Frekuensi</th>
                             <th>Probabilitas</th>
                             <th>Status Registrasi</th>
+                            <th>Komentar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -126,6 +127,7 @@
                                 <td>{{ $item->frekuensi_detail }}</td>
                                 <td>{{ $item->probabilitas }}</td>
                                 <td>{{ $item->status_registrasi }}</td>
+                                <td>{{ $item->komentar ?? '-' }}</td>
                             </tr>
                             <!-- Collapse Mitigasi -->
                             <tr class="collapse bg-light" id="mitigasi{{ $item->id_registrasi }}">

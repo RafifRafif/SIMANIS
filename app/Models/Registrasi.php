@@ -27,6 +27,7 @@ class Registrasi extends Model
         'frekuensi',
         'probabilitas',
         'status_registrasi',
+        'komentar',
         'user_id',
 
     ];

@@ -1,7 +1,7 @@
 <!-- Modal Edit Status -->
 <style>
     .modal-dialog.modal-md-custom {
-        max-width: 340px;
+        max-width: 380px;
     }
 </style>
 <div class="modal fade" id="editStatusModal" tabindex="-1" aria-labelledby="editStatusLabel" aria-hidden="true">
@@ -27,6 +27,11 @@
                             <label class="form-check-label" for="status2">Terverifikasi</label>
                         </div>
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label">Komentar Verifikasi</label>
+                        <textarea name="komentar" id="komentar" class="form-control" rows="3"
+                            placeholder="Masukkan komentar"></textarea>
+                    </div>
                     <button type="submit" class="btn btn-primary w-100">Simpan</button>
                 </form>
             </div>
@@ -42,6 +47,7 @@
             btn.addEventListener("click", function () {
                 const id = this.getAttribute("data-id");
                 const status = this.getAttribute("data-status");
+                const komentar = this.getAttribute("data-komentar");
 
                 // set action form ke route update
                 form.action = `/verifikasi-risiko/${id}`;
@@ -49,6 +55,7 @@
                 // isi radio sesuai status saat ini
                 document.getElementById("status1").checked = (status === "Belum Terverifikasi");
                 document.getElementById("status2").checked = (status === "Terverifikasi");
+                document.getElementById("komentar").value = komentar ?? '';
             });
         });
     });

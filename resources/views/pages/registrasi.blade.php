@@ -70,6 +70,7 @@
                             <th>Frekuensi</th>
                             <th>Probabilitas</th>
                             <th>Status Registrasi</th>
+                            <th>Komentar</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -105,6 +106,7 @@
                                 <td>{{ $item->frekuensi_detail }}</td>
                                 <td>{{ $item->probabilitas }}</td>
                                 <td>{{ $item->status_registrasi }}</td>
+                                <td>{{ $item->komentar ?? '-' }}</td>
                                 <td class="text-center align-middle">
                                     <div class="d-flex justify-content-center gap-1">
                                         <button class="btn btn-sm btn-primary edit-button"
@@ -133,9 +135,41 @@
                                 </td>
                             </tr>
 
+                            {{-- REGISTRASI ULANG JIKA BELUM TERVERIFIKASI & ADA KOMENTAR --}}
+                            @if ($item->status_registrasi == 'Belum Terverifikasi' && !empty($item->komentar))
+                            <tr>
+                                <td colspan="18">
+                                    <p class="mt-2" style="color: red;">
+                                        * Registrasi Anda belum terverifikasi, silakan lakukan Registrasi ulang sesuai komentar verifikator.
+                                    </p>
+
+                                    <button
+                                        class="btn btn-primary fw-bold registrasi-ulang-btn" data-type="verifikasi"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#tambahDataModal"
+                                        data-regid="{{ $item->id_registrasi }}"
+                                        data-unitkerja="{{ $item->unit_kerja_id }}"
+                                        data-proses="{{ $item->proses_aktivitas_id }}"
+                                        data-kategori="{{ $item->kategori_risiko_id }}"
+                                        data-jenis="{{ $item->jenis_risiko_id }}"
+                                        data-isuresiko="{{ $item->isu_resiko }}"
+                                        data-jenisisu="{{ $item->jenis_isu }}"
+                                        data-akar="{{ $item->akar_permasalahan }}"
+                                        data-dampak="{{ $item->dampak }}"
+                                        data-iku="{{ $item->iku_terkait_id }}"
+                                        data-pihak="{{ $item->pihak_terkait }}"
+                                        data-kontrol="{{ $item->kontrol_pencegahan }}"
+                                        data-keparahan="{{ $item->keparahan }}"
+                                        data-frekuensi="{{ $item->frekuensi }}">
+                                        <i class="fa-solid fa-repeat"></i> Registrasi Ulang
+                                    </button>
+                                </td>
+                            </tr>
+                            @endif
+
                             <!-- Collapse Mitigasi -->
                             <tr class="collapse bg-light" id="mitigasi{{ $item->id_registrasi }}">
-                                <td colspan="17">
+                                <td colspan="18">
                                     <div class="p-3">
                                         <div class="d-flex justify-content-between align-items-center mb-2">
                                             @php
@@ -228,7 +262,7 @@
                                                         @endphp
 
                                                         <tr>
-                                                            <td colspan="17" class="bg-white">
+                                                            <td colspan="18" class="bg-white">
 
                                                                 <div class="ms-4 mt-3">
 
@@ -379,7 +413,7 @@
 
                                                                         <div class="mt-3">
                                                                             <button
-                                                                                class="btn btn-primary fw-bold registrasi-ulang-btn"
+                                                                                class="btn btn-primary fw-bold registrasi-ulang-btn" data-type="evaluasi"
                                                                                 data-bs-toggle="modal"
                                                                                 data-bs-target="#tambahDataModal"
                                                                                 data-regid="{{ $item->id_registrasi }}"
@@ -452,7 +486,7 @@
                                                     @endforeach
                                                 @else
                                                     <tr>
-                                                        <td colspan="17" class="text-center text-muted">
+                                                        <td colspan="18" class="text-center text-muted">
                                                             Belum ada mitigasi
                                                         </td>
                                                     </tr>
@@ -592,6 +626,7 @@
             document.querySelectorAll('.registrasi-ulang-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const modal = document.getElementById("tambahDataModal");
+                    const type = this.dataset.type;
 
                     modal.querySelector('[name="proses_aktivitas_id"]').value = this.dataset
                         .proses || '';
@@ -613,8 +648,13 @@
 
                     const keparahan = modal.querySelector('[name="keparahan"]');
                     const frekuensi = modal.querySelector('[name="frekuensi"]');
-                    if (keparahan) keparahan.value = "";
-                    if (frekuensi) frekuensi.value = "";
+                    if (type === "verifikasi") {
+                        if (keparahan) keparahan.value = this.dataset.keparahan || '';
+                        if (frekuensi) frekuensi.value = this.dataset.frekuensi || '';
+                    } else {
+                        if (keparahan) keparahan.value = '';
+                        if (frekuensi) frekuensi.value = '';
+                    }
                 });
             });
         });
