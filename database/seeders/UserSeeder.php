@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         User::create([             
             'name' => 'Anantha',
             'username' => '3312411076',
-            'password' => Hash::make('123456'),
+            'password' => Hash::make(env('DEFAULT_USER_PASSWORD')),
             'role' => 'p4m',
         ]);
     }

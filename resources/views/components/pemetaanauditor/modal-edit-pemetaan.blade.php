@@ -25,20 +25,14 @@
 
                         <div class="border rounded p-3" style="max-height: 250px; overflow-y: auto;">
                             @foreach ($unit as $u)
-                                @php
-                                    $nama = strtolower($u->nama_unit);
-                                @endphp
+                                <div class="form-check">
+                                    <input class="form-check-input unit-checkbox" type="checkbox" value="{{ $u->id }}"
+                                        id="unit-{{ $u->id }}" name="unit_ids[]">
 
-                                @if (!str_contains($nama, 'p4m') && !str_contains($nama, 'manajemen'))
-                                    <div class="form-check">
-                                        <input class="form-check-input unit-checkbox" type="checkbox" value="{{ $u->id }}"
-                                            id="unit-{{ $u->id }}" name="unit_ids[]">
-
-                                        <label class="form-check-label" for="unit-{{ $u->id }}">
-                                            {{ $u->nama_unit }}
-                                        </label>
-                                    </div>
-                                @endif
+                                    <label class="form-check-label" for="unit-{{ $u->id }}">
+                                        {{ $u->nama_unit }}
+                                    </label>
+                                </div>
                             @endforeach
 
                         </div>

@@ -40,17 +40,6 @@ class PemetaanAuditorController extends Controller
 
         $auditor = User::findOrFail($request->auditor_id);
 
-        $invalid = UnitKerja::whereIn('id', $request->unit_ids ?? [])
-            ->where(function ($q) {
-                $q->where('nama_unit', 'like', '%p4m%')
-                    ->orWhere('nama_unit', 'like', '%manajemen%');
-            })
-            ->exists();
-
-        if ($invalid) {
-            return back()->with('error', 'Unit P4M dan Manajemen tidak boleh dipilih sebagai unit audit.');
-        }
-
         // sync pivot table
         $auditor->auditorUnits()->sync($request->unit_ids ?? []);
 

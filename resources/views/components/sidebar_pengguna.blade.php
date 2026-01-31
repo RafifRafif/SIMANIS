@@ -3,7 +3,7 @@
 
 @php
     use Illuminate\Support\Facades\Auth;
-    use Illuminate\Support\Facades\Route; 
+    use Illuminate\Support\Facades\Route;
 
     $user = Auth::user();
     $roleString = $user->role ?? '';
@@ -39,33 +39,38 @@
         </a>
     @endif
 
-    {{-- MENU KHUSUS P4M --}}
-    @if ($isP4mRole)
+    {{-- MENU P4M --}}
+    @if ($isP4mRole || $isAuditor)
         <p class="px-3 text-uppercase small mt-3 mb-2">Menu P4M</p>
 
-        <a href="{{ route('verifikasi_risiko') }}" class="{{ Route::is('verifikasi_risiko*') ? 'active' : '' }}">
-            <i class="fa-solid fa-circle-check"></i> Verifikasi Risiko
-        </a>
+        {{-- VERIFIKASI RISIKO P4M & AUDITOR --}}
+        @if ($isP4mRole || $isAuditor)
+            <a href="{{ route('verifikasi_risiko') }}" class="{{ Route::is('verifikasi_risiko*') ? 'active' : '' }}">
+                <i class="fa-solid fa-circle-check"></i> Verifikasi Risiko
+            </a>
+        @endif
 
-        <a href="{{ route('kelola_beranda') }}" class="{{ Route::is('kelola_beranda*') ? 'active' : '' }}">
-            <i class="fa-solid fa-gear"></i> Kelola Beranda
-        </a>
+        @if ($isP4mRole)
+            <a href="{{ route('kelola_beranda') }}" class="{{ Route::is('kelola_beranda*') ? 'active' : '' }}">
+                <i class="fa-solid fa-gear"></i> Kelola Beranda
+            </a>
 
-        <a href="{{ route('kelola_regis') }}" class="{{ Route::is('kelola_regis*') ? 'active' : '' }}">
-            <i class="fa-solid fa-folder"></i> Kelola Form Regis
-        </a>
+            <a href="{{ route('kelola_regis') }}" class="{{ Route::is('kelola_regis*') ? 'active' : '' }}">
+                <i class="fa-solid fa-folder"></i> Kelola Form Regis
+            </a>
 
-        <a href="{{ route('kelola_pengguna') }}" class="{{ Route::is('kelola_pengguna*') ? 'active' : '' }}">
-            <i class="fa-solid fa-users"></i> Kelola Pengguna
-        </a>
-        
-        <a href="{{ route('pemetaan_auditor') }}" class="{{ Route::is('pemetaan_auditor*') ? 'active' : '' }}">
-            <i class="fa-solid fa-sitemap"></i> Pemetaan Auditor
-        </a>
-        <a href="{{ route('kelola_arsip') }}" class="{{ Route::is('kelola_arsip*') ? 'active' : '' }}">
-            <i class="fa-solid fa-folder-open"></i> Kelola Arsip
-        </a>
-        
+            <a href="{{ route('kelola_pengguna') }}" class="{{ Route::is('kelola_pengguna*') ? 'active' : '' }}">
+                <i class="fa-solid fa-users"></i> Kelola Pengguna
+            </a>
+
+            <a href="{{ route('pemetaan_auditor') }}" class="{{ Route::is('pemetaan_auditor*') ? 'active' : '' }}">
+                <i class="fa-solid fa-sitemap"></i> Pemetaan Auditor
+            </a>
+
+            <a href="{{ route('kelola_arsip') }}" class="{{ Route::is('kelola_arsip*') ? 'active' : '' }}">
+                <i class="fa-solid fa-folder-open"></i> Kelola Arsip
+            </a>
+        @endif
     @endif
 
     {{-- MENU AUDITOR --}}

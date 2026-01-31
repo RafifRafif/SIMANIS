@@ -112,7 +112,7 @@ Route::put('/mitigasi/{id}', [MitigasiController::class, 'update'])->name('mitig
 Route::delete('/mitigasi/{id}', [MitigasiController::class, 'destroy'])->name('mitigasi.destroy');
 
 use App\Http\Controllers\VerifikasiRisikoController;
-Route::middleware(['role:p4m'])->group(function () {
+Route::middleware(['role:p4m,auditor'])->group(function () {
     Route::get('/verifikasi_risiko', [VerifikasiRisikoController::class, 'index'])->name('verifikasi_risiko');
     Route::put('/verifikasi-risiko/{id}', [VerifikasiRisikoController::class, 'updateStatus'])->name('verifikasi_risiko.update');
 });
